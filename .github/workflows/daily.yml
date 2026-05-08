@@ -1,5 +1,4 @@
 name: Daily Health Tips Update
-
 on:
   schedule:
     - cron: '0 0 * * *'
