@@ -311,33 +311,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="research-row">
-                            <td>تطور مقاومة البكتيريا للمضادات الحيوية في منطقة الشرق الأوسط وشمال إفريقيا</td>
-                            <td>2023</td>
-                            <td>مكافحة العدوى</td>
-                            <td><a href="https://pubmed.ncbi.nlm.nih.gov/?term=antibiotic+resistance+MENA+region" target="_blank" rel="noopener noreferrer">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a></td>
-                        </tr>
-                        <tr class="research-row">
-                            <td>فعالية بروتوكولات التعقيم الحديثة في المستشفيات الليبية للحد من العدوى المكتسبة</td>
-                            <td>2022</td>
-                            <td>صحة عامة</td>
-                            <td><a href="https://pubmed.ncbi.nlm.nih.gov/?term=sterilization+protocols+Libyan+hospitals+healthcare-associated+infection" target="_blank" rel="noopener noreferrer">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a></td>
-                        </tr>
-                        <tr class="research-row">
-                            <td>تأثير الوعي الصحي على ممارسات سلامة الغذاء في المجتمعات الحضرية في ليبيا</td>
-                            <td>2023</td>
-                            <td>سلامة الغذاء</td>
-                            <td><a href="https://pubmed.ncbi.nlm.nih.gov/?term=health+awareness+food+safety+Libya" target="_blank" rel="noopener noreferrer">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a></td>
-                        </tr>
-                        <tr class="research-row">
-                            <td>دراسة مقارنة لانتشار الأمراض غير السارية بين الفئات العمرية المختلفة في طرابلس</td>
-                            <td>2024</td>
-                            <td>صحة عامة</td>
-                            <td><a href="https://pubmed.ncbi.nlm.nih.gov/?term=NCD+prevalence+Tripoli+Libya" target="_blank" rel="noopener noreferrer">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a></td>
-                        </tr>
+                        <!-- Research rows will be dynamically loaded here by JavaScript -->
                     </tbody>
                 </table>
                 <p id="noResultsMessage" class="text-center text-muted mt-4" style="display:none;">لا توجد نتائج مطابقة لبحثك.</p>
+            </div>
+            <div class="text-center mt-4">
+                <button id="showMoreResearchBtn" onclick="showMoreResearch()" class="btn btn-success rounded-pill px-5 py-3 fw-bold shadow-sm" style="display:none;">
+                    عرض المزيد من الأبحاث
+                </button>
             </div>
             
         </div>
@@ -474,36 +456,122 @@
             }
         }
 
+        // Research Library JavaScript Logic
+        let allResearchData = [];
+        let filteredResearchData = [];
+        const RESEARCH_INITIAL_DISPLAY_COUNT = 5;
+        let currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
+
+        function generateDummyResearch(count) {
+            const researchTopics = [
+                { title: "تأثير التغيرات المناخية على انتشار الأمراض المعدية", field: "صحة عامة", keywords: "climate change infectious diseases" },
+                { title: "فعالية اللقاحات الجديدة ضد سلالات الأنفلونزا المتحورة", field: "مكافحة العدوى", keywords: "new vaccines influenza strains" },
+                { title: "دور التغذية السليمة في تعزيز المناعة لدى الأطفال", field: "سلامة الغذاء", keywords: "nutrition child immunity" },
+                { title: "الوعي الصحي ومكافحة الأمراض المزمنة في المجتمعات النامية", field: "صحة عامة", keywords: "health awareness chronic diseases developing countries" },
+                { title: "تكنولوجيا الرصد الوبائي: التحديات والفرص", field: "مكافحة العدوى", keywords: "epidemiological surveillance technology" },
+                { title: "سلامة المياه الصالحة للشرب وتأثيرها على صحة السكان", field: "سلامة الغذاء", keywords: "drinking water safety public health" },
+                { title: "استراتيجيات الحد من مقاومة المضادات الحيوية في البيئة الصحية", field: "مكافحة العدوى", keywords: "antibiotic resistance strategies healthcare" },
+                { title: "تأثير النشاط البدني على الصحة النفسية للمراهقين", field: "صحة عامة", keywords: "physical activity adolescent mental health" },
+                { title: "فحص جودة الأغذية المستوردة ودورها في الحماية من الأمراض", field: "سلامة الغذاء", keywords: "imported food quality foodborne diseases" },
+                { title: "الابتكارات في التشخيص المبكر للأمراض السرطانية", field: "صحة عامة", keywords: "innovations early cancer diagnosis" },
+                { title: "مكافحة العدوى في مراكز الرعاية الأولية", field: "مكافحة العدوى", keywords: "infection control primary healthcare" },
+                { title: "التعليم الصحي للمجتمعات الريفية: التحديات والحلول", field: "صحة عامة", keywords: "health education rural communities" },
+                { title: "تأثير التلوث البيئي على الجهاز التنفسي", field: "صحة عامة", keywords: "environmental pollution respiratory health" },
+                { title: "طرق جديدة للكشف عن الملوثات في الغذاء", field: "سلامة الغذاء", keywords: "new methods food contaminants detection" },
+                { title: "الأمن البيولوجي في المختبرات الطبية", field: "مكافحة العدوى", keywords: "biosafety medical laboratories" },
+                { title: "تقييم برامج التطعيم الوطنية وأثرها على الصحة العامة", field: "صحة عامة", keywords: "national vaccination programs public health impact" },
+                { title: "التحديات الصحية لسكان المناطق النائية", field: "صحة عامة", keywords: "health challenges remote areas" },
+                { title: "استخدام تقنيات الذكاء الاصطناعي في تشخيص الأمراض", field: "صحة عامة", keywords: "AI technologies disease diagnosis" },
+                { title: "دراسة حول فعالية حملات التوعية بسرطان الثدي", field: "صحة عامة", keywords: "breast cancer awareness campaigns effectiveness" },
+                { title: "تحسين جودة الهواء في المدن وتأثيره على الصحة", field: "صحة عامة", keywords: "urban air quality health impact" }
+            ];
+
+            const researchData = [];
+            const currentYear = new Date().getFullYear();
+
+            for (let i = 0; i < count; i++) {
+                const topic = researchTopics[i % researchTopics.length];
+                const year = currentYear - Math.floor(Math.random() * 5); // Last 5 years
+                const titleSuffix = Math.floor(Math.random() * 1000); // To make titles unique
+                const specificTitle = `${topic.title} - دراسة رقم ${titleSuffix}`;
+                const searchKeywords = encodeURIComponent(`${topic.keywords} ${year} ${specificTitle.split(' ').slice(0, 3).join(' ')}`); 
+                const pubmedLink = `https://pubmed.ncbi.nlm.nih.gov/?term=${searchKeywords}`;
+
+                researchData.push({
+                    title: specificTitle,
+                    year: year,
+                    field: topic.field,
+                    link: pubmedLink
+                });
+            }
+            return researchData;
+        }
+
+        function renderResearchTable() {
+            const tableBody = document.querySelector('#researchTable tbody');
+            tableBody.innerHTML = ''; // Clear existing rows
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            const showMoreResearchBtn = document.getElementById('showMoreResearchBtn');
+
+            if (filteredResearchData.length === 0) {
+                noResultsMessage.style.display = 'block';
+                showMoreResearchBtn.style.display = 'none';
+                return;
+            } else {
+                noResultsMessage.style.display = 'none';
+            }
+
+            const dataToDisplay = filteredResearchData.slice(0, currentVisibleResearchRows);
+
+            dataToDisplay.forEach(item => {
+                tableBody.innerHTML += `
+                    <tr class="research-row">
+                        <td>${item.title}</td>
+                        <td>${item.year}</td>
+                        <td>${item.field}</td>
+                        <td><a href="${item.link}" target="_blank" rel="noopener noreferrer">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a></td>
+                    </tr>
+                `;
+            });
+
+            // Manage 'Show More' button
+            if (filteredResearchData.length > currentVisibleResearchRows) {
+                showMoreResearchBtn.style.display = 'block';
+                showMoreResearchBtn.textContent = `عرض المزيد من الأبحاث (${filteredResearchData.length - currentVisibleResearchRows} متبقية)`;
+            } else {
+                showMoreResearchBtn.style.display = 'none';
+            }
+        }
+
         function filterResearchTable() {
             const input = document.getElementById('researchSearchInput');
-            const filter = input.value.toLowerCase();
-            const table = document.getElementById('researchTable');
-            const tr = table.getElementsByClassName('research-row');
-            let foundResults = false;
+            const filterTerm = input.value.toLowerCase();
 
-            for (let i = 0; i < tr.length; i++) {
-                let rowVisible = false;
-                const td = tr[i].getElementsByTagName('td');
-                for (let j = 0; j < td.length; j++) {
-                    const cellText = td[j].textContent || td[j].innerText;
-                    if (cellText.toLowerCase().indexOf(filter) > -1) {
-                        rowVisible = true;
-                        break;
-                    }
-                }
-                if (rowVisible) {
-                    tr[i].style.display = "";
-                    foundResults = true;
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-            document.getElementById('noResultsMessage').style.display = foundResults ? 'none' : 'block';
+            filteredResearchData = allResearchData.filter(item => {
+                return item.title.toLowerCase().includes(filterTerm) ||
+                       item.year.toString().includes(filterTerm) ||
+                       item.field.toLowerCase().includes(filterTerm);
+            });
+
+            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT; // Reset visible count on filter
+            renderResearchTable();
+        }
+
+        function showMoreResearch() {
+            currentVisibleResearchRows = filteredResearchData.length; // Show all remaining
+            renderResearchTable();
         }
 
 
         // بدء التشغيل
-        document.addEventListener('DOMContentLoaded', fetchAwarenessData);
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchAwarenessData();
+
+            // Initialize research library
+            allResearchData = generateDummyResearch(100);
+            filteredResearchData = [...allResearchData]; // Initialize filtered data with all data
+            renderResearchTable(); // Initial render of research table
+        });
     </script>
 <script data-goatcounter="https://athar-health.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
