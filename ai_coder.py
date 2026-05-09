@@ -2,38 +2,37 @@ import google.generativeai as genai
 import os
 import re
 
-# 1. إعداد الاتصال بـ Gemini
-# تأكد أنك أضفت GEMINI_API_KEY في إعدادات Secrets في GitHub
+# 1. إعداد الاتصال
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel('gemini-pro')
 
-# 2. قراءة ملف الموقع الحالي (index.html)
+# 2. البحث عن الموديل المتاح تلقائياً لتجنب خطأ 404
+model_name = 'gemini-1.5-flash' # الافتراضي
+try:
+    for m in genai.list_models():
+        if 'generateContent' in m.supported_generation_methods:
+            model_name = m.name
+            break
+except:
+    model_name = 'models/gemini-1.5-flash'
+
+model = genai.GenerativeModel(model_name)
+
+# 3. قراءة الملف
 with open("index.html", "r", encoding="utf-8") as f:
     current_code = f.read()
 
-# 3. صياغة الطلب لجيمني
-# يمكنك تعديل النص بين القوسين أدناه لتغيير ما يفعله الذكاء الاصطناعي تلقائياً
-prompt = f"""
-أنت مبرمج خبير. هذا هو كود HTML الحالي لموقعي:
-{current_code}
+# 4. الطلب
+prompt = f"قم بإضافة أزرار مشاركة فيسبوك ونسخ النصيحة لكود HTML التالي مع الحفاظ على التنسيق: {current_code}"
 
-المطلوب منك:
-1. إضافة زر لمشاركة النصيحة الطبية على فيسبوك.
-2. إضافة زر لنسخ النصيحة الحالية.
-3. التأكد من أن التنسيق (CSS) يظل متناسقاً مع ألوان الموقع.
-4. أعد لي كود HTML الكامل للموقع بعد التعديل.
-ملاحظة: لا تشرح لي ماذا فعلت، فقط أعطني الكود الكامل مباشرة.
-"""
-
-# 4. طلب الكود الجديد من جيمني
-response = model.generate_content(prompt)
-new_code = response.text
-
-# 5. تنظيف الكود من علامات Markdown (مثل ```html) إذا وجدت
-clean_code = re.sub(r'```html\n|```', '', new_code)
-
-# 6. حفظ الكود الجديد في الملف
-with open("index.html", "w", encoding="utf-8") as f:
-    f.write(clean_code.strip())
-
-print("تم تحديث الموقع بنجاح بواسطة الكلاود!")
+# 5. التنفيذ
+try:
+    response = model.generate_content(prompt)
+    new_code = response.text
+    # تنظيف الكود
+    clean_code = re.sub(r'```html\n|```', '', new_code)
+    
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(clean_code.strip())
+    print(f"Success using model: {model_name}")
+except Exception as e:
+    print(f"Error: {e}")
