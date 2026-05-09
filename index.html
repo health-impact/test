@@ -1,12 +1,3 @@
-بالتأكيد! سأقوم بإضافة أزرار المشاركة للفيسبوك ونسخ النصيحة داخل كل بطاقة نصيحة (tip-card) في قسم "التوعية الصحية الذكية"، مع الحفاظ على التنسيق العام وإزالة أزرار المشاركة العامة الموجودة سابقًا في هذا القسم لتصبح المشاركة خاصة بكل نصيحة.
-
-سأقوم بالخطوات التالية:
-1.  **تعديل دالة `buildTipCard`**: لإضافة أزرار "نسخ" و "مشاركة فيسبوك" و "مشاركة واتساب" داخل كل `tip-card`.
-2.  **إضافة دالة JavaScript `copyTip`**: لنسخ نص النصيحة إلى الحافظة وتقديم تغذية راجعة للمستخدم.
-3.  **إزالة أزرار المشاركة العامة**: التي كانت موجودة أسفل قسم التوعية الذكية لأننا سنضعها الآن لكل نصيحة على حدة.
-
-إليك الكود المحدث:
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -339,49 +330,3 @@
    
 </body>
 </html>
-
-
-**شرح التغييرات:**
-
-1.  **إزالة الكود القديم للمشاركة العامة:**
-    *   تم حذف كتلة الـ `div` ذات الفئة `share-container` التي كانت تحتوي على أزرار واتساب وفيسبوك في قسم `#updates`.
-    *   تم حذف كود JavaScript المتعلق بـ `whatsapp-share` و `facebook-share` في نهاية ملف HTML.
-
-2.  **تعديل دالة `buildTipCard(item)`:**
-    *   تم إضافة `div` جديد داخل كل `tip-card` يحتوي على الأزرار:
-                <div class="d-flex justify-content-end gap-2 mt-2">
-            <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3"
-                    onclick="copyTip(this, '${escapedTitle}', '${escapedContent}')">
-                <i class="fas fa-copy"></i> نسخ
-            </button>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=${currentPageUrl}&quote=${shareText}"
-               target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm rounded-pill px-3">
-                <i class="fab fa-facebook-f"></i> فيسبوك
-            </a>
-            <a href="https://wa.me/?text=${shareText + encodeURIComponent('\n\n🌐 للمزيد: ') + currentPageUrl}"
-               target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm rounded-pill px-3">
-                <i class="fab fa-whatsapp"></i> واتساب
-            </a>
-        </div>
-        
-    *   **زر النسخ (`نسخ`):**
-        *   يستخدم `onclick="copyTip(this, ..., ...)"` لاستدعاء دالة `copyTip` وتمرير النصائح وعنصر الزر نفسه لتغيير حالته.
-        *   يستخدم `btn-secondary` لتنسيقه بلون محايد.
-        *   تم إضافة `escapedTitle` و `escapedContent` لضمان عدم كسر سلاسل الأحرف في `onclick` إذا كانت تحتوي على علامات اقتباس.
-    *   **زر الفيسبوك (`فيسبوك`):**
-        *   يستخدم رابط `https://www.facebook.com/sharer/sharer.php` للمشاركة.
-        *   يتم تمرير `currentPageUrl` (عنوان الصفحة الحالية) و `shareText` (عنوان النصيحة ومحتواها) كمعاملات `u` و `quote`.
-        *   يستخدم `target="_blank" rel="noopener noreferrer"` لفتح الرابط في علامة تبويب جديدة بشكل آمن.
-        *   يستخدم `btn-primary` للتنسيق الأزرق الخاص بفيسبوك.
-    *   **زر الواتساب (`واتساب`):**
-        *   يستخدم رابط `https://wa.me/?text=` للمشاركة.
-        *   يتم تمرير `shareText` متبوعًا برابط الصفحة الحالية.
-        *   يستخدم `btn-success` للتنسيق الأخضر الخاص بواتساب.
-
-3.  **دالة `copyTip(buttonElement, title, content)` الجديدة:**
-    *   تقوم ببناء النص الكامل للنصيحة (العنوان والمحتوى ورابط الصفحة).
-    *   تستخدم `navigator.clipboard.writeText()` لنسخ النص.
-    *   توفر تغذية راجعة مرئية للمستخدم عن طريق تغيير نص الزر ولونه مؤقتًا إلى "تم النسخ!" ثم إعادته إلى حالته الأصلية بعد ثانيتين.
-    *   تتعامل مع أي أخطاء محتملة أثناء النسخ.
-
-الآن، كل نصيحة في قسم "التوعية الصحية الذكية" ستعرض أزرار مشاركة خاصة بها.
