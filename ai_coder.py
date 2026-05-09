@@ -5,7 +5,7 @@ import re
 # 1. إعداد الاتصال بـ Gemini
 # تأكد أنك أضفت GEMINI_API_KEY في إعدادات Secrets في GitHub
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-pro')
 
 # 2. قراءة ملف الموقع الحالي (index.html)
 with open("index.html", "r", encoding="utf-8") as f:
