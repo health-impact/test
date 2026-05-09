@@ -1,0 +1,21 @@
+name: AI Web Developer
+on:
+  issues:
+    types: [opened] # يشتغل بمجرد ما تفتح "طلب" جديد
+
+jobs:
+  develop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: AI Programming
+        run: |
+          # هنا يرسل طلبك لجيمني ليقوم ببرمجة التعديل
+          python ai_coder.py "${{ github.event.issue.body }}"
+      - name: Push Changes
+        run: |
+          git config --local user.email "ai-dev@github.com"
+          git config --local user.name "Ather AI Dev"
+          git add .
+          git commit -m "تحديث الموقع بناءً على طلب الدكتور"
+          git push
