@@ -91,6 +91,94 @@
             .nav-box { width: 100%; justify-content: flex-start; padding-bottom: 5px; }
             section { padding: 50px 0; }
         }
+
+        /* تنسيقات إضافية للمصادر والأبحاث */
+        .source-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            white-space: nowrap;
+            font-size: 0.95rem;
+        }
+        .source-button.pubmed { background-color: #007ee5; color: white; border: 1px solid #007ee5; }
+        .source-button.pubmed:hover { background-color: #006bbd; border-color: #006bbd; }
+        .source-button.who { background-color: var(--main-green); color: white; border: 1px solid var(--main-green); }
+        .source-button.who:hover { background-color: #146c43; border-color: #146c43; }
+        .source-button.cdc { background-color: #3e6d8e; color: white; border: 1px solid #3e6d8e; }
+        .source-button.cdc:hover { background-color: #335973; border-color: #335973; }
+
+        .research-table-container {
+            background: #fff;
+            border-radius: 25px;
+            padding: clamp(15px, 4vw, 40px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            overflow-x: auto; /* For responsive tables */
+        }
+        .research-table {
+            width: 100%;
+            margin-bottom: 0;
+            border-collapse: separate;
+            border-spacing: 0 10px; /* Space between rows */
+        }
+        .research-table th {
+            background-color: var(--main-green);
+            color: white;
+            padding: 15px;
+            text-align: right;
+            border: none;
+            font-weight: 700;
+        }
+        .research-table th:first-child { border-top-right-radius: 10px; }
+        .research-table th:last-child { border-top-left-radius: 10px; }
+        .research-table td {
+            padding: 15px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eee;
+            background-color: #fdfdfd;
+            text-align: right;
+        }
+        .research-table tbody tr {
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .research-table tbody tr:hover {
+            background-color: #f0fdf0;
+        }
+        .research-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .research-table a {
+            color: var(--main-green);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .research-table a:hover {
+            text-decoration: underline;
+        }
+        .filter-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #f8fcf8;
+            border-radius: 15px;
+            border: 1px solid #e9ecef;
+        }
+        .filter-section .form-control {
+            border-radius: 25px;
+            border-color: #ced4da;
+            padding: 10px 20px;
+        }
+        .filter-section .btn {
+            border-radius: 25px;
+            padding: 10px 25px;
+        }
     </style>
 </head>
 <body>
@@ -186,19 +274,72 @@
     <section id="research-library" style="background-color: #f4f7f6;">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-success">مكتبة الأبحاث</h2>
-            <div class="row g-4 justify-content-center">
-                <div class="col-12 col-md-8 col-lg-6">
-                    <div class="store-card">
-                        <div class="icon-box"><i class="fas fa-book-open"></i></div>
-                        <h4 class="fw-bold">أبحاث ودراسات في الصحة العامة</h4>
-                        <p class="text-muted small">هنا ستجدون مجموعة من الأبحاث والدراسات الموثوقة في مجالات الصحة العامة، مكافحة العدوى، وسلامة الغذاء.</p>
-                        <span class="badge bg-light text-success border border-success px-4 py-2">قريباً</span>
-                    </div>
+            
+            <!-- قسم المصادر الموثوقة -->
+            <div class="text-center mb-5">
+                <h3 class="fw-bold mb-4">مصادرنا الموثوقة</h3>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener noreferrer" class="source-button pubmed shadow-sm">
+                        <i class="fas fa-book-medical"></i> PubMed
+                    </a>
+                    <a href="https://www.who.int/publications" target="_blank" rel="noopener noreferrer" class="source-button who shadow-sm">
+                        <i class="fas fa-globe"></i> WHO Publications
+                    </a>
+                    <a href="https://www.cdc.gov/infectioncontrol/" target="_blank" rel="noopener noreferrer" class="source-button cdc shadow-sm">
+                        <i class="fas fa-bug-slash"></i> CDC Infection Control
+                    </a>
                 </div>
             </div>
-            <div class="text-center mt-4">
-                 <p class="text-muted small">نعمل حالياً على إعداد وتجميع المحتوى لتقديم مكتبة شاملة ومفيدة.</p>
+
+            <!-- قسم البحث والفلترة -->
+            <div class="filter-section align-items-center">
+                <input type="text" id="researchSearchInput" class="form-control flex-grow-1" placeholder="ابحث عن أبحاث...">
+                <button class="btn btn-success fw-bold" onclick="filterResearchTable()">
+                    <i class="fas fa-search"></i> فلترة
+                </button>
             </div>
+
+            <!-- جدول الأبحاث -->
+            <div class="research-table-container">
+                <table class="table research-table" id="researchTable">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-file-alt me-2"></i> اسم البحث</th>
+                            <th style="width: 120px;"><i class="fas fa-calendar-alt me-2"></i> سنة النشر</th>
+                            <th style="width: 180px;"><i class="fas fa-tags me-2"></i> المجال</th>
+                            <th style="width: 120px;"><i class="fas fa-link me-2"></i> رابط القراءة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="research-row">
+                            <td>تطور مقاومة البكتيريا للمضادات الحيوية في منطقة الشرق الأوسط وشمال إفريقيا</td>
+                            <td>2023</td>
+                            <td>مكافحة العدوى</td>
+                            <td><a href="#" target="_blank" rel="noopener noreferrer">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a></td>
+                        </tr>
+                        <tr class="research-row">
+                            <td>فعالية بروتوكولات التعقيم الحديثة في المستشفيات الليبية للحد من العدوى المكتسبة</td>
+                            <td>2022</td>
+                            <td>صحة عامة</td>
+                            <td><a href="#" target="_blank" rel="noopener noreferrer">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a></td>
+                        </tr>
+                        <tr class="research-row">
+                            <td>تأثير الوعي الصحي على ممارسات سلامة الغذاء في المجتمعات الحضرية في ليبيا</td>
+                            <td>2023</td>
+                            <td>سلامة الغذاء</td>
+                            <td><a href="#" target="_blank" rel="noopener noreferrer">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a></td>
+                        </tr>
+                        <tr class="research-row">
+                            <td>دراسة مقارنة لانتشار الأمراض غير السارية بين الفئات العمرية المختلفة في طرابلس</td>
+                            <td>2024</td>
+                            <td>صحة عامة</td>
+                            <td><a href="#" target="_blank" rel="noopener noreferrer">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p id="noResultsMessage" class="text-center text-muted mt-4" style="display:none;">لا توجد نتائج مطابقة لبحثك.</p>
+            </div>
+            
         </div>
     </section>
 
@@ -332,6 +473,34 @@
                 btn.innerText = 'تصفح أرشيف المعلومات الكامل';
             }
         }
+
+        function filterResearchTable() {
+            const input = document.getElementById('researchSearchInput');
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById('researchTable');
+            const tr = table.getElementsByClassName('research-row');
+            let foundResults = false;
+
+            for (let i = 0; i < tr.length; i++) {
+                let rowVisible = false;
+                const td = tr[i].getElementsByTagName('td');
+                for (let j = 0; j < td.length; j++) {
+                    const cellText = td[j].textContent || td[j].innerText;
+                    if (cellText.toLowerCase().indexOf(filter) > -1) {
+                        rowVisible = true;
+                        break;
+                    }
+                }
+                if (rowVisible) {
+                    tr[i].style.display = "";
+                    foundResults = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+            document.getElementById('noResultsMessage').style.display = foundResults ? 'none' : 'block';
+        }
+
 
         // بدء التشغيل
         document.addEventListener('DOMContentLoaded', fetchAwarenessData);
