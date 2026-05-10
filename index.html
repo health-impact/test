@@ -569,6 +569,7 @@
 
             // Initialize research library
             allResearchData = generateDummyResearch(100);
+            allResearchData.sort((a, b) => b.year - a.year); // Sort by year descending
             filteredResearchData = [...allResearchData]; // Initialize filtered data with all data
             renderResearchTable(); // Initial render of research table
         });
