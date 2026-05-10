@@ -537,7 +537,8 @@
             // Manage 'Show More' button
             if (filteredResearchData.length > currentVisibleResearchRows) {
                 showMoreResearchBtn.style.display = 'block';
-                showMoreResearchBtn.textContent = `عرض المزيد من الأبحاث (${filteredResearchData.length - currentVisibleResearchRows} متبقية)`;
+                const remaining = filteredResearchData.length - currentVisibleResearchRows;
+                showMoreResearchBtn.textContent = `عرض المزيد من الأبحاث (${remaining} متبقية)`;
             } else {
                 showMoreResearchBtn.style.display = 'none';
             }
@@ -558,10 +559,16 @@
         }
 
         function showMoreResearch() {
-            currentVisibleResearchRows = filteredResearchData.length; // Show all remaining
+            // Increment the number of visible rows by the initial display count
+            currentVisibleResearchRows += RESEARCH_INITIAL_DISPLAY_COUNT; 
+            
+            // If the incremented count exceeds the total filtered data, show all
+            if (currentVisibleResearchRows > filteredResearchData.length) {
+                currentVisibleResearchRows = filteredResearchData.length;
+            }
+
             renderResearchTable();
         }
-
 
         // بدء التشغيل
         document.addEventListener('DOMContentLoaded', () => {
