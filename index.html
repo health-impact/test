@@ -343,7 +343,6 @@
                     <option value="الابتكار الطبي">الابتكار الطبي</option>
                     <option value="الوقاية من الأمراض">الوقاية من الأمراض</option>
                     <option value="الصحة الجلدية">الصحة الجلدية</option>
-                    <!-- Add more fields as needed based on generateDummyResearch -->
                 </select>
                 <button class="btn btn-success fw-bold" onclick="filterResearchTable()">
                     <i class="fas fa-search"></i> فلترة
@@ -393,7 +392,6 @@
                 </div>
 
                 <div id="factCheckResults" class="mt-4">
-                    <!-- Results will be displayed here -->
                     <div class="alert alert-info text-center" role="alert">
                         <i class="fas fa-info-circle me-2"></i> سيظهر التحليل هنا بعد إرسال المحتوى.
                     </div>
@@ -464,6 +462,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@google/generative-ai@0.1.0/dist/gemini.min.js"></script>
     <script>
         // دالة لنسخ النص إلى الحافظة
         async function copyTip(buttonElement, title, content) {
@@ -487,21 +486,17 @@
 
         async function fetchAwarenessData() {
             try {
-                // أضف هذا السطر لضمان جلب أحدث نصائح بدون تخزين مؤقت (Cache)
                 const res = await fetch('athardata.json?v=' + new Date().getTime());
                 const data = await res.json();
                 
                 const currentContainer = document.getElementById('current-tips-list');
                 const archiveContainer = document.getElementById('archive-tips-list');
                 
-                // تنظيف المحتوى القديم
                 currentContainer.innerHTML = '';
                 archiveContainer.innerHTML = '';
 
-                // منع التكرار بناءً على العنوان
                 const uniqueData = data.filter((v,i,a)=>a.findIndex(t=>(t.title === v.title))===i);
 
-                // التقسيم: أول 5 للواجهة والباقي للأرشيف
                 const currentItems = uniqueData.slice(0, 5);
                 const archiveItems = uniqueData.slice(5);
 
@@ -524,7 +519,6 @@
             const borderCol = isWarning ? '#dc3545' : '#198754';
             const icon = isWarning ? '⚠️' : '💡';
             
-            // تهيئة النصوص للمشاركة مع التأكد من الهروب من علامات التنصيص
             const escapedTitle = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
             const escapedContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
             const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
@@ -565,14 +559,13 @@
             if (arc.style.display === 'none') {
                 arc.style.display = 'block';
                 btn.innerText = 'إغلاق الأرشيف';
-                window.location.hash = 'archive-tips-list'; // للقفز إلى الأرشيف عند فتحه
+                window.location.hash = 'archive-tips-list';
             } else {
                 arc.style.display = 'none';
                 btn.innerText = 'تصفح أرشيف المعلومات الكامل';
             }
         }
 
-        // Research Library JavaScript Logic
         let allResearchData = [];
         let filteredResearchData = [];
         const RESEARCH_INITIAL_DISPLAY_COUNT = 5;
@@ -612,7 +605,7 @@
 
             for (let i = 0; i < count; i++) {
                 const topic = researchTopics[i % researchTopics.length];
-                const year = currentYear - Math.floor(Math.random() * 5); // Last 5 years
+                const year = currentYear - Math.floor(Math.random() * 5);
                 const titleVariant = Math.random().toString(36).substring(2, 7); 
                 const specificTitle = `${topic.title} - ${titleVariant}`;
                 
@@ -632,7 +625,7 @@
 
         function renderResearchTable() {
             const tableBody = document.querySelector('#researchTable tbody');
-            tableBody.innerHTML = ''; // Clear existing rows
+            tableBody.innerHTML = '';
             const noResultsMessage = document.getElementById('noResultsMessage');
             const showMoreResearchBtn = document.getElementById('showMoreResearchBtn');
 
@@ -657,7 +650,6 @@
                 `;
             });
 
-            // Manage 'Show More' button
             if (filteredResearchData.length > currentVisibleResearchRows) {
                 showMoreResearchBtn.style.display = 'block';
                 const remaining = filteredResearchData.length - currentVisibleResearchRows;
@@ -683,7 +675,7 @@
                 return matchesSearchTerm && matchesField;
             });
 
-            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT; // Reset visible count on filter
+            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
             renderResearchTable();
         }
 
@@ -695,12 +687,27 @@
             renderResearchTable();
         }
 
-        // Fact-checking logic (client-side placeholder)
-        function submitFactCheck() {
+        // Gemini AI Integration for Fact-checking
+        let genAI, model;
+        // قم بتغيير "YOUR_GEMINI_API_KEY" بمفتاح الـ API الخاص بك. في تطبيق حقيقي، يجب تحميل هذا المفتاح بشكل آمن (مثل من خادم خلفي) وليس كشفه في الكود من جهة العميل.
+        const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY";
+
+        if (typeof GoogleGenerativeAI !== 'undefined') {
+            try {
+                genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+                model = genAI.getGenerativeModel({ model: "gemini-pro" });
+            } catch (e) {
+                console.error("Failed to initialize GoogleGenerativeAI:", e);
+                // Optionally display a user-friendly error message
+            }
+        } else {
+            console.warn("GoogleGenerativeAI SDK not loaded. Fact-checking will fall back to simulated responses if API key is not valid.");
+        }
+        
+        async function submitFactCheck() {
             const input = document.getElementById('factCheckInput').value.trim();
             const resultsContainer = document.getElementById('factCheckResults');
-            resultsContainer.innerHTML = ''; // Clear previous results
-
+            
             if (input === '') {
                 resultsContainer.innerHTML = `
                     <div class="alert alert-warning text-center" role="alert">
@@ -710,74 +717,103 @@
                 return;
             }
 
-            // Simulate AI/expert analysis
-            let resultClass, resultTitle, resultExplanation, resultDanger, references;
-            if (input.toLowerCase().includes("الليمون يعالج السرطان") || input.toLowerCase().includes("زيت الزيتون يقتل الفيروسات")) {
-                resultClass = 'false';
-                resultTitle = 'معلومة خاطئة';
-                resultExplanation = 'هذه المعلومة غير صحيحة ولا تستند إلى أي دليل علمي موثوق. لا يوجد دليل على أن الليمون أو زيت الزيتون يعالجان السرطان أو يقتلان الفيروسات بشكل مباشر.';
-                resultDanger = 'مرتفع: قد تؤدي إلى التخلي عن العلاجات الطبية الفعالة.';
-                references = 'منظمة الصحة العالمية (WHO), مراكز مكافحة الأمراض والوقاية منها (CDC).';
-            } else if (input.toLowerCase().includes("اللقاحات تسبب التوحد")) {
-                resultClass = 'false';
-                resultTitle = 'معلومة خاطئة';
-                resultExplanation = 'لقد ثبت علميًا بشكل قاطع أن اللقاحات آمنة وفعالة، ولا توجد علاقة بينها وبين مرض التوحد.';
-                resultDanger = 'مرتفع: التخلف عن التطعيم يعرض الأفراد والمجتمع لأمراض خطيرة.';
-                references = 'منظمة الصحة العالمية (WHO), مراكز مكافحة الأمراض والوقاية منها (CDC).';
-            } else if (input.toLowerCase().includes("قناع الوجه يحمي من الفيروسات")) {
-                resultClass = 'correct';
-                resultTitle = 'معلومة صحيحة';
-                resultExplanation = 'الأقنعة الواقية (الكمامات) تساعد في تقليل انتشار الرذاذ التنفسي وبالتالي تقلل من خطر انتقال الفيروسات، خاصة في الأماكن المزدحمة أو عند الإصابة بالمرض.';
-                resultDanger = 'منخفض';
-                references = 'منظمة الصحة العالمية (WHO), الإدارة العامة لمكافحة الأمراض (NCDC - ليبيا).';
-            } else if (input.toLowerCase().includes("فيتامين د يقوي المناعة")) {
-                resultClass = 'correct';
-                resultTitle = 'معلومة صحيحة';
-                resultExplanation = 'فيتامين د يلعب دورًا مهمًا في دعم وظائف الجهاز المناعي. نقص فيتامين د قد يرتبط بزيادة خطر الإصابة بالعدوى.';
-                resultDanger = 'منخفض';
-                references = 'المعاهد الوطنية للصحة (NIH), دراسات علمية من PubMed.';
-            } else if (input.toLowerCase().includes("العلاج بالأعشاب بديلاً للطب الحديث")) {
-                resultClass = 'misleading';
-                resultTitle = 'معلومة مضللة';
-                resultExplanation = 'بعض الأعشاب قد تحتوي على خصائص علاجية، ولكنها غالبًا لا تكون بديلاً كاملاً للطب الحديث ولا تخضع لنفس معايير الاختبارات السريرية الصارمة. يجب استشارة الطبيب دائمًا.';
-                resultDanger = 'متوسط: قد يؤخر أو يمنع الحصول على العلاج المناسب.';
-                references = 'منظمة الصحة العالمية (WHO), جمعيات طب الأعشاب الموثوقة.';
-            } else {
-                resultClass = 'misleading';
-                resultTitle = 'تحت المراجعة / معلومة غير مؤكدة';
-                resultExplanation = 'لم نتمكن من العثور على معلومات قاطعة حول هذه المعلومة في قواعد بياناتنا الحالية، أو أنها تتطلب مزيدًا من التحقيق. كن حذرًا عند تداولها.';
-                resultDanger = 'غير محدد: يفضل التوقف عن التداول حتى يتم التأكد.';
-                references = 'لا توجد مراجع مباشرة في هذا التحليل الأولي.';
-            }
-
             resultsContainer.innerHTML = `
-                <div class="fact-check-result-card ${resultClass}">
-                    <h5 class="mb-2">${resultTitle} <span class="badge bg-${resultClass === 'correct' ? 'success' : resultClass === 'misleading' ? 'warning text-dark' : 'danger'} me-2">${resultTitle}</span></h5>
-                    <p><strong>التحليل:</strong> ${resultExplanation}</p>
-                    <p class="references"><strong>المراجع:</strong> ${references}</p>
-                    <p><strong>مستوى الخطورة:</strong> <span class="text-${resultClass === 'correct' ? 'success' : resultClass === 'misleading' ? 'warning' : 'danger'} fw-bold">${resultDanger}</span></p>
-                    <div class="d-flex justify-content-end gap-2 mt-3">
-                        <button type="button" class="btn btn-sm btn-secondary rounded-pill px-3" onclick="alert('سيمكنك الإبلاغ عن تحليل غير دقيق في المستقبل.')">
-                            <i class="fas fa-flag"></i> الإبلاغ
-                        </button>
-                        <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3" onclick="alert('ستتم إضافة هذه المعلومة إلى قاعدة بيانات الشائعات الشائعة.')">
-                            <i class="fas fa-database"></i> حفظ للموسوعة
-                        </button>
+                <div class="alert alert-info text-center d-flex flex-column align-items-center" role="alert" id="loadingFactCheck">
+                    <div class="spinner-border text-success mb-3" role="status">
+                        <span class="visually-hidden">جاري الفحص...</span>
                     </div>
+                    <p class="mb-0 fw-bold">جاري الفحص عبر المصادر المعتمدة (WHO, CDC, PubMed)...</p>
+                    <small class="text-muted mt-2">قد يستغرق الأمر بضع ثوانٍ.</small>
                 </div>
             `;
-            document.getElementById('factCheckInput').value = ''; // Clear input after submission
+
+            try {
+                if (!model || GEMINI_API_KEY === "YOUR_GEMINI_API_KEY") {
+                    throw new Error("لم يتم تهيئة نموذج Gemini بشكل صحيح. الرجاء التأكد من مفتاح الـ API وتحديثه بمفتاح صالح.");
+                }
+
+                const systemInstruction = `أنت خبير في الصحة العامة والتحقق من الحقائق الطبية. مهمتك هي تحليل الادعاءات الصحية المقدمة، وتحديد ما إذا كانت صحيحة، مضللة، أو خاطئة، بناءً على الأدلة العلمية والمصادر الموثوقة مثل منظمة الصحة العالمية (WHO)، مراكز مكافحة الأمراض والوقاية منها (CDC)، PubMed، ووكالة الغذاء والدواء (FDA).
+                في ردك، يجب عليك:
+                1. **التصنيف:** ابدأ بكلمة واحدة "التصنيف:" متبوعة بتصنيف واضح: (صحيحة)، (مضللة)، أو (خاطئة).
+                2. **التحليل:** قدم شرحًا مبسطًا ومختصرًا للمعلومة، وسبب تصنيفها بهذا الشكل.
+                3. **المراجع:** اذكر المصادر العلمية الموثوقة التي تدعم تحليلك بكلمة "المراجع:".
+                4. **مستوى الخطورة:** حدد مستوى الخطورة المحتملة لنشر هذه المعلومة (منخفض، متوسط، مرتفع) واذكر لماذا بكلمة "الخطورة:".
+                كن دقيقًا، علميًا، ومحايدًا.`;
+
+                const prompt = `${systemInstruction}\n\nالمحتوى للتحقق منه: ${input}`;
+
+                const result = await model.generateContent(prompt);
+                const response = await result.response;
+                const text = response.text();
+
+                let resultClass = 'misleading';
+                let resultTitle = 'تحت المراجعة / معلومة غير مؤكدة';
+                let explanation = 'لم نتمكن من تحليل المعلومة بشكل كامل. الرجاء المحاولة مجدداً.';
+                let references = 'لا توجد مراجع مباشرة في هذا التحليل الأولي.';
+                let dangerLevel = 'غير محدد';
+
+                const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+
+                lines.forEach(line => {
+                    if (line.startsWith('التصنيف:')) {
+                        const classification = line.substring('التصنيف:'.length).trim();
+                        if (classification.includes('صحيحة')) {
+                            resultClass = 'correct';
+                            resultTitle = 'معلومة صحيحة';
+                        } else if (classification.includes('خاطئة')) {
+                            resultClass = 'false';
+                            resultTitle = 'معلومة خاطئة';
+                        } else if (classification.includes('مضللة')) {
+                            resultClass = 'misleading';
+                            resultTitle = 'معلومة مضللة';
+                        }
+                    } else if (line.startsWith('التحليل:')) {
+                        explanation = line.substring('التحليل:'.length).trim();
+                    } else if (line.startsWith('المراجع:')) {
+                        references = line.substring('المراجع:'.length).trim();
+                    } else if (line.startsWith('الخطورة:')) {
+                        dangerLevel = line.substring('الخطورة:'.length).trim();
+                    }
+                });
+
+                resultsContainer.innerHTML = `
+                    <div class="fact-check-result-card ${resultClass}">
+                        <h5 class="mb-2">${resultTitle} <span class="badge bg-${resultClass === 'correct' ? 'success' : resultClass === 'misleading' ? 'warning text-dark' : 'danger'} me-2">${resultTitle}</span></h5>
+                        <p><strong>التحليل:</strong> ${explanation}</p>
+                        <p class="references"><strong>المراجع:</strong> ${references}</p>
+                        <p><strong>مستوى الخطورة:</strong> <span class="text-${resultClass === 'correct' ? 'success' : resultClass === 'misleading' ? 'warning' : 'danger'} fw-bold">${dangerLevel}</span></p>
+                        <div class="d-flex justify-content-end gap-2 mt-3">
+                            <button type="button" class="btn btn-sm btn-secondary rounded-pill px-3" onclick="alert('سيمكنك الإبلاغ عن تحليل غير دقيق في المستقبل.')">
+                                <i class="fas fa-flag"></i> الإبلاغ
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3" onclick="alert('ستتم إضافة هذه المعلومة إلى قاعدة بيانات الشائعات الشائعة.')">
+                                <i class="fas fa-database"></i> حفظ للموسوعة
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                console.error("Error during fact-check:", error);
+                resultsContainer.innerHTML = `
+                    <div class="alert alert-danger text-center" role="alert">
+                        <i class="fas fa-times-circle me-2"></i> حدث خطأ أثناء التحقق: ${error.message}. الرجاء التأكد من مفتاح الـ API والمحاولة لاحقاً.
+                        <br>
+                        <small class="text-muted">إذا كنت مطوراً، تأكد من استدعاء GoogleGenerativeAI SDK وأن مفتاح API صحيح وصالح للاستخدام من جهة العميل.</small>
+                    </div>
+                `;
+            } finally {
+                document.getElementById('factCheckInput').value = '';
+            }
         }
 
         // بدء التشغيل
         document.addEventListener('DOMContentLoaded', () => {
             fetchAwarenessData();
 
-            // Initialize research library
             allResearchData = generateDummyResearch(100);
-            allResearchData.sort((a, b) => b.year - a.year); // Sort by year descending
-            filteredResearchData = [...allResearchData]; // Initialize filtered data with all data
-            renderResearchTable(); // Initial render of research table
+            allResearchData.sort((a, b) => b.year - a.year);
+            filteredResearchData = [...allResearchData];
+            renderResearchTable();
         });
     </script>
 <script data-goatcounter="https://athar-health.goatcounter.com/count"
