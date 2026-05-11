@@ -163,6 +163,7 @@
         }
         .filter-section {
             display: flex;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
             gap: 10px;
             margin-bottom: 25px;
             padding: 15px;
@@ -170,14 +171,50 @@
             border-radius: 15px;
             border: 1px solid #e9ecef;
         }
-        .filter-section .form-control {
+        .filter-section .form-control,
+        .filter-section .form-select {
             border-radius: 25px;
             border-color: #ced4da;
             padding: 10px 20px;
+            flex-grow: 1; /* Allow inputs to grow */
         }
         .filter-section .btn {
             border-radius: 25px;
             padding: 10px 25px;
+        }
+
+        /* Fact-checking styles */
+        .fact-check-container {
+            background: #fff;
+            border-radius: 25px;
+            padding: clamp(15px, 4vw, 40px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .fact-check-result-card {
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border-right: 8px solid;
+        }
+        .fact-check-result-card.correct { border-color: var(--main-green); background-color: #e8f5e9; }
+        .fact-check-result-card.misleading { border-color: #ffc107; background-color: #fff3cd; }
+        .fact-check-result-card.false { border-color: #dc3545; background-color: #f8d7da; }
+        .fact-check-result-card h5 { font-weight: 700; margin-bottom: 10px; }
+        .fact-check-result-card p { font-size: 0.95rem; line-height: 1.6; }
+        .fact-check-result-card .references { font-size: 0.85rem; color: #555; }
+        
+        /* User Account styles (placeholders) */
+        .user-account-card {
+            background: #fff;
+            border-radius: 25px;
+            padding: clamp(20px, 5vw, 50px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .user-account-card .icon-box i {
+            font-size: 3.5rem;
+            color: var(--main-green);
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -195,6 +232,8 @@
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
                 <a href="#store" class="nav-item-link">المتجر</a>
                 <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
+                <a href="#fact-check" class="nav-item-link">التحقق العلمي</a>
+                <a href="#user-accounts" class="nav-item-link">حسابي</a>
             </nav>
         </div>
     </header>
@@ -294,6 +333,18 @@
             <!-- قسم البحث والفلترة -->
             <div class="filter-section align-items-center">
                 <input type="text" id="researchSearchInput" class="form-control flex-grow-1" placeholder="ابحث عن أبحاث...">
+                <select id="researchFieldFilter" class="form-select flex-grow-1">
+                    <option value="">جميع المجالات</option>
+                    <option value="الصحة العامة">الصحة العامة</option>
+                    <option value="مكافحة العدوى">مكافحة العدوى</option>
+                    <option value="سلامة الغذاء والتغذية">سلامة الغذاء والتغذية</option>
+                    <option value="الصحة البيئية">الصحة البيئية</option>
+                    <option value="الصحة النفسية">الصحة النفسية</option>
+                    <option value="الابتكار الطبي">الابتكار الطبي</option>
+                    <option value="الوقاية من الأمراض">الوقاية من الأمراض</option>
+                    <option value="الصحة الجلدية">الصحة الجلدية</option>
+                    <!-- Add more fields as needed based on generateDummyResearch -->
+                </select>
                 <button class="btn btn-success fw-bold" onclick="filterResearchTable()">
                     <i class="fas fa-search"></i> فلترة
                 </button>
@@ -322,6 +373,71 @@
                 </button>
             </div>
             
+        </div>
+    </section>
+
+    <!-- قسم التحقق العلمي من المعلومات -->
+    <section id="fact-check">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-5 text-success">التحقق العلمي من المعلومات</h2>
+            <div class="fact-check-container">
+                <p class="text-center text-muted mb-4">أرسل لنا محتوى مشكوكًا فيه (نص، رابط) وسنقوم بتحليله علميًا.</p>
+                <div class="mb-3">
+                    <label for="factCheckInput" class="form-label fw-bold">نص أو رابط للمحتوى المراد التحقق منه:</label>
+                    <textarea class="form-control" id="factCheckInput" rows="5" placeholder="أدخل النص أو الصق الرابط هنا..."></textarea>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-success rounded-pill px-5 py-3 fw-bold shadow-sm" onclick="submitFactCheck()">
+                        <i class="fas fa-check-double me-2"></i> تحقق الآن
+                    </button>
+                </div>
+
+                <div id="factCheckResults" class="mt-4">
+                    <!-- Results will be displayed here -->
+                    <div class="alert alert-info text-center" role="alert">
+                        <i class="fas fa-info-circle me-2"></i> سيظهر التحليل هنا بعد إرسال المحتوى.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم حسابات المستخدمين -->
+    <section id="user-accounts" style="background-color: #f4f7f6;">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-5 text-success">حسابي الشخصي</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="user-account-card">
+                        <div class="icon-box"><i class="fas fa-user-circle"></i></div>
+                        <h4 class="fw-bold">تسجيل الدخول / إنشاء حساب</h4>
+                        <p class="text-muted small">سجّل الدخول للوصول إلى مميزات الحساب الشخصي.</p>
+                        <button class="btn btn-outline-success rounded-pill px-4 py-2" onclick="alert('هذه الميزة قيد التطوير.')">
+                            ابدأ الآن
+                        </button>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="user-account-card">
+                        <div class="icon-box"><i class="fas fa-bookmark"></i></div>
+                        <h4 class="fw-bold">محتوى محفوظ</h4>
+                        <p class="text-muted small">احفظ نصائحك وأبحاثك المفضلة للرجوع إليها لاحقًا.</p>
+                        <button class="btn btn-outline-secondary rounded-pill px-4 py-2" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
+                            <i class="fas fa-arrow-right"></i> عرض المحفوظات
+                        </button>
+                    </div>
+                </div>
+                 <div class="col-12 col-md-6 col-lg-4">
+                    <div class="user-account-card">
+                        <div class="icon-box"><i class="fas fa-bell"></i></div>
+                        <h4 class="fw-bold">إشعارات وتنبيهات</h4>
+                        <p class="text-muted small">تلقَّ تنبيهات حول أحدث الأبحاث والتحديثات.</p>
+                        <button class="btn btn-outline-info rounded-pill px-4 py-2" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
+                            <i class="fas fa-cogs"></i> إدارة التنبيهات
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -409,8 +525,8 @@
             const icon = isWarning ? '⚠️' : '💡';
             
             // تهيئة النصوص للمشاركة مع التأكد من الهروب من علامات التنصيص
-            const escapedTitle = item.title.replace(/'/g, "\\'");
-            const escapedContent = item.content.replace(/'/g, "\\'");
+            const escapedTitle = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+            const escapedContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
             const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
             const currentPageUrl = encodeURIComponent(window.location.href);
 
@@ -464,26 +580,31 @@
 
         function generateDummyResearch(count) {
             const researchTopics = [
-                { title: "تأثير التغيرات المناخية على انتشار الأمراض المعدية", field: "صحة عامة", keywords: "climate change infectious diseases" },
+                { title: "تأثير التغيرات المناخية على انتشار الأمراض المعدية", field: "الصحة البيئية", keywords: "climate change infectious diseases" },
                 { title: "فعالية اللقاحات الجديدة ضد سلالات الأنفلونزا المتحورة", field: "مكافحة العدوى", keywords: "new vaccines influenza strains" },
-                { title: "دور التغذية السليمة في تعزيز المناعة لدى الأطفال", field: "سلامة الغذاء", keywords: "nutrition child immunity" },
-                { title: "الوعي الصحي ومكافحة الأمراض المزمنة في المجتمعات النامية", field: "صحة عامة", keywords: "health awareness chronic diseases developing countries" },
+                { title: "دور التغذية السليمة في تعزيز المناعة لدى الأطفال", field: "سلامة الغذاء والتغذية", keywords: "nutrition child immunity" },
+                { title: "الوعي الصحي ومكافحة الأمراض المزمنة في المجتمعات النامية", field: "الصحة العامة", keywords: "health awareness chronic diseases developing countries" },
                 { title: "تكنولوجيا الرصد الوبائي: التحديات والفرص", field: "مكافحة العدوى", keywords: "epidemiological surveillance technology" },
-                { title: "سلامة المياه الصالحة للشرب وتأثيرها على صحة السكان", field: "سلامة الغذاء", keywords: "drinking water safety public health" },
+                { title: "سلامة المياه الصالحة للشرب وتأثيرها على صحة السكان", field: "سلامة الغذاء والتغذية", keywords: "drinking water safety public health" },
                 { title: "استراتيجيات الحد من مقاومة المضادات الحيوية في البيئة الصحية", field: "مكافحة العدوى", keywords: "antibiotic resistance strategies healthcare" },
-                { title: "تأثير النشاط البدني على الصحة النفسية للمراهقين", field: "صحة عامة", keywords: "physical activity adolescent mental health" },
-                { title: "فحص جودة الأغذية المستوردة ودورها في الحماية من الأمراض", field: "سلامة الغذاء", keywords: "imported food quality foodborne diseases" },
-                { title: "الابتكارات في التشخيص المبكر للأمراض السرطانية", field: "صحة عامة", keywords: "innovations early cancer diagnosis" },
+                { title: "تأثير النشاط البدني على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "physical activity adolescent mental health" },
+                { title: "فحص جودة الأغذية المستوردة ودورها في الحماية من الأمراض", field: "سلامة الغذاء والتغذية", keywords: "imported food quality foodborne diseases" },
+                { title: "الابتكارات في التشخيص المبكر للأمراض السرطانية", field: "الصحة العامة", keywords: "innovations early cancer diagnosis" },
                 { title: "مكافحة العدوى في مراكز الرعاية الأولية", field: "مكافحة العدوى", keywords: "infection control primary healthcare" },
-                { title: "التعليم الصحي للمجتمعات الريفية: التحديات والحلول", field: "صحة عامة", keywords: "health education rural communities" },
-                { title: "تأثير التلوث البيئي على الجهاز التنفسي", field: "صحة عامة", keywords: "environmental pollution respiratory health" },
-                { title: "طرق جديدة للكشف عن الملوثات في الغذاء", field: "سلامة الغذاء", keywords: "new methods food contaminants detection" },
+                { title: "التعليم الصحي للمجتمعات الريفية: التحديات والحلول", field: "الصحة العامة", keywords: "health education rural communities" },
+                { title: "تأثير التلوث البيئي على الجهاز التنفسي", field: "الصحة البيئية", keywords: "environmental pollution respiratory health" },
+                { title: "طرق جديدة للكشف عن الملوثات في الغذاء", field: "سلامة الغذاء والتغذية", keywords: "new methods food contaminants detection" },
                 { title: "الأمن البيولوجي في المختبرات الطبية", field: "مكافحة العدوى", keywords: "biosafety medical laboratories" },
-                { title: "تقييم برامج التطعيم الوطنية وأثرها على الصحة العامة", field: "صحة عامة", keywords: "national vaccination programs public health impact" },
-                { title: "التحديات الصحية لسكان المناطق النائية", field: "صحة عامة", keywords: "health challenges remote areas" },
-                { title: "استخدام تقنيات الذكاء الاصطناعي في تشخيص الأمراض", field: "صحة عامة", keywords: "AI technologies disease diagnosis" },
-                { title: "دراسة حول فعالية حملات التوعية بسرطان الثدي", field: "صحة عامة", keywords: "breast cancer awareness campaigns effectiveness" },
-                { title: "تحسين جودة الهواء في المدن وتأثيره على الصحة", field: "صحة عامة", keywords: "urban air quality health impact" }
+                { title: "تقييم برامج التطعيم الوطنية وأثرها على الصحة العامة", field: "الصحة العامة", keywords: "national vaccination programs public health impact" },
+                { title: "التحديات الصحية لسكان المناطق النائية", field: "الصحة العامة", keywords: "health challenges remote areas" },
+                { title: "استخدام تقنيات الذكاء الاصطناعي في تشخيص الأمراض", field: "الابتكار الطبي", keywords: "AI technologies disease diagnosis" },
+                { title: "دراسة حول فعالية حملات التوعية بسرطان الثدي", field: "الصحة العامة", keywords: "breast cancer awareness campaigns effectiveness" },
+                { title: "تحسين جودة الهواء في المدن وتأثيره على الصحة", field: "الصحة البيئية", keywords: "urban air quality health impact" },
+                { title: "دور الأنماط الحياتية في الوقاية من أمراض القلب", field: "الوقاية من الأمراض", keywords: "lifestyle cardiovascular disease prevention" },
+                { title: "تأثير الجوائح على الصحة النفسية للمجتمعات", field: "الصحة النفسية", keywords: "pandemics mental health community" },
+                { title: "التقنيات الحديثة في علاج داء السكري", field: "الابتكار الطبي", keywords: "modern techniques diabetes treatment" },
+                { title: "سلامة منتجات التجميل وتأثيرها على البشرة", field: "الصحة الجلدية", keywords: "cosmetic product safety skin impact" },
+                { title: "برامج الفحص المبكر لسرطان القولون والمستقيم", field: "الوقاية من الأمراض", keywords: "colorectal cancer screening programs" }
             ];
 
             const researchData = [];
@@ -492,16 +613,18 @@
             for (let i = 0; i < count; i++) {
                 const topic = researchTopics[i % researchTopics.length];
                 const year = currentYear - Math.floor(Math.random() * 5); // Last 5 years
-                const titleSuffix = Math.floor(Math.random() * 1000); // To make titles unique
-                const specificTitle = `${topic.title} - دراسة رقم ${titleSuffix}`;
-                const searchKeywords = encodeURIComponent(`${topic.keywords} ${year} ${specificTitle.split(' ').slice(0, 3).join(' ')}`); 
+                const titleVariant = Math.random().toString(36).substring(2, 7); 
+                const specificTitle = `${topic.title} - ${titleVariant}`;
+                
+                const searchKeywords = encodeURIComponent(`${specificTitle} ${topic.field} ${topic.keywords} PubMed`); 
                 const pubmedLink = `https://pubmed.ncbi.nlm.nih.gov/?term=${searchKeywords}`;
 
                 researchData.push({
                     title: specificTitle,
                     year: year,
                     field: topic.field,
-                    link: pubmedLink
+                    link: pubmedLink,
+                    keywords: topic.keywords 
                 });
             }
             return researchData;
@@ -547,11 +670,17 @@
         function filterResearchTable() {
             const input = document.getElementById('researchSearchInput');
             const filterTerm = input.value.toLowerCase();
+            const fieldFilter = document.getElementById('researchFieldFilter')?.value || ''; 
 
             filteredResearchData = allResearchData.filter(item => {
-                return item.title.toLowerCase().includes(filterTerm) ||
-                       item.year.toString().includes(filterTerm) ||
-                       item.field.toLowerCase().includes(filterTerm);
+                const matchesSearchTerm = item.title.toLowerCase().includes(filterTerm) ||
+                                          item.year.toString().includes(filterTerm) ||
+                                          item.field.toLowerCase().includes(filterTerm) ||
+                                          item.keywords.toLowerCase().includes(filterTerm); 
+                
+                const matchesField = fieldFilter === '' || item.field === fieldFilter;
+
+                return matchesSearchTerm && matchesField;
             });
 
             currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT; // Reset visible count on filter
@@ -559,15 +688,85 @@
         }
 
         function showMoreResearch() {
-            // Increment the number of visible rows by the initial display count
             currentVisibleResearchRows += RESEARCH_INITIAL_DISPLAY_COUNT; 
-            
-            // If the incremented count exceeds the total filtered data, show all
             if (currentVisibleResearchRows > filteredResearchData.length) {
                 currentVisibleResearchRows = filteredResearchData.length;
             }
-
             renderResearchTable();
+        }
+
+        // Fact-checking logic (client-side placeholder)
+        function submitFactCheck() {
+            const input = document.getElementById('factCheckInput').value.trim();
+            const resultsContainer = document.getElementById('factCheckResults');
+            resultsContainer.innerHTML = ''; // Clear previous results
+
+            if (input === '') {
+                resultsContainer.innerHTML = `
+                    <div class="alert alert-warning text-center" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i> الرجاء إدخال نص أو رابط للتحقق.
+                    </div>
+                `;
+                return;
+            }
+
+            // Simulate AI/expert analysis
+            let resultClass, resultTitle, resultExplanation, resultDanger, references;
+            if (input.toLowerCase().includes("الليمون يعالج السرطان") || input.toLowerCase().includes("زيت الزيتون يقتل الفيروسات")) {
+                resultClass = 'false';
+                resultTitle = 'معلومة خاطئة';
+                resultExplanation = 'هذه المعلومة غير صحيحة ولا تستند إلى أي دليل علمي موثوق. لا يوجد دليل على أن الليمون أو زيت الزيتون يعالجان السرطان أو يقتلان الفيروسات بشكل مباشر.';
+                resultDanger = 'مرتفع: قد تؤدي إلى التخلي عن العلاجات الطبية الفعالة.';
+                references = 'منظمة الصحة العالمية (WHO), مراكز مكافحة الأمراض والوقاية منها (CDC).';
+            } else if (input.toLowerCase().includes("اللقاحات تسبب التوحد")) {
+                resultClass = 'false';
+                resultTitle = 'معلومة خاطئة';
+                resultExplanation = 'لقد ثبت علميًا بشكل قاطع أن اللقاحات آمنة وفعالة، ولا توجد علاقة بينها وبين مرض التوحد.';
+                resultDanger = 'مرتفع: التخلف عن التطعيم يعرض الأفراد والمجتمع لأمراض خطيرة.';
+                references = 'منظمة الصحة العالمية (WHO), مراكز مكافحة الأمراض والوقاية منها (CDC).';
+            } else if (input.toLowerCase().includes("قناع الوجه يحمي من الفيروسات")) {
+                resultClass = 'correct';
+                resultTitle = 'معلومة صحيحة';
+                resultExplanation = 'الأقنعة الواقية (الكمامات) تساعد في تقليل انتشار الرذاذ التنفسي وبالتالي تقلل من خطر انتقال الفيروسات، خاصة في الأماكن المزدحمة أو عند الإصابة بالمرض.';
+                resultDanger = 'منخفض';
+                references = 'منظمة الصحة العالمية (WHO), الإدارة العامة لمكافحة الأمراض (NCDC - ليبيا).';
+            } else if (input.toLowerCase().includes("فيتامين د يقوي المناعة")) {
+                resultClass = 'correct';
+                resultTitle = 'معلومة صحيحة';
+                resultExplanation = 'فيتامين د يلعب دورًا مهمًا في دعم وظائف الجهاز المناعي. نقص فيتامين د قد يرتبط بزيادة خطر الإصابة بالعدوى.';
+                resultDanger = 'منخفض';
+                references = 'المعاهد الوطنية للصحة (NIH), دراسات علمية من PubMed.';
+            } else if (input.toLowerCase().includes("العلاج بالأعشاب بديلاً للطب الحديث")) {
+                resultClass = 'misleading';
+                resultTitle = 'معلومة مضللة';
+                resultExplanation = 'بعض الأعشاب قد تحتوي على خصائص علاجية، ولكنها غالبًا لا تكون بديلاً كاملاً للطب الحديث ولا تخضع لنفس معايير الاختبارات السريرية الصارمة. يجب استشارة الطبيب دائمًا.';
+                resultDanger = 'متوسط: قد يؤخر أو يمنع الحصول على العلاج المناسب.';
+                references = 'منظمة الصحة العالمية (WHO), جمعيات طب الأعشاب الموثوقة.';
+            } else {
+                resultClass = 'misleading';
+                resultTitle = 'تحت المراجعة / معلومة غير مؤكدة';
+                resultExplanation = 'لم نتمكن من العثور على معلومات قاطعة حول هذه المعلومة في قواعد بياناتنا الحالية، أو أنها تتطلب مزيدًا من التحقيق. كن حذرًا عند تداولها.';
+                resultDanger = 'غير محدد: يفضل التوقف عن التداول حتى يتم التأكد.';
+                references = 'لا توجد مراجع مباشرة في هذا التحليل الأولي.';
+            }
+
+            resultsContainer.innerHTML = `
+                <div class="fact-check-result-card ${resultClass}">
+                    <h5 class="mb-2">${resultTitle} <span class="badge bg-${resultClass === 'correct' ? 'success' : resultClass === 'misleading' ? 'warning text-dark' : 'danger'} me-2">${resultTitle}</span></h5>
+                    <p><strong>التحليل:</strong> ${resultExplanation}</p>
+                    <p class="references"><strong>المراجع:</strong> ${references}</p>
+                    <p><strong>مستوى الخطورة:</strong> <span class="text-${resultClass === 'correct' ? 'success' : resultClass === 'misleading' ? 'warning' : 'danger'} fw-bold">${resultDanger}</span></p>
+                    <div class="d-flex justify-content-end gap-2 mt-3">
+                        <button type="button" class="btn btn-sm btn-secondary rounded-pill px-3" onclick="alert('سيمكنك الإبلاغ عن تحليل غير دقيق في المستقبل.')">
+                            <i class="fas fa-flag"></i> الإبلاغ
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3" onclick="alert('ستتم إضافة هذه المعلومة إلى قاعدة بيانات الشائعات الشائعة.')">
+                            <i class="fas fa-database"></i> حفظ للموسوعة
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('factCheckInput').value = ''; // Clear input after submission
         }
 
         // بدء التشغيل
@@ -584,8 +783,5 @@
 <script data-goatcounter="https://athar-health.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- تأكد من أن ملف script.js لا يتعارض مع هذه التغييرات -->
-    <script src="script.js"></script>  
-   
 </body>
 </html>
