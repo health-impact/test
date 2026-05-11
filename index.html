@@ -462,7 +462,6 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@google/generative-ai@0.1.0/dist/gemini.min.js"></script>
     <script>
         // دالة لنسخ النص إلى الحافظة
         async function copyTip(buttonElement, title, content) {
@@ -486,6 +485,7 @@
 
         async function fetchAwarenessData() {
             try {
+                // Assuming athardata.json exists and is structured correctly
                 const res = await fetch('athardata.json?v=' + new Date().getTime());
                 const data = await res.json();
                 
@@ -495,6 +495,7 @@
                 currentContainer.innerHTML = '';
                 archiveContainer.innerHTML = '';
 
+                // Filter for unique titles, then slice
                 const uniqueData = data.filter((v,i,a)=>a.findIndex(t=>(t.title === v.title))===i);
 
                 const currentItems = uniqueData.slice(0, 5);
@@ -519,6 +520,7 @@
             const borderCol = isWarning ? '#dc3545' : '#198754';
             const icon = isWarning ? '⚠️' : '💡';
             
+            // Sanitize input for use in JS strings and URL encoding
             const escapedTitle = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
             const escapedContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
             const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
@@ -687,23 +689,262 @@
             renderResearchTable();
         }
 
-        // Gemini AI Integration for Fact-checking
-        let genAI, model;
-        // قم بتغيير "YOUR_GEMINI_API_KEY" بمفتاح الـ API الخاص بك. في تطبيق حقيقي، يجب تحميل هذا المفتاح بشكل آمن (مثل من خادم خلفي) وليس كشفه في الكود من جهة العميل.
-        const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY";
-
-        if (typeof GoogleGenerativeAI !== 'undefined') {
-            try {
-                genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-                model = genAI.getGenerativeModel({ model: "gemini-pro" });
-            } catch (e) {
-                console.error("Failed to initialize GoogleGenerativeAI:", e);
-                // Optionally display a user-friendly error message
+        // Dummy rumors database (generated as requested by Gemini/me)
+        const rumorsDatabase = [
+            {
+                question: "المضادات الحيوية تعالج نزلات البرد والإنفلونزا.",
+                classification: "خاطئة",
+                analysis: "نزلات البرد والإنفلونزا تسببها الفيروسات، بينما المضادات الحيوية فعالة فقط ضد البكتيريا. استخدام المضادات الحيوية للفيروسات لا يفيد ويساهم في زيادة مقاومة البكتيريا لها (المقاومة للمضادات الحيوية).",
+                references: "منظمة الصحة العالمية (WHO) - مقاومة مضادات الميكروبات، مراكز مكافحة الأمراض والوقاية منها (CDC) - استخدام المضادات الحيوية.",
+                dangerLevel: "مرتفع"
+            },
+            {
+                question: "تناول الثوم النيء يومياً يخفض ضغط الدم المرتفع بشكل فعال.",
+                classification: "مضللة",
+                analysis: "الثوم يحتوي على مركبات قد تساهم في خفض ضغط الدم بشكل طفيف، وقد يكون جزءاً من نظام غذائي صحي. لكنه ليس علاجاً بديلاً للأدوية الموصوفة لارتفاع ضغط الدم ولا يجب الاعتماد عليه وحده.",
+                references: "دراسات على PubMed حول تأثير الثوم على ضغط الدم، الجمعية الأمريكية لأمراض القلب.",
+                dangerLevel: "متوسط"
+            },
+            {
+                question: "التدخين الإلكتروني (الفيب) آمن تماماً ولا يسبب أي أضرار صحية.",
+                classification: "خاطئة",
+                analysis: "التدخين الإلكتروني ليس خالياً من المخاطر. يحتوي على النيكوتين ومواد كيميائية أخرى قد تكون ضارة بالرئة والقلب، وقد يؤدي إلى الإدمان. آثاره طويلة المدى لا تزال قيد الدراسة، لكن لا يمكن اعتباره آمناً.",
+                references: "مراكز مكافحة الأمراض والوقاية منها (CDC) - التدخين الإلكتروني، منظمة الصحة العالمية (WHO) - التبغ.",
+                dangerLevel: "مرتفع"
+            },
+            {
+                question: "شرب الماء البارد بعد الأكل مباشرة يسبب عسر الهضم أو يزيد الوزن.",
+                classification: "مضللة",
+                analysis: "شرب الماء البارد لا يسبب عسر الهضم لدى غالبية الناس ولا يؤثر بشكل مباشر على زيادة الوزن. الجسم يضبط درجة حرارة السوائل بسرعة. قد يسبب إزعاجاً لمن لديهم حساسية في الأسنان أو المريء.",
+                references: "مراجعات علمية حول الهضم وعلاقته بدرجة حرارة السوائل (PubMed).",
+                dangerLevel: "منخفض"
+            },
+            {
+                question: "الأطعمة العضوية (Organic) خالية تماماً من المبيدات الحشرية وملوثات التربة.",
+                classification: "مضللة",
+                analysis: "الأطعمة العضوية تستخدم طرق زراعة تقلل من استخدام المبيدات الاصطناعية والأسمدة الكيميائية، لكنها ليست خالية تماماً من المبيدات أو الملوثات الطبيعية التي قد توجد في التربة أو الماء. مستوياتها عادة ما تكون أقل.",
+                references: "وكالة حماية البيئة (EPA)، وزارة الزراعة الأمريكية (USDA) - المعايير العضوية.",
+                dangerLevel: "منخفض"
+            },
+            {
+                question: "اللقاحات تسبب التوحد عند الأطفال.",
+                classification: "خاطئة",
+                analysis: "هذه المعلومة تم دحضها علمياً بشكل قاطع عبر دراسات واسعة النطاق في جميع أنحاء العالم. لا يوجد أي دليل علمي يربط بين اللقاحات والتوحد. الدراسة الأصلية التي نشرت هذا الادعاء سُحبت وثبت أنها مزورة.",
+                references: "مراكز مكافحة الأمراض والوقاية منها (CDC) - اللقاحات والتوحد، منظمة الصحة العالمية (WHO) - سلامة اللقاحات.",
+                dangerLevel: "مرتفع"
+            },
+            {
+                question: "شرب الكحول بكميات معتدلة مفيد للقلب.",
+                classification: "مضللة",
+                analysis: "في حين أشارت بعض الدراسات القديمة إلى فوائد محتملة لشرب كميات قليلة من الكحول للقلب، إلا أن الأبحاث الحديثة تشير إلى أن أي كمية من الكحول تزيد من مخاطر الإصابة بأمراض معينة مثل السرطان وتلف الكبد، والفوائد المزعومة للقلب قد تكون مبالغ فيها أو لا تنطبق على الجميع.",
+                references: "منظمة الصحة العالمية (WHO) - الكحول والصحة، دراسات حديثة من الجمعية الأمريكية لأمراض القلب.",
+                dangerLevel: "مرتفع"
+            },
+            {
+                question: "حبوب منع الحمل تسبب العقم على المدى الطويل.",
+                classification: "خاطئة",
+                analysis: "حبوب منع الحمل آمنة وفعالة، ولا تسبب العقم الدائم. تعود الخصوبة في معظم الحالات بعد التوقف عن استخدامها بفترة وجيزة. قد يستغرق الأمر بعض الوقت ليعود انتظام الدورة الشهرية.",
+                references: "الكلية الأمريكية لأطباء التوليد والولادة (ACOG)، مراجعات على PubMed.",
+                dangerLevel: "متوسط"
+            },
+            {
+                question: "العلاج الكيميائي لمرض السرطان يقتل الخلايا السليمة أكثر من الخلايا السرطانية.",
+                classification: "مضللة",
+                analysis: "العلاج الكيميائي يستهدف الخلايا سريعة الانقسام، بما في ذلك الخلايا السرطانية والخلايا السليمة سريعة الانقسام (مثل خلايا الشعر ونخاع العظم)، مما يفسر آثاره الجانبية. ومع ذلك، فهو مصمم ليكون أكثر فتكًا بالخلايا السرطانية، والتطورات الحديثة تسعى لزيادة استهدافه للخلايا السرطانية وتقليل الأضرار للخلايا السليمة.",
+                references: "المعهد الوطني للسرطان (NCI)، الجمعية الأمريكية للسرطان (ACS).",
+                dangerLevel: "مرتفع"
+            },
+            {
+                question: "الليمون يقتل الخلايا السرطانية وهو أقوى من العلاج الكيميائي.",
+                classification: "خاطئة",
+                analysis: "لا يوجد أي دليل علمي موثوق يدعم أن الليمون يقتل الخلايا السرطانية أو أنه أقوى من العلاج الكيميائي. العلاج الكيميائي هو علاج طبي مثبت لمرض السرطان. الليمون فاكهة صحية، لكنه ليس علاجاً للسرطان.",
+                references: "المعهد الوطني للسرطان (NCI)، مراجعات على PubMed.",
+                dangerLevel: "مرتفع"
+            },
+            {
+                question: "إزالة اللوزتين تضعف المناعة وتجعل الجسم عرضة للأمراض.",
+                classification: "مضللة",
+                analysis: "اللوزتان جزء من الجهاز المناعي، لكن إزالتهما (عند الضرورة الطبية) لا تضعف المناعة بشكل ملحوظ أو تجعل الجسم عرضة للأمراض. هناك أجزاء أخرى كثيرة في الجهاز المناعي تعوض وظيفتهما. غالباً ما تُزال اللوزتان بسبب التهابات متكررة تسبب ضرراً أكبر.",
+                references: "الأكاديمية الأمريكية لجراحي الأنف والأذن والحنجرة، مراجعات علمية.",
+                dangerLevel: "منخفض"
+            },
+            {
+                question: "الماء الساخن مع العسل على الريق يساعد على حرق الدهون بشكل كبير.",
+                classification: "مضللة",
+                analysis: "لا يوجد دليل علمي يثبت أن شرب الماء الساخن مع العسل على الريق يحرق الدهون بشكل كبير. قد يساعد في الترطيب وبدء عملية الأيض، لكنه ليس حلاً سحرياً لإنقاص الوزن. فقدان الوزن يتطلب نظاماً غذائياً متوازناً ونشاطاً بدنياً.",
+                references: "دراسات حول فقدان الوزن والتمثيل الغذائي، أخصائيو التغذية.",
+                dangerLevel: "منخفض"
+            },
+            {
+                question: "صيام الماء فقط (Water Fasting) يطهر الجسم من السموم ويشفي الأمراض المزمنة.",
+                classification: "خاطئة",
+                analysis: "الجسم يمتلك آلياته الخاصة لتطهير نفسه من السموم عبر الكلى والكبد. صيام الماء لفترات طويلة بدون إشراف طبي يمكن أن يكون خطيراً ويؤدي إلى نقص التغذية، اختلال الكهارل، ومشاكل صحية خطيرة، ولا يوجد دليل على أنه يشفي الأمراض المزمنة.",
+                references: "الجمعية الأمريكية للتغذية، مراجعات طبية حول الصيام.",
+                dangerLevel: "مرتفع"
+            },
+            {
+                question: "التبرع بالدم يؤدي إلى ضعف الجسم والإرهاق الشديد.",
+                classification: "مضللة",
+                analysis: "التبرع بالدم إجراء آمن ومهم لإنقاذ الأرواح. قد يشعر المتبرع ببعض الدوار أو التعب الخفيف لفترة وجيزة، لكن الجسم يعوض الدم المفقود بسرعة. يتم فحص المتبرعين لضمان لياقتهم الصحية وعدم تأثرهم سلبياً.",
+                references: "الصليب الأحمر الأمريكي، مراكز التبرع بالدم العالمية.",
+                dangerLevel: "منخفض"
+            },
+            {
+                question: "استخدام غسول الفم يومياً يقتل جميع البكتيريا في الفم ويضمن نفساً منعشاً.",
+                classification: "مضللة",
+                analysis: "غسول الفم يمكن أن يساعد في تقليل بعض البكتيريا وتحسين رائحة الفم مؤقتاً، لكنه لا يقتل 'جميع' البكتيريا (بعضها مفيد). الاعتماد عليه بدلاً من تنظيف الأسنان بالفرشاة والخيط لن يضمن صحة فموية جيدة. الإفراط في استخدامه قد يؤثر على توازن البكتيريا الفموية الطبيعية.",
+                references: "الجمعية الأمريكية لطب الأسنان (ADA)، مراجعات علمية حول صحة الفم.",
+                dangerLevel: "منخفض"
+            },
+            {
+                question: "شرب 8 أكواب من الماء يومياً هو القاعدة الوحيدة للترطيب الجيد.",
+                classification: "مضللة",
+                analysis: "توصية 8 أكواب هي إرشادات عامة. احتياجات الترطيب تختلف بناءً على العمر، مستوى النشاط، المناخ، والحالة الصحية. يمكن الحصول على السوائل من الأطعمة أيضاً. الأهم هو الاستماع إلى جسمك وشرب الماء عند الشعور بالعطش.",
+                references: "الأكاديمية الوطنية للطب (National Academy of Medicine)، توصيات الترطيب.",
+                dangerLevel: "منخفض"
+            },
+            {
+                question: "البندول مع القهوة يسبب جلطات.",
+                classification: "خاطئة",
+                analysis: "لا يوجد دليل علمي يثبت أن تناول الباراسيتامول (البندول) مع القهوة يسبب جلطات دموية. الباراسيتامول دواء آمن عند استخدامه بالجرعات الموصى بها. القهوة قد تزيد من فعالية الباراسيتامول في بعض الأحيان وقد تسبب الأرق لدى البعض، لكن ليس الجلطات.",
+                references: "وكالة الغذاء والدواء (FDA) حول الباراسيتامول، دراسات حول تفاعلات الدواء والمشروبات.",
+                dangerLevel: "مرتفع"
+            },
+            {
+                question: "المكملات الغذائية العشبية آمنة دائماً لأنها طبيعية.",
+                classification: "خاطئة",
+                analysis: "كلمة 'طبيعية' لا تعني دائماً 'آمنة'. العديد من المكملات العشبية يمكن أن تتفاعل مع الأدوية، تسبب آثاراً جانبية، أو تكون ملوثة. يجب استشارة الطبيب أو الصيدلي قبل تناول أي مكمل عشبي.",
+                references: "المعاهد الوطنية للصحة (NIH) - المكتبة الوطنية للطب التكاملي، وكالة الغذاء والدواء (FDA).",
+                dangerLevel: "مرتفع"
+            },
+            {
+                question: "إزالة الشعر بالليزر تسبب السرطان.",
+                classification: "خاطئة",
+                analysis: "لا يوجد دليل علمي موثوق يربط بين إزالة الشعر بالليزر وخطر الإصابة بالسرطان. الليزر المستخدم في هذه الإجراءات يخترق الجلد بملليمترات قليلة ويستهدف بصيلات الشعر، وهو لا يستخدم أشعة فوق بنفسجية مؤينة التي تسبب السرطان.",
+                references: "الأكاديمية الأمريكية للأمراض الجلدية، دراسات حول سلامة الليزر التجميلي.",
+                dangerLevel: "منخفض"
+            },
+            {
+                question: "المرأة الحامل يجب أن تأكل لشخصين.",
+                classification: "مضللة",
+                analysis: "هذه المقولة خاطئة جزئياً. المرأة الحامل تحتاج إلى زيادة في السعرات الحرارية، لكنها ليست ضعف الكمية. الزيادة تكون تدريجية (حوالي 300-450 سعرة حرارية في الثلثين الثاني والثالث) وهي تركز على الجودة الغذائية أكثر من الكمية.",
+                references: "الكلية الأمريكية لأطباء التوليد والنساء (ACOG)، توصيات التغذية للحوامل.",
+                dangerLevel: "منخفض"
+            },
+            {
+                question: "شرب المشروبات الغازية الخالية من السكر آمن تماماً ولا يسبب السمنة.",
+                classification: "مضللة",
+                analysis: "المشروبات الغازية الخالية من السكر تحتوي على محليات صناعية. رغم أنها لا تحتوي على سعرات حرارية عالية، تشير بعض الدراسات إلى أنها قد تؤثر على الشهية، بكتيريا الأمعاء، وقد تكون مرتبطة بزيادة الوزن على المدى الطويل أو زيادة خطر الإصابة بالسكري من النوع الثاني. ليست 'آمنة تماماً' بالمعنى المطلق.",
+                references: "دراسات حول المحليات الصناعية وتأثيراتها الصحية، جمعية السكري الأمريكية.",
+                dangerLevel: "متوسط"
+            },
+            {
+                question: "الاستيقاظ مبكراً جداً (قبل الفجر) بدون نوم كافٍ مفيد للصحة.",
+                classification: "خاطئة",
+                analysis: "الحصول على قسط كافٍ من النوم (7-9 ساعات للبالغين) ضروري للصحة الجسدية والنفسية. الاستيقاظ مبكراً قد يكون مفيداً إذا كنت قد حصلت على نوم كافٍ. لكن الحرمان من النوم بغض النظر عن وقت الاستيقاظ، يضر بالصحة، التركيز، والمناعة.",
+                references: "المؤسسة الوطنية للنوم (National Sleep Foundation)، مراجعات طبية حول أهمية النوم.",
+                dangerLevel: "متوسط"
+            },
+            {
+                question: "الحمى هي أمر سيء ويجب خفضها فوراً بأي وسيلة.",
+                classification: "مضللة",
+                analysis: "الحمى هي استجابة طبيعية للجسم لمكافحة العدوى، وهي جزء من آلية الدفاع. ليست دائماً 'سيئة'. يجب خفض الحمى إذا كانت مرتفعة جداً (فوق 38.5-39 درجة مئوية) أو تسبب انزعاجاً شديداً، ولكن الحمى الخفيفة قد تكون مفيدة وتدل على عمل الجهاز المناعي.",
+                references: "مراكز مكافحة الأمراض والوقاية منها (CDC) - الحمى عند الأطفال والبالغين.",
+                dangerLevel: "منخفض"
+            },
+            {
+                question: "المصابون بالسكري لا يجب أن يأكلوا الفواكه أبداً.",
+                classification: "خاطئة",
+                analysis: "هذه معلومة خاطئة. الفواكه جزء مهم من النظام الغذائي الصحي، وتحتوي على فيتامينات، معادن، وألياف. يجب على مرضى السكري تناول الفواكه باعتدال، مع الانتباه إلى كميات الكربوهيدرات وتأثيرها على سكر الدم، ويفضل الفواكه ذات المؤشر الجلايسيمي المنخفض.",
+                references: "جمعية السكري الأمريكية (ADA)، أخصائيو التغذية.",
+                dangerLevel: "متوسط"
+            },
+            {
+                question: "البيض يرفع الكوليسترول الضار جداً ويجب تجنبه تماماً.",
+                classification: "مضللة",
+                analysis: "البيض يحتوي على الكوليسترول الغذائي، لكن الأبحاث الحديثة أظهرت أن تأثيره على كوليسترول الدم لدى معظم الناس أقل بكثير مما كان يعتقد سابقاً. الدهون المشبعة والمتحولة لها تأثير أكبر. يمكن لمعظم الناس تناول البيض باعتدال كجزء من نظام غذائي صحي.",
+                references: "الجمعية الأمريكية لأمراض القلب، مراجعات علمية حول الكوليسترول الغذائي.",
+                dangerLevel: "منخفض"
+            },
+            {
+                question: "فيتامين سي يمنع نزلات البرد ويقصر مدتها بشكل كبير.",
+                classification: "مضللة",
+                analysis: "فيتامين سي مهم للمناعة والصحة العامة. لكن الأبحاث أظهرت أن تناوله بجرعات كبيرة لا يمنع نزلات البرد لدى عامة الناس، وقد يقلل من مدتها أو شدتها بشكل طفيف جداً لدى البعض (مثل الرياضيين).",
+                references: "المعاهد الوطنية للصحة (NIH) - حقائق عن فيتامين سي، مراجعات Cochrane.",
+                dangerLevel: "منخفض"
+            },
+            {
+                question: "الأطعمة الغنية بالقلويات تشفي السرطان وتمنع الإصابة به.",
+                classification: "خاطئة",
+                analysis: "نظرية النظام الغذائي القلوي لم تثبت علمياً كعلاج للسرطان. لا يمكن تغيير حموضة الجسم بشكل كبير ومستمر من خلال الطعام، والخلايا السرطانية لا يمكن 'قتلها' بتغيير درجة الحموضة في الدم. الجسم لديه آليات قوية للحفاظ على توازن الحموضة والقلوية.",
+                references: "المعهد الوطني للسرطان (NCI)، الجمعية الأمريكية للسرطان (ACS).",
+                dangerLevel: "مرتفع"
+            },
+            {
+                question: "تقليل تناول الملح تماماً هو الحل الوحيد لخفض ضغط الدم.",
+                classification: "مضللة",
+                analysis: "تقليل تناول الملح مهم جداً لخفض ضغط الدم المرتفع وللصحة العامة. لكنه ليس الحل الوحيد. عوامل أخرى مثل الحفاظ على وزن صحي، ممارسة الرياضة، وتناول نظام غذائي غني بالبوتاسيوم (فواكه وخضروات) تلعب دوراً حاسماً أيضاً. التخفيض المفرط قد يكون ضاراً للبعض.",
+                references: "الجمعية الأمريكية لأمراض القلب، منظمة الصحة العالمية (WHO) - الملح.",
+                dangerLevel: "متوسط"
+            },
+            {
+                question: "استخدام زيت الزيتون في الطبخ على درجات حرارة عالية يصبح ساماً ومضراً.",
+                classification: "مضللة",
+                analysis: "زيت الزيتون البكر الممتاز لديه نقطة دخان أقل نسبياً من زيوت أخرى، لكنه لا يصبح ساماً عند الطهي على درجات حرارة متوسطة. يمكن استخدامه للقلي الخفيف والتحمير. الزيوت الأخرى ذات نقطة الدخان العالية قد تكون أفضل للقلي العميق جداً، لكن زيت الزيتون ليس ساماً.",
+                references: "مراجعات علمية حول زيوت الطهي ونقاط الدخان، أخصائيو التغذية.",
+                dangerLevel: "منخفض"
+            },
+            {
+                question: "شرب الخل الأبيض يومياً يساعد على فقدان الوزن.",
+                classification: "مضللة",
+                analysis: "بعض الدراسات الصغيرة أشارت إلى أن حمض الخليك (الموجود في الخل) قد يساعد في تنظيم سكر الدم وتحسين الشبع بشكل طفيف، مما قد يساهم في فقدان الوزن عند استخدامه كجزء من نظام غذائي صحي. لكن لا يوجد دليل قاطع على أنه 'يحرق الدهون' أو يسبب فقداناً كبيراً للوزن بمفرده، وقد يضر بالمينا الأسنان والمريء إذا تم تناوله بكميات كبيرة.",
+                references: "دراسات على PubMed حول الخل وفقدان الوزن، أخصائيو التغذية.",
+                dangerLevel: "متوسط"
             }
-        } else {
-            console.warn("GoogleGenerativeAI SDK not loaded. Fact-checking will fall back to simulated responses if API key is not valid.");
+        ];
+
+        // Fuzzy search logic for rumors
+        function findBestRumorMatch(userInput) {
+            const normalizedInput = userInput.toLowerCase().trim();
+            let bestMatch = null;
+            let highestScore = 0;
+
+            rumorsDatabase.forEach(rumor => {
+                const normalizedQuestion = rumor.question.toLowerCase().trim();
+                let score = 0;
+
+                // Check for direct containment
+                if (normalizedQuestion.includes(normalizedInput) || normalizedInput.includes(normalizedQuestion)) {
+                    score += 5; // High score for direct inclusion
+                }
+
+                // Split into words and check for overlaps
+                const inputWords = normalizedInput.split(/\s+/).filter(word => word.length > 2);
+                const questionWords = normalizedQuestion.split(/\s+/).filter(word => word.length > 2);
+
+                inputWords.forEach(iWord => {
+                    if (questionWords.includes(iWord)) {
+                        score += 2; // Direct word match
+                    } else if (normalizedQuestion.includes(iWord)) {
+                        score += 1; // Substring match
+                    }
+                });
+
+                if (score > highestScore) {
+                    highestScore = score;
+                    bestMatch = rumor;
+                }
+            });
+
+            // Set a threshold for what constitutes a "match"
+            // This threshold might need tuning based on the data and desired strictness.
+            const matchThreshold = 4; // Adjusted threshold for better matching
+            if (highestScore >= matchThreshold) {
+                return bestMatch;
+            }
+            return null;
         }
-        
+
         async function submitFactCheck() {
             const input = document.getElementById('factCheckInput').value.trim();
             const resultsContainer = document.getElementById('factCheckResults');
@@ -727,84 +968,50 @@
                 </div>
             `;
 
-            try {
-                if (!model || GEMINI_API_KEY === "YOUR_GEMINI_API_KEY") {
-                    throw new Error("لم يتم تهيئة نموذج Gemini بشكل صحيح. الرجاء التأكد من مفتاح الـ API وتحديثه بمفتاح صالح.");
-                }
+            // Simulate AI thinking time
+            await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 1000)); // 1.5 to 2.5 seconds
 
-                const systemInstruction = `أنت خبير في الصحة العامة والتحقق من الحقائق الطبية. مهمتك هي تحليل الادعاءات الصحية المقدمة، وتحديد ما إذا كانت صحيحة، مضللة، أو خاطئة، بناءً على الأدلة العلمية والمصادر الموثوقة مثل منظمة الصحة العالمية (WHO)، مراكز مكافحة الأمراض والوقاية منها (CDC)، PubMed، ووكالة الغذاء والدواء (FDA).
-                في ردك، يجب عليك:
-                1. **التصنيف:** ابدأ بكلمة واحدة "التصنيف:" متبوعة بتصنيف واضح: (صحيحة)، (مضللة)، أو (خاطئة).
-                2. **التحليل:** قدم شرحًا مبسطًا ومختصرًا للمعلومة، وسبب تصنيفها بهذا الشكل.
-                3. **المراجع:** اذكر المصادر العلمية الموثوقة التي تدعم تحليلك بكلمة "المراجع:".
-                4. **مستوى الخطورة:** حدد مستوى الخطورة المحتملة لنشر هذه المعلومة (منخفض، متوسط، مرتفع) واذكر لماذا بكلمة "الخطورة:".
-                كن دقيقًا، علميًا، ومحايدًا.`;
+            let matchedRumor = findBestRumorMatch(input);
 
-                const prompt = `${systemInstruction}\n\nالمحتوى للتحقق منه: ${input}`;
-
-                const result = await model.generateContent(prompt);
-                const response = await result.response;
-                const text = response.text();
-
-                let resultClass = 'misleading';
-                let resultTitle = 'تحت المراجعة / معلومة غير مؤكدة';
-                let explanation = 'لم نتمكن من تحليل المعلومة بشكل كامل. الرجاء المحاولة مجدداً.';
-                let references = 'لا توجد مراجع مباشرة في هذا التحليل الأولي.';
-                let dangerLevel = 'غير محدد';
-
-                const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
-
-                lines.forEach(line => {
-                    if (line.startsWith('التصنيف:')) {
-                        const classification = line.substring('التصنيف:'.length).trim();
-                        if (classification.includes('صحيحة')) {
-                            resultClass = 'correct';
-                            resultTitle = 'معلومة صحيحة';
-                        } else if (classification.includes('خاطئة')) {
-                            resultClass = 'false';
-                            resultTitle = 'معلومة خاطئة';
-                        } else if (classification.includes('مضللة')) {
-                            resultClass = 'misleading';
-                            resultTitle = 'معلومة مضللة';
-                        }
-                    } else if (line.startsWith('التحليل:')) {
-                        explanation = line.substring('التحليل:'.length).trim();
-                    } else if (line.startsWith('المراجع:')) {
-                        references = line.substring('المراجع:'.length).trim();
-                    } else if (line.startsWith('الخطورة:')) {
-                        dangerLevel = line.substring('الخطورة:'.length).trim();
-                    }
-                });
-
+            if (matchedRumor) {
                 resultsContainer.innerHTML = `
-                    <div class="fact-check-result-card ${resultClass}">
-                        <h5 class="mb-2">${resultTitle} <span class="badge bg-${resultClass === 'correct' ? 'success' : resultClass === 'misleading' ? 'warning text-dark' : 'danger'} me-2">${resultTitle}</span></h5>
-                        <p><strong>التحليل:</strong> ${explanation}</p>
-                        <p class="references"><strong>المراجع:</strong> ${references}</p>
-                        <p><strong>مستوى الخطورة:</strong> <span class="text-${resultClass === 'correct' ? 'success' : resultClass === 'misleading' ? 'warning' : 'danger'} fw-bold">${dangerLevel}</span></p>
+                    <div class="fact-check-result-card ${matchedRumor.classification === 'صحيحة' ? 'correct' : matchedRumor.classification === 'مضللة' ? 'misleading' : 'false'}">
+                        <h5 class="mb-2">
+                            ${matchedRumor.classification === 'صحيحة' ? 'معلومة صحيحة' : matchedRumor.classification === 'مضللة' ? 'معلومة مضللة' : 'معلومة خاطئة'}
+                            <span class="badge bg-${matchedRumor.classification === 'صحيحة' ? 'success' : matchedRumor.classification === 'مضللة' ? 'warning text-dark' : 'danger'} me-2">
+                                ${matchedRumor.classification}
+                            </span>
+                        </h5>
+                        <p><strong>التحليل:</strong> ${matchedRumor.analysis}</p>
+                        <p class="references"><strong>المراجع:</strong> ${matchedRumor.references}</p>
+                        <p><strong>مستوى الخطورة:</strong> <span class="text-${matchedRumor.classification === 'صحيحة' ? 'success' : matchedRumor.classification === 'مضللة' ? 'warning' : 'danger'} fw-bold">${matchedRumor.dangerLevel}</span></p>
                         <div class="d-flex justify-content-end gap-2 mt-3">
-                            <button type="button" class="btn btn-sm btn-secondary rounded-pill px-3" onclick="alert('سيمكنك الإبلاغ عن تحليل غير دقيق في المستقبل.')">
-                                <i class="fas fa-flag"></i> الإبلاغ
-                            </button>
-                            <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3" onclick="alert('ستتم إضافة هذه المعلومة إلى قاعدة بيانات الشائعات الشائعة.')">
-                                <i class="fas fa-database"></i> حفظ للموسوعة
-                            </button>
+                            <a href="https://wa.me/218915303534?text=${encodeURIComponent('أود الاستفسار عن معلومة: ' + input)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success rounded-pill px-3">
+                                <i class="fab fa-whatsapp"></i> اطلب فحص إشاعة جديدة
+                            </a>
                         </div>
                     </div>
                 `;
-            } catch (error) {
-                console.error("Error during fact-check:", error);
+            } else {
+                // No direct match found
                 resultsContainer.innerHTML = `
-                    <div class="alert alert-danger text-center" role="alert">
-                        <i class="fas fa-times-circle me-2"></i> حدث خطأ أثناء التحقق: ${error.message}. الرجاء التأكد من مفتاح الـ API والمحاولة لاحقاً.
-                        <br>
-                        <small class="text-muted">إذا كنت مطوراً، تأكد من استدعاء GoogleGenerativeAI SDK وأن مفتاح API صحيح وصالح للاستخدام من جهة العميل.</small>
+                    <div class="fact-check-result-card misleading">
+                        <h5 class="mb-2">تحت المراجعة</h5>
+                        <p><strong>التحليل:</strong> هذه المعلومة تخضع حالياً للمراجعة المخبرية والتدقيق العلمي، وسيتم تحديثها في التقرير القادم.</p>
+                        <p class="references"><strong>المراجع:</strong> جارٍ البحث في المصادر الموثوقة.</p>
+                        <p><strong>مستوى الخطورة:</strong> غير محدد حالياً.</p>
+                        <div class="d-flex justify-content-end gap-2 mt-3">
+                            <a href="https://wa.me/218915303534?text=${encodeURIComponent('أود طلب فحص إشاعة جديدة: ' + input)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-success rounded-pill px-3">
+                                <i class="fab fa-whatsapp"></i> اطلب فحص إشاعة جديدة
+                            </a>
+                        </div>
                     </div>
                 `;
-            } finally {
-                document.getElementById('factCheckInput').value = '';
             }
+
+            document.getElementById('factCheckInput').value = '';
         }
+
 
         // بدء التشغيل
         document.addEventListener('DOMContentLoaded', () => {
