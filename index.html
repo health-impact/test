@@ -27,6 +27,7 @@
         // https://firebase.google.com/docs/web/setup#available-libraries 
 
         // Your web app's Firebase configuration - REPLACE WITH YOUR OWN CONFIG
+        // الرجاء استبدال هذه القيم ببيانات Firebase الخاصة بمشروعك
         const firebaseConfig = {
           apiKey: "AIzaSyAz-mbnZhssLbV4-AOYz4KzqvORphN-PNw", // Replace with your apiKey
           authDomain: "atharsehi.firebaseapp.com", // Replace with your authDomain
@@ -92,7 +93,7 @@
         /* 3. قسم الرئيسية (Hero) */
         .hero { 
             height: 75vh; 
-            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1532938910839-44d47c943e2e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Added a relevant hero image */
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1532938870005-9d297a7e84e5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Added a relevant hero image */
             background-repeat: no-repeat; background-position: center; background-size: cover;
             color: white; display: flex; align-items: center; justify-content: center; text-align: center;
         }
@@ -634,6 +635,8 @@
             // Sanitize input for use in JS strings and URL encoding
             const escapedTitle = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
             const escapedContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+            
+            // For share links, encode the full text including title and content
             const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
             const currentPageUrl = encodeURIComponent(window.location.href);
 
@@ -687,31 +690,31 @@
 
         function generateDummyResearch(count) {
             const researchTopics = [
-                { title: "تأثير التغيرات المناخية على انتشار الأمراض المعدية", field: "الصحة البيئية", keywords: "climate change infectious diseases environment global warming", studyTypes: ["مراجعة منهجية", "دراسة حالات", "بحث تجريبي", "دراسة مقطعية"] },
-                { title: "فعالية اللقاحات الجديدة ضد سلالات الأنفلونزا المتحورة", field: "مكافحة العدوى", keywords: "new vaccines influenza strains antiviral immunity pandemic", studyTypes: ["تجربة سريرية", "دراسة أترابية", "تحليل تلوي"] },
-                { title: "دور التغذية السليمة في تعزيز المناعة لدى الأطفال", field: "سلامة الغذاء والتغذية", keywords: "nutrition child immunity diet food supplements vitamins", studyTypes: ["دراسة مقطعية", "تحليل تلوي", "دراسة أترابية"] },
-                { title: "الوعي الصحي ومكافحة الأمراض المزمنة في المجتمعات النامية", field: "الصحة العامة", keywords: "health awareness chronic diseases developing countries education prevention", studyTypes: ["مراجعة منهجية", "دراسة مقطعية"] },
-                { title: "تكنولوجيا الرصد الوبائي: التحديات والفرص", field: "مكافحة العدوى", keywords: "epidemiological surveillance technology public health data AI", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
-                { title: "سلامة المياه الصالحة للشرب وتأثيرها على صحة السكان", field: "سلامة الغذاء والتغذية", keywords: "drinking water safety public health contamination sanitation", studyTypes: ["دراسة حالات", "دراسة مقطعية"] },
-                { title: "استراتيجيات الحد من مقاومة المضادات الحيوية في البيئة الصحية", field: "مكافحة العدوى", keywords: "antibiotic resistance strategies healthcare infection control AMR", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
-                { title: "تأثير النشاط البدني على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "physical activity adolescent mental health depression anxiety well-being", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
-                { title: "فحص جودة الأغذية المستوردة ودورها في الحماية من الأمراض", field: "سلامة الغذاء والتغذية", keywords: "imported food quality foodborne diseases safety regulation standards", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
-                { title: "الابتكارات في التشخيص المبكر للأمراض السرطانية", field: "الصحة العامة", keywords: "innovations early cancer diagnosis screening biomarkers technology", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
-                { title: "مكافحة العدوى في مراكز الرعاية الأولية", field: "مكافحة العدوى", keywords: "infection control primary healthcare hygiene hand washing PPE", studyTypes: ["بحث تجريبي", "دراسة مقطعية"] },
-                { title: "التعليم الصحي للمجتمعات الريفية: التحديات والحلول", field: "الصحة العامة", keywords: "health education rural communities disparities access solutions", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
-                { title: "تأثير التلوث البيئي على الجهاز التنفسي", field: "الصحة البيئية", keywords: "environmental pollution respiratory health air quality asthma COPD", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
-                { title: "طرق جديدة للكشف عن الملوثات في الغذاء", field: "سلامة الغذاء والتغذية", keywords: "new methods food contaminants detection safety technology analysis", studyTypes: ["بحث تجريبي"] },
-                { title: "الأمن البيولوجي في المختبرات الطبية", field: "مكافحة العدوى", keywords: "biosafety medical laboratories pathogens containment protocols", studyTypes: ["مراجعة منهجية", "بحث تجريبي"] },
-                { title: "تقييم برامج التطعيم الوطنية وأثرها على الصحة العامة", field: "الصحة العامة", keywords: "national vaccination programs public health impact coverage diseases", studyTypes: ["تحليل تلوي", "مراجعة منهجية", "دراسة أترابية"] },
-                { title: "التحديات الصحية لسكان المناطق النائية", field: "الصحة العامة", keywords: "health challenges remote areas access healthcare equity infrastructure", studyTypes: ["دراسة مقطعية", "دراسة حالات"] },
-                { title: "استخدام تقنيات الذكاء الاصطناعي في تشخيص الأمراض", field: "الابتكار الطبي", keywords: "AI technologies disease diagnosis medical imaging machine learning", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
-                { title: "دراسة حول فعالية حملات التوعية بسرطان الثدي", field: "الصحة العامة", keywords: "breast cancer awareness campaigns effectiveness screening early detection", studyTypes: ["دراسة مقطعية", "دراسة أترابية"] },
-                { title: "تحسين جودة الهواء في المدن وتأثيره على الصحة", field: "الصحة البيئية", keywords: "urban air quality health impact pollution mitigation policies", studyTypes: ["مراجعة منهجية", "دراسة مقطعية"] },
-                { title: "دور الأنماط الحياتية في الوقاية من أمراض القلب", field: "الوقاية من الأمراض", keywords: "lifestyle cardiovascular disease prevention diet exercise stress", studyTypes: ["دراسة أترابية", "تحليل تلوي"] },
-                { title: "تأثير الجوائح على الصحة النفسية للمجتمعات", field: "الصحة النفسية", keywords: "pandemics mental health community anxiety depression trauma", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
-                { title: "التقنيات الحديثة في علاج داء السكري", field: "الابتكار الطبي", keywords: "modern techniques diabetes treatment insulin pumps continuous glucose monitoring", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
-                { title: "سلامة منتجات التجميل وتأثيرها على البشرة", field: "الصحة الجلدية", keywords: "cosmetic product safety skin impact allergies regulations ingredients", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
-                { title: "برامج الفحص المبكر لسرطان القولون والمستقيم", field: "الوقاية من الأمراض", keywords: "colorectal cancer screening programs early detection endoscopy awareness", studyTypes: ["مراجعة منهجية", "دراسة أترابية"] }
+                { title: "تأثير التغيرات المناخية على انتشار الأمراض المعدية", field: "الصحة البيئية", keywords: "climate change infectious diseases environment global warming تأثير التغيرات المناخية الأمراض المعدية البيئة الاحتباس الحراري", studyTypes: ["مراجعة منهجية", "دراسة حالات", "بحث تجريبي", "دراسة مقطعية"] },
+                { title: "فعالية اللقاحات الجديدة ضد سلالات الأنفلونزا المتحورة", field: "مكافحة العدوى", keywords: "new vaccines influenza strains antiviral immunity pandemic اللقاحات الجديدة الأنفلونزا المتحورة المناعة الوباء", studyTypes: ["تجربة سريرية", "دراسة أترابية", "تحليل تلوي"] },
+                { title: "دور التغذية السليمة في تعزيز المناعة لدى الأطفال", field: "سلامة الغذاء والتغذية", keywords: "nutrition child immunity diet food supplements vitamins التغذية السليمة المناعة الأطفال المكملات الغذائية الفيتامينات", studyTypes: ["دراسة مقطعية", "تحليل تلوي", "دراسة أترابية"] },
+                { title: "الوعي الصحي ومكافحة الأمراض المزمنة في المجتمعات النامية", field: "الصحة العامة", keywords: "health awareness chronic diseases developing countries education prevention الوعي الصحي الأمراض المزمنة المجتمعات النامية التعليم الوقاية", studyTypes: ["مراجعة منهجية", "دراسة مقطعية"] },
+                { title: "تكنولوجيا الرصد الوبائي: التحديات والفرص", field: "مكافحة العدوى", keywords: "epidemiological surveillance technology public health data AI الرصد الوبائي التكنولوجيا الصحة العامة البيانات الذكاء الاصطناعي", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "سلامة المياه الصالحة للشرب وتأثيرها على صحة السكان", field: "سلامة الغذاء والتغذية", keywords: "drinking water safety public health contamination sanitation المياه الصالحة للشرب الصحة العامة التلوث الصرف الصحي", studyTypes: ["دراسة حالات", "دراسة مقطعية"] },
+                { title: "استراتيجيات الحد من مقاومة المضادات الحيوية في البيئة الصحية", field: "مكافحة العدوى", keywords: "antibiotic resistance strategies healthcare infection control AMR مقاومة المضادات الحيوية الرعاية الصحية مكافحة العدوى", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "تأثير النشاط البدني على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "physical activity adolescent mental health depression anxiety well-being النشاط البدني الصحة النفسية المراهقين الاكتئاب القلق الرفاهية", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
+                { title: "فحص جودة الأغذية المستوردة ودورها في الحماية من الأمراض", field: "سلامة الغذاء والتغذية", keywords: "imported food quality foodborne diseases safety regulation standards جودة الأغذية المستوردة الأمراض المنقولة بالغذاء السلامة التنظيم المعايير", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
+                { title: "الابتكارات في التشخيص المبكر للأمراض السرطانية", field: "الصحة العامة", keywords: "innovations early cancer diagnosis screening biomarkers technology الابتكارات التشخيص المبكر السرطان الفحص المؤشرات الحيوية التكنولوجيا", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
+                { title: "مكافحة العدوى في مراكز الرعاية الأولية", field: "مكافحة العدوى", keywords: "infection control primary healthcare hygiene hand washing PPE مكافحة العدوى الرعاية الأولية النظافة غسل اليدين معدات الوقاية الشخصية", studyTypes: ["بحث تجريبي", "دراسة مقطعية"] },
+                { title: "التعليم الصحي للمجتمعات الريفية: التحديات والحلول", field: "الصحة العامة", keywords: "health education rural communities disparities access solutions التعليم الصحي المجتمعات الريفية الفوارق الوصول الحلول", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
+                { title: "تأثير التلوث البيئي على الجهاز التنفسي", field: "الصحة البيئية", keywords: "environmental pollution respiratory health air quality asthma COPD التلوث البيئي الجهاز التنفسي جودة الهواء الربو الانسداد الرئوي المزمن", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
+                { title: "طرق جديدة للكشف عن الملوثات في الغذاء", field: "سلامة الغذاء والتغذية", keywords: "new methods food contaminants detection safety technology analysis طرق جديدة الكشف الملوثات الغذاء السلامة التكنولوجيا التحليل", studyTypes: ["بحث تجريبي"] },
+                { title: "الأمن البيولوجي في المختبرات الطبية", field: "مكافحة العدوى", keywords: "biosafety medical laboratories pathogens containment protocols الأمن البيولوجي المختبرات الطبية مسببات الأمراض الاحتواء البروتوكولات", studyTypes: ["مراجعة منهجية", "بحث تجريبي"] },
+                { title: "تقييم برامج التطعيم الوطنية وأثرها على الصحة العامة", field: "الصحة العامة", keywords: "national vaccination programs public health impact coverage diseases برامج التطعيم الوطنية الصحة العامة التأثير التغطية الأمراض", studyTypes: ["تحليل تلوي", "مراجعة منهجية", "دراسة أترابية"] },
+                { title: "التحديات الصحية لسكان المناطق النائية", field: "الصحة العامة", keywords: "health challenges remote areas access healthcare equity infrastructure التحديات الصحية المناطق النائية الوصول الرعاية الصحية المساواة البنية التحتية", studyTypes: ["دراسة مقطعية", "دراسة حالات"] },
+                { title: "استخدام تقنيات الذكاء الاصطناعي في تشخيص الأمراض", field: "الابتكار الطبي", keywords: "AI technologies disease diagnosis medical imaging machine learning تقنيات الذكاء الاصطناعي تشخيص الأمراض التصوير الطبي التعلم الآلي", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "دراسة حول فعالية حملات التوعية بسرطان الثدي", field: "الصحة العامة", keywords: "breast cancer awareness campaigns effectiveness screening early detection حملات التوعية سرطان الثدي الفعالية الفحص الكشف المبكر", studyTypes: ["دراسة مقطعية", "دراسة أترابية"] },
+                { title: "تحسين جودة الهواء في المدن وتأثيره على الصحة", field: "الصحة البيئية", keywords: "urban air quality health impact pollution mitigation policies جودة الهواء المدن التأثير الصحي التلوث سياسات التخفيف", studyTypes: ["مراجعة منهجية", "دراسة مقطعية"] },
+                { title: "دور الأنماط الحياتية في الوقاية من أمراض القلب", field: "الوقاية من الأمراض", keywords: "lifestyle cardiovascular disease prevention diet exercise stress الأنماط الحياتية الوقاية أمراض القلب النظام الغذائي التمارين الإجهاد", studyTypes: ["دراسة أترابية", "تحليل تلوي"] },
+                { title: "تأثير الجوائح على الصحة النفسية للمجتمعات", field: "الصحة النفسية", keywords: "pandemics mental health community anxiety depression trauma الجوائح الصحة النفسية المجتمع القلق الاكتئاب الصدمة", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
+                { title: "التقنيات الحديثة في علاج داء السكري", field: "الابتكار الطبي", keywords: "modern techniques diabetes treatment insulin pumps continuous glucose monitoring التقنيات الحديثة علاج السكري مضخات الأنسولين مراقبة الجلوكوز المستمرة", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
+                { title: "سلامة منتجات التجميل وتأثيرها على البشرة", field: "الصحة الجلدية", keywords: "cosmetic product safety skin impact allergies regulations ingredients سلامة منتجات التجميل البشرة الحساسية اللوائح المكونات", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
+                { title: "برامج الفحص المبكر لسرطان القولون والمستقيم", field: "الوقاية من الأمراض", keywords: "colorectal cancer screening programs early detection endoscopy awareness برامج الفحص المبكر سرطان القولون والمستقيم الكشف المبكر التنظير الوعي", studyTypes: ["مراجعة منهجية", "دراسة أترابية"] }
             ];
 
             const researchData = [];
@@ -725,8 +728,9 @@
                 const studyType = topic.studyTypes[Math.floor(Math.random() * topic.studyTypes.length)];
                 
                 // Construct a more specific PubMed search query
-                const searchKeywords = encodeURIComponent(`${specificTitle} ${topic.field} ${studyType} ${topic.keywords} year:${year}`); 
-                const pubmedLink = `https://pubmed.ncbi.nlm.nih.gov/?term=${searchKeywords}`;
+                // Using general search terms to ensure a result page, as specific article links would require a live API
+                const pubmedSearchQuery = encodeURIComponent(`${specificTitle} ${topic.field} ${studyType} ${topic.keywords} year:${year}`); 
+                const pubmedLink = `https://pubmed.ncbi.nlm.nih.gov/?term=${pubmedSearchQuery}`;
 
                 researchData.push({
                     title: specificTitle,
@@ -787,7 +791,7 @@
                 const matchesSearchTerm = item.title.toLowerCase().includes(filterTerm) ||
                                           item.year.toString().includes(filterTerm) ||
                                           item.field.toLowerCase().includes(filterTerm) ||
-                                          item.keywords.toLowerCase().includes(filterTerm) ||
+                                          item.keywords.toLowerCase().includes(filterTerm) || // Search in keywords
                                           item.studyType.toLowerCase().includes(filterTerm); 
                 
                 const matchesField = fieldFilter === '' || item.field === fieldFilter;
@@ -809,8 +813,8 @@
         }
 
         // --- Firebase Auth Functions ---
-        // Ensure Firebase objects are available globally from the module script
-        const authModal = new bootstrap.Modal(document.getElementById('authModal'));
+        const authModalElement = document.getElementById('authModal');
+        const authModal = new bootstrap.Modal(authModalElement);
         const emailInput = document.getElementById('emailInput');
         const passwordInput = document.getElementById('passwordInput');
         const signInBtn = document.getElementById('signInBtn');
@@ -829,19 +833,27 @@
 
         function clearAuthMessage() {
             authMessage.classList.add('d-none');
+            authMessage.textContent = '';
         }
 
         async function handleSignIn() {
             clearAuthMessage();
             const email = emailInput.value;
             const password = passwordInput.value;
-            if (!email || !password) {
-                displayAuthMessage('الرجاء إدخال البريد الإلكتروني وكلمة المرور.');
+
+            // Simple client-side validation
+            const form = document.getElementById('authForm');
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
                 return;
             }
+
             try {
                 await window.signInWithEmailAndPassword(window.auth, email, password);
-                authModal.hide();
+                displayAuthMessage('تم تسجيل الدخول بنجاح!', 'success');
+                setTimeout(() => {
+                    authModal.hide();
+                }, 1000); // Close after 1 second for success message to be seen
             } catch (error) {
                 console.error("Sign In Error:", error.code, error.message);
                 let errorMessage = 'فشل تسجيل الدخول. الرجاء التحقق من بريدك وكلمة المرور.';
@@ -856,17 +868,20 @@
             clearAuthMessage();
             const email = emailInput.value;
             const password = passwordInput.value;
-            if (!email || !password) {
-                displayAuthMessage('الرجاء إدخال البريد الإلكتروني وكلمة المرور.');
+
+            // Simple client-side validation
+            const form = document.getElementById('authForm');
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
                 return;
             }
-            if (password.length < 6) {
-                displayAuthMessage('كلمة المرور يجب أن تكون 6 أحرف على الأقل.');
-                return;
-            }
+
             try {
                 await window.createUserWithEmailAndPassword(window.auth, email, password);
-                authModal.hide();
+                displayAuthMessage('تم إنشاء الحساب بنجاح! جاري تسجيل الدخول...', 'success');
+                setTimeout(() => {
+                    authModal.hide();
+                }, 1000); // Close after 1 second
             } catch (error) {
                 console.error("Sign Up Error:", error.code, error.message);
                 let errorMessage = 'فشل إنشاء الحساب. الرجاء المحاولة مرة أخرى.';
@@ -880,6 +895,7 @@
         async function handleSignOut() {
             try {
                 await window.signOut(window.auth);
+                // The onAuthStateChanged listener will handle UI update
             } catch (error) {
                 console.error("Sign Out Error:", error);
                 alert('فشل تسجيل الخروج. الرجاء المحاولة مرة أخرى.');
@@ -902,8 +918,8 @@
                     userAccountStatus.textContent = `مرحباً بك، ${displayName}`;
                     userAccountDescription.textContent = 'أهلاً بك في حسابك الشخصي. يمكنك إدارة محتواك المحفوظ وإعدادات التنبيهات.';
                     authActionButton.textContent = 'تسجيل الخروج';
-                    authActionButton.classList.remove('btn-outline-success');
-                    authActionButton.classList.add('btn-danger');
+                    authActionButton.classList.remove('btn-outline-success', 'btn-primary'); // Remove existing
+                    authActionButton.classList.add('btn-danger'); // Add danger for logout
                     authActionButton.onclick = handleSignOut;
                     authActionButton.removeAttribute('data-bs-toggle');
                     authActionButton.removeAttribute('data-bs-target');
@@ -919,8 +935,8 @@
                     userAccountStatus.textContent = 'تسجيل الدخول / إنشاء حساب';
                     userAccountDescription.textContent = 'سجّل الدخول للوصول إلى مميزات الحساب الشخصي.';
                     authActionButton.textContent = 'ابدأ الآن';
-                    authActionButton.classList.remove('btn-danger');
-                    authActionButton.classList.add('btn-outline-success');
+                    authActionButton.classList.remove('btn-danger'); // Remove danger
+                    authActionButton.classList.add('btn-outline-success'); // Add success for login
                     authActionButton.onclick = null; // Re-enable modal trigger
                     authActionButton.setAttribute('data-bs-toggle', 'modal');
                     authActionButton.setAttribute('data-bs-target', '#authModal');
@@ -933,12 +949,19 @@
 
         // Event listeners for modal buttons
         document.addEventListener('DOMContentLoaded', () => {
-            signInBtn.addEventListener('click', handleSignIn);
-            signUpBtn.addEventListener('click', handleSignUp);
+            // Check if Firebase Auth is ready before attaching listeners
+            if (window.auth) {
+                signInBtn.addEventListener('click', handleSignIn);
+                signUpBtn.addEventListener('click', handleSignUp);
+            } else {
+                console.warn("Firebase Auth not ready, login/signup buttons disabled.");
+                signInBtn.disabled = true;
+                signUpBtn.disabled = true;
+            }
         });
 
         // Reset modal form when hidden
-        document.getElementById('authModal').addEventListener('hidden.bs.modal', () => {
+        authModalElement.addEventListener('hidden.bs.modal', () => {
             emailInput.value = '';
             passwordInput.value = '';
             clearAuthMessage();
@@ -974,7 +997,8 @@
             // Add smooth scroll and active link class to nav items
             document.querySelectorAll('.nav-item-link').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
-                    if (this.getAttribute('href').startsWith('#')) { // Only for internal links
+                    // Only for internal links that are not auth modal triggers
+                    if (this.getAttribute('href').startsWith('#') && this.id !== 'authNavLink') { 
                         e.preventDefault();
 
                         document.querySelector(this.getAttribute('href')).scrollIntoView({
@@ -986,6 +1010,35 @@
                         this.classList.add('active-link');
                     }
                 });
+            });
+
+            // Re-apply active link class on scroll to maintain visual state
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5 // Adjust as needed
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const targetId = entry.target.id;
+                        document.querySelectorAll('.nav-item-link').forEach(link => {
+                            if (link.getAttribute('href') === `#${targetId}`) {
+                                // Ensure authNavLink isn't deactivated if logged in and user scrolls away from hero
+                                if (link.id !== 'authNavLink' || !window.auth.currentUser) {
+                                    document.querySelectorAll('.nav-item-link').forEach(l => l.classList.remove('active-link'));
+                                    link.classList.add('active-link');
+                                }
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all sections
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
             });
         });
     </script>
