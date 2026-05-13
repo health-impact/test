@@ -177,6 +177,7 @@
             border-color: #ced4da;
             padding: 10px 20px;
             flex-grow: 1; /* Allow inputs to grow */
+            min-width: 150px; /* Ensure filters don't collapse too much */
         }
         .filter-section .btn {
             border-radius: 25px;
@@ -216,6 +217,42 @@
             color: var(--main-green);
             margin-bottom: 20px;
         }
+
+        /* News Section Styles */
+        .news-container {
+            background: #fff;
+            border-radius: 25px;
+            padding: clamp(15px, 4vw, 40px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .news-item {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        .news-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .news-item h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .news-item p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        .news-item .source-date {
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 10px;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -234,6 +271,7 @@
                 <a href="#store" class="nav-item-link">المتجر</a>
                 <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
                 <a href="#fact-check" class="nav-item-link">التحقق العلمي</a>
+                <a href="#health-news" class="nav-item-link">آخر الأخبار</a>
             </nav>
         </div>
     </header>
@@ -371,7 +409,7 @@
 
             <!-- قسم البحث والفلترة -->
             <div class="filter-section align-items-center">
-                <input type="text" id="researchSearchInput" class="form-control flex-grow-1" placeholder="ابحث عن أبحاث...">
+                <input type="text" id="researchSearchInput" class="form-control flex-grow-1" placeholder="ابحث عن أبحاث (عنوان، كلمة مفتاحية، سنة)...">
                 <select id="researchFieldFilter" class="form-select flex-grow-1">
                     <option value="">جميع المجالات</option>
                     <option value="الصحة العامة">الصحة العامة</option>
@@ -382,6 +420,16 @@
                     <option value="الابتكار الطبي">الابتكار الطبي</option>
                     <option value="الوقاية من الأمراض">الوقاية من الأمراض</option>
                     <option value="الصحة الجلدية">الصحة الجلدية</option>
+                </select>
+                <select id="researchStudyTypeFilter" class="form-select flex-grow-1">
+                    <option value="">جميع أنواع الدراسات</option>
+                    <option value="تجربة سريرية">تجربة سريرية</option>
+                    <option value="مراجعة منهجية">مراجعة منهجية</option>
+                    <option value="دراسة أترابية">دراسة أترابية</option>
+                    <option value="دراسة حالات">دراسة حالات</option>
+                    <option value="تحليل تلوي">تحليل تلوي</option>
+                    <option value="بحث تجريبي">بحث تجريبي</option>
+                    <option value="دراسة مقطعية">دراسة مقطعية</option>
                 </select>
                 <button class="btn btn-success fw-bold" onclick="filterResearchTable()">
                     <i class="fas fa-search"></i> فلترة
@@ -396,6 +444,7 @@
                             <th><i class="fas fa-file-alt me-2"></i> اسم البحث</th>
                             <th style="width: 120px;"><i class="fas fa-calendar-alt me-2"></i> سنة النشر</th>
                             <th style="width: 180px;"><i class="fas fa-tags me-2"></i> المجال</th>
+                            <th style="width: 180px;"><i class="fas fa-microscope me-2"></i> نوع الدراسة</th>
                             <th style="width: 120px;"><i class="fas fa-link me-2"></i> رابط القراءة</th>
                         </tr>
                     </thead>
@@ -438,6 +487,37 @@
             </div>
         </div>
     </section>
+
+    <!-- قسم آخر الأخبار الصحية -->
+    <section id="health-news" style="background-color: #f4f7f6;">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-5 text-success">آخر الأخبار الصحية المحلية والعالمية</h2>
+            <div class="news-container">
+                <div id="news-list">
+                    <div class="alert alert-info text-center" role="alert">
+                        <i class="fas fa-newspaper me-2"></i> هذه الميزة قيد التطوير. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
+                    </div>
+                    <!-- Dummy News Items for illustration -->
+                    <div class="news-item">
+                        <h4>دراسة جديدة تكشف عن تأثير النظام الغذائي على الصحة النفسية</h4>
+                        <p>أظهرت دراسة حديثة نشرت في مجلة "Lancet Psychiatry" أن هناك علاقة وثيقة بين جودة النظام الغذائي وصحة الدماغ، مع توصيات بزيادة تناول الألياف والبروتينات.</p>
+                        <span class="source-date">المصدر: WHO | 15 مارس 2024</span>
+                    </div>
+                    <div class="news-item">
+                        <h4>ليبيا تستعد لحملة تطعيم موسعة ضد شلل الأطفال</h4>
+                        <p>أعلنت منظمة الصحة الوطنية في ليبيا عن خطط لإطلاق حملة تطعيم شاملة تستهدف الأطفال دون سن الخامسة في جميع المدن الليبية، وذلك ضمن جهود مكافحة الأمراض الوبائية.</p>
+                        <span class="source-date">المصدر: NCDC Libya | 10 مارس 2024</span>
+                    </div>
+                    <div class="news-item">
+                        <h4>الذكاء الاصطناعي يُحدث ثورة في تشخيص الأمراض المزمنة</h4>
+                        <p>تزايد استخدام تقنيات الذكاء الاصطناعي في المجال الطبي، خاصة في تحليل الصور الإشعاعية والبيانات السريرية، مما يساهم في الكشف المبكر عن الأمراض المزمنة مثل السكري والسرطان بدقة غير مسبوقة.</p>
+                        <span class="source-date">المصدر: PubMed | 05 مارس 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <footer class="footer">
         <div class="container px-4">
@@ -575,31 +655,31 @@
 
         function generateDummyResearch(count) {
             const researchTopics = [
-                { title: "تأثير التغيرات المناخية على انتشار الأمراض المعدية", field: "الصحة البيئية", keywords: "climate change infectious diseases" },
-                { title: "فعالية اللقاحات الجديدة ضد سلالات الأنفلونزا المتحورة", field: "مكافحة العدوى", keywords: "new vaccines influenza strains" },
-                { title: "دور التغذية السليمة في تعزيز المناعة لدى الأطفال", field: "سلامة الغذاء والتغذية", keywords: "nutrition child immunity" },
-                { title: "الوعي الصحي ومكافحة الأمراض المزمنة في المجتمعات النامية", field: "الصحة العامة", keywords: "health awareness chronic diseases developing countries" },
-                { title: "تكنولوجيا الرصد الوبائي: التحديات والفرص", field: "مكافحة العدوى", keywords: "epidemiological surveillance technology" },
-                { title: "سلامة المياه الصالحة للشرب وتأثيرها على صحة السكان", field: "سلامة الغذاء والتغذية", keywords: "drinking water safety public health" },
-                { title: "استراتيجيات الحد من مقاومة المضادات الحيوية في البيئة الصحية", field: "مكافحة العدوى", keywords: "antibiotic resistance strategies healthcare" },
-                { title: "تأثير النشاط البدني على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "physical activity adolescent mental health" },
-                { title: "فحص جودة الأغذية المستوردة ودورها في الحماية من الأمراض", field: "سلامة الغذاء والتغذية", keywords: "imported food quality foodborne diseases" },
-                { title: "الابتكارات في التشخيص المبكر للأمراض السرطانية", field: "الصحة العامة", keywords: "innovations early cancer diagnosis" },
-                { title: "مكافحة العدوى في مراكز الرعاية الأولية", field: "مكافحة العدوى", keywords: "infection control primary healthcare" },
-                { title: "التعليم الصحي للمجتمعات الريفية: التحديات والحلول", field: "الصحة العامة", keywords: "health education rural communities" },
-                { title: "تأثير التلوث البيئي على الجهاز التنفسي", field: "الصحة البيئية", keywords: "environmental pollution respiratory health" },
-                { title: "طرق جديدة للكشف عن الملوثات في الغذاء", field: "سلامة الغذاء والتغذية", keywords: "new methods food contaminants detection" },
-                { title: "الأمن البيولوجي في المختبرات الطبية", field: "مكافحة العدوى", keywords: "biosafety medical laboratories" },
-                { title: "تقييم برامج التطعيم الوطنية وأثرها على الصحة العامة", field: "الصحة العامة", keywords: "national vaccination programs public health impact" },
-                { title: "التحديات الصحية لسكان المناطق النائية", field: "الصحة العامة", keywords: "health challenges remote areas" },
-                { title: "استخدام تقنيات الذكاء الاصطناعي في تشخيص الأمراض", field: "الابتكار الطبي", keywords: "AI technologies disease diagnosis" },
-                { title: "دراسة حول فعالية حملات التوعية بسرطان الثدي", field: "الصحة العامة", keywords: "breast cancer awareness campaigns effectiveness" },
-                { title: "تحسين جودة الهواء في المدن وتأثيره على الصحة", field: "الصحة البيئية", keywords: "urban air quality health impact" },
-                { title: "دور الأنماط الحياتية في الوقاية من أمراض القلب", field: "الوقاية من الأمراض", keywords: "lifestyle cardiovascular disease prevention" },
-                { title: "تأثير الجوائح على الصحة النفسية للمجتمعات", field: "الصحة النفسية", keywords: "pandemics mental health community" },
-                { title: "التقنيات الحديثة في علاج داء السكري", field: "الابتكار الطبي", keywords: "modern techniques diabetes treatment" },
-                { title: "سلامة منتجات التجميل وتأثيرها على البشرة", field: "الصحة الجلدية", keywords: "cosmetic product safety skin impact" },
-                { title: "برامج الفحص المبكر لسرطان القولون والمستقيم", field: "الوقاية من الأمراض", keywords: "colorectal cancer screening programs" }
+                { title: "تأثير التغيرات المناخية على انتشار الأمراض المعدية", field: "الصحة البيئية", keywords: "climate change infectious diseases environment global warming", studyTypes: ["مراجعة منهجية", "دراسة حالات", "بحث تجريبي", "دراسة مقطعية"] },
+                { title: "فعالية اللقاحات الجديدة ضد سلالات الأنفلونزا المتحورة", field: "مكافحة العدوى", keywords: "new vaccines influenza strains antiviral immunity pandemic", studyTypes: ["تجربة سريرية", "دراسة أترابية", "تحليل تلوي"] },
+                { title: "دور التغذية السليمة في تعزيز المناعة لدى الأطفال", field: "سلامة الغذاء والتغذية", keywords: "nutrition child immunity diet food supplements vitamins", studyTypes: ["دراسة مقطعية", "تحليل تلوي", "دراسة أترابية"] },
+                { title: "الوعي الصحي ومكافحة الأمراض المزمنة في المجتمعات النامية", field: "الصحة العامة", keywords: "health awareness chronic diseases developing countries education prevention", studyTypes: ["مراجعة منهجية", "دراسة مقطعية"] },
+                { title: "تكنولوجيا الرصد الوبائي: التحديات والفرص", field: "مكافحة العدوى", keywords: "epidemiological surveillance technology public health data AI", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "سلامة المياه الصالحة للشرب وتأثيرها على صحة السكان", field: "سلامة الغذاء والتغذية", keywords: "drinking water safety public health contamination sanitation", studyTypes: ["دراسة حالات", "دراسة مقطعية"] },
+                { title: "استراتيجيات الحد من مقاومة المضادات الحيوية في البيئة الصحية", field: "مكافحة العدوى", keywords: "antibiotic resistance strategies healthcare infection control AMR", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "تأثير النشاط البدني على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "physical activity adolescent mental health depression anxiety well-being", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
+                { title: "فحص جودة الأغذية المستوردة ودورها في الحماية من الأمراض", field: "سلامة الغذاء والتغذية", keywords: "imported food quality foodborne diseases safety regulation standards", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
+                { title: "الابتكارات في التشخيص المبكر للأمراض السرطانية", field: "الصحة العامة", keywords: "innovations early cancer diagnosis screening biomarkers technology", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
+                { title: "مكافحة العدوى في مراكز الرعاية الأولية", field: "مكافحة العدوى", keywords: "infection control primary healthcare hygiene hand washing PPE", studyTypes: ["بحث تجريبي", "دراسة مقطعية"] },
+                { title: "التعليم الصحي للمجتمعات الريفية: التحديات والحلول", field: "الصحة العامة", keywords: "health education rural communities disparities access solutions", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
+                { title: "تأثير التلوث البيئي على الجهاز التنفسي", field: "الصحة البيئية", keywords: "environmental pollution respiratory health air quality asthma COPD", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
+                { title: "طرق جديدة للكشف عن الملوثات في الغذاء", field: "سلامة الغذاء والتغذية", keywords: "new methods food contaminants detection safety technology analysis", studyTypes: ["بحث تجريبي"] },
+                { title: "الأمن البيولوجي في المختبرات الطبية", field: "مكافحة العدوى", keywords: "biosafety medical laboratories pathogens containment protocols", studyTypes: ["مراجعة منهجية", "بحث تجريبي"] },
+                { title: "تقييم برامج التطعيم الوطنية وأثرها على الصحة العامة", field: "الصحة العامة", keywords: "national vaccination programs public health impact coverage diseases", studyTypes: ["تحليل تلوي", "مراجعة منهجية", "دراسة أترابية"] },
+                { title: "التحديات الصحية لسكان المناطق النائية", field: "الصحة العامة", keywords: "health challenges remote areas access healthcare equity infrastructure", studyTypes: ["دراسة مقطعية", "دراسة حالات"] },
+                { title: "استخدام تقنيات الذكاء الاصطناعي في تشخيص الأمراض", field: "الابتكار الطبي", keywords: "AI technologies disease diagnosis medical imaging machine learning", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "دراسة حول فعالية حملات التوعية بسرطان الثدي", field: "الصحة العامة", keywords: "breast cancer awareness campaigns effectiveness screening early detection", studyTypes: ["دراسة مقطعية", "دراسة أترابية"] },
+                { title: "تحسين جودة الهواء في المدن وتأثيره على الصحة", field: "الصحة البيئية", keywords: "urban air quality health impact pollution mitigation policies", studyTypes: ["مراجعة منهجية", "دراسة مقطعية"] },
+                { title: "دور الأنماط الحياتية في الوقاية من أمراض القلب", field: "الوقاية من الأمراض", keywords: "lifestyle cardiovascular disease prevention diet exercise stress", studyTypes: ["دراسة أترابية", "تحليل تلوي"] },
+                { title: "تأثير الجوائح على الصحة النفسية للمجتمعات", field: "الصحة النفسية", keywords: "pandemics mental health community anxiety depression trauma", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
+                { title: "التقنيات الحديثة في علاج داء السكري", field: "الابتكار الطبي", keywords: "modern techniques diabetes treatment insulin pumps continuous glucose monitoring", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
+                { title: "سلامة منتجات التجميل وتأثيرها على البشرة", field: "الصحة الجلدية", keywords: "cosmetic product safety skin impact allergies regulations ingredients", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
+                { title: "برامج الفحص المبكر لسرطان القولون والمستقيم", field: "الوقاية من الأمراض", keywords: "colorectal cancer screening programs early detection endoscopy awareness", studyTypes: ["مراجعة منهجية", "دراسة أترابية"] }
             ];
 
             const researchData = [];
@@ -607,19 +687,21 @@
 
             for (let i = 0; i < count; i++) {
                 const topic = researchTopics[i % researchTopics.length];
-                const year = currentYear - Math.floor(Math.random() * 5);
+                const year = currentYear - Math.floor(Math.random() * 5); // From current year to 4 years prior
                 const titleVariant = Math.random().toString(36).substring(2, 7); 
                 const specificTitle = `${topic.title} - ${titleVariant}`;
+                const studyType = topic.studyTypes[Math.floor(Math.random() * topic.studyTypes.length)];
                 
-                const searchKeywords = encodeURIComponent(`${specificTitle} ${topic.field} ${topic.keywords} PubMed`); 
+                const searchKeywords = encodeURIComponent(`${specificTitle} ${topic.field} ${topic.keywords} ${studyType} PubMed`); 
                 const pubmedLink = `https://pubmed.ncbi.nlm.nih.gov/?term=${searchKeywords}`;
 
                 researchData.push({
                     title: specificTitle,
                     year: year,
                     field: topic.field,
+                    studyType: studyType,
                     link: pubmedLink,
-                    keywords: topic.keywords 
+                    keywords: topic.keywords // for general search matching
                 });
             }
             return researchData;
@@ -647,6 +729,7 @@
                         <td>${item.title}</td>
                         <td>${item.year}</td>
                         <td>${item.field}</td>
+                        <td>${item.studyType}</td>
                         <td><a href="${item.link}" target="_blank" rel="noopener noreferrer">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a></td>
                     </tr>
                 `;
@@ -665,16 +748,19 @@
             const input = document.getElementById('researchSearchInput');
             const filterTerm = input.value.toLowerCase();
             const fieldFilter = document.getElementById('researchFieldFilter')?.value || ''; 
+            const studyTypeFilter = document.getElementById('researchStudyTypeFilter')?.value || '';
 
             filteredResearchData = allResearchData.filter(item => {
                 const matchesSearchTerm = item.title.toLowerCase().includes(filterTerm) ||
                                           item.year.toString().includes(filterTerm) ||
                                           item.field.toLowerCase().includes(filterTerm) ||
-                                          item.keywords.toLowerCase().includes(filterTerm); 
+                                          item.keywords.toLowerCase().includes(filterTerm) ||
+                                          item.studyType.toLowerCase().includes(filterTerm); 
                 
                 const matchesField = fieldFilter === '' || item.field === fieldFilter;
+                const matchesStudyType = studyTypeFilter === '' || item.studyType === studyTypeFilter;
 
-                return matchesSearchTerm && matchesField;
+                return matchesSearchTerm && matchesField && matchesStudyType;
             });
 
             currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
@@ -855,7 +941,7 @@
             {
                 question: "المصابون بالسكري لا يجب أن يأكلوا الفواكه أبداً.",
                 classification: "خاطئة",
-                analysis: "هذه معلومة خاطئة. الفواكه جزء مهم من النظام الغذائي الصحي، وتحتوي على فيتامينات، معادن، وألياف. يجب على مرضى السكري تناول الفواكه باعتدال، مع الانتباه إلى كميات الكربوهيدرات وتأثيرها على سكر الدم، ويفضل الفواكه ذات المؤشر الجلايسيمي المنخفض.",
+                analysis: "هذه المعلومة خاطئة. الفواكه جزء مهم من النظام الغذائي الصحي، وتحتوي على فيتامينات، معادن، وألياف. يجب على مرضى السكري تناول الفواكه باعتدال، مع الانتباه إلى كميات الكربوهيدرات وتأثيرها على سكر الدم، ويفضل الفواكه ذات المؤشر الجلايسيمي المنخفض.",
                 references: "جمعية السكري الأمريكية (ADA)، أخصائيو التغذية.",
                 dangerLevel: "متوسط"
             },
