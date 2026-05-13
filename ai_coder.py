@@ -51,11 +51,14 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 # 2. قراءة كود الموقع الحالي
-with open("index.html", "r", encoding="utf-8") as f:
-    current_code = f.read()
+try:
+    with open("index.html", "r", encoding="utf-8") as f:
+        current_code = f.read()
+except FileNotFoundError:
+    current_code = "<html><body><h1>Athar Sehi</h1></body></html>"
 
-# 3. بيانات Firebase الخاصة بك (المفاتيح الحقيقية)
-firebase_keys = """
+# 3. بيانات Firebase الحقيقية الخاصة بك
+firebase_config_str = """
 const firebaseConfig = {
   apiKey: "AIzaSyAz-mbnZhssLbV4-AOYz4KzqvORphN-PNw",
   authDomain: "atharsehi.firebaseapp.com",
@@ -63,22 +66,21 @@ const firebaseConfig = {
   storageBucket: "atharsehi.firebasestorage.app",
   messagingSenderId: "1020303874414",
   appId: "1:1020303874414:web:4f8a65e51952aeb8b5497f"
- };
- 
+};
+"""
 
-# 4. الطلب البرمجي لتفعيل الحسابات
+# 4. الطلب البرمجي المحدث
 prompt = f"""
-خذهذا الكود الحالي للموقع: {current_code}
+Current HTML code: {current_code}
 
-المطلوب تفعيل نظام الحسابات الشخصية بشكل نهائي وحقيقي:
-1. قم بدمج كود Firebase التالي في قسم الـ Script: {firebase_keys}
-2. استورد مكتبات Firebase (app و auth) باستخدام نظام (Modular SDK) أو (CDN) لتعمل في المتصفح.
-3. برمج زر "تسجيل الدخول" ليستخدم وظيفة `signInWithEmailAndPassword`.
-4. برمج زر "إنشاء حساب جديد" ليستخدم وظيفة `createUserWithEmailAndPassword`.
-5. عند نجاح الدخول: أغلق النافذة المنبثقة (Modal)، غيّر زر "تسجيل الدخول" في القائمة العلوية ليصبح "مرحباً يا دكتور"، واظهر رسالة ترحيبية.
-6. عند حدوث خطأ (مثل كلمة مرور خاطئة): اظهر التنبيه للمستخدم باللغة العربية داخل النافذة المنبثقة.
+المطلوب تفعيل نظام الحسابات الشخصية بشكل نهائي:
+1. ادمج كود Firebase هذا في الموقع: {firebase_config_str}
+2. استخدم Firebase Modular SDK (CDN) لتشغيل Authentication.
+3. برمج أزرار "تسجيل الدخول" و "إنشاء حساب" لتعمل مع Firebase.
+4. تأكد من إغلاق النافذة المنبثقة وتغيير حالة الزر في القائمة العلوية عند نجاح الدخول.
+5. أضف رسائل خطأ واضحة بالعربي إذا فشل الدخول.
 
-أعد لي كود HTML الكامل والجاهز للعمل فوراً.
+أعد لي كود HTML الكامل فقط.
 """
 
 # 5. تنفيذ التحديث
@@ -95,10 +97,10 @@ try:
 
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(clean_code.strip())
-    print("Success: Firebase Authentication is now LIVE!")
+    print("Success: App updated with working Firebase Auth!")
 
 except Exception as e:
-    print(f"Error: {e}")
+    print(f"Error occurred: {e}")
 المطلوب تفعيل نظام الحسابات الشخصية بشكل كامل: 
 1. أضف مكتبات Firebase (App و Auth) في قسم الـ Head.
 2. أضف "نافذة منبثقة" (Modal) احترافية تظهر عند الضغط على زر "تسجيل الدخول" في القائمة العلوية.
