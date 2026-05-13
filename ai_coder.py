@@ -64,7 +64,7 @@ const firebaseConfig = {
   messagingSenderId: "1020303874414",
   appId: "1:1020303874414:web:4f8a65e51952aeb8b5497f"
 };
-"""
+
 
 # 4. الطلب البرمجي لتفعيل الحسابات
 prompt = f"""
