@@ -51,16 +51,15 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 # 2. بيانات Firebase الحقيقية (الخاصة بك)
-firebase_config = """
-const firebaseConfig = {
-  apiKey: "AIzaSyAz-mbnZhssLbV4-AOYz4KzqvORphN-PNw",
+firebase_config = 
+   const firebaseConfig = {
+   apiKey: "AIzaSyAz-mbnZhssLbV4-AOYz4KzqvORphN-PNw",
   authDomain: "atharsehi.firebaseapp.com",
   projectId: "atharsehi",
   storageBucket: "atharsehi.firebasestorage.app",
   messagingSenderId: "1020303874414",
   appId: "1:1020303874414:web:4f8a65e51952aeb8b5497f"
 };
-"""
 
 # 3. محاولة قراءة الكود الحالي أو بناء واحد جديد
 try:
@@ -70,7 +69,7 @@ except:
     current_code = "New Project"
 
 # 4. طلب البناء الكامل
-prompt = f"""
+prompt = f
 أعد كتابة ملف index.html بالكامل لموقع "أثر صحي" (Impact Health).
 المواصفات المطلوبة:
 1. تصميم احترافي بـ Tailwind CSS (نفس الألوان الخضراء والطبية).
