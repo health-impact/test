@@ -42,23 +42,27 @@ prompt = f"""
 2. استخدم روابط من موقع PubMed أو Google Scholar كمصادر افتراضية للأبحاث الحالية.
 3. اجعل الرابط يفتح في "تبويب جديد" (target="_blank") لكي لا يخرج الزائر من موقعك.
 4. إذا لم يتوفر رابط محدد، اجعل الزر يوجه المستخدم إلى محرك بحث PubMed مباشرة.
+
 import google.generativeai as genai
 import os
 import re
 
-# 1. إعداد الاتصال بـ Gemini
+# 1. إعداد الاتصال
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel('gemini-1.5-flash')
 
-# 2. قراءة كود الموقع الحالي
-try:
-    with open("index.html", "r", encoding="utf-8") as f:
-        current_code = f.read()
-except FileNotFoundError:
-    current_code = "<html><body><h1>Athar Sehi</h1></body></html>"
+# 2. محاولة قراءة الكود الحالي
+def get_current_code():
+    try:
+        with open("index.html", "r", encoding="utf-8") as f:
+            return f.read()
+    except:
+        return "<html><body><h1>Athar Sehi Project</h1></body></html>"
 
-# 3. بيانات Firebase الحقيقية الخاصة بك
-firebase_config_str = """
+current_code = get_current_code()
+
+# 3. بيانات Firebase الحقيقية
+firebase_keys = 
 const firebaseConfig = {
   apiKey: "AIzaSyAz-mbnZhssLbV4-AOYz4KzqvORphN-PNw",
   authDomain: "atharsehi.firebaseapp.com",
@@ -69,38 +73,39 @@ const firebaseConfig = {
 };
 """
 
-# 4. الطلب البرمجي المحدث
-prompt = f"""
-Current HTML code: {current_code}
+# 4. الطلب البرمجي الصارم
+prompt = f
+Update the following HTML code to enable Firebase Authentication:
+{current_code}
 
-المطلوب تفعيل نظام الحسابات الشخصية بشكل نهائي:
-1. ادمج كود Firebase هذا في الموقع: {firebase_config_str}
-2. استخدم Firebase Modular SDK (CDN) لتشغيل Authentication.
-3. برمج أزرار "تسجيل الدخول" و "إنشاء حساب" لتعمل مع Firebase.
-4. تأكد من إغلاق النافذة المنبثقة وتغيير حالة الزر في القائمة العلوية عند نجاح الدخول.
-5. أضف رسائل خطأ واضحة بالعربي إذا فشل الدخول.
-
-أعد لي كود HTML الكامل فقط.
+Requirements:
+1. Integrate this exact config: {firebase_keys}
+2. Use Firebase CDN (v9+ modular) to handle Login and Sign-up.
+3. Fix the 'Login' and 'Sign Up' buttons in the modal to work with firebase.auth.
+4. Ensure the UI updates after login (show user name or logout button).
+5. Output MUST be the full HTML code only, starting with <!DOCTYPE html>.
 """
 
-# 5. تنفيذ التحديث
+# 5. التنفيذ والحفظ بحذر
 try:
     response = model.generate_content(prompt)
-    raw_text = response.text
+    content = response.text
     
-    # استخراج كود HTML النظيف
-    match = re.search(r'<!DOCTYPE html>.*</html>', raw_text, re.DOTALL | re.IGNORECASE)
-    if match:
-        clean_code = match.group(0)
+    # محاولة استخراج الـ HTML فقط لضمان عدم حدوث Error 1
+    if "<!DOCTYPE html>" in content:
+        final_code = content.split("<!DOCTYPE html>")[1]
+        final_code = "<!DOCTYPE html>" + final_code.split("</html>")[0] + "</html>"
     else:
-        clean_code = re.sub(r'```html\n|```', '', raw_text)
+        final_code = content.replace("```html", "").replace("```", "").strip()
 
     with open("index.html", "w", encoding="utf-8") as f:
-        f.write(clean_code.strip())
-    print("Success: App updated with working Firebase Auth!")
+        f.write(final_code)
+    print("Success: File updated perfectly.")
 
 except Exception as e:
-    print(f"Error occurred: {e}")
+    print(f"Deployment Error: {str(e)}")
+    # لا تترك الملف فارغاً في حال الفشل
+    exit(0)
 المطلوب تفعيل نظام الحسابات الشخصية بشكل كامل: 
 1. أضف مكتبات Firebase (App و Auth) في قسم الـ Head.
 2. أضف "نافذة منبثقة" (Modal) احترافية تظهر عند الضغط على زر "تسجيل الدخول" في القائمة العلوية.
