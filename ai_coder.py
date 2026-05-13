@@ -2,6 +2,51 @@ import google.generativeai as genai
 import os
 import re
 
+# 1. إعداد الاتصال
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+model = genai.GenerativeModel('gemini-1.5-flash')
+
+# 2. قراءة الملف الحالي
+with open("index.html", "r", encoding="utf-8") as f:
+    current_code = f.read()
+
+# 3. الطلب الصارم لإنهاء المشكلة
+prompt = f"""
+خذهذا الكود: {current_code}
+
+المشكلة: زر التحقق يعطي خطأ في الـ API.
+المطلوب إصلاحه فوراً:
+1. احذف أي أكواد JavaScript تحاول الاتصال بـ GoogleGenerativeAI أو تطلب API Key من المتصفح.
+2. استبدلها بـ "عقل داخلي" عبارة عن مصفوفة (Array) ضخمة في جافا سكريبت تحتوي على 40 إشاعة طبية ليبية وعالمية مع إجاباتها العلمية المفصلة.
+3. برمج وظيفة (checkRumor) بحيث تبحث في هذه المصفوفة باستخدام (includes) أو (keywords).
+4. إذا لم يجد النظام كلمة مطابقة، اجعله يظهر: "هذه المعلومة قيد الدراسة المخبرية حالياً، يمكنك إرسالها للدكتور عبر الواتساب للتأكد".
+5. أضف تنسيقاً جذاباً لظهور النتيجة (لون أخضر للحقيقة، أحمر للإشاعة).
+
+مهم: أريد الكود كاملاً وجاهزاً للعمل فوراً بدون أي أخطاء API.
+"""
+
+# 4. التنفيذ والتنظيف
+try:
+    response = model.generate_content(prompt)
+    raw_text = response.text
+    
+    match = re.search(r'<!DOCTYPE html>.*</html>', raw_text, re.DOTALL | re.IGNORECASE)
+    if match:
+        clean_code = match.group(0)
+    else:
+        clean_code = re.sub(r'```html\n|```', '', raw_text)
+
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(clean_code.strip())
+    print("Fixed: Internal logic deployed.")
+
+except Exception as e:
+    print(f"Error: {e}")
+import google.generativeai as genai
+import os
+import re
+
 # 1. إعداد الاتصال بجيمني
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
