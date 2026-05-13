@@ -229,11 +229,11 @@
             <nav class="nav-box">
                 <a href="#hero" class="nav-item-link">الرئيسية</a>
                 <a href="#about" class="nav-item-link">عن المنصة</a>
+                <a href="#user-accounts" class="nav-item-link">حسابي</a>
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
                 <a href="#store" class="nav-item-link">المتجر</a>
                 <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
                 <a href="#fact-check" class="nav-item-link">التحقق العلمي</a>
-                <a href="#user-accounts" class="nav-item-link">حسابي</a>
             </nav>
         </div>
     </header>
@@ -255,6 +255,45 @@
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
                     منصة توعوية متخصصة تعمل بالذكاء الإصطناعي يشرف عليها <strong>طالب دراسات عليا بقسم الصحة العامة</strong>، تهدف لتقديم محتوى موثوق يعتمد بشكل أساسي على تحديثات منظمات ومصادر عالمية ومحلية مثل  <strong>WHO</strong> و <strong>NCDC</strong> و <strong>FDA</strong> وغيرها لضمان دقة المعلومة وترك أثر إيجابي يدوم في المجتمع الليبي .
                 </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم حسابات المستخدمين -->
+    <section id="user-accounts" style="background-color: #f4f7f6;">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-5 text-success">حسابي الشخصي</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="user-account-card">
+                        <div class="icon-box"><i class="fas fa-user-circle"></i></div>
+                        <h4 class="fw-bold">تسجيل الدخول / إنشاء حساب</h4>
+                        <p class="text-muted small">سجّل الدخول للوصول إلى مميزات الحساب الشخصي.</p>
+                        <button class="btn btn-outline-success rounded-pill px-4 py-2" onclick="alert('هذه الميزة قيد التطوير.')">
+                            ابدأ الآن
+                        </button>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="user-account-card">
+                        <div class="icon-box"><i class="fas fa-bookmark"></i></div>
+                        <h4 class="fw-bold">محتوى محفوظ</h4>
+                        <p class="text-muted small">احفظ نصائحك وأبحاثك المفضلة للرجوع إليها لاحقًا.</p>
+                        <button class="btn btn-outline-secondary rounded-pill px-4 py-2" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
+                            <i class="fas fa-arrow-right"></i> عرض المحفوظات
+                        </button>
+                    </div>
+                </div>
+                 <div class="col-12 col-md-6 col-lg-4">
+                    <div class="user-account-card">
+                        <div class="icon-box"><i class="fas fa-bell"></i></div>
+                        <h4 class="fw-bold">إشعارات وتنبيهات</h4>
+                        <p class="text-muted small">تلقَّ تنبيهات حول أحدث الأبحاث والتحديثات.</p>
+                        <button class="btn btn-outline-info rounded-pill px-4 py-2" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
+                            <i class="fas fa-cogs"></i> إدارة التنبيهات
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -394,45 +433,6 @@
                 <div id="factCheckResults" class="mt-4">
                     <div class="alert alert-info text-center" role="alert">
                         <i class="fas fa-info-circle me-2"></i> سيظهر التحليل هنا بعد إرسال المحتوى.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- قسم حسابات المستخدمين -->
-    <section id="user-accounts" style="background-color: #f4f7f6;">
-        <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5 text-success">حسابي الشخصي</h2>
-            <div class="row g-4 justify-content-center">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="user-account-card">
-                        <div class="icon-box"><i class="fas fa-user-circle"></i></div>
-                        <h4 class="fw-bold">تسجيل الدخول / إنشاء حساب</h4>
-                        <p class="text-muted small">سجّل الدخول للوصول إلى مميزات الحساب الشخصي.</p>
-                        <button class="btn btn-outline-success rounded-pill px-4 py-2" onclick="alert('هذه الميزة قيد التطوير.')">
-                            ابدأ الآن
-                        </button>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="user-account-card">
-                        <div class="icon-box"><i class="fas fa-bookmark"></i></div>
-                        <h4 class="fw-bold">محتوى محفوظ</h4>
-                        <p class="text-muted small">احفظ نصائحك وأبحاثك المفضلة للرجوع إليها لاحقًا.</p>
-                        <button class="btn btn-outline-secondary rounded-pill px-4 py-2" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
-                            <i class="fas fa-arrow-right"></i> عرض المحفوظات
-                        </button>
-                    </div>
-                </div>
-                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="user-account-card">
-                        <div class="icon-box"><i class="fas fa-bell"></i></div>
-                        <h4 class="fw-bold">إشعارات وتنبيهات</h4>
-                        <p class="text-muted small">تلقَّ تنبيهات حول أحدث الأبحاث والتحديثات.</p>
-                        <button class="btn btn-outline-info rounded-pill px-4 py-2" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
-                            <i class="fas fa-cogs"></i> إدارة التنبيهات
-                        </button>
                     </div>
                 </div>
             </div>
@@ -937,7 +937,7 @@
             });
 
             // Set a threshold for what constitutes a "match"
-            // This threshold might need tuning based on the data and desired strictness.
+            // This threshold might need tuning based on the data and and desired strictness.
             const matchThreshold = 4; // Adjusted threshold for better matching
             if (highestScore >= matchThreshold) {
                 return bestMatch;
