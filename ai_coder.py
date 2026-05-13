@@ -42,7 +42,63 @@ prompt = f"""
 2. استخدم روابط من موقع PubMed أو Google Scholar كمصادر افتراضية للأبحاث الحالية.
 3. اجعل الرابط يفتح في "تبويب جديد" (target="_blank") لكي لا يخرج الزائر من موقعك.
 4. إذا لم يتوفر رابط محدد، اجعل الزر يوجه المستخدم إلى محرك بحث PubMed مباشرة.
+import google.generativeai as genai
+import os
+import re
 
+# 1. إعداد الاتصال بـ Gemini
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+model = genai.GenerativeModel('gemini-1.5-flash')
+
+# 2. قراءة كود الموقع الحالي
+with open("index.html", "r", encoding="utf-8") as f:
+    current_code = f.read()
+
+# 3. بيانات Firebase الخاصة بك (المفاتيح الحقيقية)
+firebase_keys = """
+const firebaseConfig = {
+  apiKey: "AIzaSyAz-mbnZhssLbV4-AOYz4KzqvORphN-PNw",
+  authDomain: "atharsehi.firebaseapp.com",
+  projectId: "atharsehi",
+  storageBucket: "atharsehi.firebasestorage.app",
+  messagingSenderId: "1020303874414",
+  appId: "1:1020303874414:web:4f8a65e51952aeb8b5497f"
+};
+"""
+
+# 4. الطلب البرمجي لتفعيل الحسابات
+prompt = f"""
+خذهذا الكود الحالي للموقع: {current_code}
+
+المطلوب تفعيل نظام الحسابات الشخصية بشكل نهائي وحقيقي:
+1. قم بدمج كود Firebase التالي في قسم الـ Script: {firebase_keys}
+2. استورد مكتبات Firebase (app و auth) باستخدام نظام (Modular SDK) أو (CDN) لتعمل في المتصفح.
+3. برمج زر "تسجيل الدخول" ليستخدم وظيفة `signInWithEmailAndPassword`.
+4. برمج زر "إنشاء حساب جديد" ليستخدم وظيفة `createUserWithEmailAndPassword`.
+5. عند نجاح الدخول: أغلق النافذة المنبثقة (Modal)، غيّر زر "تسجيل الدخول" في القائمة العلوية ليصبح "مرحباً يا دكتور"، واظهر رسالة ترحيبية.
+6. عند حدوث خطأ (مثل كلمة مرور خاطئة): اظهر التنبيه للمستخدم باللغة العربية داخل النافذة المنبثقة.
+
+أعد لي كود HTML الكامل والجاهز للعمل فوراً.
+"""
+
+# 5. تنفيذ التحديث
+try:
+    response = model.generate_content(prompt)
+    raw_text = response.text
+    
+    # استخراج كود HTML النظيف
+    match = re.search(r'<!DOCTYPE html>.*</html>', raw_text, re.DOTALL | re.IGNORECASE)
+    if match:
+        clean_code = match.group(0)
+    else:
+        clean_code = re.sub(r'```html\n|```', '', raw_text)
+
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(clean_code.strip())
+    print("Success: Firebase Authentication is now LIVE!")
+
+except Exception as e:
+    print(f"Error: {e}")
 المطلوب تفعيل نظام الحسابات الشخصية بشكل كامل: 
 1. أضف مكتبات Firebase (App و Auth) في قسم الـ Head.
 2. أضف "نافذة منبثقة" (Modal) احترافية تظهر عند الضغط على زر "تسجيل الدخول" في القائمة العلوية.
