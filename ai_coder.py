@@ -1,7 +1,6 @@
 import google.generativeai as genai
 import os
 import re
-
 # 1. إعداد الاتصال
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
