@@ -23,23 +23,30 @@
             signOut 
         } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
         
-     // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
         // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries 
+        // https://firebase.google.com/docs/web/setup#available-libraries 
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAz-mbnZhssLbV4-AOYz4KzqvORphN-PNw",
-  authDomain: "atharsehi.firebaseapp.com",
-  projectId: "atharsehi",
-  storageBucket: "atharsehi.firebasestorage.app",
-  messagingSenderId: "1020303874414",
-  appId: "1:1020303874414:web:4f8a65e51952aeb8b5497f"
-};
+        // Your web app's Firebase configuration - REPLACE WITH YOUR OWN CONFIG
+        const firebaseConfig = {
+          apiKey: "AIzaSyAz-mbnZhssLbV4-AOYz4KzqvORphN-PNw", // Replace with your apiKey
+          authDomain: "atharsehi.firebaseapp.com", // Replace with your authDomain
+          projectId: "atharsehi", // Replace with your projectId
+          storageBucket: "atharsehi.firebasestorage.app", // Replace with your storageBucket
+          messagingSenderId: "1020303874414", // Replace with your messagingSenderId
+          appId: "1:1020303874414:web:4f8a65e51952aeb8b5497f" // Replace with your appId
+        };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        
+        // Export Firebase Auth and functions to the window object for use in non-module scripts
+        window.app = app;
+        window.auth = getAuth(app);
+        window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+        window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+        window.onAuthStateChanged = onAuthStateChanged;
+        window.signOut = signOut;
+    </script>
     
     <style>
         /* 1. التنسيق العام والخطوط */
@@ -282,11 +289,12 @@ const app = initializeApp(firebaseConfig);
             <nav class="nav-box">
                 <a href="#hero" class="nav-item-link">الرئيسية</a>
                 <a href="#about" class="nav-item-link">عن المنصة</a>
-                <a href="#" class="nav-item-link" id="authNavLink" data-bs-toggle="modal" data-bs-target="#authModal">تسجيل الدخول</a>
                 <a href="#health-news" class="nav-item-link">آخر الأخبار</a>
+                <a href="#user-accounts" class="nav-item-link">حسابي</a>
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
                 <a href="#store" class="nav-item-link">المتجر</a>
                 <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
+                <a href="#" class="nav-item-link" id="authNavLink" data-bs-toggle="modal" data-bs-target="#authModal">تسجيل الدخول</a>
             </nav>
         </div>
     </header>
@@ -801,6 +809,7 @@ const app = initializeApp(firebaseConfig);
         }
 
         // --- Firebase Auth Functions ---
+        // Ensure Firebase objects are available globally from the module script
         const authModal = new bootstrap.Modal(document.getElementById('authModal'));
         const emailInput = document.getElementById('emailInput');
         const passwordInput = document.getElementById('passwordInput');
@@ -878,43 +887,49 @@ const app = initializeApp(firebaseConfig);
         }
 
         // Auth state observer
-        window.onAuthStateChanged(window.auth, (user) => {
-            if (user) {
-                // User is signed in
-                const displayName = user.email.split('@')[0]; // Simple display name from email
-                authNavLink.innerHTML = `<i class="fas fa-user"></i> ${displayName}`;
-                authNavLink.onclick = handleSignOut;
-                authNavLink.removeAttribute('data-bs-toggle');
-                authNavLink.removeAttribute('data-bs-target');
-                authNavLink.classList.add('active-link'); // Highlight if logged in
+        // Check if window.auth is defined before using it
+        if (window.auth) {
+            window.onAuthStateChanged(window.auth, (user) => {
+                if (user) {
+                    // User is signed in
+                    const displayName = user.email.split('@')[0]; // Simple display name from email
+                    authNavLink.innerHTML = `<i class="fas fa-user"></i> ${displayName}`;
+                    authNavLink.onclick = handleSignOut;
+                    authNavLink.removeAttribute('data-bs-toggle');
+                    authNavLink.removeAttribute('data-bs-target');
+                    authNavLink.classList.add('active-link'); // Highlight if logged in
 
-                userAccountStatus.textContent = `مرحباً بك، ${displayName}`;
-                userAccountDescription.textContent = 'أهلاً بك في حسابك الشخصي. يمكنك إدارة محتواك المحفوظ وإعدادات التنبيهات.';
-                authActionButton.textContent = 'تسجيل الخروج';
-                authActionButton.classList.remove('btn-outline-success');
-                authActionButton.classList.add('btn-danger');
-                authActionButton.onclick = handleSignOut;
-                authActionButton.removeAttribute('data-bs-toggle');
-                authActionButton.removeAttribute('data-bs-target');
+                    userAccountStatus.textContent = `مرحباً بك، ${displayName}`;
+                    userAccountDescription.textContent = 'أهلاً بك في حسابك الشخصي. يمكنك إدارة محتواك المحفوظ وإعدادات التنبيهات.';
+                    authActionButton.textContent = 'تسجيل الخروج';
+                    authActionButton.classList.remove('btn-outline-success');
+                    authActionButton.classList.add('btn-danger');
+                    authActionButton.onclick = handleSignOut;
+                    authActionButton.removeAttribute('data-bs-toggle');
+                    authActionButton.removeAttribute('data-bs-target');
 
-            } else {
-                // User is signed out
-                authNavLink.innerHTML = 'تسجيل الدخول';
-                authNavLink.onclick = null; // Re-enable modal trigger
-                authNavLink.setAttribute('data-bs-toggle', 'modal');
-                authNavLink.setAttribute('data-bs-target', '#authModal');
-                authNavLink.classList.remove('active-link'); // Remove highlight
+                } else {
+                    // User is signed out
+                    authNavLink.innerHTML = 'تسجيل الدخول';
+                    authNavLink.onclick = null; // Re-enable modal trigger
+                    authNavLink.setAttribute('data-bs-toggle', 'modal');
+                    authNavLink.setAttribute('data-bs-target', '#authModal');
+                    authNavLink.classList.remove('active-link'); // Remove highlight
 
-                userAccountStatus.textContent = 'تسجيل الدخول / إنشاء حساب';
-                userAccountDescription.textContent = 'سجّل الدخول للوصول إلى مميزات الحساب الشخصي.';
-                authActionButton.textContent = 'ابدأ الآن';
-                authActionButton.classList.remove('btn-danger');
-                authActionButton.classList.add('btn-outline-success');
-                authActionButton.onclick = null; // Re-enable modal trigger
-                authActionButton.setAttribute('data-bs-toggle', 'modal');
-                authActionButton.setAttribute('data-bs-target', '#authModal');
-            }
-        });
+                    userAccountStatus.textContent = 'تسجيل الدخول / إنشاء حساب';
+                    userAccountDescription.textContent = 'سجّل الدخول للوصول إلى مميزات الحساب الشخصي.';
+                    authActionButton.textContent = 'ابدأ الآن';
+                    authActionButton.classList.remove('btn-danger');
+                    authActionButton.classList.add('btn-outline-success');
+                    authActionButton.onclick = null; // Re-enable modal trigger
+                    authActionButton.setAttribute('data-bs-toggle', 'modal');
+                    authActionButton.setAttribute('data-bs-target', '#authModal');
+                }
+            });
+        } else {
+             console.error("Firebase Auth not initialized. Ensure Firebase SDK is loaded correctly.");
+        }
+
 
         // Event listeners for modal buttons
         document.addEventListener('DOMContentLoaded', () => {
