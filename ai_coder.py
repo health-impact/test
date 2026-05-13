@@ -45,24 +45,13 @@ prompt = f"""
 
 import google.generativeai as genai
 import os
-import re
 
 # 1. إعداد الاتصال
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel('gemini-1.5-flash')
 
-# 2. محاولة قراءة الكود الحالي
-def get_current_code():
-    try:
-        with open("index.html", "r", encoding="utf-8") as f:
-            return f.read()
-    except:
-        return "<html><body><h1>Athar Sehi Project</h1></body></html>"
-
-current_code = get_current_code()
-
-# 3. بيانات Firebase الحقيقية
-firebase_keys = 
+# 2. بيانات Firebase الحقيقية (الخاصة بك)
+firebase_config = """
 const firebaseConfig = {
   apiKey: "AIzaSyAz-mbnZhssLbV4-AOYz4KzqvORphN-PNw",
   authDomain: "atharsehi.firebaseapp.com",
@@ -73,39 +62,45 @@ const firebaseConfig = {
 };
 """
 
-# 4. الطلب البرمجي الصارم
-prompt = f
-Update the following HTML code to enable Firebase Authentication:
-{current_code}
+# 3. محاولة قراءة الكود الحالي أو بناء واحد جديد
+try:
+    with open("index.html", "r", encoding="utf-8") as f:
+        current_code = f.read()
+except:
+    current_code = "New Project"
 
-Requirements:
-1. Integrate this exact config: {firebase_keys}
-2. Use Firebase CDN (v9+ modular) to handle Login and Sign-up.
-3. Fix the 'Login' and 'Sign Up' buttons in the modal to work with firebase.auth.
-4. Ensure the UI updates after login (show user name or logout button).
-5. Output MUST be the full HTML code only, starting with <!DOCTYPE html>.
+# 4. طلب البناء الكامل
+prompt = f"""
+أعد كتابة ملف index.html بالكامل لموقع "أثر صحي" (Impact Health).
+المواصفات المطلوبة:
+1. تصميم احترافي بـ Tailwind CSS (نفس الألوان الخضراء والطبية).
+2. تفعيل نظام الحسابات باستخدام هذا الكود: {firebase_config}
+3. إضافة أزرار "تسجيل الدخول" و "إنشاء حساب" في الأعلى.
+4. برمج الأزرار باستخدام Firebase Auth (Modular SDK) لتعمل فعلياً.
+5. أضف قسم "حسابة المعقمات" و "مكتبة الأبحاث" بشكل مبسط.
+6. تأكد أن الكود كامل (Complete) ولا يحتوي على أخطاء برمجية.
+
+أجب بكود HTML فقط يبدأ بـ <!DOCTYPE html> وينتهي بـ </html>.
 """
 
-# 5. التنفيذ والحفظ بحذر
+# 5. التنفيذ والحفظ الإجباري
 try:
     response = model.generate_content(prompt)
-    content = response.text
+    full_html = response.text
     
-    # محاولة استخراج الـ HTML فقط لضمان عدم حدوث Error 1
-    if "<!DOCTYPE html>" in content:
-        final_code = content.split("<!DOCTYPE html>")[1]
-        final_code = "<!DOCTYPE html>" + final_code.split("</html>")[0] + "</html>"
+    # تنظيف الرد من أي كلام جانبي
+    if "<!DOCTYPE html>" in full_html:
+        start = full_html.find("<!DOCTYPE html>")
+        end = full_html.rfind("</html>") + 7
+        clean_html = full_html[start:end]
     else:
-        final_code = content.replace("```html", "").replace("```", "").strip()
+        clean_html = full_html.replace("```html", "").replace("```", "").strip()
 
     with open("index.html", "w", encoding="utf-8") as f:
-        f.write(final_code)
-    print("Success: File updated perfectly.")
-
+        f.write(clean_html)
+    print("DONE: Website rebuilt with full Authentication.")
 except Exception as e:
-    print(f"Deployment Error: {str(e)}")
-    # لا تترك الملف فارغاً في حال الفشل
-    exit(0)
+    print(f"Final Attempt Error: {e}")
 المطلوب تفعيل نظام الحسابات الشخصية بشكل كامل: 
 1. أضف مكتبات Firebase (App و Auth) في قسم الـ Head.
 2. أضف "نافذة منبثقة" (Modal) احترافية تظهر عند الضغط على زر "تسجيل الدخول" في القائمة العلوية.
