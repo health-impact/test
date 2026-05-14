@@ -37,7 +37,7 @@ prompt = f"""
 3. أضف 100 صفوف تجريبية لأبحاث حديثة اظهار خمسة ابحاث في كل مرة نضغط فيها زر عرض المزيد عن "جميع مجالات الصحة العامة".
 4. تأكد من وجود زر "فلترة" بسيط للبحث داخل المكتبة.
 
-المطلوب إصلاح أزرار "قراءة المزيد" في مكتبة الأبحاث:
+المطلوب إصلاح أزرار "قراءة المزيد""السابق" في مكتبة الأبحاث:
 1. تأكد أن كل زر "قراءة المزيد" يحتوي على رابط حقيقي (Link) لمصدر البحث.
 2. استخدم روابط من موقع PubMed أو Google Scholar كمصادر افتراضية للأبحاث الحالية.
 3. اجعل الرابط يفتح في "تبويب جديد" (target="_blank") لكي لا يخرج الزائر من موقعك.
@@ -52,8 +52,8 @@ model = genai.GenerativeModel('gemini-1.5-flash')
 
 # 2. بيانات Firebase الحقيقية (الخاصة بك)
 firebase_config = 
-   const firebaseConfig = {
-   apiKey: "AIzaSyAz-mbnZhssLbV4-AOYz4KzqvORphN-PNw",
+   const firebaseConfig = 
+  apiKey: "AIzaSyAz-mbnZhssLbV4-AOYz4KzqvORphN-PNw",
   authDomain: "atharsehi.firebaseapp.com",
   projectId: "atharsehi",
   storageBucket: "atharsehi.firebasestorage.app",
@@ -80,7 +80,7 @@ prompt = f
 6. تأكد أن الكود كامل (Complete) ولا يحتوي على أخطاء برمجية.
 
 أجب بكود HTML فقط يبدأ بـ <!DOCTYPE html> وينتهي بـ </html>.
-"""
+
 
 # 5. التنفيذ والحفظ الإجباري
 try:
@@ -122,7 +122,7 @@ except Exception as e:
 - ابدأ مباشرة بـ <!DOCTYPE html>.
 - لا تكتب "إليك الكود" أو "بالتأكيد" أو أي شرح.
 - لا تستخدم علامات الماركدوان مثل ```html.
-"""
+
 
 # 5. طلب الكود وتنظيفه
 try:
