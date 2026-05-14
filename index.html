@@ -3,17 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أثر صحي | نصائح الصحة العامة المعتمدة</title>
-<meta name="description" content="منصة ليبية تقدم نصائح موثوقة في الصحة العامة، مكافحة العدوى، وسلامة الغذاء تحت إشراف متخصصين.">
-<meta name="keywords" content="صحة عامة، ليبيا، نصائح طبية، أثر صحي، طرابلس، وقاية">
-    <meta name="google-site-verification" content="i5UXVqCFfyDU9PnXd3nLwCLeB2KdXY-Jd_Mf-aZXVkQ" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>أثر صحي | Impact Health - نصائح صحية وأبحاث موثوقة</title>
+    <meta name="description" content="منصة أثر صحي تقدم نصائح صحية موثوقة، أبحاث علمية، وأخبار طبية باستخدام الذكاء الاصطناعي وبالتعاون مع متخصصين.">
+    <meta name="keywords" content="صحة عامة، نصائح صحية، أبحاث طبية، مكافحة العدوى، سلامة الغذاء، الذكاء الاصطناعي، ليبيا، طرابلس، وقاية">
+    <meta name="google-site-verification" content="YOUR_GOOGLE_SITE_VERIFICATION_CODE_HERE" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-green': '#198754', // Main green color, similar to Bootstrap success
+                        'dark-bg': '#1e2022',      // Dark gray background
+                        'light-bg': '#fdfdfd',     // Light background for sections
+                        'accent-blue': '#007ee5',  // PubMed blue
+                        'cdc-blue': '#3e6d8e',     // CDC blue
+                    },
+                    fontFamily: {
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome CDN for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS for Modal (Tailwind doesn't provide modals directly, easier to use BS for this) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Firebase SDKs -->
     <script type="module">
-        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { 
             getAuth, 
@@ -23,18 +46,14 @@
             signOut 
         } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
         
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries 
-
         // Your web app's Firebase configuration - REPLACE WITH YOUR OWN CONFIG
-        // الرجاء استبدال هذه القيم ببيانات Firebase الخاصة بمشروعك
         const firebaseConfig = {
-          apiKey: "AIzaSyAz-mbnZhssLbV4-AOYz4KzqvORphN-PNw", // Replace with your apiKey
-          authDomain: "atharsehi.firebaseapp.com", // Replace with your authDomain
-          projectId: "atharsehi", // Replace with your projectId
-          storageBucket: "atharsehi.firebasestorage.app", // Replace with your storageBucket
-          messagingSenderId: "1020303874414", // Replace with your messagingSenderId
-          appId: "1:1020303874414:web:4f8a65e51952aeb8b5497f" // Replace with your appId
+          apiKey: "YOUR_API_KEY",
+          authDomain: "YOUR_AUTH_DOMAIN",
+          projectId: "YOUR_PROJECT_ID",
+          storageBucket: "YOUR_STORAGE_BUCKET",
+          messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+          appId: "YOUR_APP_ID"
         };
 
         // Initialize Firebase
@@ -48,248 +67,154 @@
         window.onAuthStateChanged = onAuthStateChanged;
         window.signOut = signOut;
     </script>
-    
+
     <style>
-        /* 1. التنسيق العام والخطوط */
-        :root { --dark-gray: #1e2022; --main-green: #198754; --light-bg: #fdfdfd; }
-        body { font-family: 'Tajawal', sans-serif; background-color: var(--light-bg); color: #333; scroll-behavior: smooth; overflow-x: hidden; }
-
-        /* 2. الهيدر المطور للموبايل والكمبيوتر */
-        .header-top { 
-            background-color: var(--dark-gray); 
-            color: white; 
-            padding: 10px 0; 
-            border-bottom: 4px solid var(--main-green); 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
+        /* Custom Styles - Using Tailwind for most, but some specific elements/overrides here */
+        body {
+            font-family: 'Tajawal', sans-serif;
+            @apply bg-light-bg text-gray-800 scroll-smooth overflow-x-hidden;
         }
-        .brand-text { font-size: clamp(1.1rem, 4vw, 1.8rem); font-weight: 800; letter-spacing: 1px; }
-        
-        /* شريط التنقل المتجاوب */
-        .nav-box { 
-            display: flex; 
-            overflow-x: auto; 
-            white-space: nowrap; 
-            gap: 10px;
-            -webkit-overflow-scrolling: touch; 
+        section {
+            @apply py-20;
         }
-        .nav-box::-webkit-scrollbar { display: none; } /* إخفاء شريط التمرير */
-
-        .nav-item-link { 
-            color: #bbb; 
-            text-decoration: none; 
-            font-weight: 600; 
-            font-size: 0.9rem; 
-            padding: 8px 15px;
-            transition: 0.3s;
+        .header-top {
+            @apply bg-dark-bg text-white py-3 border-b-4 border-primary-green sticky top-0 z-50;
         }
-        .nav-item-link:hover { color: var(--main-green); }
+        .brand-text {
+            @apply text-xl md:text-2xl lg:text-3xl font-extrabold tracking-wider;
+        }
+        .nav-box {
+            @apply flex overflow-x-auto whitespace-nowrap gap-x-4 pb-1 -mb-1; /* Add padding for scrollbar on desktop */
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+        }
+        .nav-box::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        .nav-item-link {
+            @apply text-gray-400 no-underline font-semibold text-sm md:text-base px-3 py-2 transition-colors duration-300 relative;
+        }
+        .nav-item-link:hover {
+            @apply text-primary-green;
+        }
         .nav-item-link.active-link {
-            color: var(--main-green);
-            border-bottom: 2px solid var(--main-green);
+            @apply text-primary-green;
+        }
+        /* Underline effect for active link */
+        .nav-item-link.active-link::after {
+            content: '';
+            @apply absolute bottom-0 right-0 left-0 h-0.5 bg-primary-green;
         }
 
-        /* 3. قسم الرئيسية (Hero) */
-        .hero { 
-            height: 75vh; 
-            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1532938870005-9d297a7e84e5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Added a relevant hero image */
-            background-repeat: no-repeat; background-position: center; background-size: cover;
-            color: white; display: flex; align-items: center; justify-content: center; text-align: center;
+        .hero {
+            @apply h-[75vh] bg-cover bg-center bg-no-repeat flex items-center justify-center text-center text-white relative;
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1579684385153-f75661647f1b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDBMHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
         }
-        .hero h1 { font-size: clamp(1.8rem, 8vw, 4.5rem); font-weight: 900; line-height: 1.2; }
-        .hero p { font-size: clamp(0.95rem, 4vw, 1.8rem); max-width: 800px; margin: 15px auto; font-weight: 500; color: #eee; }
-
-        /* 4. قسم "عن المنصة" */
-        section { padding: 80px 0; }
-        .about-card { 
-            background: #fff; padding: clamp(20px, 5vw, 50px); border-radius: 25px; 
-            box-shadow: 0 15px 45px rgba(39, 174, 96, 0.12); 
-            border-right: 12px solid var(--main-green); 
+        .hero h1 {
+            @apply text-4xl sm:text-5xl lg:text-6xl font-black leading-tight;
+        }
+        .hero p {
+            @apply text-base sm:text-lg lg:text-xl max-w-2xl mx-auto mt-4 font-medium text-gray-200;
         }
 
-        /* 5. التوعية الذكية والكروت */
-        .updates-container { background: #fff; border-radius: 25px; padding: clamp(15px, 4vw, 40px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .tip-card { 
-            background: #fff; border-right: 5px solid var(--main-green); border-radius: 12px; 
-            padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); 
-            transition: 0.3s; text-align: right; 
+        .about-card, .news-container, .research-table-container, .updates-container {
+            @apply bg-white p-6 sm:p-10 rounded-3xl shadow-xl;
         }
-        .tip-card h5 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
-        .source-label { background: #e8f5e9; color: var(--main-green); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; display: inline-block; margin-top: 10px; }
-
-        /* 6. المتجر */
-        .store-card { border-radius: 20px; background: white; padding: 35px; text-align: center; box-shadow: 0 8px 25px rgba(0,0,0,0.05); height: 100%; border: 1px solid #f0f0f0; transition: 0.4s; }
-        .store-card:hover { transform: translateY(-10px); border-color: var(--main-green); }
-        .icon-box i { font-size: 4rem; color: var(--main-green); margin-bottom: 20px; }
-
-        /* 7. الفوتر */
-        .footer { background: var(--dark-gray); color: #999; padding: 70px 0 30px; text-align: center; }
-        .ai-status { border: 2px solid var(--main-green); border-radius: 20px; padding: 25px; display: inline-flex; flex-direction: column; align-items: center; color: white; background: rgba(25,135,84,0.08); margin-top: 30px; max-width: 90%; }
-
-        /* تنسيق خاص للهاتف */
-        @media (max-width: 768px) {
-            .header-content { flex-direction: column; gap: 10px; }
-            .nav-box { width: 100%; justify-content: flex-start; padding-bottom: 5px; }
-            section { padding: 50px 0; }
+        .about-card {
+            @apply border-r-8 border-primary-green;
         }
 
-        /* تنسيقات إضافية للمصادر والأبحاث */
+        .tip-card {
+            @apply bg-white p-5 rounded-xl border-r-4 border-primary-green shadow-sm mb-5 transition-transform duration-300 text-right;
+        }
+        .tip-card:hover {
+            @apply translate-y-[-5px];
+        }
+        .tip-card h5 {
+            @apply text-lg font-bold mb-2 text-gray-900;
+        }
+        .source-label {
+            @apply bg-green-50 text-primary-green px-3 py-1 rounded-full text-xs font-bold inline-block mt-2;
+        }
+
+        .store-card, .user-account-card {
+            @apply bg-white p-8 rounded-2xl text-center shadow-lg border border-gray-200 h-full transition-transform duration-300;
+        }
+        .store-card:hover, .user-account-card:hover {
+            @apply translate-y-[-8px] border-primary-green;
+        }
+        .icon-box i {
+            @apply text-5xl text-primary-green mb-5;
+        }
+
         .source-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-            white-space: nowrap;
-            font-size: 0.95rem;
+            @apply inline-flex items-center justify-center gap-x-2 px-6 py-3 rounded-full no-underline font-semibold transition-colors duration-300 whitespace-nowrap text-sm md:text-base shadow-sm;
         }
-        .source-button.pubmed { background-color: #007ee5; color: white; border: 1px solid #007ee5; }
-        .source-button.pubmed:hover { background-color: #006bbd; border-color: #006bbd; }
-        .source-button.who { background-color: var(--main-green); color: white; border: 1px solid var(--main-green); }
-        .source-button.who:hover { background-color: #146c43; border-color: #146c43; }
-        .source-button.cdc { background-color: #3e6d8e; color: white; border: 1px solid #3e6d8e; }
-        .source-button.cdc:hover { background-color: #335973; border-color: #335973; }
+        .source-button.pubmed { @apply bg-accent-blue text-white border border-accent-blue; }
+        .source-button.pubmed:hover { @apply bg-blue-700 border-blue-700; }
+        .source-button.who { @apply bg-primary-green text-white border border-primary-green; }
+        .source-button.who:hover { @apply bg-green-700 border-green-700; }
+        .source-button.cdc { @apply bg-cdc-blue text-white border border-cdc-blue; }
+        .source-button.cdc:hover { @apply bg-blue-900 border-blue-900; }
 
-        .research-table-container {
-            background: #fff;
-            border-radius: 25px;
-            padding: clamp(15px, 4vw, 40px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            overflow-x: auto; /* For responsive tables */
-        }
         .research-table {
-            width: 100%;
-            margin-bottom: 0;
-            border-collapse: separate;
-            border-spacing: 0 10px; /* Space between rows */
+            @apply w-full mb-0 border-collapse;
+            border-spacing: 0 10px; /* Custom spacing */
         }
         .research-table th {
-            background-color: var(--main-green);
-            color: white;
-            padding: 15px;
-            text-align: right;
-            border: none;
-            font-weight: 700;
+            @apply bg-primary-green text-white p-4 text-right border-none font-bold;
         }
         .research-table th:first-child { border-top-right-radius: 10px; }
         .research-table th:last-child { border-top-left-radius: 10px; }
         .research-table td {
-            padding: 15px;
-            vertical-align: middle;
-            border-bottom: 1px solid #eee;
-            background-color: #fdfdfd;
-            text-align: right;
+            @apply p-4 align-middle border-b border-gray-200 bg-gray-50 text-right;
         }
         .research-table tbody tr {
-            transition: background-color 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            @apply transition-colors duration-300 shadow-sm;
         }
         .research-table tbody tr:hover {
-            background-color: #f0fdf0;
+            @apply bg-green-50;
         }
         .research-table tbody tr:last-child td {
-            border-bottom: none;
+            @apply border-b-0;
         }
         .research-table a {
-            color: var(--main-green);
-            text-decoration: none;
-            font-weight: 500;
+            @apply text-primary-green no-underline font-medium;
         }
         .research-table a:hover {
-            text-decoration: underline;
+            @apply underline;
         }
         .filter-section {
-            display: flex;
-            flex-wrap: wrap; /* Allow wrapping on small screens */
-            gap: 10px;
-            margin-bottom: 25px;
-            padding: 15px;
-            background-color: #f8fcf8;
-            border-radius: 15px;
-            border: 1px solid #e9ecef;
+            @apply flex flex-wrap gap-4 mb-8 p-5 bg-green-50 rounded-2xl border border-green-200;
         }
         .filter-section .form-control,
         .filter-section .form-select {
-            border-radius: 25px;
-            border-color: #ced4da;
-            padding: 10px 20px;
-            flex-grow: 1; /* Allow inputs to grow */
-            min-width: 150px; /* Ensure filters don't collapse too much */
+            @apply rounded-full border-gray-300 px-5 py-2.5 flex-grow min-w-[180px];
         }
         .filter-section .btn {
-            border-radius: 25px;
-            padding: 10px 25px;
+            @apply rounded-full px-6 py-2.5 font-bold;
         }
         
-        /* User Account styles */
-        .user-account-card {
-            background: #fff;
-            border-radius: 25px;
-            padding: clamp(20px, 5vw, 50px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            text-align: center;
-            height: 100%; /* Ensure cards are same height */
+        /* Footer */
+        .footer {
+            @apply bg-dark-bg text-gray-400 py-16 text-center;
         }
-        .user-account-card .icon-box i {
-            font-size: 3.5rem;
-            color: var(--main-green);
-            margin-bottom: 20px;
-        }
-
-        /* News Section Styles */
-        .news-container {
-            background: #fff;
-            border-radius: 25px;
-            padding: clamp(15px, 4vw, 40px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        .news-item {
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            text-align: right; /* Ensure text alignment is right */
-        }
-        .news-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        .news-item h4 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .news-item p {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.6;
-        }
-        .news-item .source-date {
-            font-size: 0.8rem;
-            color: #999;
-            margin-top: 10px;
-            display: block;
+        .ai-status {
+            @apply border-2 border-primary-green rounded-2xl p-6 inline-flex flex-col items-center text-white bg-green-900 bg-opacity-10 mt-8 max-w-sm mx-auto;
         }
     </style>
 </head>
 <body>
 
     <header class="header-top">
-        <div class="container header-content d-flex align-items-center justify-content-between">
-            <div class="brand-section d-flex align-items-center gap-2">
-                <i class="fas fa-heartbeat fa-lg text-success"></i>
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+            <div class="brand-section flex items-center gap-2 mb-3 md:mb-0">
+                <i class="fas fa-heartbeat text-primary-green text-2xl"></i>
                 <span class="brand-text">IMPACT HEALTH</span>
             </div>
-            <nav class="nav-box">
-                <a href="#hero" class="nav-item-link">الرئيسية</a>
-                <a href="#about" class="nav-item-link">عن المنصة</a>
+            <nav class="nav-box flex-grow justify-center md:justify-end">
+                <a href="#hero" class="nav-item-link active-link">الرئيسية</a>
+                <a href="#about" class="nav-item-link">من نحن؟</a>
                 <a href="#health-news" class="nav-item-link">آخر الأخبار</a>
                 <a href="#user-accounts" class="nav-item-link">حسابي</a>
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
@@ -300,51 +225,54 @@
         </div>
     </header>
 
-    <section id="hero" class="hero p-0">
-        <div class="container px-4">
+    <section id="hero" class="hero">
+        <div class="container mx-auto px-4">
             <h1>أثر صحي | Impact Health</h1>
-            <p> .نحو مجتمع ليبي واعي، مبني على نصائح صحية معتمدة </p>
+            <p> نحو مجتمع واعٍ وصحي، مبني على نصائح طبية موثوقة وأبحاث علمية معتمدة. </p>
         </div>
     </section>
 
-    <section id="about">
-        <div class="container px-4">
-            <div class="text-center mb-5">
-                <h2 class="fw-bold text-success" style="font-size: 2.5rem;">من نحن؟</h2>
-                <div style="width: 70px; height: 5px; background: var(--main-green); margin: 10px auto; border-radius: 10px;"></div>
+    <section id="about" class="bg-light-bg">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold text-primary-green">من نحن؟</h2>
+                <div class="w-16 h-1 bg-primary-green mx-auto mt-2 rounded-full"></div>
             </div>
             <div class="about-card">
-                <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    منصة توعوية متخصصة تعمل بالذكاء الإصطناعي يشرف عليها <strong>طالب دراسات عليا بقسم الصحة العامة</strong>، تهدف لتقديم محتوى موثوق يعتمد بشكل أساسي على تحديثات منظمات ومصادر عالمية ومحلية مثل  <strong>WHO</strong> و <strong>NCDC</strong> و <strong>FDA</strong> وغيرها لضمان دقة المعلومة وترك أثر إيجابي يدوم في المجتمع الليبي .
+                <p class="text-lg md:text-xl leading-relaxed text-justify">
+                    منصة توعوية متخصصة تعمل بتقنيات الذكاء الاصطناعي، يشرف عليها <strong>فريق من المتخصصين وطلاب الدراسات العليا في مجال الصحة العامة</strong>، تهدف لتقديم محتوى علمي موثوق يعتمد بشكل أساسي على تحديثات منظمات ومصادر عالمية ومحلية مثل <strong>منظمة الصحة العالمية (WHO)</strong> و <strong>المركز الوطني لمكافحة الأمراض (NCDC)</strong> و <strong>إدارة الغذاء والدواء (FDA)</strong> وغيرها لضمان دقة المعلومة وترك أثر إيجابي يدوم في المجتمع الليبي والعربي.
                 </p>
             </div>
         </div>
     </section>
 
     <!-- قسم آخر الأخبار الصحية -->
-    <section id="health-news" style="background-color: #f4f7f6;">
-        <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5 text-success">آخر الأخبار الصحية المحلية والعالمية</h2>
+    <section id="health-news" class="bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold text-primary-green">آخر الأخبار الصحية المحلية والعالمية</h2>
+                <div class="w-20 h-1 bg-primary-green mx-auto mt-2 rounded-full"></div>
+            </div>
             <div class="news-container">
                 <div id="news-list">
-                    <div class="alert alert-info text-center" role="alert">
-                        <i class="fas fa-newspaper me-2"></i> هذه الميزة قيد التطوير. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
+                    <div class="bg-blue-50 border-r-4 border-blue-500 text-blue-800 p-4 rounded-lg mb-6 text-center" role="alert">
+                        <i class="fas fa-newspaper ml-2"></i> هذه الميزة قيد التطوير. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
                     </div>
                     <!-- Dummy News Items for illustration -->
-                    <div class="news-item">
-                        <h4>دراسة جديدة تكشف عن تأثير النظام الغذائي على الصحة النفسية</h4>
-                        <p>أظهرت دراسة حديثة نشرت في مجلة "Lancet Psychiatry" أن هناك علاقة وثيقة بين جودة النظام الغذائي وصحة الدماغ، مع توصيات بزيادة تناول الألياف والبروتينات.</p>
-                        <span class="source-date">المصدر: WHO | 15 مارس 2024</span>
+                    <div class="news-item border-b border-gray-200 pb-5 mb-5 text-right last:border-b-0 last:pb-0 last:mb-0">
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">دراسة جديدة تكشف عن تأثير النظام الغذائي على الصحة النفسية</h4>
+                        <p class="text-gray-700 leading-relaxed text-base">أظهرت دراسة حديثة نشرت في مجلة "Lancet Psychiatry" أن هناك علاقة وثيقة بين جودة النظام الغذائي وصحة الدماغ، مع توصيات بزيادة تناول الألياف والبروتينات.</p>
+                        <span class="text-sm text-gray-500 block mt-3">المصدر: WHO | 15 مارس 2024</span>
                     </div>
-                    <div class="news-item">
-                        <h4>ليبيا تستعد لحملة تطعيم موسعة ضد شلل الأطفال</h4>
-                        <p>أعلنت منظمة الصحة الوطنية في ليبيا عن خطط لإطلاق حملة تطعيم شاملة تستهدف الأطفال دون سن الخامسة في جميع المدن الليبية، وذلك ضمن جهود مكافحة الأمراض الوبائية.</p>
-                        <span class="source-date">المصدر: NCDC Libya | 10 مارس 2024</span>
+                    <div class="news-item border-b border-gray-200 pb-5 mb-5 text-right last:border-b-0 last:pb-0 last:mb-0">
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">ليبيا تستعد لحملة تطعيم موسعة ضد شلل الأطفال</h4>
+                        <p class="text-gray-700 leading-relaxed text-base">أعلنت منظمة الصحة الوطنية في ليبيا عن خطط لإطلاق حملة تطعيم شاملة تستهدف الأطفال دون سن الخامسة في جميع المدن الليبية، وذلك ضمن جهود مكافحة الأمراض الوبائية.</p>
+                        <span class="text-sm text-gray-500 block mt-3">المصدر: NCDC Libya | 10 مارس 2024</span>
                     </div>
-                    <div class="news-item">
-                        <h4>الذكاء الاصطناعي يُحدث ثورة في تشخيص الأمراض المزمنة</h4>
-                        <p>تزايد استخدام تقنيات الذكاء الاصطناعي في المجال الطبي، خاصة في تحليل الصور الإشعاعية والبيانات السريرية، مما يساهم في الكشف المبكر عن الأمراض المزمنة مثل السكري والسرطان بدقة غير مسبوقة.</p>
-                        <span class="source-date">المصدر: PubMed | 05 مارس 2024</span>
+                    <div class="news-item border-b border-gray-200 pb-5 mb-5 text-right last:border-b-0 last:pb-0 last:mb-0">
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">الذكاء الاصطناعي يُحدث ثورة في تشخيص الأمراض المزمنة</h4>
+                        <p class="text-gray-700 leading-relaxed text-base">تزايد استخدام تقنيات الذكاء الاصطناعي في المجال الطبي، خاصة في تحليل الصور الإشعاعية والبيانات السريرية، مما يساهم في الكشف المبكر عن الأمراض المزمنة مثل السكري والسرطان بدقة غير مسبوقة.</p>
+                        <span class="text-sm text-gray-500 block mt-3">المصدر: PubMed | 05 مارس 2024</span>
                     </div>
                 </div>
             </div>
@@ -352,57 +280,59 @@
     </section>
 
     <!-- قسم حسابات المستخدمين -->
-    <section id="user-accounts" style="background-color: #f4f7f6;">
-        <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5 text-success">حسابي الشخصي</h2>
-            <div class="row g-4 justify-content-center">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="user-account-card">
-                        <div class="icon-box"><i class="fas fa-user-circle"></i></div>
-                        <h4 class="fw-bold" id="userAccountStatus">تسجيل الدخول / إنشاء حساب</h4>
-                        <p class="text-muted small" id="userAccountDescription">سجّل الدخول للوصول إلى مميزات الحساب الشخصي.</p>
-                        <button class="btn btn-outline-success rounded-pill px-4 py-2" id="authActionButton" 
-                                data-bs-toggle="modal" data-bs-target="#authModal">
-                            ابدأ الآن
-                        </button>
-                    </div>
+    <section id="user-accounts" class="bg-light-bg">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold text-primary-green">حسابي الشخصي</h2>
+                <div class="w-16 h-1 bg-primary-green mx-auto mt-2 rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+                <div class="user-account-card">
+                    <div class="icon-box"><i class="fas fa-user-circle"></i></div>
+                    <h4 class="text-2xl font-bold text-gray-900" id="userAccountStatus">تسجيل الدخول / إنشاء حساب</h4>
+                    <p class="text-gray-600 text-sm mt-2" id="userAccountDescription">سجّل الدخول للوصول إلى تجربة استخدام أكثر تنظيمًا وتفاعلية.</p>
+                    <button class="mt-6 inline-flex items-center justify-center px-6 py-3 border border-primary-green text-primary-green rounded-full font-bold transition-colors duration-300 hover:bg-primary-green hover:text-white" 
+                            id="authActionButton" data-bs-toggle="modal" data-bs-target="#authModal">
+                        ابدأ الآن
+                    </button>
                 </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="user-account-card">
-                        <div class="icon-box"><i class="fas fa-bookmark"></i></div>
-                        <h4 class="fw-bold">محتوى محفوظ</h4>
-                        <p class="text-muted small">احفظ نصائحك وأبحاثك المفضلة للرجوع إليها لاحقًا.</p>
-                        <button class="btn btn-outline-secondary rounded-pill px-4 py-2" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
-                            <i class="fas fa-arrow-right"></i> عرض المحفوظات
-                        </button>
-                    </div>
+                <div class="user-account-card">
+                    <div class="icon-box"><i class="fas fa-bookmark text-blue-600"></i></div>
+                    <h4 class="text-2xl font-bold text-gray-900">محتوى محفوظ وقوائم مخصصة</h4>
+                    <p class="text-gray-600 text-sm mt-2">احفظ المقالات والنصائح الصحية والأبحاث المفضلة، وأنشئ قوائم مخصصة لتنظيم المحتوى حسب اهتماماتك.</p>
+                    <button class="mt-6 inline-flex items-center justify-center px-6 py-3 border border-gray-400 text-gray-600 rounded-full font-bold transition-colors duration-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed" 
+                            onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')" disabled>
+                        <i class="fas fa-arrow-right ml-2"></i> عرض المحفوظات
+                    </button>
                 </div>
-                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="user-account-card">
-                        <div class="icon-box"><i class="fas fa-bell"></i></div>
-                        <h4 class="fw-bold">إشعارات وتنبيهات</h4>
-                        <p class="text-muted small">تلقَّ تنبيهات حول أحدث الأبحاث والتحديثات.</p>
-                        <button class="btn btn-outline-info rounded-pill px-4 py-2" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
-                            <i class="fas fa-cogs"></i> إدارة التنبيهات
-                        </button>
-                    </div>
+                 <div class="user-account-card">
+                    <div class="icon-box"><i class="fas fa-bell text-orange-500"></i></div>
+                    <h4 class="text-2xl font-bold text-gray-900">إشعارات وتنبيهات ذكية</h4>
+                    <p class="text-gray-600 text-sm mt-2">تلقَّ تنبيهات وإشعارات بالمحتوى الجديد المرتبط باهتماماتك، واقتراحات ذكية مبنية على تفاعلك داخل المنصة.</p>
+                    <button class="mt-6 inline-flex items-center justify-center px-6 py-3 border border-gray-400 text-gray-600 rounded-full font-bold transition-colors duration-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed" 
+                            onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')" disabled>
+                        <i class="fas fa-cogs ml-2"></i> إدارة التنبيهات
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="updates" style="background-color: #f4f7f6;">
-        <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5">التوعية الصحية الذكية</h2>
+    <section id="updates" class="bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold text-gray-900">التوعية الصحية الذكية</h2>
+                <div class="w-16 h-1 bg-primary-green mx-auto mt-2 rounded-full"></div>
+            </div>
             <div class="updates-container">
-                <div id="current-tips-list">
-                    <p class="text-center text-muted">جاري تحميل أحدث التحديثات العلمية...</p>
+                <div id="current-tips-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <p class="col-span-full text-center text-gray-500">جاري تحميل أحدث التحديثات العلمية...</p>
                 </div>
                 
-                <div id="archive-tips-list" style="display: none;"></div>
+                <div id="archive-tips-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" style="display: none;"></div>
 
-                <div class="text-center mt-5">
-                    <button id="archive-btn" onclick="toggleArchive()" class="btn btn-success rounded-pill px-5 py-3 fw-bold shadow-sm">
+                <div class="text-center mt-12">
+                    <button id="archive-btn" onclick="toggleArchive()" class="inline-flex items-center justify-center px-8 py-4 bg-primary-green text-white rounded-full font-bold shadow-lg transition-colors duration-300 hover:bg-green-700">
                         تصفح أرشيف المعلومات الكامل
                     </button>
                 </div>
@@ -410,62 +340,62 @@
         </div>
     </section>
 
-    <section id="store">
-        <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5 text-success">متجر المستلزمات</h2>
-            <div class="row g-4">
-                <div class="col-12 col-md-4">
-                    <div class="store-card">
-                        <div class="icon-box"><i class="fas fa-microscope"></i></div>
-                        <h4 class="fw-bold">تجهيزات مخبرية</h4>
-                        <p class="text-muted small">معدات الفحص الميكروبيولوجي وأدوات سحب العينات.</p>
-                        <span class="badge bg-light text-success border border-success px-4 py-2">قريباً</span>
-                    </div>
+    <section id="store" class="bg-light-bg">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold text-primary-green">متجر المستلزمات</h2>
+                <div class="w-16 h-1 bg-primary-green mx-auto mt-2 rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="store-card">
+                    <div class="icon-box"><i class="fas fa-microscope text-primary-green"></i></div>
+                    <h4 class="text-2xl font-bold text-gray-900">تجهيزات مخبرية</h4>
+                    <p class="text-gray-600 text-sm mt-2">معدات الفحص الميكروبيولوجي وأدوات سحب العينات بأعلى معايير الجودة.</p>
+                    <span class="inline-block mt-5 px-4 py-2 text-primary-green bg-green-50 border border-primary-green rounded-full font-semibold text-xs">قريباً</span>
                 </div>
-                <div class="col-12 col-md-4">
-                    <div class="store-card">
-                        <div class="icon-box"><i class="fas fa-user-shield text-primary"></i></div>
-                        <h4 class="fw-bold">أدوات الوقاية</h4>
-                        <p class="text-muted small">أقنعة، قفازات، ومعقمات مطابقة للمواصفات القياسية.</p>
-                        <span class="badge bg-light text-primary border border-primary px-4 py-2">قريباً</span>
-                    </div>
+                <div class="store-card">
+                    <div class="icon-box"><i class="fas fa-user-shield text-blue-600"></i></div>
+                    <h4 class="text-2xl font-bold text-gray-900">أدوات الوقاية</h4>
+                    <p class="text-gray-600 text-sm mt-2">أقنعة، قفازات، ومعقمات مطابقة للمواصفات القياسية العالمية للحماية.</p>
+                    <span class="inline-block mt-5 px-4 py-2 text-blue-600 bg-blue-50 border border-blue-600 rounded-full font-semibold text-xs">قريباً</span>
                 </div>
-                <div class="col-12 col-md-4">
-                    <div class="store-card">
-                        <div class="icon-box"><i class="fas fa-heartbeat text-danger"></i></div>
-                        <h4 class="fw-bold">أجهزة القياس</h4>
-                        <p class="text-muted small">أجهزة قياس الضغط والسكر المنزلية الموثوقة.</p>
-                        <span class="badge bg-light text-danger border border-danger px-4 py-2">قريباً</span>
-                    </div>
+                <div class="store-card">
+                    <div class="icon-box"><i class="fas fa-heartbeat text-red-500"></i></div>
+                    <h4 class="text-2xl font-bold text-gray-900">أجهزة القياس</h4>
+                    <p class="text-gray-600 text-sm mt-2">أجهزة قياس الضغط والسكر المنزلية الموثوقة لراحة بالك وصحتك.</p>
+                    <span class="inline-block mt-5 px-4 py-2 text-red-500 bg-red-50 border border-red-500 rounded-full font-semibold text-xs">قريباً</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="research-library" style="background-color: #f4f7f6;">
-        <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5 text-success">مكتبة الأبحاث</h2>
+    <section id="research-library" class="bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold text-primary-green">مكتبة الأبحاث</h2>
+                <div class="w-16 h-1 bg-primary-green mx-auto mt-2 rounded-full"></div>
+            </div>
             
             <!-- قسم المصادر الموثوقة -->
-            <div class="text-center mb-5">
-                <h3 class="fw-bold mb-4">مصادرنا الموثوقة</h3>
-                <div class="d-flex flex-wrap justify-content-center gap-3">
-                    <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener noreferrer" class="source-button pubmed shadow-sm">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-gray-900 mb-6">مصادرنا الموثوقة</h3>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener noreferrer" class="source-button pubmed">
                         <i class="fas fa-book-medical"></i> PubMed
                     </a>
-                    <a href="https://www.who.int/publications" target="_blank" rel="noopener noreferrer" class="source-button who shadow-sm">
+                    <a href="https://www.who.int/publications" target="_blank" rel="noopener noreferrer" class="source-button who">
                         <i class="fas fa-globe"></i> WHO Publications
                     </a>
-                    <a href="https://www.cdc.gov/infectioncontrol/" target="_blank" rel="noopener noreferrer" class="source-button cdc shadow-sm">
+                    <a href="https://www.cdc.gov/infectioncontrol/" target="_blank" rel="noopener noreferrer" class="source-button cdc">
                         <i class="fas fa-bug-slash"></i> CDC Infection Control
                     </a>
                 </div>
             </div>
 
             <!-- قسم البحث والفلترة -->
-            <div class="filter-section align-items-center">
-                <input type="text" id="researchSearchInput" class="form-control flex-grow-1" placeholder="ابحث عن أبحاث (عنوان، كلمة مفتاحية، سنة)...">
-                <select id="researchFieldFilter" class="form-select flex-grow-1">
+            <div class="filter-section items-center">
+                <input type="text" id="researchSearchInput" class="form-control" placeholder="ابحث عن أبحاث (عنوان، كلمة مفتاحية، سنة)...">
+                <select id="researchFieldFilter" class="form-select">
                     <option value="">جميع المجالات</option>
                     <option value="الصحة العامة">الصحة العامة</option>
                     <option value="مكافحة العدوى">مكافحة العدوى</option>
@@ -474,9 +404,10 @@
                     <option value="الصحة النفسية">الصحة النفسية</option>
                     <option value="الابتكار الطبي">الابتكار الطبي</option>
                     <option value="الوقاية من الأمراض">الوقاية من الأمراض</option>
-                    <option value="الصحة الجلدية">الصحة الجلدية</option>
+                    <option value="الأمراض المزمنة">الأمراض المزمنة</option>
+                    <option value="صحة المرأة">صحة المرأة</option>
                 </select>
-                <select id="researchStudyTypeFilter" class="form-select flex-grow-1">
+                <select id="researchStudyTypeFilter" class="form-select">
                     <option value="">جميع أنواع الدراسات</option>
                     <option value="تجربة سريرية">تجربة سريرية</option>
                     <option value="مراجعة منهجية">مراجعة منهجية</option>
@@ -486,31 +417,31 @@
                     <option value="بحث تجريبي">بحث تجريبي</option>
                     <option value="دراسة مقطعية">دراسة مقطعية</option>
                 </select>
-                <button class="btn btn-success fw-bold" onclick="filterResearchTable()">
-                    <i class="fas fa-search"></i> فلترة
+                <button class="btn bg-primary-green text-white hover:bg-green-700" onclick="filterResearchTable()">
+                    <i class="fas fa-search ml-2"></i> فلترة
                 </button>
             </div>
 
             <!-- جدول الأبحاث -->
-            <div class="research-table-container">
-                <table class="table research-table" id="researchTable">
+            <div class="research-table-container overflow-x-auto">
+                <table class="research-table" id="researchTable">
                     <thead>
                         <tr>
-                            <th><i class="fas fa-file-alt me-2"></i> اسم البحث</th>
-                            <th style="width: 120px;"><i class="fas fa-calendar-alt me-2"></i> سنة النشر</th>
-                            <th style="width: 180px;"><i class="fas fa-tags me-2"></i> المجال</th>
-                            <th style="width: 180px;"><i class="fas fa-microscope me-2"></i> نوع الدراسة</th>
-                            <th style="width: 120px;"><i class="fas fa-link me-2"></i> رابط القراءة</th>
+                            <th><i class="fas fa-file-alt ml-2"></i> اسم البحث</th>
+                            <th class="w-28"><i class="fas fa-calendar-alt ml-2"></i> سنة النشر</th>
+                            <th class="w-44"><i class="fas fa-tags ml-2"></i> المجال</th>
+                            <th class="w-44"><i class="fas fa-microscope ml-2"></i> نوع الدراسة</th>
+                            <th class="w-28"><i class="fas fa-link ml-2"></i> رابط القراءة</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Research rows will be dynamically loaded here by JavaScript -->
                     </tbody>
                 </table>
-                <p id="noResultsMessage" class="text-center text-muted mt-4" style="display:none;">لا توجد نتائج مطابقة لبحثك.</p>
+                <p id="noResultsMessage" class="text-center text-gray-500 mt-6 hidden">لا توجد نتائج مطابقة لبحثك.</p>
             </div>
-            <div class="text-center mt-4">
-                <button id="showMoreResearchBtn" onclick="showMoreResearch()" class="btn btn-success rounded-pill px-5 py-3 fw-bold shadow-sm" style="display:none;">
+            <div class="text-center mt-8">
+                <button id="showMoreResearchBtn" onclick="showMoreResearch()" class="inline-flex items-center justify-center px-8 py-4 bg-primary-green text-white rounded-full font-bold shadow-lg transition-colors duration-300 hover:bg-green-700" style="display:none;">
                     عرض المزيد من الأبحاث
                 </button>
             </div>
@@ -519,167 +450,323 @@
     </section>
 
     <footer class="footer">
-        <div class="container px-4">
-            <h4 class="text-white fw-bold mb-3">Impact Health | أثر صحي</h4>
+        <div class="container mx-auto px-4">
+            <h4 class="text-white text-3xl font-bold mb-4">Impact Health | أثر صحي</h4>
             
-            <div class="contact-info mb-4">
-                <p class="small text-light mb-2">للتواصل المباشر أو للإعلان عن منتجاتكم الصحية :</p>
-                <a href="https://wa.me/218915303534" class="text-success text-decoration-none fw-bold" style="font-size: 1.2rem;">
-                    <i class="fab fa-whatsapp"></i> 218915303534+
+            <div class="contact-info mb-6">
+                <p class="text-gray-300 mb-2">للتواصل المباشر أو للإعلان عن منتجاتكم الصحية :</p>
+                <a href="https://wa.me/218915303534" class="text-primary-green no-underline font-bold text-xl hover:underline">
+                    <i class="fab fa-whatsapp ml-2"></i> 218915303534+
                 </a>
             </div>
 
-            <p class="small mb-1">صمم بواسطة mohamed jalal alnfati لدعم الصحة العامة في ليبيا</p>
+            <p class="text-gray-400 mb-1">صمم بواسطة mohamed jalal alnfati لدعم الصحة العامة في ليبيا</p>
             
-            <p class="small text-muted">جميع الحقوق محفوظة &copy; 2026 <span class="text-white-50">| منصة أثر صحي</span></p>
+            <p class="text-gray-500 text-sm">جميع الحقوق محفوظة &copy; 2026 <span class="text-white-50">| منصة أثر صحي</span></p>
 
-            <div class="ai-status mt-4">
-                <i class="fas fa-robot fa-2x mb-2 text-success"></i>
-                <p class="mb-1 fw-bold" style="font-size: 0.9rem;">نظام تحديث ذكي تحت إشراف متخصص</p>
-                <small class="text-white-50" style="font-size: 0.75rem;">يتم توليد النصائح يومياً وتحديثها تلقائياً من مصادر موثوقة</small>
+            <div class="ai-status">
+                <i class="fas fa-robot text-4xl mb-3 text-primary-green"></i>
+                <p class="mb-1 font-bold text-base">نظام تحديث ذكي تحت إشراف متخصص</p>
+                <small class="text-gray-400 text-xs">يتم توليد النصائح يومياً وتحديثها تلقائياً من مصادر موثوقة</small>
             </div>
         </div>
     </footer>
 
-    <!-- Login/Signup Modal -->
+    <!-- Login/Signup Modal (using Bootstrap's modal component) -->
     <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-4 shadow">
-                <div class="modal-header border-bottom-0">
-                    <h5 class="modal-title fw-bold" id="authModalLabel">تسجيل الدخول / إنشاء حساب</h5>
+            <div class="modal-content rounded-xl shadow-lg">
+                <div class="modal-header border-b-0 pb-0 flex justify-between items-center">
+                    <h5 class="modal-title text-2xl font-bold text-gray-800" id="authModalLabel">تسجيل الدخول / إنشاء حساب</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4 pb-0">
+                <div class="modal-body p-6 pt-2">
                     <form id="authForm" class="needs-validation" novalidate>
-                        <div class="mb-3">
-                            <label for="emailInput" class="form-label">البريد الإلكتروني</label>
-                            <input type="email" class="form-control rounded-pill" id="emailInput" placeholder="name@example.com" required>
-                            <div class="invalid-feedback">الرجاء إدخال بريد إلكتروني صالح.</div>
+                        <div class="mb-4">
+                            <label for="emailInput" class="form-label block text-gray-700 text-sm font-semibold mb-2">البريد الإلكتروني</label>
+                            <input type="email" class="form-control w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-green" id="emailInput" placeholder="name@example.com" required>
+                            <div class="invalid-feedback text-red-500 text-sm mt-1">الرجاء إدخال بريد إلكتروني صالح.</div>
                         </div>
-                        <div class="mb-3">
-                            <label for="passwordInput" class="form-label">كلمة المرور</label>
-                            <input type="password" class="form-control rounded-pill" id="passwordInput" placeholder="كلمة المرور" required minlength="6">
-                            <div class="invalid-feedback">الرجاء إدخال كلمة مرور (6 أحرف على الأقل).</div>
+                        <div class="mb-4">
+                            <label for="passwordInput" class="form-label block text-gray-700 text-sm font-semibold mb-2">كلمة المرور</label>
+                            <input type="password" class="form-control w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-green" id="passwordInput" placeholder="كلمة المرور" required minlength="6">
+                            <div class="invalid-feedback text-red-500 text-sm mt-1">الرجاء إدخال كلمة مرور (6 أحرف على الأقل).</div>
                         </div>
-                        <div id="authMessage" class="alert d-none mt-3" role="alert"></div>
+                        <div id="authMessage" class="alert hidden mt-4 p-3 rounded-lg text-sm" role="alert"></div>
                     </form>
                 </div>
-                <div class="modal-footer flex-column border-top-0 px-4 pt-0">
-                    <button type="button" class="btn btn-success rounded-pill px-4 py-2 w-100 mb-2 fw-bold" id="signInBtn">تسجيل الدخول</button>
-                    <button type="button" class="btn btn-outline-primary rounded-pill px-4 py-2 w-100 fw-bold" id="signUpBtn">إنشاء حساب جديد</button>
-                    <small class="text-muted d-block mt-3">بالنقر على أي من الأزرار أعلاه، فإنك توافق على شروط الخدمة وسياسة الخصوصية.</small>
+                <div class="modal-footer flex flex-col border-t-0 pt-0 p-6">
+                    <button type="button" class="btn w-full p-3 bg-primary-green text-white rounded-lg font-bold transition-colors duration-300 hover:bg-green-700 mb-3" id="signInBtn">تسجيل الدخول</button>
+                    <button type="button" class="btn w-full p-3 border border-primary-green text-primary-green rounded-lg font-bold transition-colors duration-300 hover:bg-primary-green hover:text-white" id="signUpBtn">إنشاء حساب جديد</button>
+                    <small class="text-gray-500 text-xs mt-4 block text-center">بالنقر على أي من الأزرار أعلاه، فإنك توافق على شروط الخدمة وسياسة الخصوصية.</small>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Bootstrap JS Bundle (for modal functionality) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        // Dummy Awareness Tips Data
+        const dummyAwarenessData = [
+            {
+                title: "أهمية غسل اليدين بانتظام",
+                content: "يعد غسل اليدين بالماء والصابون لمدة 20 ثانية على الأقل من أفضل الطرق للوقاية من انتشار الجراثيم والأمراض المعدية.",
+                source: "WHO",
+                category: "مكافحة العدوى",
+                date: "2024-05-01",
+                type: "info"
+            },
+            {
+                title: "فوائد النوم الكافي للصحة العامة",
+                content: "الحصول على 7-9 ساعات من النوم يومياً يعزز المناعة، يحسن المزاج، ويزيد التركيز والإنتاجية.",
+                source: "National Sleep Foundation",
+                category: "الصحة العامة",
+                date: "2024-04-28",
+                type: "info"
+            },
+            {
+                title: "علامات التحذير المبكرة للنوبة القلبية",
+                content: "لا تتجاهل آلام الصدر، ضيق التنفس، أو الخدر في الذراع الأيسر. اطلب المساعدة الطبية فوراً.",
+                source: "CDC",
+                category: "أمراض مزمنة",
+                date: "2024-04-25",
+                type: "warning"
+            },
+            {
+                title: "نصائح لسلامة الغذاء في الصيف",
+                content: "تجنب ترك الأطعمة القابلة للتلف خارج الثلاجة لأكثر من ساعة، خاصة في الأجواء الحارة، لمنع نمو البكتيريا.",
+                source: "FDA",
+                category: "سلامة الغذاء",
+                date: "2024-04-20",
+                type: "info"
+            },
+            {
+                title: "أهمية الفحص الدوري لضغط الدم",
+                content: "ضغط الدم المرتفع غالباً لا تظهر له أعراض، والفحص المنتظم يساعد في الكشف المبكر والوقاية من مضاعفاته الخطيرة.",
+                source: "American Heart Association",
+                category: "أمراض مزمنة",
+                date: "2024-04-18",
+                type: "info"
+            },
+            {
+                title: "التطعيمات: خط الدفاع الأول ضد الأمراض",
+                content: "التطعيمات تحمي الأطفال والكبار من العديد من الأمراض الخطيرة والمعدية، وهي ضرورية للحفاظ على صحة المجتمع.",
+                source: "WHO",
+                category: "الصحة العامة",
+                date: "2024-04-15",
+                type: "info"
+            },
+            {
+                title: "كيفية التعامل مع الإجهاد والقلق",
+                content: "ممارسة الرياضة، التأمل، وقضاء الوقت مع الأحباء تساعد في تقليل مستويات الإجهاد وتحسين الصحة النفسية.",
+                source: "Mayo Clinic",
+                category: "الصحة النفسية",
+                date: "2024-04-10",
+                type: "info"
+            },
+            {
+                title: "الوقاية من حروق الشمس",
+                content: "استخدم واقي الشمس بمعامل حماية 30 على الأقل، وارتدِ ملابس واقية، وتجنب التعرض للشمس في أوقات الذروة.",
+                source: "American Academy of Dermatology",
+                category: "الصحة الجلدية",
+                date: "2024-04-05",
+                type: "info"
+            },
+            {
+                title: "أخطار التدخين السلبي على الأطفال",
+                content: "تعرض الأطفال للتدخين السلبي يزيد من خطر إصابتهم بأمراض الجهاز التنفسي والتهابات الأذن.",
+                source: "CDC",
+                category: "الوقاية من الأمراض",
+                date: "2024-04-01",
+                type: "warning"
+            },
+            {
+                title: "أهمية شرب الماء الكافي يومياً",
+                content: "يساعد الماء في تنظيم درجة حرارة الجسم، تليين المفاصل، ونقل العناصر الغذائية، حافظ على شرب 8 أكواب يومياً.",
+                source: "Harvard Health",
+                category: "سلامة الغذاء والتغذية",
+                date: "2024-03-28",
+                type: "info"
+            },
+             {
+                title: "تجنب السمنة: نصائح لنمط حياة صحي",
+                content: "مارس الرياضة بانتظام، اتبع نظاماً غذائياً متوازناً، وقلل من تناول السكريات والدهون المشبعة للوقاية من السمنة ومضاعفاتها.",
+                source: "WHO",
+                category: "الصحة العامة",
+                date: "2024-03-25",
+                type: "info"
+            },
+            {
+                title: "كيف تحمي نفسك من نزلات البرد والإنفلونزا",
+                content: "اغسل يديك باستمرار، تجنب لمس وجهك، حافظ على التباعد الاجتماعي عند الشعور بالمرض، واحرص على التطعيم الموسمي.",
+                source: "CDC",
+                category: "مكافحة العدوى",
+                date: "2024-03-20",
+                type: "info"
+            },
+            {
+                title: "أهمية الألياف الغذائية في نظامك اليومي",
+                content: "الألياف ضرورية لصحة الجهاز الهضمي، تساعد في خفض الكوليسترول، وتساهم في التحكم بمستوى السكر في الدم.",
+                source: "Mayo Clinic",
+                category: "سلامة الغذاء والتغذية",
+                date: "2024-03-18",
+                type: "info"
+            },
+            {
+                title: "الصحة النفسية: كسر حاجز الوصمة",
+                content: "الحديث عن مشكلات الصحة النفسية يقلل من وصمتها. اطلب المساعدة ولا تتردد، فالعلاج متاح وفعال.",
+                source: "Mental Health America",
+                category: "الصحة النفسية",
+                date: "2024-03-15",
+                type: "info"
+            },
+            {
+                title: "تأثير التلوث البيئي على صحة الجهاز التنفسي",
+                content: "التعرض المستمر لتلوث الهواء يزيد من خطر الإصابة بالربو والتهاب الشعب الهوائية المزمن وأمراض الرئة الأخرى.",
+                source: "EPA",
+                category: "الصحة البيئية",
+                date: "2024-03-12",
+                type: "warning"
+            },
+            {
+                title: "كيفية الوقاية من الأمراض المنقولة جنسياً",
+                content: "الوعي، استخدام وسائل الحماية، والفحص الدوري هي خطوات أساسية للوقاية من الأمراض المنقولة جنسياً.",
+                source: "CDC",
+                category: "الوقاية من الأمراض",
+                date: "2024-03-10",
+                type: "info"
+            },
+            {
+                title: "السكري: السيطرة على مستوى السكر في الدم",
+                content: "اتباع نظام غذائي صحي، ممارسة الرياضة، وتناول الأدوية بانتظام هي مفتاح السيطرة على السكري وتجنب مضاعفاته.",
+                source: "American Diabetes Association",
+                category: "الأمراض المزمنة",
+                date: "2024-03-08",
+                type: "info"
+            },
+            {
+                title: "فحص سرطان الثدي: أهمية الكشف المبكر",
+                content: "الفحص الذاتي الدوري والماموجرام المنتظم للنساء بعد سن الأربعين يساهم بشكل كبير في الكشف المبكر عن سرطان الثدي.",
+                source: "National Breast Cancer Foundation",
+                category: "صحة المرأة",
+                date: "2024-03-05",
+                type: "info"
+            },
+            {
+                title: "دور التغذية في تعزيز صحة العظام",
+                content: "الكالسيوم وفيتامين D ضروريان للحفاظ على عظام قوية. تناولهما من مصادر طبيعية أو مكملات بعد استشارة الطبيب.",
+                source: "National Osteoporosis Foundation",
+                category: "سلامة الغذاء والتغذية",
+                date: "2024-03-01",
+                type: "info"
+            },
+            {
+                title: "التخطيط للحمل الصحي: نصائح ما قبل الولادة",
+                content: "استشيري طبيبك قبل الحمل، تناولي حمض الفوليك، وتجنبي الكحول والتدخين لضمان حمل صحي لطفلك.",
+                source: "American College of Obstetricians and Gynecologists",
+                category: "صحة المرأة",
+                date: "2024-02-28",
+                type: "info"
+            }
+        ];
+
         // دالة لنسخ النص إلى الحافظة
         async function copyTip(buttonElement, title, content) {
             const textToCopy = `💡 نصيحة صحية من أثر صحي:\n${title}\n${content}\n\n🌐 للمزيد من النصائح: ${window.location.href}`;
             try {
                 await navigator.clipboard.writeText(textToCopy);
                 const originalHtml = buttonElement.innerHTML;
-                buttonElement.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
-                buttonElement.classList.remove('btn-secondary');
-                buttonElement.classList.add('btn-success');
+                buttonElement.innerHTML = '<i class="fas fa-check ml-2"></i> تم النسخ!';
+                buttonElement.classList.remove('bg-gray-400');
+                buttonElement.classList.add('bg-green-500');
                 setTimeout(() => {
                     buttonElement.innerHTML = originalHtml;
-                    buttonElement.classList.remove('btn-success');
-                    buttonElement.classList.add('btn-secondary');
-                }, 2000); // العودة للحالة الأصلية بعد ثانيتين
+                    buttonElement.classList.remove('bg-green-500');
+                    buttonElement.classList.add('bg-gray-400');
+                }, 2000);
             } catch (err) {
                 console.error('Failed to copy tip: ', err);
                 alert('فشل نسخ النصيحة. الرجاء المحاولة مرة أخرى أو النسخ يدوياً.');
             }
         }
 
-        async function fetchAwarenessData() {
-            try {
-                // Assuming athardata.json exists and is structured correctly
-                const res = await fetch('athardata.json?v=' + new Date().getTime());
-                const data = await res.json();
-                
-                const currentContainer = document.getElementById('current-tips-list');
-                const archiveContainer = document.getElementById('archive-tips-list');
-                
-                currentContainer.innerHTML = '';
-                archiveContainer.innerHTML = '';
-
-                // Filter for unique titles, then slice
-                const uniqueData = data.filter((v,i,a)=>a.findIndex(t=>(t.title === v.title))===i);
-
-                const currentItems = uniqueData.slice(0, 5);
-                const archiveItems = uniqueData.slice(5);
-
-                currentItems.forEach(item => {
-                    currentContainer.innerHTML += buildTipCard(item);
-                });
-
-                archiveItems.forEach(item => {
-                    archiveContainer.innerHTML += buildTipCard(item);
-                });
-
-            } catch (error) {
-                console.error("Failed to fetch awareness data:", error);
-                document.getElementById('current-tips-list').innerHTML = '<p class="text-center text-danger">عذراً، حدث خطأ أثناء تحميل النصائح. الرجاء المحاولة لاحقاً.</p>';
-            }
-        }
-
         function buildTipCard(item) {
             const isWarning = item.type === 'warning';
-            const borderCol = isWarning ? '#dc3545' : '#198754';
+            const borderColor = isWarning ? 'border-red-500' : 'border-primary-green';
             const icon = isWarning ? '⚠️' : '💡';
             
-            // Sanitize input for use in JS strings and URL encoding
             const escapedTitle = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
             const escapedContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
             
-            // For share links, encode the full text including title and content
             const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
             const currentPageUrl = encodeURIComponent(window.location.href);
 
             return `
-                <div class="tip-card" style="border-right-color: ${borderCol}">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <h5 class="fw-bold" style="color:#222">${item.title}</h5>
-                        <span style="font-size:1.5rem">${icon}</span>
+                <div class="tip-card ${borderColor}">
+                    <div class="flex justify-between items-start mb-2">
+                        <h5 class="font-bold text-lg text-gray-900">${item.title}</h5>
+                        <span class="text-2xl">${icon}</span>
                     </div>
-                    <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.0;">${item.content}</p>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
+                    <p class="text-gray-700 text-base leading-relaxed mb-3">${item.content}</p>
+                    <div class="flex justify-between items-center mb-3">
                         <span class="source-label"> المصدر: ${item.source || 'أثر صحي'}${item.category ? ' - ' + item.category : ''}</span>
-                        <small class="text-muted" style="font-size:0.75rem"> ${item.date || ''}</small>
+                        <small class="text-gray-500 text-xs"> ${item.date || ''}</small>
                     </div>
-                    <div class="d-flex justify-content-end gap-2 mt-2">
-                        <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3"
+                    <div class="flex justify-end gap-2 mt-4">
+                        <button type="button" class="inline-flex items-center px-4 py-2 bg-gray-400 text-white rounded-full text-sm hover:bg-gray-500 transition-colors duration-300"
                                 onclick="copyTip(this, '${escapedTitle}', '${escapedContent}')">
-                            <i class="fas fa-copy"></i> نسخ
+                            <i class="fas fa-copy ml-2"></i> نسخ
                         </button>
                         <a href="https://www.facebook.com/sharer/sharer.php?u=${currentPageUrl}&quote=${shareText}"
-                           target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm rounded-pill px-3">
-                            <i class="fab fa-facebook-f"></i> فيسبوك
+                           target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-full text-sm hover:bg-blue-700 transition-colors duration-300">
+                            <i class="fab fa-facebook-f ml-2"></i> فيسبوك
                         </a>
                         <a href="https://wa.me/?text=${shareText + encodeURIComponent('\n\n🌐 للمزيد: ') + currentPageUrl}"
-                           target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm rounded-pill px-3">
-                            <i class="fab fa-whatsapp"></i> واتساب
+                           target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-green-500 text-white rounded-full text-sm hover:bg-green-600 transition-colors duration-300">
+                            <i class="fab fa-whatsapp ml-2"></i> واتساب
                         </a>
                     </div>
                 </div>
             `;
         }
 
+        function fetchAwarenessData() {
+            const currentContainer = document.getElementById('current-tips-list');
+            const archiveContainer = document.getElementById('archive-tips-list');
+            
+            currentContainer.innerHTML = '';
+            archiveContainer.innerHTML = '';
+
+            const uniqueData = dummyAwarenessData.filter((v,i,a)=>a.findIndex(t=>(t.title === v.title))===i);
+
+            const currentItems = uniqueData.slice(0, 6); // Display more initially
+            const archiveItems = uniqueData.slice(6);
+
+            currentItems.forEach(item => {
+                currentContainer.innerHTML += buildTipCard(item);
+            });
+
+            archiveItems.forEach(item => {
+                archiveContainer.innerHTML += buildTipCard(item);
+            });
+
+             if (archiveItems.length === 0) {
+                document.getElementById('archive-btn').style.display = 'none';
+            }
+        }
+
         function toggleArchive() {
             const arc = document.getElementById('archive-tips-list');
             const btn = document.getElementById('archive-btn');
             if (arc.style.display === 'none') {
-                arc.style.display = 'block';
-                btn.innerText = 'إغلاق الأرشيف';
-                // Optional: Scroll to the archive if it was hidden
+                arc.style.display = 'grid'; // Use grid for display
+                btn.innerHTML = '<i class="fas fa-times ml-2"></i> إغلاق الأرشيف';
                 arc.scrollIntoView({ behavior: 'smooth' });
             } else {
                 arc.style.display = 'none';
-                btn.innerText = 'تصفح أرشيف المعلومات الكامل';
+                btn.innerHTML = 'تصفح أرشيف المعلومات الكامل <i class="fas fa-archive mr-2"></i>';
             }
         }
 
@@ -699,7 +786,7 @@
                 { title: "استراتيجيات الحد من مقاومة المضادات الحيوية في البيئة الصحية", field: "مكافحة العدوى", keywords: "antibiotic resistance strategies healthcare infection control AMR مقاومة المضادات الحيوية الرعاية الصحية مكافحة العدوى", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
                 { title: "تأثير النشاط البدني على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "physical activity adolescent mental health depression anxiety well-being النشاط البدني الصحة النفسية المراهقين الاكتئاب القلق الرفاهية", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
                 { title: "فحص جودة الأغذية المستوردة ودورها في الحماية من الأمراض", field: "سلامة الغذاء والتغذية", keywords: "imported food quality foodborne diseases safety regulation standards جودة الأغذية المستوردة الأمراض المنقولة بالغذاء السلامة التنظيم المعايير", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
-                { title: "الابتكارات في التشخيص المبكر للأمراض السرطانية", field: "الصحة العامة", keywords: "innovations early cancer diagnosis screening biomarkers technology الابتكارات التشخيص المبكر السرطان الفحص المؤشرات الحيوية التكنولوجيا", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
+                { title: "الابتكارات في التشخيص المبكر للأمراض السرطانية", field: "الابتكار الطبي", keywords: "innovations early cancer diagnosis screening biomarkers technology الابتكارات التشخيص المبكر السرطان الفحص المؤشرات الحيوية التكنولوجيا", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
                 { title: "مكافحة العدوى في مراكز الرعاية الأولية", field: "مكافحة العدوى", keywords: "infection control primary healthcare hygiene hand washing PPE مكافحة العدوى الرعاية الأولية النظافة غسل اليدين معدات الوقاية الشخصية", studyTypes: ["بحث تجريبي", "دراسة مقطعية"] },
                 { title: "التعليم الصحي للمجتمعات الريفية: التحديات والحلول", field: "الصحة العامة", keywords: "health education rural communities disparities access solutions التعليم الصحي المجتمعات الريفية الفوارق الوصول الحلول", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
                 { title: "تأثير التلوث البيئي على الجهاز التنفسي", field: "الصحة البيئية", keywords: "environmental pollution respiratory health air quality asthma COPD التلوث البيئي الجهاز التنفسي جودة الهواء الربو الانسداد الرئوي المزمن", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
@@ -708,13 +795,17 @@
                 { title: "تقييم برامج التطعيم الوطنية وأثرها على الصحة العامة", field: "الصحة العامة", keywords: "national vaccination programs public health impact coverage diseases برامج التطعيم الوطنية الصحة العامة التأثير التغطية الأمراض", studyTypes: ["تحليل تلوي", "مراجعة منهجية", "دراسة أترابية"] },
                 { title: "التحديات الصحية لسكان المناطق النائية", field: "الصحة العامة", keywords: "health challenges remote areas access healthcare equity infrastructure التحديات الصحية المناطق النائية الوصول الرعاية الصحية المساواة البنية التحتية", studyTypes: ["دراسة مقطعية", "دراسة حالات"] },
                 { title: "استخدام تقنيات الذكاء الاصطناعي في تشخيص الأمراض", field: "الابتكار الطبي", keywords: "AI technologies disease diagnosis medical imaging machine learning تقنيات الذكاء الاصطناعي تشخيص الأمراض التصوير الطبي التعلم الآلي", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
-                { title: "دراسة حول فعالية حملات التوعية بسرطان الثدي", field: "الصحة العامة", keywords: "breast cancer awareness campaigns effectiveness screening early detection حملات التوعية سرطان الثدي الفعالية الفحص الكشف المبكر", studyTypes: ["دراسة مقطعية", "دراسة أترابية"] },
+                { title: "دراسة حول فعالية حملات التوعية بسرطان الثدي", field: "صحة المرأة", keywords: "breast cancer awareness campaigns effectiveness screening early detection حملات التوعية سرطان الثدي الفعالية الفحص الكشف المبكر", studyTypes: ["دراسة مقطعية", "دراسة أترابية"] },
                 { title: "تحسين جودة الهواء في المدن وتأثيره على الصحة", field: "الصحة البيئية", keywords: "urban air quality health impact pollution mitigation policies جودة الهواء المدن التأثير الصحي التلوث سياسات التخفيف", studyTypes: ["مراجعة منهجية", "دراسة مقطعية"] },
                 { title: "دور الأنماط الحياتية في الوقاية من أمراض القلب", field: "الوقاية من الأمراض", keywords: "lifestyle cardiovascular disease prevention diet exercise stress الأنماط الحياتية الوقاية أمراض القلب النظام الغذائي التمارين الإجهاد", studyTypes: ["دراسة أترابية", "تحليل تلوي"] },
                 { title: "تأثير الجوائح على الصحة النفسية للمجتمعات", field: "الصحة النفسية", keywords: "pandemics mental health community anxiety depression trauma الجوائح الصحة النفسية المجتمع القلق الاكتئاب الصدمة", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
                 { title: "التقنيات الحديثة في علاج داء السكري", field: "الابتكار الطبي", keywords: "modern techniques diabetes treatment insulin pumps continuous glucose monitoring التقنيات الحديثة علاج السكري مضخات الأنسولين مراقبة الجلوكوز المستمرة", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
-                { title: "سلامة منتجات التجميل وتأثيرها على البشرة", field: "الصحة الجلدية", keywords: "cosmetic product safety skin impact allergies regulations ingredients سلامة منتجات التجميل البشرة الحساسية اللوائح المكونات", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
-                { title: "برامج الفحص المبكر لسرطان القولون والمستقيم", field: "الوقاية من الأمراض", keywords: "colorectal cancer screening programs early detection endoscopy awareness برامج الفحص المبكر سرطان القولون والمستقيم الكشف المبكر التنظير الوعي", studyTypes: ["مراجعة منهجية", "دراسة أترابية"] }
+                { title: "سلامة منتجات التجميل وتأثيرها على البشرة", field: "صحة المرأة", keywords: "cosmetic product safety skin impact allergies regulations ingredients سلامة منتجات التجميل البشرة الحساسية اللوائح المكونات", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
+                { title: "برامج الفحص المبكر لسرطان القولون والمستقيم", field: "الوقاية من الأمراض", keywords: "colorectal cancer screening programs early detection endoscopy awareness برامج الفحص المبكر سرطان القولون والمستقيم الكشف المبكر التنظير الوعي", studyTypes: ["مراجعة منهجية", "دراسة أترابية"] },
+                { title: "الالتهابات التنفسية الحادة لدى الأطفال: عوامل الخطر والوقاية", field: "مكافحة العدوى", keywords: "acute respiratory infections children risk factors prevention الالتهابات التنفسية الحادة الأطفال عوامل الخطر الوقاية", studyTypes: ["دراسة مقطعية", "دراسة أترابية"] },
+                { title: "تأثير التمارين الرياضية على مرضى السكري من النوع الثاني", field: "الأمراض المزمنة", keywords: "exercise type 2 diabetes management glycemic control physical activity التمارين الرياضية السكري النوع الثاني التحكم في السكر النشاط البدني", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
+                { title: "الصحة الرقمية: تطبيقات الهواتف الذكية في إدارة الأمراض", field: "الابتكار الطبي", keywords: "digital health mobile apps disease management telemedicine الصحة الرقمية تطبيقات الهواتف الذكية إدارة الأمراض الطب عن بعد", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "استراتيجيات تعزيز الوعي بسرطان عنق الرحم والفحص المبكر", field: "صحة المرأة", keywords: "cervical cancer awareness screening prevention HPV vaccine سرطان عنق الرحم الوعي الفحص المبكر لقاح فيروس الورم الحليمي", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] }
             ];
 
             const researchData = [];
@@ -722,13 +813,11 @@
 
             for (let i = 0; i < count; i++) {
                 const topic = researchTopics[i % researchTopics.length];
-                const year = currentYear - Math.floor(Math.random() * 5); // From current year to 4 years prior
+                const year = currentYear - Math.floor(Math.random() * 8); // From current year to 7 years prior
                 const titleVariant = Math.random().toString(36).substring(2, 7); 
                 const specificTitle = `${topic.title} - ${titleVariant}`;
                 const studyType = topic.studyTypes[Math.floor(Math.random() * topic.studyTypes.length)];
                 
-                // Construct a more specific PubMed search query
-                // Using general search terms to ensure a result page, as specific article links would require a live API
                 const pubmedSearchQuery = encodeURIComponent(`${specificTitle} ${topic.field} ${studyType} ${topic.keywords} year:${year}`); 
                 const pubmedLink = `https://pubmed.ncbi.nlm.nih.gov/?term=${pubmedSearchQuery}`;
 
@@ -738,7 +827,7 @@
                     field: topic.field,
                     studyType: studyType,
                     link: pubmedLink,
-                    keywords: topic.keywords // for general search matching
+                    keywords: topic.keywords
                 });
             }
             return researchData;
@@ -751,11 +840,11 @@
             const showMoreResearchBtn = document.getElementById('showMoreResearchBtn');
 
             if (filteredResearchData.length === 0) {
-                noResultsMessage.style.display = 'block';
+                noResultsMessage.classList.remove('hidden');
                 showMoreResearchBtn.style.display = 'none';
                 return;
             } else {
-                noResultsMessage.style.display = 'none';
+                noResultsMessage.classList.add('hidden');
             }
 
             const dataToDisplay = filteredResearchData.slice(0, currentVisibleResearchRows);
@@ -767,15 +856,15 @@
                         <td>${item.year}</td>
                         <td>${item.field}</td>
                         <td>${item.studyType}</td>
-                        <td><a href="${item.link}" target="_blank" rel="noopener noreferrer">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a></td>
+                        <td><a href="${item.link}" target="_blank" rel="noopener noreferrer" class="flex items-center">قراءة المزيد <i class="fas fa-external-link-alt text-xs mr-1"></i></a></td>
                     </tr>
                 `;
             });
 
             if (filteredResearchData.length > currentVisibleResearchRows) {
-                showMoreResearchBtn.style.display = 'block';
+                showMoreResearchBtn.style.display = 'inline-flex';
                 const remaining = filteredResearchData.length - currentVisibleResearchRows;
-                showMoreResearchBtn.textContent = `عرض المزيد من الأبحاث (${remaining} متبقية)`;
+                showMoreResearchBtn.innerHTML = `عرض المزيد من الأبحاث (${remaining} متبقية) <i class="fas fa-arrow-left ml-2"></i>`;
             } else {
                 showMoreResearchBtn.style.display = 'none';
             }
@@ -791,7 +880,7 @@
                 const matchesSearchTerm = item.title.toLowerCase().includes(filterTerm) ||
                                           item.year.toString().includes(filterTerm) ||
                                           item.field.toLowerCase().includes(filterTerm) ||
-                                          item.keywords.toLowerCase().includes(filterTerm) || // Search in keywords
+                                          item.keywords.toLowerCase().includes(filterTerm) ||
                                           item.studyType.toLowerCase().includes(filterTerm); 
                 
                 const matchesField = fieldFilter === '' || item.field === fieldFilter;
@@ -827,12 +916,12 @@
 
         function displayAuthMessage(message, type = 'danger') {
             authMessage.textContent = message;
-            authMessage.className = `alert mt-3 alert-${type}`;
-            authMessage.classList.remove('d-none');
+            authMessage.className = `alert mt-3 p-3 rounded-lg text-sm bg-${type === 'success' ? 'green-100 text-green-700' : 'red-100 text-red-700'}`;
+            authMessage.classList.remove('hidden');
         }
 
         function clearAuthMessage() {
-            authMessage.classList.add('d-none');
+            authMessage.classList.add('hidden');
             authMessage.textContent = '';
         }
 
@@ -841,19 +930,19 @@
             const email = emailInput.value;
             const password = passwordInput.value;
 
-            // Simple client-side validation
             const form = document.getElementById('authForm');
             if (!form.checkValidity()) {
                 form.classList.add('was-validated');
                 return;
             }
+            form.classList.remove('was-validated'); // Clear if valid
 
             try {
                 await window.signInWithEmailAndPassword(window.auth, email, password);
                 displayAuthMessage('تم تسجيل الدخول بنجاح!', 'success');
                 setTimeout(() => {
                     authModal.hide();
-                }, 1000); // Close after 1 second for success message to be seen
+                }, 1000);
             } catch (error) {
                 console.error("Sign In Error:", error.code, error.message);
                 let errorMessage = 'فشل تسجيل الدخول. الرجاء التحقق من بريدك وكلمة المرور.';
@@ -869,19 +958,19 @@
             const email = emailInput.value;
             const password = passwordInput.value;
 
-            // Simple client-side validation
             const form = document.getElementById('authForm');
             if (!form.checkValidity()) {
                 form.classList.add('was-validated');
                 return;
             }
+            form.classList.remove('was-validated'); // Clear if valid
 
             try {
                 await window.createUserWithEmailAndPassword(window.auth, email, password);
                 displayAuthMessage('تم إنشاء الحساب بنجاح! جاري تسجيل الدخول...', 'success');
                 setTimeout(() => {
                     authModal.hide();
-                }, 1000); // Close after 1 second
+                }, 1000);
             } catch (error) {
                 console.error("Sign Up Error:", error.code, error.message);
                 let errorMessage = 'فشل إنشاء الحساب. الرجاء المحاولة مرة أخرى.';
@@ -895,51 +984,73 @@
         async function handleSignOut() {
             try {
                 await window.signOut(window.auth);
-                // The onAuthStateChanged listener will handle UI update
             } catch (error) {
                 console.error("Sign Out Error:", error);
                 alert('فشل تسجيل الخروج. الرجاء المحاولة مرة أخرى.');
             }
         }
 
-        // Auth state observer
-        // Check if window.auth is defined before using it
         if (window.auth) {
             window.onAuthStateChanged(window.auth, (user) => {
+                const navLinks = document.querySelectorAll('.nav-item-link');
+                const authButtonInNav = document.getElementById('authNavLink');
+                const saveContentButton = document.querySelector('#user-accounts .user-account-card:nth-child(2) button');
+                const manageAlertsButton = document.querySelector('#user-accounts .user-account-card:nth-child(3) button');
+
                 if (user) {
-                    // User is signed in
-                    const displayName = user.email.split('@')[0]; // Simple display name from email
-                    authNavLink.innerHTML = `<i class="fas fa-user"></i> ${displayName}`;
-                    authNavLink.onclick = handleSignOut;
-                    authNavLink.removeAttribute('data-bs-toggle');
-                    authNavLink.removeAttribute('data-bs-target');
-                    authNavLink.classList.add('active-link'); // Highlight if logged in
+                    const displayName = user.email.split('@')[0];
+                    authButtonInNav.innerHTML = `<i class="fas fa-user ml-2"></i> ${displayName}`;
+                    authButtonInNav.onclick = handleSignOut;
+                    authButtonInNav.removeAttribute('data-bs-toggle');
+                    authButtonInNav.removeAttribute('data-bs-target');
+                    authButtonInNav.classList.add('active-link'); // Keep active if logged in
 
                     userAccountStatus.textContent = `مرحباً بك، ${displayName}`;
                     userAccountDescription.textContent = 'أهلاً بك في حسابك الشخصي. يمكنك إدارة محتواك المحفوظ وإعدادات التنبيهات.';
-                    authActionButton.textContent = 'تسجيل الخروج';
-                    authActionButton.classList.remove('btn-outline-success', 'btn-primary'); // Remove existing
-                    authActionButton.classList.add('btn-danger'); // Add danger for logout
+                    authActionButton.innerHTML = '<i class="fas fa-sign-out-alt ml-2"></i> تسجيل الخروج';
+                    authActionButton.classList.remove('border-primary-green', 'text-primary-green', 'hover:bg-primary-green', 'hover:text-white');
+                    authActionButton.classList.add('bg-red-600', 'text-white', 'hover:bg-red-700');
                     authActionButton.onclick = handleSignOut;
                     authActionButton.removeAttribute('data-bs-toggle');
                     authActionButton.removeAttribute('data-bs-target');
 
+                    saveContentButton.classList.remove('disabled:opacity-50', 'disabled:cursor-not-allowed', 'border-gray-400', 'text-gray-600', 'hover:bg-gray-100');
+                    saveContentButton.classList.add('border-primary-green', 'text-primary-green', 'hover:bg-primary-green', 'hover:text-white');
+                    saveContentButton.removeAttribute('disabled');
+                    saveContentButton.onclick = () => alert('تم تفعيل ميزة حفظ المحتوى! (هذا تنبيه تجريبي)');
+
+                    manageAlertsButton.classList.remove('disabled:opacity-50', 'disabled:cursor-not-allowed', 'border-gray-400', 'text-gray-600', 'hover:bg-gray-100');
+                    manageAlertsButton.classList.add('border-primary-green', 'text-primary-green', 'hover:bg-primary-green', 'hover:text-white');
+                    manageAlertsButton.removeAttribute('disabled');
+                    manageAlertsButton.onclick = () => alert('تم تفعيل ميزة إدارة التنبيهات! (هذا تنبيه تجريبي)');
+
+
                 } else {
-                    // User is signed out
-                    authNavLink.innerHTML = 'تسجيل الدخول';
-                    authNavLink.onclick = null; // Re-enable modal trigger
-                    authNavLink.setAttribute('data-bs-toggle', 'modal');
-                    authNavLink.setAttribute('data-bs-target', '#authModal');
-                    authNavLink.classList.remove('active-link'); // Remove highlight
+                    authButtonInNav.innerHTML = 'تسجيل الدخول';
+                    authButtonInNav.onclick = null;
+                    authButtonInNav.setAttribute('data-bs-toggle', 'modal');
+                    authButtonInNav.setAttribute('data-bs-target', '#authModal');
+                    // Remove active-link from authNavLink only if user is signing out
+                    authButtonInNav.classList.remove('active-link'); 
 
                     userAccountStatus.textContent = 'تسجيل الدخول / إنشاء حساب';
-                    userAccountDescription.textContent = 'سجّل الدخول للوصول إلى مميزات الحساب الشخصي.';
-                    authActionButton.textContent = 'ابدأ الآن';
-                    authActionButton.classList.remove('btn-danger'); // Remove danger
-                    authActionButton.classList.add('btn-outline-success'); // Add success for login
-                    authActionButton.onclick = null; // Re-enable modal trigger
+                    userAccountDescription.textContent = 'سجّل الدخول للوصول إلى تجربة استخدام أكثر تنظيمًا وتفاعلية.';
+                    authActionButton.innerHTML = 'ابدأ الآن';
+                    authActionButton.classList.remove('bg-red-600', 'text-white', 'hover:bg-red-700');
+                    authActionButton.classList.add('border-primary-green', 'text-primary-green', 'hover:bg-primary-green', 'hover:text-white');
+                    authActionButton.onclick = null;
                     authActionButton.setAttribute('data-bs-toggle', 'modal');
                     authActionButton.setAttribute('data-bs-target', '#authModal');
+
+                    saveContentButton.classList.add('disabled:opacity-50', 'disabled:cursor-not-allowed', 'border-gray-400', 'text-gray-600', 'hover:bg-gray-100');
+                    saveContentButton.classList.remove('border-primary-green', 'text-primary-green', 'hover:bg-primary-green', 'hover:text-white');
+                    saveContentButton.setAttribute('disabled', 'true');
+                    saveContentButton.onclick = () => alert('هذه الميزة تتطلب تسجيل الدخول.');
+
+                    manageAlertsButton.classList.add('disabled:opacity-50', 'disabled:cursor-not-allowed', 'border-gray-400', 'text-gray-600', 'hover:bg-gray-100');
+                    manageAlertsButton.classList.remove('border-primary-green', 'text-primary-green', 'hover:bg-primary-green', 'hover:text-white');
+                    manageAlertsButton.setAttribute('disabled', 'true');
+                    manageAlertsButton.onclick = () => alert('هذه الميزة تتطلب تسجيل الدخول.');
                 }
             });
         } else {
@@ -947,9 +1058,7 @@
         }
 
 
-        // Event listeners for modal buttons
         document.addEventListener('DOMContentLoaded', () => {
-            // Check if Firebase Auth is ready before attaching listeners
             if (window.auth) {
                 signInBtn.addEventListener('click', handleSignIn);
                 signUpBtn.addEventListener('click', handleSignUp);
@@ -957,22 +1066,22 @@
                 console.warn("Firebase Auth not ready, login/signup buttons disabled.");
                 signInBtn.disabled = true;
                 signUpBtn.disabled = true;
+                signInBtn.textContent += ' (غير متاح)';
+                signUpBtn.textContent += ' (غير متاح)';
             }
         });
 
-        // Reset modal form when hidden
         authModalElement.addEventListener('hidden.bs.modal', () => {
             emailInput.value = '';
             passwordInput.value = '';
             clearAuthMessage();
             const form = document.getElementById('authForm');
-            form.classList.remove('was-validated'); // Clear validation state
+            form.classList.remove('was-validated');
         });
         
         // --- End Firebase Auth Functions ---
 
 
-        // بدء التشغيل
         document.addEventListener('DOMContentLoaded', () => {
             fetchAwarenessData();
 
@@ -981,10 +1090,11 @@
             filteredResearchData = [...allResearchData];
             renderResearchTable();
 
-            // Initial highlight for active nav link (based on URL hash, if any)
+            const navLinks = document.querySelectorAll('.nav-item-link');
+
+            // Set active link based on initial hash or first section
             const currentHash = window.location.hash;
             if (currentHash) {
-                const navLinks = document.querySelectorAll('.nav-item-link');
                 navLinks.forEach(link => {
                     if (link.getAttribute('href') === currentHash) {
                         link.classList.add('active-link');
@@ -992,10 +1102,15 @@
                         link.classList.remove('active-link');
                     }
                 });
+            } else {
+                const firstNavLink = document.querySelector('.nav-item-link[href="#hero"]');
+                if (firstNavLink) {
+                    firstNavLink.classList.add('active-link');
+                }
             }
 
-            // Add smooth scroll and active link class to nav items
-            document.querySelectorAll('.nav-item-link').forEach(anchor => {
+            // Smooth scroll and active link class to nav items
+            navLinks.forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     // Only for internal links that are not auth modal triggers
                     if (this.getAttribute('href').startsWith('#') && this.id !== 'authNavLink') { 
@@ -1005,38 +1120,41 @@
                             behavior: 'smooth'
                         });
 
-                        // Remove active class from all and add to clicked
-                        document.querySelectorAll('.nav-item-link').forEach(link => link.classList.remove('active-link'));
+                        navLinks.forEach(link => link.classList.remove('active-link'));
                         this.classList.add('active-link');
                     }
                 });
             });
 
-            // Re-apply active link class on scroll to maintain visual state
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.5 // Adjust as needed
+                threshold: 0.5
             };
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const targetId = entry.target.id;
-                        document.querySelectorAll('.nav-item-link').forEach(link => {
+                        navLinks.forEach(link => {
+                            // Ensure the authNavLink isn't deactivated if logged in and user scrolls away from hero
+                            const isAuthLinkAndLoggedIn = link.id === 'authNavLink' && window.auth && window.auth.currentUser;
+                            
                             if (link.getAttribute('href') === `#${targetId}`) {
-                                // Ensure authNavLink isn't deactivated if logged in and user scrolls away from hero
-                                if (link.id !== 'authNavLink' || !window.auth.currentUser) {
-                                    document.querySelectorAll('.nav-item-link').forEach(l => l.classList.remove('active-link'));
+                                if (!isAuthLinkAndLoggedIn) { // Only change active class if it's not the auth link or user is logged out
+                                    navLinks.forEach(l => l.classList.remove('active-link'));
                                     link.classList.add('active-link');
                                 }
+                            }
+                            // If the auth link is active because user is logged in, keep it active regardless of scroll
+                            if (isAuthLinkAndLoggedIn) {
+                                link.classList.add('active-link');
                             }
                         });
                     }
                 });
             }, observerOptions);
 
-            // Observe all sections
             document.querySelectorAll('section').forEach(section => {
                 observer.observe(section);
             });
@@ -1044,6 +1162,5 @@
     </script>
 <script data-goatcounter="https://athar-health.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
