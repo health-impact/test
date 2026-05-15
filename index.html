@@ -490,9 +490,12 @@
                 </table>
                 <p id="noResultsMessage" class="text-center text-muted mt-4" style="display:none;">لا توجد نتائج مطابقة لبحثك.</p>
             </div>
-            <div class="text-center mt-4">
+            <div class="text-center mt-4 d-flex justify-content-center gap-3">
                 <button id="showMoreResearchBtn" onclick="showMoreResearch()" class="btn btn-success rounded-pill px-5 py-3 fw-bold shadow-sm" style="display:none;">
                     عرض المزيد من الأبحاث
+                </button>
+                <button id="showLessResearchBtn" onclick="showLessResearch()" class="btn btn-outline-secondary rounded-pill px-5 py-3 fw-bold shadow-sm" style="display:none;">
+                    إظهار أقل
                 </button>
             </div>
             
@@ -697,16 +700,32 @@
             return researchData;
         }
 
+        function updateResearchButtonsVisibility() {
+            const showMoreBtn = document.getElementById('showMoreResearchBtn');
+            const showLessBtn = document.getElementById('showLessResearchBtn');
+            
+            if (filteredResearchData.length > currentVisibleResearchRows) {
+                showMoreBtn.style.display = 'block';
+                const remaining = filteredResearchData.length - currentVisibleResearchRows;
+                showMoreBtn.textContent = `عرض المزيد من الأبحاث (${remaining} متبقية)`;
+            } else {
+                showMoreBtn.style.display = 'none';
+            }
+
+            if (currentVisibleResearchRows > RESEARCH_INITIAL_DISPLAY_COUNT && filteredResearchData.length > RESEARCH_INITIAL_DISPLAY_COUNT) {
+                showLessBtn.style.display = 'block';
+            } else {
+                showLessBtn.style.display = 'none';
+            }
+        }
+
         function renderResearchTable() {
             const tableBody = document.querySelector('#researchTable tbody');
             tableBody.innerHTML = '';
             const noResultsMessage = document.getElementById('noResultsMessage');
-            const showMoreResearchBtn = document.getElementById('showMoreResearchBtn');
-
+            
             if (filteredResearchData.length === 0) {
                 noResultsMessage.style.display = 'block';
-                showMoreResearchBtn.style.display = 'none';
-                return;
             } else {
                 noResultsMessage.style.display = 'none';
             }
@@ -725,13 +744,7 @@
                 `;
             });
 
-            if (filteredResearchData.length > currentVisibleResearchRows) {
-                showMoreResearchBtn.style.display = 'block';
-                const remaining = filteredResearchData.length - currentVisibleResearchRows;
-                showMoreResearchBtn.textContent = `عرض المزيد من الأبحاث (${remaining} متبقية)`;
-            } else {
-                showMoreResearchBtn.style.display = 'none';
-            }
+            updateResearchButtonsVisibility();
         }
 
         function filterResearchTable() {
@@ -763,6 +776,13 @@
                 currentVisibleResearchRows = filteredResearchData.length;
             }
             renderResearchTable();
+            document.getElementById('researchTable').scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+
+        function showLessResearch() {
+            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
+            renderResearchTable();
+            document.getElementById('researchTable').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         // بدء التشغيل
