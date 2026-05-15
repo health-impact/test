@@ -50,7 +50,8 @@
         /* 3. قسم الرئيسية (Hero) */
         .hero { 
             height: 75vh; 
-            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('assets/hero.jpeg');
+            /* Added a placeholder image for the hero section */
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1532938911072-f1925345719a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             background-repeat: no-repeat; background-position: center; background-size: cover;
             color: white; display: flex; align-items: center; justify-content: center; text-align: center;
         }
@@ -183,27 +184,7 @@
             padding: 10px 25px;
         }
 
-        /* Fact-checking styles */
-        .fact-check-container {
-            background: #fff;
-            border-radius: 25px;
-            padding: clamp(15px, 4vw, 40px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-        .fact-check-result-card {
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 20px;
-            border-right: 8px solid;
-        }
-        .fact-check-result-card.correct { border-color: var(--main-green); background-color: #e8f5e9; }
-        .fact-check-result-card.misleading { border-color: #ffc107; background-color: #fff3cd; }
-        .fact-check-result-card.false { border-color: #dc3545; background-color: #f8d7da; }
-        .fact-check-result-card h5 { font-weight: 700; margin-bottom: 10px; }
-        .fact-check-result-card p { font-size: 0.95rem; line-height: 1.6; }
-        .fact-check-result-card .references { font-size: 0.85rem; color: #555; }
-        
-        /* User Account styles (placeholders) */
+        /* User Account styles */
         .user-account-card {
             background: #fff;
             border-radius: 25px;
@@ -266,11 +247,11 @@
                 <a href="#hero" class="nav-item-link">الرئيسية</a>
                 <a href="#about" class="nav-item-link">عن المنصة</a>
                 <a href="#user-accounts" class="nav-item-link">حسابي</a>
+                <a href="#health-news" class="nav-item-link">آخر الأخبار</a>
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
                 <a href="#store" class="nav-item-link">المتجر</a>
                 <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
-                <a href="#fact-check" class="nav-item-link">التحقق العلمي</a>
-                <a href="#health-news" class="nav-item-link">آخر الأخبار</a>
+                <!-- Removed Fact-check link as per request -->
             </nav>
         </div>
     </header>
@@ -335,12 +316,68 @@
         </div>
     </section>
 
+    <!-- قسم آخر الأخبار الصحية -->
+    <section id="health-news" style="background-color: #f4f7f6;">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-5 text-success">آخر الأخبار الصحية المحلية والعالمية</h2>
+            <div class="news-container">
+                <div id="news-list">
+                    <div class="alert alert-info text-center" role="alert">
+                        <i class="fas fa-newspaper me-2"></i> هذه الميزة قيد التطوير. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
+                    </div>
+                    <!-- Dummy News Items for illustration -->
+                    <div class="news-item">
+                        <h4>دراسة جديدة تكشف عن تأثير النظام الغذائي على الصحة النفسية</h4>
+                        <p>أظهرت دراسة حديثة نشرت في مجلة "Lancet Psychiatry" أن هناك علاقة وثيقة بين جودة النظام الغذائي وصحة الدماغ، مع توصيات بزيادة تناول الألياف والبروتينات.</p>
+                        <span class="source-date">المصدر: WHO | 15 مارس 2024</span>
+                    </div>
+                    <div class="news-item">
+                        <h4>ليبيا تستعد لحملة تطعيم موسعة ضد شلل الأطفال</h4>
+                        <p>أعلنت منظمة الصحة الوطنية في ليبيا عن خطط لإطلاق حملة تطعيم شاملة تستهدف الأطفال دون سن الخامسة في جميع المدن الليبية، وذلك ضمن جهود مكافحة الأمراض الوبائية.</p>
+                        <span class="source-date">المصدر: NCDC Libya | 10 مارس 2024</span>
+                    </div>
+                    <div class="news-item">
+                        <h4>الذكاء الاصطناعي يُحدث ثورة في تشخيص الأمراض المزمنة</h4>
+                        <p>تزايد استخدام تقنيات الذكاء الاصطناعي في المجال الطبي، خاصة في تحليل الصور الإشعاعية والبيانات السريرية، مما يساهم في الكشف المبكر عن الأمراض المزمنة مثل السكري والسرطان بدقة غير مسبوقة.</p>
+                        <span class="source-date">المصدر: PubMed | 05 مارس 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="updates" style="background-color: #f4f7f6;">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5">التوعية الصحية الذكية</h2>
             <div class="updates-container">
                 <div id="current-tips-list">
                     <p class="text-center text-muted">جاري تحميل أحدث التحديثات العلمية...</p>
+                    <!-- Dummy tips if athardata.json is not available -->
+                    <div class="tip-card" style="border-right-color: #198754">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h5 class="fw-bold" style="color:#222">أهمية غسل اليدين للوقاية من العدوى</h5>
+                            <span style="font-size:1.5rem">💡</span>
+                        </div>
+                        <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.0;">غسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.</p>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="source-label"> المصدر: WHO - مكافحة العدوى</span>
+                            <small class="text-muted" style="font-size:0.75rem"> 2024-03-20</small>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 mt-2">
+                            <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3"
+                                    onclick="copyTip(this, 'أهمية غسل اليدين للوقاية من العدوى', 'غسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.')">
+                                <i class="fas fa-copy"></i> نسخ
+                            </button>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent('💡 نصيحة صحية من أثر صحي:\nأهمية غسل اليدين للوقاية من العدوى\nغسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.')}"
+                               target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm rounded-pill px-3">
+                                <i class="fab fa-facebook-f"></i> فيسبوك
+                            </a>
+                            <a href="https://wa.me/?text=${encodeURIComponent('💡 نصيحة صحية من أثر صحي:\nأهمية غسل اليدين للوقاية من العدوى\nغسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.' + '\n\n🌐 للمزيد: ') + encodeURIComponent(window.location.href)}"
+                               target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm rounded-pill px-3">
+                                <i class="fab fa-whatsapp"></i> واتساب
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 
                 <div id="archive-tips-list" style="display: none;"></div>
@@ -462,61 +499,7 @@
         </div>
     </section>
 
-    <!-- قسم التحقق العلمي من المعلومات -->
-    <section id="fact-check">
-        <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5 text-success">التحقق العلمي من المعلومات</h2>
-            <div class="fact-check-container">
-                <p class="text-center text-muted mb-4">أرسل لنا محتوى مشكوكًا فيه (نص، رابط) وسنقوم بتحليله علميًا.</p>
-                <div class="mb-3">
-                    <label for="factCheckInput" class="form-label fw-bold">نص أو رابط للمحتوى المراد التحقق منه:</label>
-                    <textarea class="form-control" id="factCheckInput" rows="5" placeholder="أدخل النص أو الصق الرابط هنا..."></textarea>
-                </div>
-                <div class="text-center">
-                    <button class="btn btn-success rounded-pill px-5 py-3 fw-bold shadow-sm" onclick="submitFactCheck()">
-                        <i class="fas fa-check-double me-2"></i> تحقق الآن
-                    </button>
-                </div>
-
-                <div id="factCheckResults" class="mt-4">
-                    <div class="alert alert-info text-center" role="alert">
-                        <i class="fas fa-info-circle me-2"></i> سيظهر التحليل هنا بعد إرسال المحتوى.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- قسم آخر الأخبار الصحية -->
-    <section id="health-news" style="background-color: #f4f7f6;">
-        <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5 text-success">آخر الأخبار الصحية المحلية والعالمية</h2>
-            <div class="news-container">
-                <div id="news-list">
-                    <div class="alert alert-info text-center" role="alert">
-                        <i class="fas fa-newspaper me-2"></i> هذه الميزة قيد التطوير. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
-                    </div>
-                    <!-- Dummy News Items for illustration -->
-                    <div class="news-item">
-                        <h4>دراسة جديدة تكشف عن تأثير النظام الغذائي على الصحة النفسية</h4>
-                        <p>أظهرت دراسة حديثة نشرت في مجلة "Lancet Psychiatry" أن هناك علاقة وثيقة بين جودة النظام الغذائي وصحة الدماغ، مع توصيات بزيادة تناول الألياف والبروتينات.</p>
-                        <span class="source-date">المصدر: WHO | 15 مارس 2024</span>
-                    </div>
-                    <div class="news-item">
-                        <h4>ليبيا تستعد لحملة تطعيم موسعة ضد شلل الأطفال</h4>
-                        <p>أعلنت منظمة الصحة الوطنية في ليبيا عن خطط لإطلاق حملة تطعيم شاملة تستهدف الأطفال دون سن الخامسة في جميع المدن الليبية، وذلك ضمن جهود مكافحة الأمراض الوبائية.</p>
-                        <span class="source-date">المصدر: NCDC Libya | 10 مارس 2024</span>
-                    </div>
-                    <div class="news-item">
-                        <h4>الذكاء الاصطناعي يُحدث ثورة في تشخيص الأمراض المزمنة</h4>
-                        <p>تزايد استخدام تقنيات الذكاء الاصطناعي في المجال الطبي، خاصة في تحليل الصور الإشعاعية والبيانات السريرية، مما يساهم في الكشف المبكر عن الأمراض المزمنة مثل السكري والسرطان بدقة غير مسبوقة.</p>
-                        <span class="source-date">المصدر: PubMed | 05 مارس 2024</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- Removed Fact-checking section as per request -->
 
     <footer class="footer">
         <div class="container px-4">
@@ -564,14 +547,15 @@
 
         async function fetchAwarenessData() {
             try {
-                // Assuming athardata.json exists and is structured correctly
+                // IMPORTANT: This fetch relies on 'athardata.json' existing in the same directory.
+                // If the file is not present, this function will fail.
                 const res = await fetch('athardata.json?v=' + new Date().getTime());
                 const data = await res.json();
                 
                 const currentContainer = document.getElementById('current-tips-list');
                 const archiveContainer = document.getElementById('archive-tips-list');
                 
-                currentContainer.innerHTML = '';
+                currentContainer.innerHTML = ''; // Clear initial dummy content if fetch is successful
                 archiveContainer.innerHTML = '';
 
                 // Filter for unique titles, then slice
@@ -590,7 +574,8 @@
 
             } catch (error) {
                 console.error("Failed to fetch awareness data:", error);
-                document.getElementById('current-tips-list').innerHTML = '<p class="text-center text-danger">عذراً، حدث خطأ أثناء تحميل النصائح. الرجاء المحاولة لاحقاً.</p>';
+                // Keep dummy content if fetch fails or provide a fallback message
+                document.getElementById('current-tips-list').innerHTML = document.getElementById('current-tips-list').innerHTML || '<p class="text-center text-danger">عذراً، حدث خطأ أثناء تحميل النصائح. الرجاء المحاولة لاحقاً.</p>';
             }
         }
 
@@ -678,7 +663,12 @@
                 { title: "تأثير الجوائح على الصحة النفسية للمجتمعات", field: "الصحة النفسية", keywords: "pandemics mental health community anxiety depression trauma", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
                 { title: "التقنيات الحديثة في علاج داء السكري", field: "الابتكار الطبي", keywords: "modern techniques diabetes treatment insulin pumps continuous glucose monitoring", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
                 { title: "سلامة منتجات التجميل وتأثيرها على البشرة", field: "الصحة الجلدية", keywords: "cosmetic product safety skin impact allergies regulations ingredients", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
-                { title: "برامج الفحص المبكر لسرطان القولون والمستقيم", field: "الوقاية من الأمراض", keywords: "colorectal cancer screening programs early detection endoscopy awareness", studyTypes: ["مراجعة منهجية", "دراسة أترابية"] }
+                { title: "برامج الفحص المبكر لسرطان القولون والمستقيم", field: "الوقاية من الأمراض", keywords: "colorectal cancer screening programs early detection endoscopy awareness", studyTypes: ["مراجعة منهجية", "دراسة أترابية"] },
+                { title: "تأثير جائحة كوفيد-19 على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "COVID-19 pandemic mental health adolescents anxiety depression stress", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
+                { title: "تحليل فعالية برامج مكافحة السمنة في المدارس", field: "الصحة العامة", keywords: "obesity prevention school programs children health nutrition physical activity", studyTypes: ["بحث تجريبي", "دراسة مقطعية"] },
+                { title: "التحكم في ناقلات الأمراض: استراتيجيات جديدة", field: "مكافحة العدوى", keywords: "vector control disease prevention mosquitoes ticks public health strategies", studyTypes: ["مراجعة منهجية", "بحث تجريبي"] },
+                { title: "دور التثقيف الغذائي في الوقاية من السكري من النوع الثاني", field: "سلامة الغذاء والتغذية", keywords: "nutrition education type 2 diabetes prevention diet healthy eating lifestyle", studyTypes: ["دراسة أترابية", "تجربة سريرية"] },
+                { title: "ابتكارات في التشخيص السريع للأمراض المعدية", field: "الابتكار الطبي", keywords: "rapid diagnostics infectious diseases point-of-care testing technology innovation", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] }
             ];
 
             const researchData = [];
@@ -762,7 +752,7 @@
                 return matchesSearchTerm && matchesField && matchesStudyType;
             });
 
-            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
+            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT; // Reset visible rows on new filter
             renderResearchTable();
         }
 
@@ -774,338 +764,19 @@
             renderResearchTable();
         }
 
-        // Dummy rumors database (generated as requested by Gemini/me)
-        const rumorsDatabase = [
-            {
-                question: "المضادات الحيوية تعالج نزلات البرد والإنفلونزا.",
-                classification: "خاطئة",
-                analysis: "نزلات البرد والإنفلونزا تسببها الفيروسات، بينما المضادات الحيوية فعالة فقط ضد البكتيريا. استخدام المضادات الحيوية للفيروسات لا يفيد ويساهم في زيادة مقاومة البكتيريا لها (المقاومة للمضادات الحيوية).",
-                references: "منظمة الصحة العالمية (WHO) - مقاومة مضادات الميكروبات، مراكز مكافحة الأمراض والوقاية منها (CDC) - استخدام المضادات الحيوية.",
-                dangerLevel: "مرتفع"
-            },
-            {
-                question: "تناول الثوم النيء يومياً يخفض ضغط الدم المرتفع بشكل فعال.",
-                classification: "مضللة",
-                analysis: "الثوم يحتوي على مركبات قد تساهم في خفض ضغط الدم بشكل طفيف، وقد يكون جزءاً من نظام غذائي صحي. لكنه ليس علاجاً بديلاً للأدوية الموصوفة لارتفاع ضغط الدم ولا يجب الاعتماد عليه وحده.",
-                references: "دراسات على PubMed حول تأثير الثوم على ضغط الدم، الجمعية الأمريكية لأمراض القلب.",
-                dangerLevel: "متوسط"
-            },
-            {
-                question: "التدخين الإلكتروني (الفيب) آمن تماماً ولا يسبب أي أضرار صحية.",
-                classification: "خاطئة",
-                analysis: "التدخين الإلكتروني ليس خالياً من المخاطر. يحتوي على النيكوتين ومواد كيميائية أخرى قد تكون ضارة بالرئة والقلب، وقد يؤدي إلى الإدمان. آثاره طويلة المدى لا تزال قيد الدراسة، لكن لا يمكن اعتباره آمناً.",
-                references: "مراكز مكافحة الأمراض والوقاية منها (CDC) - التدخين الإلكتروني، منظمة الصحة العالمية (WHO) - التبغ.",
-                dangerLevel: "مرتفع"
-            },
-            {
-                question: "شرب الماء البارد بعد الأكل مباشرة يسبب عسر الهضم أو يزيد الوزن.",
-                classification: "مضللة",
-                analysis: "شرب الماء البارد لا يسبب عسر الهضم لدى غالبية الناس ولا يؤثر بشكل مباشر على زيادة الوزن. الجسم يضبط درجة حرارة السوائل بسرعة. قد يسبب إزعاجاً لمن لديهم حساسية في الأسنان أو المريء.",
-                references: "مراجعات علمية حول الهضم وعلاقته بدرجة حرارة السوائل (PubMed).",
-                dangerLevel: "منخفض"
-            },
-            {
-                question: "الأطعمة العضوية (Organic) خالية تماماً من المبيدات الحشرية وملوثات التربة.",
-                classification: "مضللة",
-                analysis: "الأطعمة العضوية تستخدم طرق زراعة تقلل من استخدام المبيدات الاصطناعية والأسمدة الكيميائية، لكنها ليست خالية تماماً من المبيدات أو الملوثات الطبيعية التي قد توجد في التربة أو الماء. مستوياتها عادة ما تكون أقل.",
-                references: "وكالة حماية البيئة (EPA)، وزارة الزراعة الأمريكية (USDA) - المعايير العضوية.",
-                dangerLevel: "منخفض"
-            },
-            {
-                question: "اللقاحات تسبب التوحد عند الأطفال.",
-                classification: "خاطئة",
-                analysis: "هذه المعلومة تم دحضها علمياً بشكل قاطع عبر دراسات واسعة النطاق في جميع أنحاء العالم. لا يوجد أي دليل علمي يربط بين اللقاحات والتوحد. الدراسة الأصلية التي نشرت هذا الادعاء سُحبت وثبت أنها مزورة.",
-                references: "مراكز مكافحة الأمراض والوقاية منها (CDC) - اللقاحات والتوحد، منظمة الصحة العالمية (WHO) - سلامة اللقاحات.",
-                dangerLevel: "مرتفع"
-            },
-            {
-                question: "شرب الكحول بكميات معتدلة مفيد للقلب.",
-                classification: "مضللة",
-                analysis: "في حين أشارت بعض الدراسات القديمة إلى فوائد محتملة لشرب كميات قليلة من الكحول للقلب، إلا أن الأبحاث الحديثة تشير إلى أن أي كمية من الكحول تزيد من مخاطر الإصابة بأمراض معينة مثل السرطان وتلف الكبد، والفوائد المزعومة للقلب قد تكون مبالغ فيها أو لا تنطبق على الجميع.",
-                references: "منظمة الصحة العالمية (WHO) - الكحول والصحة، دراسات حديثة من الجمعية الأمريكية لأمراض القلب.",
-                dangerLevel: "مرتفع"
-            },
-            {
-                question: "حبوب منع الحمل تسبب العقم على المدى الطويل.",
-                classification: "خاطئة",
-                analysis: "حبوب منع الحمل آمنة وفعالة، ولا تسبب العقم الدائم. تعود الخصوبة في معظم الحالات بعد التوقف عن استخدامها بفترة وجيزة. قد يستغرق الأمر بعض الوقت ليعود انتظام الدورة الشهرية.",
-                references: "الكلية الأمريكية لأطباء التوليد والولادة (ACOG)، مراجعات على PubMed.",
-                dangerLevel: "متوسط"
-            },
-            {
-                question: "العلاج الكيميائي لمرض السرطان يقتل الخلايا السليمة أكثر من الخلايا السرطانية.",
-                classification: "مضللة",
-                analysis: "العلاج الكيميائي يستهدف الخلايا سريعة الانقسام، بما في ذلك الخلايا السرطانية والخلايا السليمة سريعة الانقسام (مثل خلايا الشعر ونخاع العظم)، مما يفسر آثاره الجانبية. ومع ذلك، فهو مصمم ليكون أكثر فتكًا بالخلايا السرطانية، والتطورات الحديثة تسعى لزيادة استهدافه للخلايا السرطانية وتقليل الأضرار للخلايا السليمة.",
-                references: "المعهد الوطني للسرطان (NCI)، الجمعية الأمريكية للسرطان (ACS).",
-                dangerLevel: "مرتفع"
-            },
-            {
-                question: "الليمون يقتل الخلايا السرطانية وهو أقوى من العلاج الكيميائي.",
-                classification: "خاطئة",
-                analysis: "لا يوجد أي دليل علمي موثوق يدعم أن الليمون يقتل الخلايا السرطانية أو أنه أقوى من العلاج الكيميائي. العلاج الكيميائي هو علاج طبي مثبت لمرض السرطان. الليمون فاكهة صحية، لكنه ليس علاجاً للسرطان.",
-                references: "المعهد الوطني للسرطان (NCI)، مراجعات على PubMed.",
-                dangerLevel: "مرتفع"
-            },
-            {
-                question: "إزالة اللوزتين تضعف المناعة وتجعل الجسم عرضة للأمراض.",
-                classification: "مضللة",
-                analysis: "اللوزتان جزء من الجهاز المناعي، لكن إزالتهما (عند الضرورة الطبية) لا تضعف المناعة بشكل ملحوظ أو تجعل الجسم عرضة للأمراض. هناك أجزاء أخرى كثيرة في الجهاز المناعي تعوض وظيفتهما. غالباً ما تُزال اللوزتان بسبب التهابات متكررة تسبب ضرراً أكبر.",
-                references: "الأكاديمية الأمريكية لجراحي الأنف والأذن والحنجرة، مراجعات علمية.",
-                dangerLevel: "منخفض"
-            },
-            {
-                question: "الماء الساخن مع العسل على الريق يساعد على حرق الدهون بشكل كبير.",
-                classification: "مضللة",
-                analysis: "لا يوجد دليل علمي يثبت أن شرب الماء الساخن مع العسل على الريق يحرق الدهون بشكل كبير. قد يساعد في الترطيب وبدء عملية الأيض، لكنه ليس حلاً سحرياً لإنقاص الوزن. فقدان الوزن يتطلب نظاماً غذائياً متوازناً ونشاطاً بدنياً.",
-                references: "دراسات حول فقدان الوزن والتمثيل الغذائي، أخصائيو التغذية.",
-                dangerLevel: "منخفض"
-            },
-            {
-                question: "صيام الماء فقط (Water Fasting) يطهر الجسم من السموم ويشفي الأمراض المزمنة.",
-                classification: "خاطئة",
-                analysis: "الجسم يمتلك آلياته الخاصة لتطهير نفسه من السموم عبر الكلى والكبد. صيام الماء لفترات طويلة بدون إشراف طبي يمكن أن يكون خطيراً ويؤدي إلى نقص التغذية، اختلال الكهارل، ومشاكل صحية خطيرة، ولا يوجد دليل على أنه يشفي الأمراض المزمنة.",
-                references: "الجمعية الأمريكية للتغذية، مراجعات طبية حول الصيام.",
-                dangerLevel: "مرتفع"
-            },
-            {
-                question: "التبرع بالدم يؤدي إلى ضعف الجسم والإرهاق الشديد.",
-                classification: "مضللة",
-                analysis: "التبرع بالدم إجراء آمن ومهم لإنقاذ الأرواح. قد يشعر المتبرع ببعض الدوار أو التعب الخفيف لفترة وجيزة، لكن الجسم يعوض الدم المفقود بسرعة. يتم فحص المتبرعين لضمان لياقتهم الصحية وعدم تأثرهم سلبياً.",
-                references: "الصليب الأحمر الأمريكي، مراكز التبرع بالدم العالمية.",
-                dangerLevel: "منخفض"
-            },
-            {
-                question: "استخدام غسول الفم يومياً يقتل جميع البكتيريا في الفم ويضمن نفساً منعشاً.",
-                classification: "مضللة",
-                analysis: "غسول الفم يمكن أن يساعد في تقليل بعض البكتيريا وتحسين رائحة الفم مؤقتاً، لكنه لا يقتل 'جميع' البكتيريا (بعضها مفيد). الاعتماد عليه بدلاً من تنظيف الأسنان بالفرشاة والخيط لن يضمن صحة فموية جيدة. الإفراط في استخدامه قد يؤثر على توازن البكتيريا الفموية الطبيعية.",
-                references: "الجمعية الأمريكية لطب الأسنان (ADA)، مراجعات علمية حول صحة الفم.",
-                dangerLevel: "منخفض"
-            },
-            {
-                question: "شرب 8 أكواب من الماء يومياً هو القاعدة الوحيدة للترطيب الجيد.",
-                classification: "مضللة",
-                analysis: "توصية 8 أكواب هي إرشادات عامة. احتياجات الترطيب تختلف بناءً على العمر، مستوى النشاط، المناخ، والحالة الصحية. يمكن الحصول على السوائل من الأطعمة أيضاً. الأهم هو الاستماع إلى جسمك وشرب الماء عند الشعور بالعطش.",
-                references: "الأكاديمية الوطنية للطب (National Academy of Medicine)، توصيات الترطيب.",
-                dangerLevel: "منخفض"
-            },
-            {
-                question: "البندول مع القهوة يسبب جلطات.",
-                classification: "خاطئة",
-                analysis: "لا يوجد دليل علمي يثبت أن تناول الباراسيتامول (البندول) مع القهوة يسبب جلطات دموية. الباراسيتامول دواء آمن عند استخدامه بالجرعات الموصى بها. القهوة قد تزيد من فعالية الباراسيتامول في بعض الأحيان وقد تسبب الأرق لدى البعض، لكن ليس الجلطات.",
-                references: "وكالة الغذاء والدواء (FDA) حول الباراسيتامول، دراسات حول تفاعلات الدواء والمشروبات.",
-                dangerLevel: "مرتفع"
-            },
-            {
-                question: "المكملات الغذائية العشبية آمنة دائماً لأنها طبيعية.",
-                classification: "خاطئة",
-                analysis: "كلمة 'طبيعية' لا تعني دائماً 'آمنة'. العديد من المكملات العشبية يمكن أن تتفاعل مع الأدوية، تسبب آثاراً جانبية، أو تكون ملوثة. يجب استشارة الطبيب أو الصيدلي قبل تناول أي مكمل عشبي.",
-                references: "المعاهد الوطنية للصحة (NIH) - المكتبة الوطنية للطب التكاملي، وكالة الغذاء والدواء (FDA).",
-                dangerLevel: "مرتفع"
-            },
-            {
-                question: "إزالة الشعر بالليزر تسبب السرطان.",
-                classification: "خاطئة",
-                analysis: "لا يوجد دليل علمي موثوق يربط بين إزالة الشعر بالليزر وخطر الإصابة بالسرطان. الليزر المستخدم في هذه الإجراءات يخترق الجلد بملليمترات قليلة ويستهدف بصيلات الشعر، وهو لا يستخدم أشعة فوق بنفسجية مؤينة التي تسبب السرطان.",
-                references: "الأكاديمية الأمريكية للأمراض الجلدية، دراسات حول سلامة الليزر التجميلي.",
-                dangerLevel: "منخفض"
-            },
-            {
-                question: "المرأة الحامل يجب أن تأكل لشخصين.",
-                classification: "مضللة",
-                analysis: "هذه المقولة خاطئة جزئياً. المرأة الحامل تحتاج إلى زيادة في السعرات الحرارية، لكنها ليست ضعف الكمية. الزيادة تكون تدريجية (حوالي 300-450 سعرة حرارية في الثلثين الثاني والثالث) وهي تركز على الجودة الغذائية أكثر من الكمية.",
-                references: "الكلية الأمريكية لأطباء التوليد والنساء (ACOG)، توصيات التغذية للحوامل.",
-                dangerLevel: "منخفض"
-            },
-            {
-                question: "شرب المشروبات الغازية الخالية من السكر آمن تماماً ولا يسبب السمنة.",
-                classification: "مضللة",
-                analysis: "المشروبات الغازية الخالية من السكر تحتوي على محليات صناعية. رغم أنها لا تحتوي على سعرات حرارية عالية، تشير بعض الدراسات إلى أنها قد تؤثر على الشهية، بكتيريا الأمعاء، وقد تكون مرتبطة بزيادة الوزن على المدى الطويل أو زيادة خطر الإصابة بالسكري من النوع الثاني. ليست 'آمنة تماماً' بالمعنى المطلق.",
-                references: "دراسات حول المحليات الصناعية وتأثيراتها الصحية، جمعية السكري الأمريكية.",
-                dangerLevel: "متوسط"
-            },
-            {
-                question: "الاستيقاظ مبكراً جداً (قبل الفجر) بدون نوم كافٍ مفيد للصحة.",
-                classification: "خاطئة",
-                analysis: "الحصول على قسط كافٍ من النوم (7-9 ساعات للبالغين) ضروري للصحة الجسدية والنفسية. الاستيقاظ مبكراً قد يكون مفيداً إذا كنت قد حصلت على نوم كافٍ. لكن الحرمان من النوم بغض النظر عن وقت الاستيقاظ، يضر بالصحة، التركيز، والمناعة.",
-                references: "المؤسسة الوطنية للنوم (National Sleep Foundation)، مراجعات طبية حول أهمية النوم.",
-                dangerLevel: "متوسط"
-            },
-            {
-                question: "الحمى هي أمر سيء ويجب خفضها فوراً بأي وسيلة.",
-                classification: "مضللة",
-                analysis: "الحمى هي استجابة طبيعية للجسم لمكافحة العدوى، وهي جزء من آلية الدفاع. ليست دائماً 'سيئة'. يجب خفض الحمى إذا كانت مرتفعة جداً (فوق 38.5-39 درجة مئوية) أو تسبب انزعاجاً شديداً، ولكن الحمى الخفيفة قد تكون مفيدة وتدل على عمل الجهاز المناعي.",
-                references: "مراكز مكافحة الأمراض والوقاية منها (CDC) - الحمى عند الأطفال والبالغين.",
-                dangerLevel: "منخفض"
-            },
-            {
-                question: "المصابون بالسكري لا يجب أن يأكلوا الفواكه أبداً.",
-                classification: "خاطئة",
-                analysis: "هذه المعلومة خاطئة. الفواكه جزء مهم من النظام الغذائي الصحي، وتحتوي على فيتامينات، معادن، وألياف. يجب على مرضى السكري تناول الفواكه باعتدال، مع الانتباه إلى كميات الكربوهيدرات وتأثيرها على سكر الدم، ويفضل الفواكه ذات المؤشر الجلايسيمي المنخفض.",
-                references: "جمعية السكري الأمريكية (ADA)، أخصائيو التغذية.",
-                dangerLevel: "متوسط"
-            },
-            {
-                question: "البيض يرفع الكوليسترول الضار جداً ويجب تجنبه تماماً.",
-                classification: "مضللة",
-                analysis: "البيض يحتوي على الكوليسترول الغذائي، لكن الأبحاث الحديثة أظهرت أن تأثيره على كوليسترول الدم لدى معظم الناس أقل بكثير مما كان يعتقد سابقاً. الدهون المشبعة والمتحولة لها تأثير أكبر. يمكن لمعظم الناس تناول البيض باعتدال كجزء من نظام غذائي صحي.",
-                references: "الجمعية الأمريكية لأمراض القلب، مراجعات علمية حول الكوليسترول الغذائي.",
-                dangerLevel: "منخفض"
-            },
-            {
-                question: "فيتامين سي يمنع نزلات البرد ويقصر مدتها بشكل كبير.",
-                classification: "مضللة",
-                analysis: "فيتامين سي مهم للمناعة والصحة العامة. لكن الأبحاث أظهرت أن تناوله بجرعات كبيرة لا يمنع نزلات البرد لدى عامة الناس، وقد يقلل من مدتها أو شدتها بشكل طفيف جداً لدى البعض (مثل الرياضيين).",
-                references: "المعاهد الوطنية للصحة (NIH) - حقائق عن فيتامين سي، مراجعات Cochrane.",
-                dangerLevel: "منخفض"
-            },
-            {
-                question: "الأطعمة الغنية بالقلويات تشفي السرطان وتمنع الإصابة به.",
-                classification: "خاطئة",
-                analysis: "نظرية النظام الغذائي القلوي لم تثبت علمياً كعلاج للسرطان. لا يمكن تغيير حموضة الجسم بشكل كبير ومستمر من خلال الطعام، والخلايا السرطانية لا يمكن 'قتلها' بتغيير درجة الحموضة في الدم. الجسم لديه آليات قوية للحفاظ على توازن الحموضة والقلوية.",
-                references: "المعهد الوطني للسرطان (NCI)، الجمعية الأمريكية للسرطان (ACS).",
-                dangerLevel: "مرتفع"
-            },
-            {
-                question: "تقليل تناول الملح تماماً هو الحل الوحيد لخفض ضغط الدم.",
-                classification: "مضللة",
-                analysis: "تقليل تناول الملح مهم جداً لخفض ضغط الدم المرتفع وللصحة العامة. لكنه ليس الحل الوحيد. عوامل أخرى مثل الحفاظ على وزن صحي، ممارسة الرياضة، وتناول نظام غذائي غني بالبوتاسيوم (فواكه وخضروات) تلعب دوراً حاسماً أيضاً. التخفيض المفرط قد يكون ضاراً للبعض.",
-                references: "الجمعية الأمريكية لأمراض القلب، منظمة الصحة العالمية (WHO) - الملح.",
-                dangerLevel: "متوسط"
-            },
-            {
-                question: "استخدام زيت الزيتون في الطبخ على درجات حرارة عالية يصبح ساماً ومضراً.",
-                classification: "مضللة",
-                analysis: "زيت الزيتون البكر الممتاز لديه نقطة دخان أقل نسبياً من زيوت أخرى، لكنه لا يصبح ساماً عند الطهي على درجات حرارة متوسطة. يمكن استخدامه للقلي الخفيف والتحمير. الزيوت الأخرى ذات نقطة الدخان العالية قد تكون أفضل للقلي العميق جداً، لكن زيت الزيتون ليس ساماً.",
-                references: "مراجعات علمية حول زيوت الطهي ونقاط الدخان، أخصائيو التغذية.",
-                dangerLevel: "منخفض"
-            },
-            {
-                question: "شرب الخل الأبيض يومياً يساعد على فقدان الوزن.",
-                classification: "مضللة",
-                analysis: "بعض الدراسات الصغيرة أشارت إلى أن حمض الخليك (الموجود في الخل) قد يساعد في تنظيم سكر الدم وتحسين الشبع بشكل طفيف، مما قد يساهم في فقدان الوزن عند استخدامه كجزء من نظام غذائي صحي. لكن لا يوجد دليل قاطع على أنه 'يحرق الدهون' أو يسبب فقداناً كبيراً للوزن بمفرده، وقد يضر بالمينا الأسنان والمريء إذا تم تناوله بكميات كبيرة.",
-                references: "دراسات على PubMed حول الخل وفقدان الوزن، أخصائيو التغذية.",
-                dangerLevel: "متوسط"
-            }
-        ];
-
-        // Fuzzy search logic for rumors
-        function findBestRumorMatch(userInput) {
-            const normalizedInput = userInput.toLowerCase().trim();
-            let bestMatch = null;
-            let highestScore = 0;
-
-            rumorsDatabase.forEach(rumor => {
-                const normalizedQuestion = rumor.question.toLowerCase().trim();
-                let score = 0;
-
-                // Check for direct containment
-                if (normalizedQuestion.includes(normalizedInput) || normalizedInput.includes(normalizedQuestion)) {
-                    score += 5; // High score for direct inclusion
-                }
-
-                // Split into words and check for overlaps
-                const inputWords = normalizedInput.split(/\s+/).filter(word => word.length > 2);
-                const questionWords = normalizedQuestion.split(/\s+/).filter(word => word.length > 2);
-
-                inputWords.forEach(iWord => {
-                    if (questionWords.includes(iWord)) {
-                        score += 2; // Direct word match
-                    } else if (normalizedQuestion.includes(iWord)) {
-                        score += 1; // Substring match
-                    }
-                });
-
-                if (score > highestScore) {
-                    highestScore = score;
-                    bestMatch = rumor;
-                }
-            });
-
-            // Set a threshold for what constitutes a "match"
-            // This threshold might need tuning based on the data and and desired strictness.
-            const matchThreshold = 4; // Adjusted threshold for better matching
-            if (highestScore >= matchThreshold) {
-                return bestMatch;
-            }
-            return null;
-        }
-
-        async function submitFactCheck() {
-            const input = document.getElementById('factCheckInput').value.trim();
-            const resultsContainer = document.getElementById('factCheckResults');
-            
-            if (input === '') {
-                resultsContainer.innerHTML = `
-                    <div class="alert alert-warning text-center" role="alert">
-                        <i class="fas fa-exclamation-triangle me-2"></i> الرجاء إدخال نص أو رابط للتحقق.
-                    </div>
-                `;
-                return;
-            }
-
-            resultsContainer.innerHTML = `
-                <div class="alert alert-info text-center d-flex flex-column align-items-center" role="alert" id="loadingFactCheck">
-                    <div class="spinner-border text-success mb-3" role="status">
-                        <span class="visually-hidden">جاري الفحص...</span>
-                    </div>
-                    <p class="mb-0 fw-bold">جاري الفحص عبر المصادر المعتمدة (WHO, CDC, PubMed)...</p>
-                    <small class="text-muted mt-2">قد يستغرق الأمر بضع ثوانٍ.</small>
-                </div>
-            `;
-
-            // Simulate AI thinking time
-            await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 1000)); // 1.5 to 2.5 seconds
-
-            let matchedRumor = findBestRumorMatch(input);
-
-            if (matchedRumor) {
-                resultsContainer.innerHTML = `
-                    <div class="fact-check-result-card ${matchedRumor.classification === 'صحيحة' ? 'correct' : matchedRumor.classification === 'مضللة' ? 'misleading' : 'false'}">
-                        <h5 class="mb-2">
-                            ${matchedRumor.classification === 'صحيحة' ? 'معلومة صحيحة' : matchedRumor.classification === 'مضللة' ? 'معلومة مضللة' : 'معلومة خاطئة'}
-                            <span class="badge bg-${matchedRumor.classification === 'صحيحة' ? 'success' : matchedRumor.classification === 'مضللة' ? 'warning text-dark' : 'danger'} me-2">
-                                ${matchedRumor.classification}
-                            </span>
-                        </h5>
-                        <p><strong>التحليل:</strong> ${matchedRumor.analysis}</p>
-                        <p class="references"><strong>المراجع:</strong> ${matchedRumor.references}</p>
-                        <p><strong>مستوى الخطورة:</strong> <span class="text-${matchedRumor.classification === 'صحيحة' ? 'success' : matchedRumor.classification === 'مضللة' ? 'warning' : 'danger'} fw-bold">${matchedRumor.dangerLevel}</span></p>
-                        <div class="d-flex justify-content-end gap-2 mt-3">
-                            <a href="https://wa.me/218915303534?text=${encodeURIComponent('أود الاستفسار عن معلومة: ' + input)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success rounded-pill px-3">
-                                <i class="fab fa-whatsapp"></i> اطلب فحص إشاعة جديدة
-                            </a>
-                        </div>
-                    </div>
-                `;
-            } else {
-                // No direct match found
-                resultsContainer.innerHTML = `
-                    <div class="fact-check-result-card misleading">
-                        <h5 class="mb-2">تحت المراجعة</h5>
-                        <p><strong>التحليل:</strong> هذه المعلومة تخضع حالياً للمراجعة المخبرية والتدقيق العلمي، وسيتم تحديثها في التقرير القادم.</p>
-                        <p class="references"><strong>المراجع:</strong> جارٍ البحث في المصادر الموثوقة.</p>
-                        <p><strong>مستوى الخطورة:</strong> غير محدد حالياً.</p>
-                        <div class="d-flex justify-content-end gap-2 mt-3">
-                            <a href="https://wa.me/218915303534?text=${encodeURIComponent('أود طلب فحص إشاعة جديدة: ' + input)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-success rounded-pill px-3">
-                                <i class="fab fa-whatsapp"></i> اطلب فحص إشاعة جديدة
-                            </a>
-                        </div>
-                    </div>
-                `;
-            }
-
-            document.getElementById('factCheckInput').value = '';
-        }
-
-
         // بدء التشغيل
         document.addEventListener('DOMContentLoaded', () => {
             fetchAwarenessData();
 
             allResearchData = generateDummyResearch(100);
-            allResearchData.sort((a, b) => b.year - a.year);
-            filteredResearchData = [...allResearchData];
+            allResearchData.sort((a, b) => b.year - a.year); // Sort by year descending
+            filteredResearchData = [...allResearchData]; // Initialize filtered data with all data
             renderResearchTable();
+
+            // Add event listeners for filter inputs to trigger filtering
+            document.getElementById('researchSearchInput').addEventListener('input', filterResearchTable);
+            document.getElementById('researchFieldFilter').addEventListener('change', filterResearchTable);
+            document.getElementById('researchStudyTypeFilter').addEventListener('change', filterResearchTable);
         });
     </script>
 <script data-goatcounter="https://athar-health.goatcounter.com/count"
