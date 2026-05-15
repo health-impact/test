@@ -807,6 +807,68 @@
             document.getElementById('researchFieldFilter').addEventListener('change', filterResearchTable);
             document.getElementById('researchStudyTypeFilter').addEventListener('change', filterResearchTable);
         });
+        <script>
+// 1. البيانات (تأكد من وجودها داخل الـ script)
+const healthNewsData = [
+  {
+    title: "مستجدات مكافحة العدوى",
+    content: "أحدث التوصيات العالمية حول نظافة الأسطح في المرافق الصحية والعيادات العامة.",
+    date: "14 مايو 2026",
+    image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=400" 
+  },
+  {
+    title: "تنبيه صحي: المشروبات المنبهة",
+    content: "دراسة جديدة توضح تأثير استهلاك الطاقة المفرط على جودة النوم والتحصيل العلمي لدى الشباب.",
+    date: "13 مايو 2026",
+    image: "https://images.unsplash.com/photo-1540340061722-9293d5163008?auto=format&fit=crop&q=80&w=400"
+  },
+  {
+    title: "التوعية الصحية في طرابلس",
+    content: "انطلاق حملة ميدانية لزيادة الوعي الصحي حول السلوكيات اليومية الخاطئة وتأثيرها على القوام.",
+    date: "12 مايو 2026",
+    image: "https://images.unsplash.com/photo-1505751172107-573225a9627e?auto=format&fit=crop&q=80&w=400"
+  }
+];
+
+// 2. وظيفة البناء (المحرك)
+function renderHealthNews() {
+    const newsContainer = document.getElementById('news-container');
+    
+    if (newsContainer) {
+        newsContainer.innerHTML = ''; // مسح رسالة "قيد التطوير"
+        
+        healthNewsData.forEach(news => {
+            const cardHTML = `
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <img src="${news.image}" alt="${news.title}" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">${news.date}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">${news.title}</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">${news.content}</p>
+                        <a href="#" class="inline-flex items-center text-green-600 font-bold hover:text-green-800 transition">
+                            اقرأ التفاصيل 
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            `;
+            newsContainer.insertAdjacentHTML('beforeend', cardHTML);
+        });
+        console.log("News rendered successfully!");
+    } else {
+        console.error("Could not find news-container ID");
+    }
+}
+
+// 3. التشغيل الإجباري (حتى لو تأخرت الصفحة)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderHealthNews);
+} else {
+    renderHealthNews();
+}
+</script>
     </script>
 <script data-goatcounter="https://athar-health.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
