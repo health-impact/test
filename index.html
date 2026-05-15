@@ -888,6 +888,29 @@
             document.getElementById('researchFieldFilter').addEventListener('change', filterResearchTable);
             document.getElementById('researchStudyTypeFilter').addEventListener('change', filterResearchTable);
         });
+        <script>
+// تأكد من كتابة هذا السطر كما هو لكي يستطيع البوت استبداله
+const healthNewsData = [
+  // الأخبار ستوضع هنا تلقائياً بواسطة البوت
+];
+
+// وظيفة العرض التي شرحناها سابقاً ستقوم برسم هذه البيانات
+function renderNews() {
+    const container = document.getElementById('news-container');
+    if(container) {
+        container.innerHTML = healthNewsData.map(news => `
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
+                <img src="${news.image}" class="w-full h-40 object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg">${news.title}</h3>
+                    <p class="text-sm text-gray-600">${news.content}</p>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+document.addEventListener('DOMContentLoaded', renderNews);
+</script>
     </script>
     <script data-goatcounter="https://athar-health.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
