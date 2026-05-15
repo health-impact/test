@@ -50,7 +50,7 @@
         /* 3. قسم الرئيسية (Hero) */
         .hero { 
             height: 75vh; 
-            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1532938911072-f1925345719a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             background-repeat: no-repeat; background-position: center; background-size: cover;
             color: white; display: flex; align-items: center; justify-content: center; text-align: center;
         }
@@ -160,11 +160,6 @@
         .research-table a:hover {
             text-decoration: underline;
         }
-        .research-table a i {
-            margin-left: 5px; /* Add margin on left for spacing */
-            font-size: 0.7em; /* Make it a bit smaller */
-            vertical-align: middle; /* Align with text */
-        }
         .filter-section {
             display: flex;
             flex-wrap: wrap; /* Allow wrapping on small screens */
@@ -195,10 +190,6 @@
             padding: clamp(20px, 5vw, 50px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             text-align: center;
-            height: 100%; /* Ensure cards have consistent height */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
         .user-account-card .icon-box i {
             font-size: 3.5rem;
@@ -212,43 +203,35 @@
             border-radius: 25px;
             padding: clamp(15px, 4vw, 40px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
         }
-        .news-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border: 1px solid #f0f0f0;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 100%; /* Ensure consistent card height */
-            display: flex;
-            flex-direction: column;
-            text-align: right;
+        .news-item {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            text-align: right; /* Added for RTL consistency */
         }
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        .news-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
-        .news-card-img {
-            width: 100%;
-            height: 200px; /* Fixed height for consistent look */
-            object-fit: cover;
-            object-position: center;
+        .news-item h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
         }
-        .news-card .badge {
-            font-size: 0.75rem;
-        }
-        .news-card h4 {
-            font-size: 1.2rem;
-            line-height: 1.4;
-        }
-        .news-card p {
-            font-size: 0.9rem;
+        .news-item p {
+            font-size: 0.95rem;
             color: #666;
+            line-height: 1.6;
         }
-        .news-card a i {
-            margin-left: 0.25rem; /* For RTL */
-            margin-right: 0;
+        .news-item .source-date {
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 10px;
+            display: block;
         }
     </style>
 </head>
@@ -300,36 +283,30 @@
             <div class="row g-4 justify-content-center">
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="user-account-card">
-                        <div>
-                            <div class="icon-box"><i class="fas fa-user-circle"></i></div>
-                            <h4 class="fw-bold">تسجيل الدخول / إنشاء حساب</h4>
-                            <p class="text-muted small">سجّل الدخول للوصول إلى مميزات الحساب الشخصي.</p>
-                        </div>
-                        <button class="btn btn-outline-success rounded-pill px-4 py-2 mt-3" onclick="alert('هذه الميزة قيد التطوير.')">
+                        <div class="icon-box"><i class="fas fa-user-circle"></i></div>
+                        <h4 class="fw-bold">تسجيل الدخول / إنشاء حساب</h4>
+                        <p class="text-muted small">سجّل الدخول للوصول إلى مميزات الحساب الشخصي.</p>
+                        <button class="btn btn-outline-success rounded-pill px-4 py-2" onclick="alert('هذه الميزة قيد التطوير.')">
                             ابدأ الآن
                         </button>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="user-account-card">
-                        <div>
-                            <div class="icon-box"><i class="fas fa-bookmark"></i></div>
-                            <h4 class="fw-bold">محتوى محفوظ</h4>
-                            <p class="text-muted small">احفظ نصائحك وأبحاثك المفضلة للرجوع إليها لاحقًا.</p>
-                        </div>
-                        <button class="btn btn-outline-secondary rounded-pill px-4 py-2 mt-3" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
-                            <i class="fas fa-arrow-left"></i> عرض المحفوظات
+                        <div class="icon-box"><i class="fas fa-bookmark"></i></div>
+                        <h4 class="fw-bold">محتوى محفوظ</h4>
+                        <p class="text-muted small">احفظ نصائحك وأبحاثك المفضلة للرجوع إليها لاحقًا.</p>
+                        <button class="btn btn-outline-secondary rounded-pill px-4 py-2" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
+                            <i class="fas fa-arrow-right"></i> عرض المحفوظات
                         </button>
                     </div>
                 </div>
                  <div class="col-12 col-md-6 col-lg-4">
                     <div class="user-account-card">
-                        <div>
-                            <div class="icon-box"><i class="fas fa-bell"></i></div>
-                            <h4 class="fw-bold">إشعارات وتنبيهات</h4>
-                            <p class="text-muted small">تلقَّ تنبيهات حول أحدث الأبحاث والتحديثات.</p>
-                        </div>
-                        <button class="btn btn-outline-info rounded-pill px-4 py-2 mt-3" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
+                        <div class="icon-box"><i class="fas fa-bell"></i></div>
+                        <h4 class="fw-bold">إشعارات وتنبيهات</h4>
+                        <p class="text-muted small">تلقَّ تنبيهات حول أحدث الأبحاث والتحديثات.</p>
+                        <button class="btn btn-outline-info rounded-pill px-4 py-2" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
                             <i class="fas fa-cogs"></i> إدارة التنبيهات
                         </button>
                     </div>
@@ -343,12 +320,9 @@
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-success">آخر الأخبار الصحية المحلية والعالمية</h2>
             <div class="news-container">
-                <div class="row g-4" id="news-grid">
-                    <!-- News cards will be loaded here by JavaScript -->
-                    <div class="col-12">
-                        <div class="alert alert-info text-center" role="alert">
-                            <i class="fas fa-newspaper me-2"></i> هذه الميزة قيد التطوير. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
-                        </div>
+                <div id="news-list">
+                    <div class="alert alert-info text-center" role="alert">
+                        <i class="fas fa-newspaper me-2"></i> هذه الميزة قيد التطوير. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
                     </div>
                 </div>
             </div>
@@ -535,71 +509,6 @@
     </footer>
 
     <script>
-        // 1. بيانات آخر الأخبار الصحية
-        const healthNewsData = [
-          {
-            title: "مستجدات مكافحة العدوى",
-            content: "أحدث التوصيات العالمية حول نظافة الأسطح في المرافق الصحية والعيادات العامة.",
-            date: "14 مايو 2026",
-            image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=400" 
-          },
-          {
-            title: "تنبيه صحي: المشروبات المنبهة",
-            content: "دراسة جديدة توضح تأثير استهلاك الطاقة المفرط على جودة النوم والتحصيل العلمي لدى الشباب.",
-            date: "13 مايو 2026",
-            image: "https://images.unsplash.com/photo-1540340061722-9293d5163008?auto=format&fit=crop&q=80&w=400"
-          },
-          {
-            title: "التوعية الصحية في طرابلس",
-            content: "انطلاق حملة ميدانية لزيادة الوعي الصحي حول السلوكيات اليومية الخاطئة وتأثيرها على القوام.",
-            date: "12 مايو 2026",
-            image: "https://images.unsplash.com/photo-1505751172107-573225a9627e?auto=format&fit=crop&q=80&w=400"
-          }
-        ];
-
-        // 2. وظيفة عرض الأخبار الصحية
-        function renderHealthNews() {
-            const newsGrid = document.getElementById('news-grid');
-            
-            if (newsGrid) {
-                newsGrid.innerHTML = ''; // مسح رسالة "قيد التطوير" الأولية
-                
-                if (healthNewsData && healthNewsData.length > 0) {
-                    healthNewsData.forEach(news => {
-                        const cardHTML = `
-                            <div class="col-12 col-md-6 col-lg-4 mb-4">
-                                <div class="news-card">
-                                    <img src="${news.image}" alt="${news.title}" class="news-card-img">
-                                    <div class="p-4 text-right">
-                                        <span class="badge bg-success-subtle text-success rounded-pill px-3 py-1 mb-3 d-inline-block">${news.date}</span>
-                                        <h4 class="fw-bold text-dark mb-2">${news.title}</h4>
-                                        <p class="text-muted small lh-base mb-3">${news.content}</p>
-                                        <a href="#" class="text-success fw-bold text-decoration-none d-flex align-items-center justify-content-end gap-1">
-                                            اقرأ التفاصيل <i class="fas fa-arrow-left fa-sm"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        newsGrid.insertAdjacentHTML('beforeend', cardHTML);
-                    });
-                    console.log("News rendered successfully!");
-                } else {
-                    // في حال عدم وجود بيانات، عرض رسالة "قيد التطوير"
-                    newsGrid.innerHTML = `
-                        <div class="col-12">
-                            <div class="alert alert-info text-center" role="alert">
-                                <i class="fas fa-newspaper me-2"></i> هذه الميزة قيد التطوير. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
-                            </div>
-                        </div>
-                    `;
-                }
-            } else {
-                console.error("Could not find news-grid ID");
-            }
-        }
-
-
         // دالة لنسخ النص إلى الحافظة
         async function copyTip(buttonElement, title, content) {
             const textToCopy = `💡 نصيحة صحية من أثر صحي:\n${title}\n${content}\n\n🌐 للمزيد من النصائح: ${window.location.href}`;
@@ -813,7 +722,7 @@
                         <td>${item.year}</td>
                         <td>${item.field}</td>
                         <td>${item.studyType}</td>
-                        <td><a href="${item.link}" target="_blank" rel="noopener noreferrer">قراءة المزيد <i class="fas fa-external-link-alt fa-xs"></i></a></td>
+                        <td><a href="${item.link}" target="_blank" rel="noopener noreferrer">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a></td>
                     </tr>
                 `;
             });
@@ -861,21 +770,13 @@
                 currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
             }
             renderResearchTable();
-            // Scroll smoothly to the top of the table if we go back to the initial display count or just above
+            // Scroll smoothly to the top of the table
             const table = document.getElementById('researchTable');
-            if (currentVisibleResearchRows === RESEARCH_INITIAL_DISPLAY_COUNT) {
-                table.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else {
-                const lastVisibleRow = table.querySelector(`.research-row:nth-child(${currentVisibleResearchRows})`);
-                if (lastVisibleRow) {
-                     lastVisibleRow.scrollIntoView({ behavior: 'smooth', block: 'end' });
-                }
-            }
+            table.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         // بدء التشغيل
         document.addEventListener('DOMContentLoaded', () => {
-            renderHealthNews(); // Call news rendering on load
             fetchAwarenessData();
 
             allResearchData = generateDummyResearch(100);
@@ -889,30 +790,46 @@
             document.getElementById('researchStudyTypeFilter').addEventListener('change', filterResearchTable);
         });
         <script>
-// تأكد من كتابة هذا السطر كما هو لكي يستطيع البوت استبداله
-const healthNewsData = [
-  // الأخبار ستوضع هنا تلقائياً بواسطة البوت
+const healthNews = [
+  {
+    title: "مستجدات مكافحة العدوى",
+    content: "أحدث التوصيات العالمية حول نظافة الأسطح في المرافق الصحية...",
+    date: "14 مايو 2026",
+    image: "https://via.placeholder.com/400x200?text=Infection+Control" 
+  },
+  {
+    title: "تنبيه صحي: المشروبات المنبهة",
+    content: "دراسة جديدة توضح تأثير استهلاك الطاقة المفرط على جودة النوم لدى الشباب...",
+    date: "13 مايو 2026",
+    image: "https://via.placeholder.com/400x200?text=Health+Alert"
+  }
 ];
 
-// وظيفة العرض التي شرحناها سابقاً ستقوم برسم هذه البيانات
-function renderNews() {
+function displayNews() {
     const container = document.getElementById('news-container');
-    if(container) {
-        container.innerHTML = healthNewsData.map(news => `
-            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
-                <img src="${news.image}" class="w-full h-40 object-cover">
-                <div class="p-4">
-                    <h3 class="font-bold text-lg">${news.title}</h3>
-                    <p class="text-sm text-gray-600">${news.content}</p>
+    container.innerHTML = ''; // تنظيف الحاوية أولاً
+
+    healthNews.forEach(news => {
+        const card = `
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-green-100 hover:shadow-2xl transition">
+                <img src="${news.image}" alt="${news.title}" class="w-full h-48 object-cover">
+                <div class="p-5">
+                    <span class="text-xs text-green-600 font-bold">${news.date}</span>
+                    <h3 class="text-xl font-bold text-gray-800 mt-2">${news.title}</h3>
+                    <p class="text-gray-600 mt-3 text-sm leading-relaxed">${news.content}</p>
+                    <button class="mt-4 text-green-700 font-bold hover:underline">اقرأ المزيد ←</button>
                 </div>
             </div>
-        `).join('');
-    }
+        `;
+        container.innerHTML += card;
+    });
 }
-document.addEventListener('DOMContentLoaded', renderNews);
+
+// تشغيل الوظيفة عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', displayNews);
 </script>
     </script>
-    <script data-goatcounter="https://athar-health.goatcounter.com/count"
+<script data-goatcounter="https://athar-health.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
