@@ -324,46 +324,6 @@
                     <div class="alert alert-info text-center" role="alert">
                         <i class="fas fa-newspaper me-2"></i> هذه الميزة قيد التطوير. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
                     </div>
-            <script>
-const healthNews = [
-  {
-    title: "مستجدات مكافحة العدوى",
-    content: "أحدث التوصيات العالمية حول نظافة الأسطح في المرافق الصحية...",
-    date: "14 مايو 2026",
-    image: "https://via.placeholder.com/400x200?text=Infection+Control" 
-  },
-  {
-    title: "تنبيه صحي: المشروبات المنبهة",
-    content: "دراسة جديدة توضح تأثير استهلاك الطاقة المفرط على جودة النوم لدى الشباب...",
-    date: "13 مايو 2026",
-    image: "https://via.placeholder.com/400x200?text=Health+Alert"
-  }
-];
-
-function displayNews() {
-    const container = document.getElementById('news-container');
-    container.innerHTML = ''; // تنظيف الحاوية أولاً
-
-    healthNews.forEach(news => {
-        const card = `
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-green-100 hover:shadow-2xl transition">
-                <img src="${news.image}" alt="${news.title}" class="w-full h-48 object-cover">
-                <div class="p-5">
-                    <span class="text-xs text-green-600 font-bold">${news.date}</span>
-                    <h3 class="text-xl font-bold text-gray-800 mt-2">${news.title}</h3>
-                    <p class="text-gray-600 mt-3 text-sm leading-relaxed">${news.content}</p>
-                    <button class="mt-4 text-green-700 font-bold hover:underline">اقرأ المزيد ←</button>
-                </div>
-            </div>
-        `;
-        container.innerHTML += card;
-    });
-}
-
-// تشغيل الوظيفة عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', displayNews);
-</script>
-                    </div>
                 </div>
             </div>
         </div>
