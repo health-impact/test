@@ -50,7 +50,6 @@
         /* 3. قسم الرئيسية (Hero) */
         .hero { 
             height: 75vh; 
-            /* Added a placeholder image for the hero section */
             background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1532938911072-f1925345719a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             background-repeat: no-repeat; background-position: center; background-size: cover;
             color: white; display: flex; align-items: center; justify-content: center; text-align: center;
@@ -352,7 +351,7 @@
             <div class="updates-container">
                 <div id="current-tips-list">
                     <p class="text-center text-muted">جاري تحميل أحدث التحديثات العلمية...</p>
-                    <!-- Dummy tips if athardata.json is not available -->
+                    <!-- Dummy tip if athardata.json is not available, will be replaced by JS if successful -->
                     <div class="tip-card" style="border-right-color: #198754">
                         <div class="d-flex justify-content-between align-items-start">
                             <h5 class="fw-bold" style="color:#222">أهمية غسل اليدين للوقاية من العدوى</h5>
@@ -575,8 +574,7 @@
 
             } catch (error) {
                 console.error("Failed to fetch awareness data:", error);
-                // Keep dummy content if fetch fails or provide a fallback message
-                document.getElementById('current-tips-list').innerHTML = document.getElementById('current-tips-list').innerHTML || '<p class="text-center text-danger">عذراً، حدث خطأ أثناء تحميل النصائح. الرجاء المحاولة لاحقاً.</p>';
+                // If fetch fails, the initial dummy content in HTML will remain, which is desired.
             }
         }
 
@@ -625,7 +623,7 @@
             const btn = document.getElementById('archive-btn');
             if (arc.style.display === 'none') {
                 arc.style.display = 'block';
-                btn.innerText = 'إخلاق الأرشيف';
+                btn.innerText = 'إخفاء أرشيف المعلومات';
                 // Use scrollIntoView to smoothly scroll to the archive list
                 arc.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else {
@@ -651,7 +649,7 @@
                 { title: "استراتيجيات الحد من مقاومة المضادات الحيوية في البيئة الصحية", field: "مكافحة العدوى", keywords: "antibiotic resistance strategies healthcare infection control AMR", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
                 { title: "تأثير النشاط البدني على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "physical activity adolescent mental health depression anxiety well-being", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
                 { title: "فحص جودة الأغذية المستوردة ودورها في الحماية من الأمراض", field: "سلامة الغذاء والتغذية", keywords: "imported food quality foodborne diseases safety regulation standards", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
-                { title: "الابتكارات في التشخيص المبكر للأمراض السرطانية", field: "الصحة العامة", keywords: "innovations early cancer diagnosis screening biomarkers technology", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
+                { title: "الابتكارات في التشخيص المبكر للأمراض السرطانية", field: "الابتكار الطبي", keywords: "innovations early cancer diagnosis screening biomarkers technology", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
                 { title: "مكافحة العدوى في مراكز الرعاية الأولية", field: "مكافحة العدوى", keywords: "infection control primary healthcare hygiene hand washing PPE", studyTypes: ["بحث تجريبي", "دراسة مقطعية"] },
                 { title: "التعليم الصحي للمجتمعات الريفية: التحديات والحلول", field: "الصحة العامة", keywords: "health education rural communities disparities access solutions", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
                 { title: "تأثير التلوث البيئي على الجهاز التنفسي", field: "الصحة البيئية", keywords: "environmental pollution respiratory health air quality asthma COPD", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
@@ -684,7 +682,7 @@
                 const specificTitle = `${topic.title} - ${titleVariant}`;
                 const studyType = topic.studyTypes[Math.floor(Math.random() * topic.studyTypes.length)];
                 
-                // Construct a more specific PubMed search query
+                // Construct a more specific PubMed search query as a fallback link
                 const pubmedKeywords = `${specificTitle} ${topic.field} ${topic.keywords} ${studyType} health`;
                 const pubmedLink = `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(pubmedKeywords)}`;
 
@@ -693,8 +691,8 @@
                     year: year,
                     field: topic.field,
                     studyType: studyType,
-                    link: pubmedLink,
-                    keywords: `${topic.keywords} ${topic.field} ${studyType}` // Combine all for general search matching
+                    link: pubmedLink, // Use PubMed search link
+                    keywords: `${topic.keywords} ${topic.field} ${studyType} ${specificTitle}` // Combine all for general search matching
                 });
             }
             return researchData;
@@ -712,6 +710,7 @@
                 showMoreBtn.style.display = 'none';
             }
 
+            // Show "Show Less" only if more than initial items are displayed AND there are items to hide
             if (currentVisibleResearchRows > RESEARCH_INITIAL_DISPLAY_COUNT && filteredResearchData.length > RESEARCH_INITIAL_DISPLAY_COUNT) {
                 showLessBtn.style.display = 'block';
             } else {
@@ -757,7 +756,7 @@
                 const matchesSearchTerm = item.title.toLowerCase().includes(filterTerm) ||
                                           item.year.toString().includes(filterTerm) ||
                                           item.field.toLowerCase().includes(filterTerm) ||
-                                          item.keywords.toLowerCase().includes(filterTerm) ||
+                                          item.keywords.toLowerCase().includes(filterTerm) || // Search keywords in addition to title
                                           item.studyType.toLowerCase().includes(filterTerm); 
                 
                 const matchesField = fieldFilter === '' || item.field === fieldFilter;
@@ -776,13 +775,20 @@
                 currentVisibleResearchRows = filteredResearchData.length;
             }
             renderResearchTable();
-            document.getElementById('researchTable').scrollIntoView({ behavior: 'smooth', block: 'end' });
+            // Scroll smoothly to the end of the new items or bottom of the table
+            const table = document.getElementById('researchTable');
+            table.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }
 
         function showLessResearch() {
-            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
+            currentVisibleResearchRows -= RESEARCH_INCREMENT_COUNT;
+            if (currentVisibleResearchRows < RESEARCH_INITIAL_DISPLAY_COUNT) {
+                currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
+            }
             renderResearchTable();
-            document.getElementById('researchTable').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Scroll smoothly to the top of the table
+            const table = document.getElementById('researchTable');
+            table.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         // بدء التشغيل
