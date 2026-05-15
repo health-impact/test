@@ -50,7 +50,8 @@
         /* 3. قسم الرئيسية (Hero) */
         .hero { 
             height: 75vh; 
-            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1532938911072-f1925345719a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            /* Changed hero image to a more relevant one */
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             background-repeat: no-repeat; background-position: center; background-size: cover;
             color: white; display: flex; align-items: center; justify-content: center; text-align: center;
         }
@@ -190,6 +191,10 @@
             padding: clamp(20px, 5vw, 50px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             text-align: center;
+            height: 100%; /* Ensure cards have consistent height */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .user-account-card .icon-box i {
             font-size: 3.5rem;
@@ -203,7 +208,7 @@
             border-radius: 25px;
             padding: clamp(15px, 4vw, 40px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            text-align: center;
+            text-align: center; /* Centered alert for now */
         }
         .news-item {
             border-bottom: 1px solid #eee;
@@ -283,30 +288,36 @@
             <div class="row g-4 justify-content-center">
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="user-account-card">
-                        <div class="icon-box"><i class="fas fa-user-circle"></i></div>
-                        <h4 class="fw-bold">تسجيل الدخول / إنشاء حساب</h4>
-                        <p class="text-muted small">سجّل الدخول للوصول إلى مميزات الحساب الشخصي.</p>
-                        <button class="btn btn-outline-success rounded-pill px-4 py-2" onclick="alert('هذه الميزة قيد التطوير.')">
+                        <div>
+                            <div class="icon-box"><i class="fas fa-user-circle"></i></div>
+                            <h4 class="fw-bold">تسجيل الدخول / إنشاء حساب</h4>
+                            <p class="text-muted small">سجّل الدخول للوصول إلى مميزات الحساب الشخصي.</p>
+                        </div>
+                        <button class="btn btn-outline-success rounded-pill px-4 py-2 mt-3" onclick="alert('هذه الميزة قيد التطوير.')">
                             ابدأ الآن
                         </button>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="user-account-card">
-                        <div class="icon-box"><i class="fas fa-bookmark"></i></div>
-                        <h4 class="fw-bold">محتوى محفوظ</h4>
-                        <p class="text-muted small">احفظ نصائحك وأبحاثك المفضلة للرجوع إليها لاحقًا.</p>
-                        <button class="btn btn-outline-secondary rounded-pill px-4 py-2" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
+                        <div>
+                            <div class="icon-box"><i class="fas fa-bookmark"></i></div>
+                            <h4 class="fw-bold">محتوى محفوظ</h4>
+                            <p class="text-muted small">احفظ نصائحك وأبحاثك المفضلة للرجوع إليها لاحقًا.</p>
+                        </div>
+                        <button class="btn btn-outline-secondary rounded-pill px-4 py-2 mt-3" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
                             <i class="fas fa-arrow-right"></i> عرض المحفوظات
                         </button>
                     </div>
                 </div>
                  <div class="col-12 col-md-6 col-lg-4">
                     <div class="user-account-card">
-                        <div class="icon-box"><i class="fas fa-bell"></i></div>
-                        <h4 class="fw-bold">إشعارات وتنبيهات</h4>
-                        <p class="text-muted small">تلقَّ تنبيهات حول أحدث الأبحاث والتحديثات.</p>
-                        <button class="btn btn-outline-info rounded-pill px-4 py-2" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
+                        <div>
+                            <div class="icon-box"><i class="fas fa-bell"></i></div>
+                            <h4 class="fw-bold">إشعارات وتنبيهات</h4>
+                            <p class="text-muted small">تلقَّ تنبيهات حول أحدث الأبحاث والتحديثات.</p>
+                        </div>
+                        <button class="btn btn-outline-info rounded-pill px-4 py-2 mt-3" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
                             <i class="fas fa-cogs"></i> إدارة التنبيهات
                         </button>
                     </div>
@@ -770,9 +781,16 @@
                 currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
             }
             renderResearchTable();
-            // Scroll smoothly to the top of the table
+            // Scroll smoothly to the top of the table if we go back to the initial display count or just above
             const table = document.getElementById('researchTable');
-            table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (currentVisibleResearchRows === RESEARCH_INITIAL_DISPLAY_COUNT) {
+                table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                const lastVisibleRow = table.querySelector(`.research-row:nth-child(${currentVisibleResearchRows})`);
+                if (lastVisibleRow) {
+                     lastVisibleRow.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }
+            }
         }
 
         // بدء التشغيل
@@ -789,45 +807,6 @@
             document.getElementById('researchFieldFilter').addEventListener('change', filterResearchTable);
             document.getElementById('researchStudyTypeFilter').addEventListener('change', filterResearchTable);
         });
-        <script>
-const healthNews = [
-  {
-    title: "مستجدات مكافحة العدوى",
-    content: "أحدث التوصيات العالمية حول نظافة الأسطح في المرافق الصحية...",
-    date: "14 مايو 2026",
-    image: "https://via.placeholder.com/400x200?text=Infection+Control" 
-  },
-  {
-    title: "تنبيه صحي: المشروبات المنبهة",
-    content: "دراسة جديدة توضح تأثير استهلاك الطاقة المفرط على جودة النوم لدى الشباب...",
-    date: "13 مايو 2026",
-    image: "https://via.placeholder.com/400x200?text=Health+Alert"
-  }
-];
-
-function displayNews() {
-    const container = document.getElementById('news-container');
-    container.innerHTML = ''; // تنظيف الحاوية أولاً
-
-    healthNews.forEach(news => {
-        const card = `
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-green-100 hover:shadow-2xl transition">
-                <img src="${news.image}" alt="${news.title}" class="w-full h-48 object-cover">
-                <div class="p-5">
-                    <span class="text-xs text-green-600 font-bold">${news.date}</span>
-                    <h3 class="text-xl font-bold text-gray-800 mt-2">${news.title}</h3>
-                    <p class="text-gray-600 mt-3 text-sm leading-relaxed">${news.content}</p>
-                    <button class="mt-4 text-green-700 font-bold hover:underline">اقرأ المزيد ←</button>
-                </div>
-            </div>
-        `;
-        container.innerHTML += card;
-    });
-}
-
-// تشغيل الوظيفة عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', displayNews);
-</script>
     </script>
 <script data-goatcounter="https://athar-health.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
