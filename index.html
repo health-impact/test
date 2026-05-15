@@ -624,7 +624,7 @@
             },
             {
                 title: "تأثير التلوث البيئي على صحة الجهاز التنفسي",
-                content: "التعرض المستمر لتلوث الهواء يزيد من خطر الإصابة بالربو والتهاب الشعب الهوائية المزمن وأمراض الرئة الأخرى.",
+                content: "التعرض المستمر لتلوث الهواء يزيد من خطر إصابتهم بالربو والتهاب الشعب الهوائية المزمن وأمراض الرئة الأخرى.",
                 source: "EPA",
                 category: "الصحة البيئية",
                 date: "2024-03-12",
@@ -679,12 +679,12 @@
                 await navigator.clipboard.writeText(textToCopy);
                 const originalHtml = buttonElement.innerHTML;
                 buttonElement.innerHTML = '<i class="fas fa-check ml-2"></i> تم النسخ!';
-                buttonElement.classList.remove('bg-gray-400');
-                buttonElement.classList.add('bg-green-500');
+                buttonElement.classList.remove('bg-gray-400', 'hover:bg-gray-500');
+                buttonElement.classList.add('bg-green-600', 'hover:bg-green-700');
                 setTimeout(() => {
                     buttonElement.innerHTML = originalHtml;
-                    buttonElement.classList.remove('bg-green-500');
-                    buttonElement.classList.add('bg-gray-400');
+                    buttonElement.classList.remove('bg-green-600', 'hover:bg-green-700');
+                    buttonElement.classList.add('bg-gray-400', 'hover:bg-gray-500');
                 }, 2000);
             } catch (err) {
                 console.error('Failed to copy tip: ', err);
@@ -999,7 +999,7 @@
 
                 if (user) {
                     const displayName = user.email.split('@')[0];
-                    authButtonInNav.innerHTML = `<i class="fas fa-user ml-2"></i> ${displayName}`;
+                    authButtonInNav.innerHTML = `<i class="fas fa-sign-out-alt ml-2"></i> خروج`; // Changed to logout icon
                     authButtonInNav.onclick = handleSignOut;
                     authButtonInNav.removeAttribute('data-bs-toggle');
                     authButtonInNav.removeAttribute('data-bs-target');
@@ -1120,7 +1120,11 @@
                             behavior: 'smooth'
                         });
 
-                        navLinks.forEach(link => link.classList.remove('active-link'));
+                        navLinks.forEach(link => {
+                             if (link.id !== 'authNavLink' || (window.auth && !window.auth.currentUser)) {
+                                link.classList.remove('active-link');
+                            }
+                        });
                         this.classList.add('active-link');
                     }
                 });
@@ -1137,14 +1141,17 @@
                     if (entry.isIntersecting) {
                         const targetId = entry.target.id;
                         navLinks.forEach(link => {
-                            // Ensure the authNavLink isn't deactivated if logged in and user scrolls away from hero
                             const isAuthLinkAndLoggedIn = link.id === 'authNavLink' && window.auth && window.auth.currentUser;
                             
                             if (link.getAttribute('href') === `#${targetId}`) {
-                                if (!isAuthLinkAndLoggedIn) { // Only change active class if it's not the auth link or user is logged out
-                                    navLinks.forEach(l => l.classList.remove('active-link'));
-                                    link.classList.add('active-link');
-                                }
+                                // Deactivate all non-auth links
+                                navLinks.forEach(l => {
+                                    if (l.id !== 'authNavLink') {
+                                        l.classList.remove('active-link');
+                                    }
+                                });
+                                // Activate the current section's link
+                                link.classList.add('active-link');
                             }
                             // If the auth link is active because user is logged in, keep it active regardless of scroll
                             if (isAuthLinkAndLoggedIn) {
