@@ -79,7 +79,7 @@ except FileNotFoundError:
   
 ]
 أجب بالـ JSON فقط بدون أي نصوص إضافية.
-"""
+
 
 try:
     ai_response = model.generate_content(prompt)
