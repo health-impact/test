@@ -210,6 +210,7 @@
             border-bottom: 1px solid #eee;
             padding-bottom: 20px;
             margin-bottom: 20px;
+            text-align: right; /* Added for RTL consistency */
         }
         .news-item:last-child {
             border-bottom: none;
@@ -251,7 +252,6 @@
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
                 <a href="#store" class="nav-item-link">المتجر</a>
                 <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
-                <!-- Removed Fact-check link as per request -->
             </nav>
         </div>
     </header>
@@ -499,8 +499,6 @@
         </div>
     </section>
 
-    <!-- Removed Fact-checking section as per request -->
-
     <footer class="footer">
         <div class="container px-4">
             <h4 class="text-white fw-bold mb-3">Impact Health | أثر صحي</h4>
@@ -624,8 +622,9 @@
             const btn = document.getElementById('archive-btn');
             if (arc.style.display === 'none') {
                 arc.style.display = 'block';
-                btn.innerText = 'إغلاق الأرشيف';
-                window.location.hash = 'archive-tips-list';
+                btn.innerText = 'إخلاق الأرشيف';
+                // Use scrollIntoView to smoothly scroll to the archive list
+                arc.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else {
                 arc.style.display = 'none';
                 btn.innerText = 'تصفح أرشيف المعلومات الكامل';
@@ -635,6 +634,7 @@
         let allResearchData = [];
         let filteredResearchData = [];
         const RESEARCH_INITIAL_DISPLAY_COUNT = 5;
+        const RESEARCH_INCREMENT_COUNT = 5; // Display 5 more rows at a time
         let currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
 
         function generateDummyResearch(count) {
@@ -681,8 +681,9 @@
                 const specificTitle = `${topic.title} - ${titleVariant}`;
                 const studyType = topic.studyTypes[Math.floor(Math.random() * topic.studyTypes.length)];
                 
-                const searchKeywords = encodeURIComponent(`${specificTitle} ${topic.field} ${topic.keywords} ${studyType} PubMed`); 
-                const pubmedLink = `https://pubmed.ncbi.nlm.nih.gov/?term=${searchKeywords}`;
+                // Construct a more specific PubMed search query
+                const pubmedKeywords = `${specificTitle} ${topic.field} ${topic.keywords} ${studyType} health`;
+                const pubmedLink = `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(pubmedKeywords)}`;
 
                 researchData.push({
                     title: specificTitle,
@@ -690,7 +691,7 @@
                     field: topic.field,
                     studyType: studyType,
                     link: pubmedLink,
-                    keywords: topic.keywords // for general search matching
+                    keywords: `${topic.keywords} ${topic.field} ${studyType}` // Combine all for general search matching
                 });
             }
             return researchData;
@@ -757,7 +758,7 @@
         }
 
         function showMoreResearch() {
-            currentVisibleResearchRows += RESEARCH_INITIAL_DISPLAY_COUNT; 
+            currentVisibleResearchRows += RESEARCH_INCREMENT_COUNT; 
             if (currentVisibleResearchRows > filteredResearchData.length) {
                 currentVisibleResearchRows = filteredResearchData.length;
             }
