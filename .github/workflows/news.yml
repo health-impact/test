@@ -1,6 +1,38 @@
-  on:
-      concurrency: 
-      push:
-       branches: [ main ]
-     branch_protection_rule:  schedule:
-         - cron: '0 0 * * *'  # هذا الأمر السحري يخبر جيتهوب بتشغيل البوت تلقائياً كل 24 ساعة
+name: Automated Health Impact Bot
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *' # هذا هو الأمر السحري: تشغيل تلقائي كل 24 ساعة (عند منتصف الليل)
+
+jobs:
+  update-website:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-python: '3.10'
+
+    - name: Install Dependencies
+      run: |
+        pip install google-generativeai
+
+    - name: Run Bot Updates
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      run: |
+        python ai_coder.py
+
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.name "AtharSehi-Bot"
+        git config --global user.email "bot@atharsehi.com"
+        git add index.html
+        git diff-index --quiet HEAD || git commit -"تحديث تلقائي يومي للأخبار الطبية 🚀"
+        git push
