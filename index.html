@@ -804,6 +804,32 @@ const dailyAdvice = { "title": "جاري التحميل...", "content": "..." };
 
 // البوت سيبحث عن هذا السطر ويغيره تلقائياً كل يوم
 const healthNewsData = [];
+        <script>
+// تأكد أن هذا السطر مكتوب هكذا بالضبط لكي يجدها البوت
+const dailyAdvice = { "title": "جاري التحميل...", "content": "..." };
+const healthNewsData = []; 
+
+// وظيفة عرض الأخبار في الواجهة
+function renderNews() {
+    const container = document.getElementById('news-container');
+    if (container && healthNewsData.length > 0) {
+        container.innerHTML = healthNewsData.map(news => `
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300">
+                <img src="${news.image}" alt="${news.title}" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">${news.date}</span>
+                    <h3 class="text-xl font-bold text-gray-800 my-3">${news.title}</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">${news.content}</p>
+                    <button class="text-green-600 font-bold hover:underline">اقرأ المزيد ←</button>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
+// تشغيل الوظيفة فور تحميل الصفحة
+document.addEventListener('DOMContentLoaded', renderNews);
+</script>
     </script>
 <script data-goatcounter="https://athar-health.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
