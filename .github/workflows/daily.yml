@@ -38,7 +38,7 @@ jobs:
           git fetch origin main
           git pull --rebase origin main
           git push origin HEAD:mainon:
-on: 
+
   push:
     branches: [ main ]
   schedule:
