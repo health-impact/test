@@ -1,13 +1,13 @@
 import google.generativeai as genai
 import os
-import re 
+import re
 import json
 
-# 1. إعداد Gemini
+# 1. إعداد اتصال Gemini
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel('gemini-1.5-flash')
 
-# 2. قراءة كود الموقع
+# 2. قراءة كود الموقع الحالي
 try:
     with open("index.html", "r", encoding="utf-8") as f:
         html_code = f.read()
@@ -15,43 +15,52 @@ except FileNotFoundError:
     print("Error: index.html not found")
     exit(1)
 
-# 3. طلب أخبار طبية جديدة من البوت
+# 3. طلب الأخبار من الـ AI
 prompt = """
-بصفتك خبير في الصحة العامة ومكافحة العدوى، قدم لي 3 أخبار طبية حديثة وموثوقة.
-ركز على مواضيع مثل: مكافحة البكتيريا، مستجدات الأبحاث الصحية، أو نصائح وقائية عالمية.
-يجب أن يكون الإخراج بتنسيق JSON فقط، مصفوفة تحتوي على 3 كائنات هكذا:
+بصفتك خبير في الصحة العامة ومكافحة العدوى، قدم لي 3 أخبار طبية وصحية حديثة وموثوقة (مستجدات بكتيرية، أبحاث صحية، إرشادات وقائية).
+يجب أن يكون الرد بتنسيق مصفوفة JSON فقط ومطابق تماماً لهذا الهيكل دون أي كلام جانبي أو علامات تشكيل كود برمجية زائدة:
 [
   {
-    "title": "عنوان الخبر",
-    "content": "ملخص الخبر بشكل مهني وقصير",
-    "date": "التاريخ الحالي",
-    "image": "رابط صورة من unsplash متعلق بالموضوع"
+    "title": "عنوان الخبر الطبي الأول"،
+    "content": "ملخص مهني دقيق ومختصر للخبر لفائدة الشباب المتصفحين."،
+    "date": "16 مايو 2026"،
+    "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500"
   },
-  ...
+  {
+    "title": "عنوان الخبر الطبي الثاني"،
+    "content": "ملخص مهني وموجز للخبر الصحي الثاني..."،
+    "date": "16 مايو 2026 Bey"،
+    "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500"
+  },
+  {
+    "title": "عنوان الخبر الطبي الثالث"،
+    "content": "ملخص مهني وموجز للخبر الصحي الثالث..." Train"،
+    "date": "15 مايو 2026"،
+    "image": "https://images.unsplash.com/photo-1532938911072-f1925345719a?w=500"
+  }
 ]
-أجب بالـ JSON فقط بدون أي نصوص إضافية.
 """
 
 try:
-    ai_response = model.generate_content(prompt)
-    # استخراج المصفوفة من النص
-    news_json_match = re.search(r'\[.*\]', ai_response.text, re.DOTALL)
-    if news_json_match:
-        news_data = news_json_match.group(0)
+    response = model.generate_content(prompt)
+    json_match = re.search(r'\[.*\]', response.text, re.DOTALL)
+    
+    if json_match:
+        news_data_string = json_match.group(0)
         
-        # 4. تحديث المصفوفة في ملف HTML
-        # سنبحث عن متغير اسمه healthNewsData ونستبدله
-        new_script_part = f"const healthNewsData = {news_data};"
-        updated_html = re.sub(r'const healthNewsData = \[.*?\];', new_script_part, html_code, flags=re.DOTALL)
-
+        # حقن مصفوفة الأخبار المحدثة داخل ملف الـ HTML
+        news_script = f"const healthNewsData = {news_data_string};"
+        updated_html = re.sub(r'const healthNewsData = \[.*?\];', news_script, html_code, flags=re.DOTALL)
+        
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(updated_html)
-        print("Success: News section updated by the Bot!")
+            
+        print("تم تحديث قسم الأخبار بنجاح عن طريق البوت التلقائي! 🚀")
     else:
-        print("Could not find JSON in AI response.")
+        print("لم ينجح السكربت في استخراج مصفوفة الأخبار من الذكاء الاصطناعي.")
 
 except Exception as e:
-    print(f"Error: {e}")
+    print(f"حدث خطأ: {e}")
 import google.generativeai as genai
 import os
 import re
