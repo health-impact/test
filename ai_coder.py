@@ -1,6 +1,6 @@
 import google.generativeai as genai
 import os
-import re
+import re 
 import json
 
 # 1. إعداد Gemini
