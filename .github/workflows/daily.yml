@@ -1,4 +1,4 @@
-name: Daily Health Tips Update
+name: Daily Health Tips Update 
 
 on:
   schedule:
