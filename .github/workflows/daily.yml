@@ -37,4 +37,9 @@ jobs:
           git commit -m "Update daily health tips" || exit 0
           git fetch origin main
           git pull --rebase origin main
-          git push origin HEAD:main
+          git push origin HEAD:mainon:
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *'  # هذا الأمر السحري يخبر جيتهوب بتشغيل البوت تلقائياً كل 24 ساعة
