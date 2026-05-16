@@ -1,5 +1,6 @@
- concurrency: on:
-  push:
-    branches: [ main ]
-  schedule:
-    - cron: '0 0 * * *'  # هذا الأمر السحري يخبر جيتهوب بتشغيل البوت تلقائياً كل 24 ساعة
+  on:
+      concurrency: 
+      push:
+       branches: [ main ]
+     branch_protection_rule:  schedule:
+         - cron: '0 0 * * *'  # هذا الأمر السحري يخبر جيتهوب بتشغيل البوت تلقائياً كل 24 ساعة
