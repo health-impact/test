@@ -190,6 +190,10 @@
             padding: clamp(20px, 5vw, 50px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             text-align: center;
+            height: 100%; /* Ensure cards are same height */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .user-account-card .icon-box i {
             font-size: 3.5rem;
@@ -297,30 +301,36 @@
             <div class="row g-4 justify-content-center">
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="user-account-card">
-                        <div class="icon-box"><i class="fas fa-user-circle"></i></div>
-                        <h4 class="fw-bold">تسجيل الدخول / إنشاء حساب</h4>
-                        <p class="text-muted small">سجّل الدخول للوصول إلى مميزات الحساب الشخصي.</p>
-                        <button class="btn btn-outline-success rounded-pill px-4 py-2" onclick="alert('هذه الميزة قيد التطوير.')">
+                        <div>
+                            <div class="icon-box"><i class="fas fa-user-circle"></i></div>
+                            <h4 class="fw-bold">تسجيل الدخول / إنشاء حساب</h4>
+                            <p class="text-muted small">سجّل الدخول للوصول إلى مميزات الحساب الشخصي.</p>
+                        </div>
+                        <button class="btn btn-outline-success rounded-pill px-4 py-2 mt-3" onclick="alert('هذه الميزة قيد التطوير.')">
                             ابدأ الآن
                         </button>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="user-account-card">
-                        <div class="icon-box"><i class="fas fa-bookmark"></i></div>
-                        <h4 class="fw-bold">محتوى محفوظ</h4>
-                        <p class="text-muted small">احفظ نصائحك وأبحاثك المفضلة للرجوع إليها لاحقًا.</p>
-                        <button class="btn btn-outline-secondary rounded-pill px-4 py-2" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
+                        <div>
+                            <div class="icon-box"><i class="fas fa-bookmark"></i></div>
+                            <h4 class="fw-bold">محتوى محفوظ</h4>
+                            <p class="text-muted small">احفظ نصائحك وأبحاثك المفضلة للرجوع إليها لاحقًا.</p>
+                        </div>
+                        <button class="btn btn-outline-secondary rounded-pill px-4 py-2 mt-3" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
                             <i class="fas fa-arrow-right"></i> عرض المحفوظات
                         </button>
                     </div>
                 </div>
                  <div class="col-12 col-md-6 col-lg-4">
                     <div class="user-account-card">
-                        <div class="icon-box"><i class="fas fa-bell"></i></div>
-                        <h4 class="fw-bold">إشعارات وتنبيهات</h4>
-                        <p class="text-muted small">تلقَّ تنبيهات حول أحدث الأبحاث والتحديثات.</p>
-                        <button class="btn btn-outline-info rounded-pill px-4 py-2" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
+                        <div>
+                            <div class="icon-box"><i class="fas fa-bell"></i></div>
+                            <h4 class="fw-bold">إشعارات وتنبيهات</h4>
+                            <p class="text-muted small">تلقَّ تنبيهات حول أحدث الأبحاث والتحديثات.</p>
+                        </div>
+                        <button class="btn btn-outline-info rounded-pill px-4 py-2 mt-3" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
                             <i class="fas fa-cogs"></i> إدارة التنبيهات
                         </button>
                     </div>
