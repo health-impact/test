@@ -40,7 +40,7 @@ prompt = """
   }
 ]
 """
- 
+
 try:
     response = model.generate_content(prompt)
     json_match = re.search(r'\[.*\]', response.text, re.DOTALL)
