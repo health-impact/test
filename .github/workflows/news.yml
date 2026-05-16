@@ -1,5 +1,5 @@
 name: Automated Health Impact Bot
-
+ 
 on:
   push:
     branches:
