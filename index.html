@@ -800,34 +800,146 @@
             document.getElementById('researchStudyTypeFilter').addEventListener('change', filterResearchTable);
         });
         
-// تأكد أن هذا السطر مكتوب هكذا بالضبط لكي يجدها البوت
-const dailyAdvice = { "title": "جاري التحميل...", "content": "..." };
-const healthNewsData = []; 
+<script>
+// مصفوفة الأخبار - سيقوم البوت بحقن الأخبار هنا تلقائياً كل يوم
+const healthNewsData = [];
 
-// وظيفة عرض الأخبار في الواجهة
-function renderNews() {
-    const newsListContainer = document.getElementById('news-list');
-    // Check if newsListContainer exists and if there is data to render beyond the alert
-    if (newsListContainer && healthNewsData.length > 0) {
-        newsListContainer.innerHTML = healthNewsData.map(news => `
-            <div class="news-item">
-                <h4 class="fw-bold">${news.title}</h4>
-                <p>${news.content}</p>
-                <span class="source-date">المصدر: ${news.source} | ${news.date}</span>
-            </div>
-        `).join('');
-    } else if (newsListContainer && healthNewsData.length === 0) {
-        // If there's no data, ensure the "under development" message is shown
-        newsListContainer.innerHTML = `
-            <div class="alert alert-info text-center" role="alert">
-                <i class="fas fa-newspaper me-2"></i> هذه الميزة قيد التطوير. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
-            </div>
-        `;
+// دالة لنسخ النص إلى الحافظة
+async function copyTip(buttonElement, title, content) {
+    const textToCopy = `💡 نصيحة صحية من أثر صحي:\n${title}\n${content}\n\n🌐 للمزيد من النصائح: ${window.location.href}`;
+    try {
+        await navigator.clipboard.writeText(textToCopy);
+        const originalHtml = buttonElement.innerHTML;
+        buttonElement.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
+        buttonElement.classList.remove('btn-secondary');
+        buttonElement.classList.add('btn-success');
+        setTimeout(() => {
+            buttonElement.innerHTML = originalHtml;
+            buttonElement.classList.remove('btn-success');
+            buttonElement.classList.add('btn-secondary');
+        }, 2000);
+    } catch (err) {
+        console.error('Failed to copy tip: ', err);
+        alert('فشل نسخ النصيحة. الرجاء المحاولة مرة أخرى أو النسخ يدوياً.');
     }
 }
 
-// تشغيل الوظيفة فور تحميل الصفحة
-document.addEventListener('DOMContentLoaded', renderNews);
+// دالة جلب نصائح التوعية من ملف athardata.json
+async function fetchAwarenessData() {
+    try {
+        const res = await fetch('athardata.json?v=' + new Date().getTime());
+        const data = await res.json();
+        
+        const currentContainer = document.getElementById('current-tips-list');
+        const archiveContainer = document.getElementById('archive-tips-list');
+        
+        if(currentContainer) currentContainer.innerHTML = ''; 
+        if(archiveContainer) archiveContainer.innerHTML = '';
+
+        const uniqueData = data.filter((v,i,a)=>a.findIndex(t=>(t.title === v.title))===i);
+        const currentItems = uniqueData.slice(0, 5);
+        const archiveItems = uniqueData.slice(5);
+
+        currentItems.forEach(item => { if(currentContainer) currentContainer.innerHTML += buildTipCard(item); });
+        archiveItems.forEach(item => { if(archiveContainer) archiveContainer.innerHTML += buildTipCard(item); });
+    } catch (error) {
+        console.error("Failed to fetch awareness data:", error);
+    }
+}
+
+function buildTipCard(item) {
+    const isWarning = item.type === 'warning';
+    const borderCol = isWarning ? '#dc3545' : '#198754';
+    const icon = isWarning ? '⚠️' : '💡';
+    
+    const escapedTitle = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    const escapedContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
+    const currentPageUrl = encodeURIComponent(window.location.href);
+
+    return `
+        <div class="tip-card" style="border-right-color: ${borderCol}">
+            <div class="d-flex justify-content-between align-items-start">
+                <h5 class="fw-bold" style="color:#222">${item.title}</h5>
+                <span style="font-size:1.5rem">${icon}</span>
+            </div>
+            <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">${item.content}</p>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="source-label"> المصدر: ${item.source || 'أثر صحي'}${item.category ? ' - ' + item.category : ''}</span>
+                <small class="text-muted" style="font-size:0.75rem"> ${item.date || ''}</small>
+            </div>
+            <div class="d-flex justify-content-end gap-2 mt-2">
+                <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" onclick="copyTip(this, '${escapedTitle}', '${escapedContent}')">
+                    <i class="fas fa-copy"></i> نسخ
+                </button>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=${currentPageUrl}&quote=${shareText}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm rounded-pill px-3">
+                    <i class="fab fa-facebook-f"></i> فيسبوك
+                </a>
+                <a href="https://wa.me/?text=${shareText + encodeURIComponent('\n\n🌐 للمزيد: ') + currentPageUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm rounded-pill px-3">
+                    <i class="fab fa-whatsapp"></i> واتساب
+                </a>
+            </div>
+        </div>
+    `;
+}
+
+function toggleArchive() {
+    const arc = document.getElementById('archive-tips-list');
+    const btn = document.getElementById('archive-btn');
+    if (arc && arc.style.display === 'none') {
+        arc.style.display = 'block';
+        btn.innerText = 'إخفاء أرشيف المعلومات';
+    } else if(arc) {
+        arc.style.display = 'none';
+        btn.innerText = 'تصفح أرشيف المعلومات الكامل';
+    }
+}
+
+// دالة عرض الأخبار المحدثة تلقائياً بواسطة البوت
+function renderHealthNews() {
+    const newsListContainer = document.getElementById('news-list');
+    if (!newsListContainer) return;
+
+    if (healthNewsData.length === 0) {
+        newsListContainer.innerHTML = `
+            <div class="alert alert-info text-center" role="alert">
+                <i class="fas fa-sync fa-spin me-2"></i> جاري توليد وتحديث الأخبار الطبية الحية بواسطة البوت...
+            </div>`;
+        return;
+    }
+
+    newsListContainer.innerHTML = `
+        <div class="row g-4">
+            ${healthNewsData.map(news => `
+                <div class="col-12 col-md-4">
+                    <div class="card h-100 border-0 shadow-sm" style="border-radius: 20px; overflow: hidden;">
+                        <img src="${news.image}" class="card-img-top" alt="${news.title}" style="height: 200px; object-fit: cover;">
+                        <div class="card-body text-end d-flex flex-column justify-content-between">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-success-subtle text-success">${news.date}</span>
+                                </div>
+                                <h5 class="card-title fw-bold text-dark">${news.title}</h5>
+                                <p class="card-text text-muted small" style="line-height: 1.6;">${news.content}</p>
+                            </div>
+                            <div class="mt-3">
+                                <hr class="text-muted opacity-25">
+                                <small class="text-success fw-bold"><i class="fas fa-microscope me-1"></i> مصدر موثوق</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+// تشغيل الدوال عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    fetchAwarenessData();
+    renderHealthNews();
+});
+</script>
     </script>
 <script data-goatcounter="https://athar-health.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
