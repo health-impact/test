@@ -1,6 +1,60 @@
 import google.generativeai as genai
 import os
 import re
+import json
+
+# 1. إعداد Gemini
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+model = genai.GenerativeModel('gemini-1.5-flash')
+
+# 2. قراءة كود الموقع
+try:
+    with open("index.html", "r", encoding="utf-8") as f:
+        html_code = f.read()
+except FileNotFoundError:
+    print("Error: index.html not found")
+    exit(1)
+
+# 3. طلب أخبار طبية جديدة من البوت
+prompt = """
+بصفتك خبير في الصحة العامة ومكافحة العدوى، قدم لي 3 أخبار طبية حديثة وموثوقة.
+ركز على مواضيع مثل: مكافحة البكتيريا، مستجدات الأبحاث الصحية، أو نصائح وقائية عالمية.
+يجب أن يكون الإخراج بتنسيق JSON فقط، مصفوفة تحتوي على 3 كائنات هكذا:
+[
+  {
+    "title": "عنوان الخبر",
+    "content": "ملخص الخبر بشكل مهني وقصير",
+    "date": "التاريخ الحالي",
+    "image": "رابط صورة من unsplash متعلق بالموضوع"
+  },
+  ...
+]
+أجب بالـ JSON فقط بدون أي نصوص إضافية.
+"""
+
+try:
+    ai_response = model.generate_content(prompt)
+    # استخراج المصفوفة من النص
+    news_json_match = re.search(r'\[.*\]', ai_response.text, re.DOTALL)
+    if news_json_match:
+        news_data = news_json_match.group(0)
+        
+        # 4. تحديث المصفوفة في ملف HTML
+        # سنبحث عن متغير اسمه healthNewsData ونستبدله
+        new_script_part = f"const healthNewsData = {news_data};"
+        updated_html = re.sub(r'const healthNewsData = \[.*?\];', new_script_part, html_code, flags=re.DOTALL)
+
+        with open("index.html", "w", encoding="utf-8") as f:
+            f.write(updated_html)
+        print("Success: News section updated by the Bot!")
+    else:
+        print("Could not find JSON in AI response.")
+
+except Exception as e:
+    print(f"Error: {e}")
+import google.generativeai as genai
+import os
+import re
 
 # 1. إعداد الاتصال بجيمني
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
