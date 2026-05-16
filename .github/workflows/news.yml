@@ -34,5 +34,5 @@ jobs:
         git config --global user.name "AtharSehi-Bot"
         git config --global user.email "bot@atharsehi.com"
         git add index.html
-        git diff-index --quiet HEAD || git commit -m "تحديث تلقائي يومي للأخبار والنصائح الطبية 🚀"
+        git diff-index --quiet HEAD || git commit -m "تحديث تلقائي يومي للأخبار الطبية 🚀"
         git push
