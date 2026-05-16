@@ -6,7 +6,7 @@ import json
 # 1. إعداد اتصال Gemini
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel('gemini-1.5-flash')
-
+ 
 # 2. قراءة كود الموقع الحالي
 try:
     with open("index.html", "r", encoding="utf-8") as f:
