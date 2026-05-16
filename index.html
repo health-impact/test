@@ -519,6 +519,9 @@
     </footer>
 
     <script>
+        // مصفوفة الأخبار - سيقوم البوت بحقن الأخبار هنا تلقائياً كل يوم
+        const healthNewsData = [];
+
         // دالة لنسخ النص إلى الحافظة
         async function copyTip(buttonElement, title, content) {
             const textToCopy = `💡 نصيحة صحية من أثر صحي:\n${title}\n${content}\n\n🌐 للمزيد من النصائح: ${window.location.href}`;
@@ -532,25 +535,24 @@
                     buttonElement.innerHTML = originalHtml;
                     buttonElement.classList.remove('btn-success');
                     buttonElement.classList.add('btn-secondary');
-                }, 2000); // العودة للحالة الأصلية بعد ثانيتين
+                }, 2000);
             } catch (err) {
                 console.error('Failed to copy tip: ', err);
                 alert('فشل نسخ النصيحة. الرجاء المحاولة مرة أخرى أو النسخ يدوياً.');
             }
         }
 
+        // دالة جلب نصائح التوعية من ملف athardata.json
         async function fetchAwarenessData() {
             try {
-                // IMPORTANT: This fetch relies on 'athardata.json' existing in the same directory.
-                // If the file is not present, this function will fail.
                 const res = await fetch('athardata.json?v=' + new Date().getTime());
                 const data = await res.json();
                 
                 const currentContainer = document.getElementById('current-tips-list');
                 const archiveContainer = document.getElementById('archive-tips-list');
                 
-                currentContainer.innerHTML = ''; // Clear initial dummy content if fetch is successful
-                archiveContainer.innerHTML = '';
+                if(currentContainer) currentContainer.innerHTML = ''; 
+                if(archiveContainer) archiveContainer.innerHTML = '';
 
                 // Filter for unique titles, then slice
                 const uniqueData = data.filter((v,i,a)=>a.findIndex(t=>(t.title === v.title))===i);
@@ -558,14 +560,8 @@
                 const currentItems = uniqueData.slice(0, 5);
                 const archiveItems = uniqueData.slice(5);
 
-                currentItems.forEach(item => {
-                    currentContainer.innerHTML += buildTipCard(item);
-                });
-
-                archiveItems.forEach(item => {
-                    archiveContainer.innerHTML += buildTipCard(item);
-                });
-
+                currentItems.forEach(item => { if(currentContainer) currentContainer.innerHTML += buildTipCard(item); });
+                archiveItems.forEach(item => { if(archiveContainer) archiveContainer.innerHTML += buildTipCard(item); });
             } catch (error) {
                 console.error("Failed to fetch awareness data:", error);
                 // If fetch fails, the initial dummy content in HTML will remain, which is desired.
@@ -589,22 +585,19 @@
                         <h5 class="fw-bold" style="color:#222">${item.title}</h5>
                         <span style="font-size:1.5rem">${icon}</span>
                     </div>
-                    <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.0;">${item.content}</p>
+                    <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">${item.content}</p>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <span class="source-label"> المصدر: ${item.source || 'أثر صحي'}${item.category ? ' - ' + item.category : ''}</span>
                         <small class="text-muted" style="font-size:0.75rem"> ${item.date || ''}</small>
                     </div>
                     <div class="d-flex justify-content-end gap-2 mt-2">
-                        <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3"
-                                onclick="copyTip(this, '${escapedTitle}', '${escapedContent}')">
+                        <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" onclick="copyTip(this, '${escapedTitle}', '${escapedContent}')">
                             <i class="fas fa-copy"></i> نسخ
                         </button>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=${currentPageUrl}&quote=${shareText}"
-                           target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm rounded-pill px-3">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${currentPageUrl}&quote=${shareText}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm rounded-pill px-3">
                             <i class="fab fa-facebook-f"></i> فيسبوك
                         </a>
-                        <a href="https://wa.me/?text=${shareText + encodeURIComponent('\n\n🌐 للمزيد: ') + currentPageUrl}"
-                           target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm rounded-pill px-3">
+                        <a href="https://wa.me/?text=${shareText + encodeURIComponent('\n\n🌐 للمزيد: ') + currentPageUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm rounded-pill px-3">
                             <i class="fab fa-whatsapp"></i> واتساب
                         </a>
                     </div>
@@ -615,12 +608,12 @@
         function toggleArchive() {
             const arc = document.getElementById('archive-tips-list');
             const btn = document.getElementById('archive-btn');
-            if (arc.style.display === 'none') {
+            if (arc && arc.style.display === 'none') {
                 arc.style.display = 'block';
                 btn.innerText = 'إخفاء أرشيف المعلومات';
                 // Use scrollIntoView to smoothly scroll to the archive list
                 arc.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else {
+            } else if(arc) {
                 arc.style.display = 'none';
                 btn.innerText = 'تصفح أرشيف المعلومات الكامل';
             }
@@ -634,36 +627,36 @@
 
         function generateDummyResearch(count) {
             const researchTopics = [
-                { title: "تأثير التغيرات المناخية على انتشار الأمراض المعدية", field: "الصحة البيئية", keywords: "climate change infectious diseases environment global warming", studyTypes: ["مراجعة منهجية", "دراسة حالات", "بحث تجريبي", "دراسة مقطعية"] },
-                { title: "فعالية اللقاحات الجديدة ضد سلالات الأنفلونزا المتحورة", field: "مكافحة العدوى", keywords: "new vaccines influenza strains antiviral immunity pandemic", studyTypes: ["تجربة سريرية", "دراسة أترابية", "تحليل تلوي"] },
-                { title: "دور التغذية السليمة في تعزيز المناعة لدى الأطفال", field: "سلامة الغذاء والتغذية", keywords: "nutrition child immunity diet food supplements vitamins", studyTypes: ["دراسة مقطعية", "تحليل تلوي", "دراسة أترابية"] },
-                { title: "الوعي الصحي ومكافحة الأمراض المزمنة في المجتمعات النامية", field: "الصحة العامة", keywords: "health awareness chronic diseases developing countries education prevention", studyTypes: ["مراجعة منهجية", "دراسة مقطعية"] },
-                { title: "تكنولوجيا الرصد الوبائي: التحديات والفرص", field: "مكافحة العدوى", keywords: "epidemiological surveillance technology public health data AI", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
-                { title: "سلامة المياه الصالحة للشرب وتأثيرها على صحة السكان", field: "سلامة الغذاء والتغذية", keywords: "drinking water safety public health contamination sanitation", studyTypes: ["دراسة حالات", "دراسة مقطعية"] },
-                { title: "استراتيجيات الحد من مقاومة المضادات الحيوية في البيئة الصحية", field: "مكافحة العدوى", keywords: "antibiotic resistance strategies healthcare infection control AMR", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
-                { title: "تأثير النشاط البدني على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "physical activity adolescent mental health depression anxiety well-being", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
-                { title: "فحص جودة الأغذية المستوردة ودورها في الحماية من الأمراض", field: "سلامة الغذاء والتغذية", keywords: "imported food quality foodborne diseases safety regulation standards", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
-                { title: "الابتكارات في التشخيص المبكر للأمراض السرطانية", field: "الابتكار الطبي", keywords: "innovations early cancer diagnosis screening biomarkers technology", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
-                { title: "مكافحة العدوى في مراكز الرعاية الأولية", field: "مكافحة العدوى", keywords: "infection control primary healthcare hygiene hand washing PPE", studyTypes: ["بحث تجريبي", "دراسة مقطعية"] },
-                { title: "التعليم الصحي للمجتمعات الريفية: التحديات والحلول", field: "الصحة العامة", keywords: "health education rural communities disparities access solutions", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
-                { title: "تأثير التلوث البيئي على الجهاز التنفسي", field: "الصحة البيئية", keywords: "environmental pollution respiratory health air quality asthma COPD", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
-                { title: "طرق جديدة للكشف عن الملوثات في الغذاء", field: "سلامة الغذاء والتغذية", keywords: "new methods food contaminants detection safety technology analysis", studyTypes: ["بحث تجريبي"] },
-                { title: "الأمن البيولوجي في المختبرات الطبية", field: "مكافحة العدوى", keywords: "biosafety medical laboratories pathogens containment protocols", studyTypes: ["مراجعة منهجية", "بحث تجريبي"] },
-                { title: "تقييم برامج التطعيم الوطنية وأثرها على الصحة العامة", field: "الصحة العامة", keywords: "national vaccination programs public health impact coverage diseases", studyTypes: ["تحليل تلوي", "مراجعة منهجية", "دراسة أترابية"] },
-                { title: "التحديات الصحية لسكان المناطق النائية", field: "الصحة العامة", keywords: "health challenges remote areas access healthcare equity infrastructure", studyTypes: ["دراسة مقطعية", "دراسة حالات"] },
-                { title: "استخدام تقنيات الذكاء الاصطناعي في تشخيص الأمراض", field: "الابتكار الطبي", keywords: "AI technologies disease diagnosis medical imaging machine learning", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
-                { title: "دراسة حول فعالية حملات التوعية بسرطان الثدي", field: "الصحة العامة", keywords: "breast cancer awareness campaigns effectiveness screening early detection", studyTypes: ["دراسة مقطعية", "دراسة أترابية"] },
-                { title: "تحسين جودة الهواء في المدن وتأثيره على الصحة", field: "الصحة البيئية", keywords: "urban air quality health impact pollution mitigation policies", studyTypes: ["مراجعة منهجية", "دراسة مقطعية"] },
-                { title: "دور الأنماط الحياتية في الوقاية من أمراض القلب", field: "الوقاية من الأمراض", keywords: "lifestyle cardiovascular disease prevention diet exercise stress", studyTypes: ["دراسة أترابية", "تحليل تلوي"] },
-                { title: "تأثير الجوائح على الصحة النفسية للمجتمعات", field: "الصحة النفسية", keywords: "pandemics mental health community anxiety depression trauma", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
-                { title: "التقنيات الحديثة في علاج داء السكري", field: "الابتكار الطبي", keywords: "modern techniques diabetes treatment insulin pumps continuous glucose monitoring", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
-                { title: "سلامة منتجات التجميل وتأثيرها على البشرة", field: "الصحة الجلدية", keywords: "cosmetic product safety skin impact allergies regulations ingredients", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
-                { title: "برامج الفحص المبكر لسرطان القولون والمستقيم", field: "الوقاية من الأمراض", keywords: "colorectal cancer screening programs early detection endoscopy awareness", studyTypes: ["مراجعة منهجية", "دراسة أترابية"] },
-                { title: "تأثير جائحة كوفيد-19 على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "COVID-19 pandemic mental health adolescents anxiety depression stress", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
-                { title: "تحليل فعالية برامج مكافحة السمنة في المدارس", field: "الصحة العامة", keywords: "obesity prevention school programs children health nutrition physical activity", studyTypes: ["بحث تجريبي", "دراسة مقطعية"] },
-                { title: "التحكم في ناقلات الأمراض: استراتيجيات جديدة", field: "مكافحة العدوى", keywords: "vector control disease prevention mosquitoes ticks public health strategies", studyTypes: ["مراجعة منهجية", "بحث تجريبي"] },
-                { title: "دور التثقيف الغذائي في الوقاية من السكري من النوع الثاني", field: "سلامة الغذاء والتغذية", keywords: "nutrition education type 2 diabetes prevention diet healthy eating lifestyle", studyTypes: ["دراسة أترابية", "تجربة سريرية"] },
-                { title: "ابتكارات في التشخيص السريع للأمراض المعدية", field: "الابتكار الطبي", keywords: "rapid diagnostics infectious diseases point-of-care testing technology innovation", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] }
+                { title: "تأثير التغيرات المناخية على انتشار الأمراض المعدية", field: "الصحة البيئية", keywords: "climate change infectious diseases environment global warming المناخ التلوث الأمراض المعدية", studyTypes: ["مراجعة منهجية", "دراسة حالات", "بحث تجريبي", "دراسة مقطعية"] },
+                { title: "فعالية اللقاحات الجديدة ضد سلالات الأنفلونزا المتحورة", field: "مكافحة العدوى", keywords: "new vaccines influenza strains antiviral immunity pandemic اللقاحات الإنفلونزا الوقاية العدوى", studyTypes: ["تجربة سريرية", "دراسة أترابية", "تحليل تلوي"] },
+                { title: "دور التغذية السليمة في تعزيز المناعة لدى الأطفال", field: "سلامة الغذاء والتغذية", keywords: "nutrition child immunity diet food supplements vitamins التغذية الأطفال المناعة الغذاء", studyTypes: ["دراسة مقطعية", "تحليل تلوي", "دراسة أترابية"] },
+                { title: "الوعي الصحي ومكافحة الأمراض المزمنة في المجتمعات النامية", field: "الصحة العامة", keywords: "health awareness chronic diseases developing countries education prevention الوعي الأمراض المزمنة التنمية", studyTypes: ["مراجعة منهجية", "دراسة مقطعية"] },
+                { title: "تكنولوجيا الرصد الوبائي: التحديات والفرص", field: "مكافحة العدوى", keywords: "epidemiological surveillance technology public health data AI الرصد الوبائي التكنولوجيا الذكاء الاصطناعي", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "سلامة المياه الصالحة للشرب وتأثيرها على صحة السكان", field: "سلامة الغذاء والتغذية", keywords: "drinking water safety public health contamination sanitation المياه الشرب التلوث النظافة", studyTypes: ["دراسة حالات", "دراسة مقطعية"] },
+                { title: "استراتيجيات الحد من مقاومة المضادات الحيوية في البيئة الصحية", field: "مكافحة العدوى", keywords: "antibiotic resistance strategies healthcare infection control AMR المضادات الحيوية المقاومة المستشفيات", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "تأثير النشاط البدني على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "physical activity adolescent mental health depression anxiety well-being النشاط البدني المراهقين الصحة النفسية", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
+                { title: "فحص جودة الأغذية المستوردة ودورها في الحماية من الأمراض", field: "سلامة الغذاء والتغذية", keywords: "imported food quality foodborne diseases safety regulation standards الغذاء المستورد الجودة الأمراض", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
+                { title: "الابتكارات في التشخيص المبكر للأمراض السرطانية", field: "الابتكار الطبي", keywords: "innovations early cancer diagnosis screening biomarkers technology الابتكار السرطان التشخيص المبكر", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
+                { title: "مكافحة العدوى في مراكز الرعاية الأولية", field: "مكافحة العدوى", keywords: "infection control primary healthcare hygiene hand washing PPE العدوى الرعاية الأولية النظافة", studyTypes: ["بحث تجريبي", "دراسة مقطعية"] },
+                { title: "التعليم الصحي للمجتمعات الريفية: التحديات والحلول", field: "الصحة العامة", keywords: "health education rural communities disparities access solutions التعليم الصحي المناطق الريفية", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
+                { title: "تأثير التلوث البيئي على الجهاز التنفسي", field: "الصحة البيئية", keywords: "environmental pollution respiratory health air quality asthma COPD التلوث الجهاز التنفسي الهواء", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
+                { title: "طرق جديدة للكشف عن الملوثات في الغذاء", field: "سلامة الغذاء والتغذية", keywords: "new methods food contaminants detection safety technology analysis الملوثات الغذاء الكشف", studyTypes: ["بحث تجريبي"] },
+                { title: "الأمن البيولوجي في المختبرات الطبية", field: "مكافحة العدوى", keywords: "biosafety medical laboratories pathogens containment protocols الأمن البيولوجي المختبرات", studyTypes: ["مراجعة منهجية", "بحث تجريبي"] },
+                { title: "تقييم برامج التطعيم الوطنية وأثرها على الصحة العامة", field: "الصحة العامة", keywords: "national vaccination programs public health impact coverage diseases برامج التطعيم الصحة العامة", studyTypes: ["تحليل تلوي", "مراجعة منهجية", "دراسة أترابية"] },
+                { title: "التحديات الصحية لسكان المناطق النائية", field: "الصحة العامة", keywords: "health challenges remote areas access healthcare equity infrastructure المناطق النائية التحديات الصحية", studyTypes: ["دراسة مقطعية", "دراسة حالات"] },
+                { title: "استخدام تقنيات الذكاء الاصطناعي في تشخيص الأمراض", field: "الابتكار الطبي", keywords: "AI technologies disease diagnosis medical imaging machine learning الذكاء الاصطناعي التشخيص", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "دراسة حول فعالية حملات التوعية بسرطان الثدي", field: "الصحة العامة", keywords: "breast cancer awareness campaigns effectiveness screening early detection سرطان الثدي التوعية", studyTypes: ["دراسة مقطعية", "دراسة أترابية"] },
+                { title: "تحسين جودة الهواء في المدن وتأثيره على الصحة", field: "الصحة البيئية", keywords: "urban air quality health impact pollution mitigation policies جودة الهواء التلوث المدن", studyTypes: ["مراجعة منهجية", "دراسة مقطعية"] },
+                { title: "دور الأنماط الحياتية في الوقاية من أمراض القلب", field: "الوقاية من الأمراض", keywords: "lifestyle cardiovascular disease prevention diet exercise stress أنماط الحياة أمراض القلب", studyTypes: ["دراسة أترابية", "تحليل تلوي"] },
+                { title: "تأثير الجوائح على الصحة النفسية للمجتمعات", field: "الصحة النفسية", keywords: "pandemics mental health community anxiety depression trauma الجوائح الصحة النفسية", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
+                { title: "التقنيات الحديثة في علاج داء السكري", field: "الابتكار الطبي", keywords: "modern techniques diabetes treatment insulin pumps continuous glucose monitoring السكري العلاج", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
+                { title: "سلامة منتجات التجميل وتأثيرها على البشرة", field: "الصحة الجلدية", keywords: "cosmetic product safety skin impact allergies regulations ingredients منتجات التجميل البشرة", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
+                { title: "برامج الفحص المبكر لسرطان القولون والمستقيم", field: "الوقاية من الأمراض", keywords: "colorectal cancer screening programs early detection endoscopy awareness سرطان القولون الفحص المبكر", studyTypes: ["مراجعة منهجية", "دراسة أترابية"] },
+                { title: "تأثير جائحة كوفيد-19 على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "COVID-19 pandemic mental health adolescents anxiety depression stress كوفيد-19 الصحة النفسية المراهقين", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
+                { title: "تحليل فعالية برامج مكافحة السمنة في المدارس", field: "الصحة العامة", keywords: "obesity prevention school programs children health nutrition physical activity السمنة المدارس", studyTypes: ["بحث تجريبي", "دراسة مقطعية"] },
+                { title: "التحكم في ناقلات الأمراض: استراتيجيات جديدة", field: "مكافحة العدوى", keywords: "vector control disease prevention mosquitoes ticks public health strategies ناقلات الأمراض المكافحة", studyTypes: ["مراجعة منهجية", "بحث تجريبي"] },
+                { title: "دور التثقيف الغذائي في الوقاية من السكري من النوع الثاني", field: "سلامة الغذاء والتغذية", keywords: "nutrition education type 2 diabetes prevention diet healthy eating lifestyle التثقيف الغذائي السكري", studyTypes: ["دراسة أترابية", "تجربة سريرية"] },
+                { title: "ابتكارات في التشخيص السريع للأمراض المعدية", field: "الابتكار الطبي", keywords: "rapid diagnostics infectious diseases point-of-care testing technology innovation التشخيص السريع الأمراض المعدية", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] }
             ];
 
             const researchData = [];
@@ -785,9 +778,50 @@
             table.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
+        // دالة عرض الأخبار المحدثة تلقائياً بواسطة البوت
+        function renderHealthNews() {
+            const newsListContainer = document.getElementById('news-list');
+            if (!newsListContainer) return;
+
+            if (healthNewsData.length === 0) {
+                newsListContainer.innerHTML = `
+                    <div class="alert alert-info text-center" role="alert">
+                        <i class="fas fa-newspaper me-2"></i> هذه الميزة قيد التطوير. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
+                    </div>`;
+                return;
+            }
+            // If there was dummy data, this part would render it:
+            // newsListContainer.innerHTML = `
+            //     <div class="row g-4">
+            //         ${healthNewsData.map(news => `
+            //             <div class="col-12 col-md-4">
+            //                 <div class="card h-100 border-0 shadow-sm" style="border-radius: 20px; overflow: hidden;">
+            //                     <img src="${news.image}" class="card-img-top" alt="${news.title}" style="height: 200px; object-fit: cover;">
+            //                     <div class="card-body text-end d-flex flex-column justify-content-between">
+            //                         <div>
+            //                             <div class="d-flex justify-content-between align-items-center mb-2">
+            //                                 <span class="badge bg-success-subtle text-success">${news.date}</span>
+            //                             </div>
+            //                             <h5 class="card-title fw-bold text-dark">${news.title}</h5>
+            //                             <p class="card-text text-muted small" style="line-height: 1.6;">${news.content}</p>
+            //                         </div>
+            //                         <div class="mt-3">
+            //                             <hr class="text-muted opacity-25">
+            //                             <small class="text-success fw-bold"><i class="fas fa-microscope me-1"></i> مصدر موثوق</small>
+            //                         </div>
+            //                     </div>
+            //                 </div>
+            //             </div>
+            //         `).join('')}
+            //     </div>
+            // `;
+        }
+
+
         // بدء التشغيل
         document.addEventListener('DOMContentLoaded', () => {
             fetchAwarenessData();
+            renderHealthNews(); // Call this to show the placeholder
 
             allResearchData = generateDummyResearch(100);
             allResearchData.sort((a, b) => b.year - a.year); // Sort by year descending
@@ -799,147 +833,6 @@
             document.getElementById('researchFieldFilter').addEventListener('change', filterResearchTable);
             document.getElementById('researchStudyTypeFilter').addEventListener('change', filterResearchTable);
         });
-        
-<script>
-// مصفوفة الأخبار - سيقوم البوت بحقن الأخبار هنا تلقائياً كل يوم
-const healthNewsData = [];
-
-// دالة لنسخ النص إلى الحافظة
-async function copyTip(buttonElement, title, content) {
-    const textToCopy = `💡 نصيحة صحية من أثر صحي:\n${title}\n${content}\n\n🌐 للمزيد من النصائح: ${window.location.href}`;
-    try {
-        await navigator.clipboard.writeText(textToCopy);
-        const originalHtml = buttonElement.innerHTML;
-        buttonElement.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
-        buttonElement.classList.remove('btn-secondary');
-        buttonElement.classList.add('btn-success');
-        setTimeout(() => {
-            buttonElement.innerHTML = originalHtml;
-            buttonElement.classList.remove('btn-success');
-            buttonElement.classList.add('btn-secondary');
-        }, 2000);
-    } catch (err) {
-        console.error('Failed to copy tip: ', err);
-        alert('فشل نسخ النصيحة. الرجاء المحاولة مرة أخرى أو النسخ يدوياً.');
-    }
-}
-
-// دالة جلب نصائح التوعية من ملف athardata.json
-async function fetchAwarenessData() {
-    try {
-        const res = await fetch('athardata.json?v=' + new Date().getTime());
-        const data = await res.json();
-        
-        const currentContainer = document.getElementById('current-tips-list');
-        const archiveContainer = document.getElementById('archive-tips-list');
-        
-        if(currentContainer) currentContainer.innerHTML = ''; 
-        if(archiveContainer) archiveContainer.innerHTML = '';
-
-        const uniqueData = data.filter((v,i,a)=>a.findIndex(t=>(t.title === v.title))===i);
-        const currentItems = uniqueData.slice(0, 5);
-        const archiveItems = uniqueData.slice(5);
-
-        currentItems.forEach(item => { if(currentContainer) currentContainer.innerHTML += buildTipCard(item); });
-        archiveItems.forEach(item => { if(archiveContainer) archiveContainer.innerHTML += buildTipCard(item); });
-    } catch (error) {
-        console.error("Failed to fetch awareness data:", error);
-    }
-}
-
-function buildTipCard(item) {
-    const isWarning = item.type === 'warning';
-    const borderCol = isWarning ? '#dc3545' : '#198754';
-    const icon = isWarning ? '⚠️' : '💡';
-    
-    const escapedTitle = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-    const escapedContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-    const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
-    const currentPageUrl = encodeURIComponent(window.location.href);
-
-    return `
-        <div class="tip-card" style="border-right-color: ${borderCol}">
-            <div class="d-flex justify-content-between align-items-start">
-                <h5 class="fw-bold" style="color:#222">${item.title}</h5>
-                <span style="font-size:1.5rem">${icon}</span>
-            </div>
-            <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">${item.content}</p>
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="source-label"> المصدر: ${item.source || 'أثر صحي'}${item.category ? ' - ' + item.category : ''}</span>
-                <small class="text-muted" style="font-size:0.75rem"> ${item.date || ''}</small>
-            </div>
-            <div class="d-flex justify-content-end gap-2 mt-2">
-                <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" onclick="copyTip(this, '${escapedTitle}', '${escapedContent}')">
-                    <i class="fas fa-copy"></i> نسخ
-                </button>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=${currentPageUrl}&quote=${shareText}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm rounded-pill px-3">
-                    <i class="fab fa-facebook-f"></i> فيسبوك
-                </a>
-                <a href="https://wa.me/?text=${shareText + encodeURIComponent('\n\n🌐 للمزيد: ') + currentPageUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm rounded-pill px-3">
-                    <i class="fab fa-whatsapp"></i> واتساب
-                </a>
-            </div>
-        </div>
-    `;
-}
-
-function toggleArchive() {
-    const arc = document.getElementById('archive-tips-list');
-    const btn = document.getElementById('archive-btn');
-    if (arc && arc.style.display === 'none') {
-        arc.style.display = 'block';
-        btn.innerText = 'إخفاء أرشيف المعلومات';
-    } else if(arc) {
-        arc.style.display = 'none';
-        btn.innerText = 'تصفح أرشيف المعلومات الكامل';
-    }
-}
-
-// دالة عرض الأخبار المحدثة تلقائياً بواسطة البوت
-function renderHealthNews() {
-    const newsListContainer = document.getElementById('news-list');
-    if (!newsListContainer) return;
-
-    if (healthNewsData.length === 0) {
-        newsListContainer.innerHTML = `
-            <div class="alert alert-info text-center" role="alert">
-                <i class="fas fa-sync fa-spin me-2"></i> جاري توليد وتحديث الأخبار الطبية الحية بواسطة البوت...
-            </div>`;
-        return;
-    }
-
-    newsListContainer.innerHTML = `
-        <div class="row g-4">
-            ${healthNewsData.map(news => `
-                <div class="col-12 col-md-4">
-                    <div class="card h-100 border-0 shadow-sm" style="border-radius: 20px; overflow: hidden;">
-                        <img src="${news.image}" class="card-img-top" alt="${news.title}" style="height: 200px; object-fit: cover;">
-                        <div class="card-body text-end d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="badge bg-success-subtle text-success">${news.date}</span>
-                                </div>
-                                <h5 class="card-title fw-bold text-dark">${news.title}</h5>
-                                <p class="card-text text-muted small" style="line-height: 1.6;">${news.content}</p>
-                            </div>
-                            <div class="mt-3">
-                                <hr class="text-muted opacity-25">
-                                <small class="text-success fw-bold"><i class="fas fa-microscope me-1"></i> مصدر موثوق</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `).join('')}
-        </div>
-    `;
-}
-
-// تشغيل الدوال عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', () => {
-    fetchAwarenessData();
-    renderHealthNews();
-});
-</script>
     </script>
 <script data-goatcounter="https://athar-health.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
