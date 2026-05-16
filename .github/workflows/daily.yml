@@ -38,8 +38,3 @@ jobs:
           git fetch origin main
           git pull --rebase origin main
           git push origin HEAD:mainon:
-
-  push:
-    branches: [ main ]
-  schedule:
-    - cron: '0 0 * * *'  # هذا الأمر السحري يخبر جيتهوب بتشغيل البوت تلقائياً كل 24 ساعة
