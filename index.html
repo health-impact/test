@@ -448,7 +448,9 @@
                     <option value="الصحة النفسية">الصحة النفسية</option>
                     <option value="الابتكار الطبي">الابتكار الطبي</option>
                     <option value="الوقاية من الأمراض">الوقاية من الأمراض</option>
-                    <option value="الصحة الجلدية">الصحة الجلدية</option>
+                    <option value="صحة المرأة">صحة المرأة</option>
+                    <option value="صحة الطفل">صحة الطفل</option>
+                    <option value="الطب البديل">الطب البديل</option>
                 </select>
                 <select id="researchStudyTypeFilter" class="form-select flex-grow-1">
                     <option value="">جميع أنواع الدراسات</option>
@@ -459,6 +461,7 @@
                     <option value="تحليل تلوي">تحليل تلوي</option>
                     <option value="بحث تجريبي">بحث تجريبي</option>
                     <option value="دراسة مقطعية">دراسة مقطعية</option>
+                    <option value="استطلاع رأي">استطلاع رأي</option>
                 </select>
                 <button class="btn btn-success fw-bold" onclick="filterResearchTable()">
                     <i class="fas fa-search"></i> فلترة
@@ -632,7 +635,7 @@
                 { title: "دور التغذية السليمة في تعزيز المناعة لدى الأطفال", field: "سلامة الغذاء والتغذية", keywords: "nutrition child immunity diet food supplements vitamins التغذية الأطفال المناعة الغذاء", studyTypes: ["دراسة مقطعية", "تحليل تلوي", "دراسة أترابية"] },
                 { title: "الوعي الصحي ومكافحة الأمراض المزمنة في المجتمعات النامية", field: "الصحة العامة", keywords: "health awareness chronic diseases developing countries education prevention الوعي الأمراض المزمنة التنمية", studyTypes: ["مراجعة منهجية", "دراسة مقطعية"] },
                 { title: "تكنولوجيا الرصد الوبائي: التحديات والفرص", field: "مكافحة العدوى", keywords: "epidemiological surveillance technology public health data AI الرصد الوبائي التكنولوجيا الذكاء الاصطناعي", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
-                { title: "سلامة المياه الصالحة للشرب وتأثيرها على صحة السكان", field: "سلامة الغذاء والتغذية", keywords: "drinking water safety public health contamination sanitation المياه الشرب التلوث النظافة", studyTypes: ["دراسة حالات", "دراسة مقطعية"] },
+                { title: "سلامة المياه الصالحة للشرب وتأثيرها على صحة السكان", field: "الصحة البيئية", keywords: "drinking water safety public health contamination sanitation المياه الشرب التلوث النظافة", studyTypes: ["دراسة حالات", "دراسة مقطعية"] },
                 { title: "استراتيجيات الحد من مقاومة المضادات الحيوية في البيئة الصحية", field: "مكافحة العدوى", keywords: "antibiotic resistance strategies healthcare infection control AMR المضادات الحيوية المقاومة المستشفيات", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
                 { title: "تأثير النشاط البدني على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "physical activity adolescent mental health depression anxiety well-being النشاط البدني المراهقين الصحة النفسية", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
                 { title: "فحص جودة الأغذية المستوردة ودورها في الحماية من الأمراض", field: "سلامة الغذاء والتغذية", keywords: "imported food quality foodborne diseases safety regulation standards الغذاء المستورد الجودة الأمراض", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
@@ -645,18 +648,37 @@
                 { title: "تقييم برامج التطعيم الوطنية وأثرها على الصحة العامة", field: "الصحة العامة", keywords: "national vaccination programs public health impact coverage diseases برامج التطعيم الصحة العامة", studyTypes: ["تحليل تلوي", "مراجعة منهجية", "دراسة أترابية"] },
                 { title: "التحديات الصحية لسكان المناطق النائية", field: "الصحة العامة", keywords: "health challenges remote areas access healthcare equity infrastructure المناطق النائية التحديات الصحية", studyTypes: ["دراسة مقطعية", "دراسة حالات"] },
                 { title: "استخدام تقنيات الذكاء الاصطناعي في تشخيص الأمراض", field: "الابتكار الطبي", keywords: "AI technologies disease diagnosis medical imaging machine learning الذكاء الاصطناعي التشخيص", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
-                { title: "دراسة حول فعالية حملات التوعية بسرطان الثدي", field: "الصحة العامة", keywords: "breast cancer awareness campaigns effectiveness screening early detection سرطان الثدي التوعية", studyTypes: ["دراسة مقطعية", "دراسة أترابية"] },
+                { title: "دراسة حول فعالية حملات التوعية بسرطان الثدي", field: "صحة المرأة", keywords: "breast cancer awareness campaigns effectiveness screening early detection سرطان الثدي التوعية", studyTypes: ["دراسة مقطعية", "دراسة أترابية"] },
                 { title: "تحسين جودة الهواء في المدن وتأثيره على الصحة", field: "الصحة البيئية", keywords: "urban air quality health impact pollution mitigation policies جودة الهواء التلوث المدن", studyTypes: ["مراجعة منهجية", "دراسة مقطعية"] },
                 { title: "دور الأنماط الحياتية في الوقاية من أمراض القلب", field: "الوقاية من الأمراض", keywords: "lifestyle cardiovascular disease prevention diet exercise stress أنماط الحياة أمراض القلب", studyTypes: ["دراسة أترابية", "تحليل تلوي"] },
                 { title: "تأثير الجوائح على الصحة النفسية للمجتمعات", field: "الصحة النفسية", keywords: "pandemics mental health community anxiety depression trauma الجوائح الصحة النفسية", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
                 { title: "التقنيات الحديثة في علاج داء السكري", field: "الابتكار الطبي", keywords: "modern techniques diabetes treatment insulin pumps continuous glucose monitoring السكري العلاج", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
-                { title: "سلامة منتجات التجميل وتأثيرها على البشرة", field: "الصحة الجلدية", keywords: "cosmetic product safety skin impact allergies regulations ingredients منتجات التجميل البشرة", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
+                { title: "سلامة منتجات التجميل وتأثيرها على البشرة", field: "صحة المرأة", keywords: "cosmetic product safety skin impact allergies regulations ingredients منتجات التجميل البشرة", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
                 { title: "برامج الفحص المبكر لسرطان القولون والمستقيم", field: "الوقاية من الأمراض", keywords: "colorectal cancer screening programs early detection endoscopy awareness سرطان القولون الفحص المبكر", studyTypes: ["مراجعة منهجية", "دراسة أترابية"] },
                 { title: "تأثير جائحة كوفيد-19 على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "COVID-19 pandemic mental health adolescents anxiety depression stress كوفيد-19 الصحة النفسية المراهقين", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
-                { title: "تحليل فعالية برامج مكافحة السمنة في المدارس", field: "الصحة العامة", keywords: "obesity prevention school programs children health nutrition physical activity السمنة المدارس", studyTypes: ["بحث تجريبي", "دراسة مقطعية"] },
+                { title: "تحليل فعالية برامج مكافحة السمنة في المدارس", field: "صحة الطفل", keywords: "obesity prevention school programs children health nutrition physical activity السمنة المدارس", studyTypes: ["بحث تجريبي", "دراسة مقطعية"] },
                 { title: "التحكم في ناقلات الأمراض: استراتيجيات جديدة", field: "مكافحة العدوى", keywords: "vector control disease prevention mosquitoes ticks public health strategies ناقلات الأمراض المكافحة", studyTypes: ["مراجعة منهجية", "بحث تجريبي"] },
                 { title: "دور التثقيف الغذائي في الوقاية من السكري من النوع الثاني", field: "سلامة الغذاء والتغذية", keywords: "nutrition education type 2 diabetes prevention diet healthy eating lifestyle التثقيف الغذائي السكري", studyTypes: ["دراسة أترابية", "تجربة سريرية"] },
-                { title: "ابتكارات في التشخيص السريع للأمراض المعدية", field: "الابتكار الطبي", keywords: "rapid diagnostics infectious diseases point-of-care testing technology innovation التشخيص السريع الأمراض المعدية", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] }
+                { title: "ابتكارات في التشخيص السريع للأمراض المعدية", field: "الابتكار الطبي", keywords: "rapid diagnostics infectious diseases point-of-care testing technology innovation التشخيص السريع الأمراض المعدية", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "صحة الفم والأسنان وعلاقتها بالأمراض المزمنة", field: "الصحة العامة", keywords: "oral health dental chronic diseases periodontitis diabetes صحة الفم الأسنان", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
+                { title: "تأثير العلاج الطبيعي على جودة حياة كبار السن", field: "الصحة العامة", keywords: "physical therapy quality of life elderly aging mobility العلاج الطبيعي كبار السن", studyTypes: ["تجربة سريرية", "دراسة أترابية"] },
+                { title: "التحصين ضد فيروس الورم الحليمي البشري (HPV) للوقاية من السرطان", field: "صحة المرأة", keywords: "HPV vaccine cancer prevention cervical cancer immunization لقاح HPV سرطان عنق الرحم", studyTypes: ["دراسة أترابية", "تحليل تلوي"] },
+                { title: "تأثير استخدام الشاشات على صحة العين لدى الأطفال", field: "صحة الطفل", keywords: "screen time eye health children myopia digital eye strain الشاشات صحة العين الأطفال", studyTypes: ["دراسة مقطعية", "استطلاع رأي"] },
+                { title: "تقييم برامج التوعية بمخاطر التدخين الإلكتروني", field: "الوقاية من الأمراض", keywords: "e-cigarettes vaping awareness campaigns public health smoking التدخين الإلكتروني", studyTypes: ["دراسة مقطعية", "بحث تجريبي"] },
+                { title: "الاستدامة في الرعاية الصحية: مفاهيم وتطبيقات", field: "الصحة البيئية", keywords: "sustainable healthcare green hospitals environmental impact الاستدامة الرعاية الصحية", studyTypes: ["مراجعة منهجية", "دراسة حالات"] },
+                { title: "دور الميكروبيوم المعوي في الصحة والمرض", field: "سلامة الغذاء والتغذية", keywords: "gut microbiome health disease probiotics prebiotics الميكروبيوم الأمعاء", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "التدخلات السلوكية لتحسين عادات النوم", field: "الصحة النفسية", keywords: "behavioral interventions sleep habits insomnia cognitive behavioral therapy النوم", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
+                { title: "الطب الشخصي وعلاقته بتحسين نتائج العلاج", field: "الابتكار الطبي", keywords: "personalized medicine treatment outcomes genomics pharmacogenomics الطب الشخصي", studyTypes: ["مراجعة منهجية", "بحث تجريبي"] },
+                { title: "الوقاية من الحوادث المنزلية لدى الأطفال", field: "صحة الطفل", keywords: "child safety home accidents injury prevention education حوادث منزلية الأطفال", studyTypes: ["دراسة مقطعية", "استطلاع رأي"] },
+                { title: "تأثير زيت الزيتون البكر على صحة القلب والأوعية الدموية", field: "سلامة الغذاء والتغذية", keywords: "olive oil virgin heart health cardiovascular disease diet زيت الزيتون القلب", studyTypes: ["تجربة سريرية", "دراسة أترابية"] },
+                { title: "العلاقة بين التوتر المزمن والأمراض المناعية", field: "الصحة النفسية", keywords: "chronic stress immune diseases autoimmune inflammation التوتر الأمراض المناعية", studyTypes: ["مراجعة منهجية", "دراسة حالات"] },
+                { title: "تطبيقات البلوك تشين في إدارة السجلات الطبية", field: "الابتكار الطبي", keywords: "blockchain medical records health data management security البلوك تشين السجلات الطبية", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "دراسة حول فعالية الوخز بالإبر في تخفيف الألم المزمن", field: "الطب البديل", keywords: "acupuncture chronic pain relief complementary medicine الوخز بالإبر الألم المزمن", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
+                { title: "استخدام العلاج بالموسيقى لتحسين الحالة المزاجية", field: "الصحة النفسية", keywords: "music therapy mood improvement mental well-being depression الموسيقى الحالة المزاجية", studyTypes: ["تجربة سريرية", "دراسة حالات"] },
+                { title: "الوقاية من حروق الشمس وسرطان الجلد", field: "الوقاية من الأمراض", keywords: "sunburn prevention skin cancer UV protection sunscreen حروق الشمس سرطان الجلد", studyTypes: ["استطلاع رأي", "دراسة مقطعية"] },
+                { title: "دور الفيتامينات في تعزيز صحة العظام", field: "سلامة الغذاء والتغذية", keywords: "vitamins bone health calcium vitamin D osteoporosis الفيتامينات العظام", studyTypes: ["مراجعة منهجية", "دراسة أترابية"] },
+                { title: "تأثير التلوث الضوئي على جودة النوم", field: "الصحة البيئية", keywords: "light pollution sleep quality circadian rhythm environmental health التلوث الضوئي النوم", studyTypes: ["دراسة مقطعية", "بحث تجريبي"] },
+                { title: "برامج الكشف المبكر عن سرطان الثدي في المجتمعات الريفية", field: "صحة المرأة", keywords: "breast cancer screening rural communities early detection awareness سرطان الثدي المناطق الريفية", studyTypes: ["دراسة مقطعية", "استطلاع رأي"] }
             ];
 
             const researchData = [];
