@@ -140,3 +140,71 @@ try:
 
 except Exception as e:
     print(f"حدث خطأ أثناء التحديث: {e}")
+ import google.generativeai as genai
+import os
+import re
+import json
+
+# 1. إعداد الاتصال بـ الـ API الخاص بـ Gemini
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+model = genai.GenerativeModel('gemini-1.5-flash')
+
+# 2. قراءة كود الـ HTML الحالي للموقع الأصلي
+try:
+    with open("index.html", "r", encoding="utf-8") as f:
+        html_code = f.read()
+except FileNotFoundError:
+    print("خطأ: لم يتم العثور على ملف index.html في المسار الحالي.")
+    exit(1)
+
+# 3. صياغة الأمر المطور للبوت لإنتاج أخبار دقيقة ومصنفة وموثوقة
+prompt = """
+بصفتك خبيراً متخصصاً في الصحة العامة ومكافحة العدوى والتحاليل الطبية المخبرية، قدم لي 3 أخبار طبية وصحية حديثة جداً وموثوقة ومثيرة لاهتمام المتصفحين والشباب.
+ركز على مجالات: مقاومة البكتيريا للمضادات الحيوية، سلامة الأغذية، الصحة العامة الموجهة للوعي اليومي.
+
+يجب أن يكون الرد بصيغة مصفوفة JSON فقط ومطابق تماماً لهذا الهيكل البرمجي دون أي نصوص تمهيدية، قفلات، أو علامات تشكيل الكود البرمجي الزائدة (مثل ```json):
+[
+  {
+    "title": "عنوان الخبر الطبي الأول (مثال: مستجدات مقاومة الميكروبات للتعقيم)"،
+    "content": "ملخص علمي دقيق، ومصاغ بأسلوب شيق ومبسط جداً وموجز في سطرين."،
+    "date": "28 مايو 2026"،
+    "category": "مكافحة العدوى"،
+    "image": "[https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500](https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500)"
+  },
+  {
+    "title": "عنوان الخبر الثاني (يمس التغذية أو سلامة الغذاء)"،
+    "content": "ملخص توعوي موجز ودقيق وشيق في سطرين لتنبيه المتصفحين..."،
+    "date": "28 مايو 2026"،
+    "category": "سلامة الأغذية"،
+    "image": "[https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500](https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500)"
+  },
+  {
+    "title": "عنوان الخبر الثالث (صحة عامة أو عادات يومية خطيرة)"،
+    "content": "ملخص علمي تفاعلي سريع وموجه للشباب لحمايتهم..."،
+    "date": "27 مايو 2026"،
+    "category": "صحة عامة"،
+    "image": "[https://images.unsplash.com/photo-1532938911072-f1925345719a?w=500](https://images.unsplash.com/photo-1532938911072-f1925345719a?w=500)"
+  }
+]
+"""
+
+try:
+    response = model.generate_content(prompt)
+    json_match = re.search(r'\[.*\]', response.text, re.DOTALL)
+    
+    if json_match:
+        news_data_string = json_match.group(0)
+        
+        # استبدال مصفوفة الأخبار الفارغة بالمصفوفة الذكية الجديدة التي تم توليدها
+        news_script = f"const healthNewsData = {news_data_string};"
+        updated_html = re.sub(r'const healthNewsData = \[.*?\];', news_script, html_code, flags=re.DOTALL)
+        
+        with open("index.html", "w", encoding="utf-8") as f:
+            f.write(updated_html)
+            
+        print("تمت عملية جلب الأخبار وحقنها في كود الموقع الأصلي بنجاح تام! 🚀")
+    else:
+        print("خطأ برمي: لم ينجح السكربت في عزل مصفوفة الأخبار من استجابة الـ AI.")
+
+except Exception as e:
+    print(f"حدث خطأ أثناء الاتصال أو تحديث البيانات: {e}")
