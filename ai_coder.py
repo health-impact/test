@@ -25,27 +25,7 @@ try:
 except FileNotFoundError:
     print("خطأ: لم يتم العثور على ملف index.html في المسار الحالي.")
     exit(1)
-# 1. إعداد الاتصال بجيمني واختيار الموديل المتاح تلقائياً
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-model_name = 'gemini-1.5-flash'
-try:
-    for m in genai.list_models():
-        if 'generateContent' in m.supported_generation_methods:
-            model_name = m.name
-            break
-except: 
-    model_name = 'models/gemini-1.5-flash'
-
-model = genai.GenerativeModel(model_name)
-
-# 2. قراءة ملف الموقع الحالي
-try:
-    with open("index.html", "r", encoding="utf-8") as f:
-        current_code = f.read()
-except FileNotFoundError:
-    print("خطأ: لم يتم العثور على ملف index.html في المسار الحالي.")
-    exit(1)
 # 3. البرومبت الشامل (دمج التحديث الهيكلي + طلب الأخبار)
 prompt = f"""
 خذهذا كود الـ HTML الحالي للموقع:
@@ -89,7 +69,7 @@ const healthNewsData = [];
   1. الخبر الأول (مكافحة العدوى/المختبرات): https://images.unsplash.com/photo-1579165466511-71e5331940a5?w=600
   2. الخبر الثاني (سلامة الأغذية/التغذية): https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600
   3. الخبر الثالث (الصحة العامة/الوعي): https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600
-- تأكد أن الكود يعرض هذه الصور في كروت الأخبار بشكل صحي ومستقر.
+-amp; تأكد أن الكود يعرض هذه الصور في كروت الأخبار بشكل صحي ومستقر.
 
 ثالثاً: حل مشكلة نظام الحفظ والمفضلة تلقائياً (LocalStorage):
 - تأكد من وجود قسم واضح في واجهة المستخدم تحت اسم "قائمة مفضلاتي" (بجانب أو أسفل قسم الأبحاث) يحتوي على معرف `id="favorites-list"`.
@@ -120,10 +100,10 @@ const healthNewsData = [];
       container.innerHTML = favorites.map(item => `
           <div class="d-flex justify-content-between align-items-center p-2 mb-2 bg-light rounded" style="border-right: 3px solid #198754;">
               <div>
-                  <h6 class="fw-bold mb-0 small text-dark">${{item.title}}</h6>
-                  <small class="text-muted" style="font-size:0.7rem;">${{item.type}} - ${{item.date}}</small>
+                  <h6 class="fw-bold mb-0 small text-dark">\${item.title}</h6>
+                  <small class="text-muted" style="font-size:0.7rem;">\${item.type} - \${item.date}</small>
               </div>
-              <button class="btn btn-sm text-danger" onclick="removeFromFavorites('${{item.id}}')"><i class="fas fa-trash-alt"></i></button>
+              <button class="btn btn-sm text-danger" onclick="removeFromFavorites('\${item.id}')"><i class="fas fa-trash-alt"></i></button>
           </div>
       `).join('');
   }}
@@ -155,39 +135,22 @@ const healthNewsData = [];
 
 print("جاري إرسال الطلب الضخم لـ Gemini لتحديث هيكل الموقع وحقن الأخبار... قد يستغرق الأمر ثوانٍ إضافية ⏳")
 
+# 4. تنفيذ الطلب ومعالجة الاستجابة وحفظ الملف بأمان
 try:
     response = model.generate_content(prompt)
     raw_text = response.text
     
-    # محاولة استخراج الكود النظيف المحصور بين وسوم html لضمان السلامة
     match = re.search(r'<!DOCTYPE html>.*</html>', raw_text, re.DOTALL | re.IGNORECASE)
     if match:
         clean_code = match.group(0)
     else:
-        # إذا لم يجد الوسوم بشكل صريح، يقوم بتنظيف علامات الماركدوان التقليدية إن وجدت
         clean_code = re.sub(r'```html\n|```', '', raw_text)
 
-    # حفظ الكود الشامل والنظيف في ملف index.html الأساسي
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(clean_code.strip())
         
-    print(f"مبروك يا دكتور! تم تحديث الموقع بالكامل بنجاح 🚀.")
-    print(f"الموقع الآن يحتوي على: المكتبة الـ 100 صف، نظام البحث، المفضلة، والأخبار الحية مدمجة تلقائياً.")
-    print(f"الموديل المستخدم: {model_name}")
-try:
-    response = model.generate_content(prompt)
-    raw_text = response.text
-    
-    match = re.search(r'<!DOCTYPE html>.*</html>', raw_text, re.DOTALL | re.IGNORECASE)
-    if match:
-        clean_code = match.group(0)
-    else:
-        clean_code = re.sub(r'```html\n|```', '', raw_text)
-
-    with open("index.html", "w", encoding="utf-8") as f: 
-        f.write(clean_code.strip())
-        
     print(f"تم التحديث بنجاح تام! 🚀 الصور أصبحت حقيقية، ودوال الحفظ والمفضلة حُقنت بالكامل في الموقع الأصلي.")
+    print(f"الموديل المستخدم: {model_name}")
 
 except Exception as e:
     print(f"حدث خطأ أثناء معالجة التحديث الشامل: {e}")
