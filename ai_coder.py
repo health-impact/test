@@ -146,7 +146,7 @@ prompt = f"""
     "image": "[https://images.unsplash.com/photo-1532938911072-f1925345719a?w=500](https://images.unsplash.com/photo-1532938911072-f1925345719a?w=500)"
   }
 ]
-"""
+
 
 try:
     response = model.generate_content(prompt)
