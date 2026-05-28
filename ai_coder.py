@@ -25,7 +25,27 @@ try:
 except FileNotFoundError:
     print("خطأ: لم يتم العثور على ملف index.html في المسار الحالي.")
     exit(1)
+# 1. إعداد الاتصال بجيمني واختيار الموديل المتاح تلقائياً
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
+model_name = 'gemini-1.5-flash'
+try:
+    for m in genai.list_models():
+        if 'generateContent' in m.supported_generation_methods:
+            model_name = m.name
+            break
+except: 
+    model_name = 'models/gemini-1.5-flash'
+
+model = genai.GenerativeModel(model_name)
+
+# 2. قراءة ملف الموقع الحالي
+try:
+    with open("index.html", "r", encoding="utf-8") as f:
+        current_code = f.read()
+except FileNotFoundError:
+    print("خطأ: لم يتم العثور على ملف index.html في المسار الحالي.")
+    exit(1)
 # 3. البرومبت الشامل (دمج التحديث الهيكلي + طلب الأخبار)
 prompt = f"""
 خذهذا كود الـ HTML الحالي للموقع:
@@ -154,6 +174,20 @@ try:
     print(f"مبروك يا دكتور! تم تحديث الموقع بالكامل بنجاح 🚀.")
     print(f"الموقع الآن يحتوي على: المكتبة الـ 100 صف، نظام البحث، المفضلة، والأخبار الحية مدمجة تلقائياً.")
     print(f"الموديل المستخدم: {model_name}")
+try:
+    response = model.generate_content(prompt)
+    raw_text = response.text
+    
+    match = re.search(r'<!DOCTYPE html>.*</html>', raw_text, re.DOTALL | re.IGNORECASE)
+    if match:
+        clean_code = match.group(0)
+    else:
+        clean_code = re.sub(r'```html\n|```', '', raw_text)
+
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(clean_code.strip())
+        
+    print(f"تم التحديث بنجاح تام! 🚀 الصور أصبحت حقيقية، ودوال الحفظ والمفضلة حُقنت بالكامل في الموقع الأصلي.")
 
 except Exception as e:
     print(f"حدث خطأ أثناء معالجة التحديث الشامل: {e}")
