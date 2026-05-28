@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         /* 1. التنسيق العام والخطوط */
-        :root { --dark-gray: #1e2022; --main-green: #198754; --light-bg: #fdfdfd; }
+        :root { --dark-gray: #1e2022; --main-green: #198754; --light-bg: #fdfdfd; --blue-accent: #007ee5; --red-accent: #dc3545;}
         body { font-family: 'Tajawal', sans-serif; background-color: var(--light-bg); color: #333; scroll-behavior: smooth; overflow-x: hidden; }
 
         /* 2. الهيدر المطور للموبايل والكمبيوتر */ 
@@ -50,7 +50,7 @@
         /* 3. قسم الرئيسية (Hero) */
         .hero { 
             height: 75vh; 
-            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1532938892408-0133486a457c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDBMHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1579684385153-f76150c29f27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHw3MHx8bWljcm9iaWFsJTIwbGFib3JhdG9yeXxlbnwwfHx8fDE3MDY5NTI4NjV8MA&ixlib=rb-4.0.3&q=80&w=1080'); /* Updated Hero Image */
             background-repeat: no-repeat; background-position: center; background-size: cover;
             color: white; display: flex; align-items: center; justify-content: center; text-align: center;
         }
@@ -105,7 +105,7 @@
             white-space: nowrap;
             font-size: 0.95rem;
         }
-        .source-button.pubmed { background-color: #007ee5; color: white; border: 1px solid #007ee5; }
+        .source-button.pubmed { background-color: var(--blue-accent); color: white; border: 1px solid var(--blue-accent); }
         .source-button.pubmed:hover { background-color: #006bbd; border-color: #006bbd; }
         .source-button.who { background-color: var(--main-green); color: white; border: 1px solid var(--main-green); }
         .source-button.who:hover { background-color: #146c43; border-color: #146c43; }
@@ -292,8 +292,9 @@
             <h2 class="text-center fw-bold mb-5 text-success">آخر الأخبار الصحية المحلية والعالمية</h2>
             <div class="news-container">
                 <div id="news-list">
+                    <!-- News items will be dynamically loaded here -->
                     <div class="alert alert-info text-center" role="alert">
-                        <i class="fas fa-newspaper me-2"></i> هذه الميزة قيد التطوير. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
+                        <i class="fas fa-newspaper me-2"></i> جاري تحميل آخر الأخبار الصحية...
                     </div>
                 </div>
             </div>
@@ -521,7 +522,32 @@
 
     <script>
         // مصفوفة الأخبار - سيقوم البوت بحقن الأخبار هنا تلقائياً كل يوم
-        const healthNewsData = [];
+        const healthNewsData = [
+            {
+                id: 'news-1',
+                title: "مقاومة المضادات الحيوية: تحدٍ عالمي جديد يتطلب استجابة عاجلة",
+                content: "تزايد معدلات مقاومة البكتيريا للمضادات الحيوية يهدد الفعالية العلاجية ويزيد من صعوبة علاج الأمراض المعدية الشائعة. تحتاج الجهود العالمية لتعاون مكثف لتطوير مضادات حيوية جديدة وتطبيق ممارسات صحية أفضل للحد من انتشار هذه الظاهرة الخطيرة.",
+                date: "2024-07-28",
+                image: "https://images.unsplash.com/photo-1582234033005-92762b9a101b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHw3MXx8YW50aWJpb3RpYyUyMHJlc2lzdGFuY2V8ZW58MHx8fHwxNzA2OTU0MjIyfDA&ixlib=rb-4.0.3&q=80&w=1080",
+                source: "منظمة الصحة العالمية"
+            },
+            {
+                id: 'news-2',
+                title: "سلامة الأغذية في الصيف: نصائح لتجنب التسمم الغذائي",
+                content: "مع ارتفاع درجات الحرارة، يزداد خطر التسمم الغذائي. من الضروري اتباع إرشادات صارمة لسلامة الأغذية، مثل تخزين الطعام بشكل صحيح، وطهيه جيدًا، وتجنب التلوث المتبادل بين الأطعمة النيئة والمطبوخة، لضمان صحة وسلامة المستهلكين.",
+                date: "2024-07-27",
+                image: "https://images.unsplash.com/photo-1590494056252-0545f1b1338d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHw0OXx8Zm9vZCUyMHNhZmV0eXxlbnwwfHx8fDE3MDY5NTQyMjF8MA&ixlib=rb-4.0.3&q=80&w=1080",
+                source: "إدارة الغذاء والدواء"
+            },
+            {
+                id: 'news-3',
+                title: "برامج التطعيم الشاملة: حجر الزاوية في الصحة العامة الحديثة",
+                content: "تعتبر برامج التطعيم الفعالة من أهم إنجازات الصحة العامة في القرن الماضي، حيث ساهمت في القضاء على العديد من الأمراض الفتاكة أو الحد منها بشكل كبير. يؤكد الخبراء على ضرورة مواصلة هذه البرامج وتوسيع نطاقها لحماية المجتمعات من التهديدات الصحية الجديدة.",
+                date: "2024-07-26",
+                image: "https://images.unsplash.com/photo-1614748123285-d143c7b2c011?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHwyMHx8dmFjY2luYXRpb24lMjBwdWJsaWMlMjBoZWFsdGh8ZW58MHx8fHwxNzA2OTU0MjYzfDA&ixlib=rb-4.0.3&q=80&w=1080",
+                source: "مراكز مكافحة الأمراض والوقاية منها"
+            }
+        ];
 
         // Helper to get/save favorites from localStorage
         function getFavorites(type) {
@@ -640,7 +666,7 @@
 
         function buildTipCard(item) {
             const isWarning = item.type === 'warning';
-            const borderCol = isWarning ? '#dc3545' : '#198754';
+            const borderCol = isWarning ? 'var(--red-accent)' : 'var(--main-green)';
             const icon = isWarning ? '⚠️' : '💡';
             
             // Sanitize input for use in JS strings and URL encoding
@@ -775,8 +801,7 @@
             for (let i = 0; i < count; i++) {
                 const topic = researchTopics[i % researchTopics.length];
                 const year = currentYear - Math.floor(Math.random() * 5); // From current year to 4 years prior
-                const titleVariant = Math.random().toString(36).substring(2, 7); 
-                const specificTitle = `${topic.title} - ${titleVariant}`;
+                const specificTitle = topic.title; // Use base title
                 const studyType = topic.studyTypes[Math.floor(Math.random() * topic.studyTypes.length)];
                 
                 // Construct a more specific PubMed search query as a fallback link
@@ -924,7 +949,7 @@
                     <div class="row g-3">
                         ${favoriteTips.map(item => `
                             <div class="col-12 col-md-6">
-                                <div class="tip-card" data-tip-id="${item.id}" style="border-right-color: ${item.type === 'warning' ? '#dc3545' : '#198754'}">
+                                <div class="tip-card" data-tip-id="${item.id}" style="border-right-color: ${item.type === 'warning' ? 'var(--red-accent)' : 'var(--main-green)'}">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <h5 class="fw-bold" style="color:#222">${item.title}</h5>
                                         <span style="font-size:1.5rem">${item.type === 'warning' ? '⚠️' : '💡'}</span>
@@ -996,8 +1021,7 @@
                     </div>`;
                 return;
             }
-            // The commented out part below is for when healthNewsData is populated dynamically.
-            /*
+            
             newsListContainer.innerHTML = `
                 <div class="row g-4">
                     ${healthNewsData.map(news => `
@@ -1014,7 +1038,7 @@
                                     </div>
                                     <div class="mt-3">
                                         <hr class="text-muted opacity-25">
-                                        <small class="text-success fw-bold"><i class="fas fa-microscope me-1"></i> مصدر موثوق</small>
+                                        <small class="text-success fw-bold"><i class="fas fa-check-circle me-1"></i> مصدر موثوق</small>
                                     </div>
                                 </div>
                             </div>
@@ -1022,7 +1046,6 @@
                     `).join('')}
                 </div>
             `;
-            */
         }
 
 
