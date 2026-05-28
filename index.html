@@ -308,36 +308,12 @@
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="user-account-card">
                         <div>
-                            <div class="icon-box"><i class="fas fa-user-circle"></i></div>
-                            <h4 class="fw-bold">تسجيل الدخول / إنشاء حساب</h4>
-                            <p class="text-muted small">سجّل الدخول للوصول إلى مميزات الحساب الشخصي.</p>
-                        </div>
-                        <button class="btn btn-outline-success rounded-pill px-4 py-2 mt-3" onclick="alert('هذه الميزة قيد التطوير.')">
-                            ابدأ الآن
-                        </button>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="user-account-card">
-                        <div>
                             <div class="icon-box"><i class="fas fa-bookmark"></i></div>
                             <h4 class="fw-bold">محتوى محفوظ</h4>
                             <p class="text-muted small">احفظ نصائحك وأبحاثك المفضلة للرجوع إليها لاحقًا.</p>
                         </div>
                         <button class="btn btn-outline-warning rounded-pill px-4 py-2 mt-3" onclick="document.getElementById('favorites').scrollIntoView({behavior: 'smooth'});">
                             <i class="fas fa-arrow-right"></i> عرض المحفوظات
-                        </button>
-                    </div>
-                </div>
-                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="user-account-card">
-                        <div>
-                            <div class="icon-box"><i class="fas fa-bell"></i></div>
-                            <h4 class="fw-bold">إشعارات وتنبيهات</h4>
-                            <p class="text-muted small">تلقَّ تنبيهات حول أحدث الأبحاث والتحديثات.</p>
-                        </div>
-                        <button class="btn btn-outline-info rounded-pill px-4 py-2 mt-3" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
-                            <i class="fas fa-cogs"></i> إدارة التنبيهات
                         </button>
                     </div>
                 </div>
@@ -637,6 +613,25 @@
 
                 currentItems.forEach(item => { if(currentContainer) currentContainer.innerHTML += buildTipCard(item); });
                 archiveItems.forEach(item => { if(archiveContainer) archiveContainer.innerHTML += buildTipCard(item); });
+
+                // After loading new tips, re-check and update favorite buttons if any
+                document.querySelectorAll('#current-tips-list .tip-card, #archive-tips-list .tip-card').forEach(card => {
+                    const tipId = card.dataset.tipId;
+                    const favoriteButton = card.querySelector('.btn-outline-warning, .btn-warning');
+                    if (favoriteButton) {
+                        const isFavorite = getFavorites('tips').some(fav => fav.id === tipId);
+                        if (isFavorite) {
+                            favoriteButton.innerHTML = '<i class="fas fa-bookmark"></i> تم الحفظ';
+                            favoriteButton.classList.remove('btn-outline-warning');
+                            favoriteButton.classList.add('btn-warning');
+                        } else {
+                            favoriteButton.innerHTML = '<i class="far fa-bookmark"></i> حفظ';
+                            favoriteButton.classList.remove('btn-warning');
+                            favoriteButton.classList.add('btn-outline-warning');
+                        }
+                    }
+                });
+
             } catch (error) {
                 console.error("Failed to fetch awareness data:", error);
                 // If fetch fails, the initial dummy content in HTML will remain, which is desired.
@@ -654,7 +649,6 @@
             const currentPageUrl = encodeURIComponent(window.location.href);
 
             // Create a unique ID for the tip to use with favorites
-            // Using a simple hash for ID, but a proper UUID generator would be better for real apps
             const uniqueTipId = btoa(unescape(encodeURIComponent(item.title + (item.date || '') + (item.source || '')))); 
             const isFavoriteTip = getFavorites('tips').some(fav => fav.id === uniqueTipId);
             const favoriteButtonClass = isFavoriteTip ? 'btn-warning' : 'btn-outline-warning';
@@ -995,6 +989,7 @@
             if (!newsListContainer) return;
 
             if (healthNewsData.length === 0) {
+                // Keep the placeholder alert if no news data is loaded
                 newsListContainer.innerHTML = `
                     <div class="alert alert-info text-center" role="alert">
                         <i class="fas fa-newspaper me-2"></i> هذه الميزة قيد التطوير. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
