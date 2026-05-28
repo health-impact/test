@@ -50,7 +50,7 @@
         /* 3. قسم الرئيسية (Hero) */
         .hero { 
             height: 75vh; 
-            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1579684385153-f76150c29f27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHw3MHx8bWljcm9iaWFsJTIwbGFib3JhdG9yeXxlbnwwfHx8fDE3MDY5NTI4NjV8MA&ixlib=rb-4.0.3&q=80&w=1080'); /* Updated Hero Image */
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1579684385153-f76150c29f27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHw3MHx8bWljcm9iaWFsJTIwbGFib3JhdG9yeXxlbnwwfHx8fDE3MDY5NTI4NjV8MA&ixlib=rb-4.0.3&q=80&w=1080'); /* Hero Image related to public health and microbial labs */
             background-repeat: no-repeat; background-position: center; background-size: cover;
             color: white; display: flex; align-items: center; justify-content: center; text-align: center;
         }
@@ -89,6 +89,8 @@
             .header-content { flex-direction: column; gap: 10px; }
             .nav-box { width: 100%; justify-content: flex-start; padding-bottom: 5px; }
             section { padding: 50px 0; }
+            /* Adjust news card image height for smaller screens */
+            .news-item .card-img-top { height: 180px !important; }
         }
 
         /* تنسيقات إضافية للمصادر والأبحاث */
@@ -183,24 +185,6 @@
             padding: 10px 25px;
         }
 
-        /* User Account styles */
-        .user-account-card {
-            background: #fff;
-            border-radius: 25px;
-            padding: clamp(20px, 5vw, 50px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            text-align: center;
-            height: 100%; /* Ensure cards are same height */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .user-account-card .icon-box i {
-            font-size: 3.5rem;
-            color: var(--main-green);
-            margin-bottom: 20px;
-        }
-
         /* News Section Styles */
         .news-container {
             background: #fff;
@@ -208,34 +192,6 @@
             padding: clamp(15px, 4vw, 40px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             text-align: center;
-        }
-        .news-item {
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            text-align: right; /* Added for RTL consistency */
-        }
-        .news-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        .news-item h4 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .news-item p {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.6;
-        }
-        .news-item .source-date {
-            font-size: 0.8rem;
-            color: #999;
-            margin-top: 10px;
-            display: block;
         }
         /* Favorites Section Styles */
         #favorites .tip-card, #favorites .research-table-container {
@@ -256,7 +212,6 @@
                 <a href="#hero" class="nav-item-link">الرئيسية</a>
                 <a href="#about" class="nav-item-link">عن المنصة</a>
                 <a href="#health-news" class="nav-item-link">آخر الأخبار</a>
-                <a href="#user-accounts" class="nav-item-link">حسابي</a>
                 <a href="#favorites" class="nav-item-link">مفضلاتي</a>
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
                 <a href="#store" class="nav-item-link">المتجر</a>
@@ -292,7 +247,7 @@
             <h2 class="text-center fw-bold mb-5 text-success">آخر الأخبار الصحية المحلية والعالمية</h2>
             <div class="news-container">
                 <div id="news-list">
-                    <!-- News items will be dynamically loaded here -->
+                    <!-- News items will be dynamically loaded here by JavaScript -->
                     <div class="alert alert-info text-center" role="alert">
                         <i class="fas fa-newspaper me-2"></i> جاري تحميل آخر الأخبار الصحية...
                     </div>
@@ -300,28 +255,7 @@
             </div>
         </div>
     </section>
-
-    <!-- قسم حسابات المستخدمين -->
-    <section id="user-accounts" style="background-color: #f4f7f6;">
-        <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5 text-success">حسابي الشخصي</h2>
-            <div class="row g-4 justify-content-center">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="user-account-card">
-                        <div>
-                            <div class="icon-box"><i class="fas fa-bookmark"></i></div>
-                            <h4 class="fw-bold">محتوى محفوظ</h4>
-                            <p class="text-muted small">احفظ نصائحك وأبحاثك المفضلة للرجوع إليها لاحقًا.</p>
-                        </div>
-                        <button class="btn btn-outline-warning rounded-pill px-4 py-2 mt-3" onclick="document.getElementById('favorites').scrollIntoView({behavior: 'smooth'});">
-                            <i class="fas fa-arrow-right"></i> عرض المحفوظات
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    
     <!-- قسم المفضلة -->
     <section id="favorites" style="background-color: #fcfcfc;">
         <div class="container px-4">
@@ -561,7 +495,7 @@
 
         // دالة لنسخ النص إلى الحافظة
         async function copyTip(buttonElement, title, content) {
-            const textToCopy = `💡 نصيحة صحية من أثر صحي:\n${title}\n${content}\n\n🌐 للمزيد من النصائح: ${window.location.href}`;
+            const textToCopy = `💡 نصيحة صحية من أثر صحي:\n${title}\n${content}\n\n🌐 للمزيد: ${window.location.href}`;
             try {
                 await navigator.clipboard.writeText(textToCopy);
                 const originalHtml = buttonElement.innerHTML;
@@ -674,8 +608,10 @@
             const escapedContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
             const currentPageUrl = encodeURIComponent(window.location.href);
 
-            // Create a unique ID for the tip to use with favorites
-            const uniqueTipId = btoa(unescape(encodeURIComponent(item.title + (item.date || '') + (item.source || '')))); 
+            // Create a unique ID for the tip to use with favorites - ensure it's truly unique
+            // Using Base64 encoding for a robust unique ID based on content
+            const uniqueTipId = btoa(unescape(encodeURIComponent(item.title + (item.date || '') + (item.source || '') + (item.category || '') + item.content.substring(0, Math.min(item.content.length, 50))))); 
+            
             const isFavoriteTip = getFavorites('tips').some(fav => fav.id === uniqueTipId);
             const favoriteButtonClass = isFavoriteTip ? 'btn-warning' : 'btn-outline-warning';
             const favoriteButtonText = isFavoriteTip ? '<i class="fas fa-bookmark"></i> تم الحفظ' : '<i class="far fa-bookmark"></i> حفظ';
@@ -733,6 +669,8 @@
             } else if(arc) {
                 arc.style.display = 'none';
                 btn.innerText = 'تصفح أرشيف المعلومات الكامل';
+                // Scroll back to the current tips section
+                document.getElementById('current-tips-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
 
@@ -809,7 +747,7 @@
                 const pubmedLink = `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(pubmedKeywords)}`;
 
                 researchData.push({
-                    id: i + 1, // Unique ID for favorites
+                    id: `research-${i + 1}`, // Unique ID for favorites
                     title: specificTitle,
                     year: year,
                     field: topic.field,
@@ -914,10 +852,7 @@
         }
 
         function showLessResearch() {
-            currentVisibleResearchRows -= RESEARCH_INCREMENT_COUNT;
-            if (currentVisibleResearchRows < RESEARCH_INITIAL_DISPLAY_COUNT) {
-                currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
-            }
+            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT; // Reset to initial display count
             renderResearchTable();
             // Scroll smoothly to the top of the table
             const table = document.getElementById('researchTable');
@@ -926,7 +861,7 @@
 
         // Function to render the favorites section
         function renderFavorites() {
-            const favoritesContainer = document.getElementById('favorites-content'); // New container for content
+            const favoritesContainer = document.getElementById('favorites-content'); 
             if (!favoritesContainer) return;
 
             favoritesContainer.innerHTML = ''; // Clear previous content
@@ -947,7 +882,13 @@
                 favoritesContainer.innerHTML += `
                     <h3 class="fw-bold mt-4 mb-3 text-dark">نصائح صحية مفضلة</h3>
                     <div class="row g-3">
-                        ${favoriteTips.map(item => `
+                        ${favoriteTips.map(item => {
+                            const escapedFavTipTitle = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+                            const escapedFavTipContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+                            const currentPageUrl = encodeURIComponent(window.location.href);
+                            const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
+
+                            return `
                             <div class="col-12 col-md-6">
                                 <div class="tip-card" data-tip-id="${item.id}" style="border-right-color: ${item.type === 'warning' ? 'var(--red-accent)' : 'var(--main-green)'}">
                                     <div class="d-flex justify-content-between align-items-start">
@@ -963,11 +904,19 @@
                                         <button type="button" class="btn btn-warning btn-sm rounded-pill px-3" onclick="toggleFavoriteTip(${JSON.stringify(item)}, this)">
                                             <i class="fas fa-bookmark"></i> إزالة من المفضلات
                                         </button>
-                                        <!-- Sharing buttons can also be added here if desired -->
+                                        <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" onclick="copyTip(this, '${escapedFavTipTitle}', '${escapedFavTipContent}')">
+                                            <i class="fas fa-copy"></i> نسخ
+                                        </button>
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u=${currentPageUrl}&quote=${shareText}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm rounded-pill px-3">
+                                            <i class="fab fa-facebook-f"></i> فيسبوك
+                                        </a>
+                                        <a href="https://wa.me/?text=${shareText + encodeURIComponent('\n\n🌐 للمزيد: ') + currentPageUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm rounded-pill px-3">
+                                            <i class="fab fa-whatsapp"></i> واتساب
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                        `).join('')}
+                        `;}).join('')}
                     </div>
                 `;
             }
@@ -1052,7 +1001,7 @@
         // بدء التشغيل
         document.addEventListener('DOMContentLoaded', () => {
             fetchAwarenessData();
-            renderHealthNews(); // Call this to show the placeholder
+            renderHealthNews(); // Call this to show the news
 
             allResearchData = generateDummyResearch(100);
             allResearchData.sort((a, b) => b.year - a.year); // Sort by year descending
