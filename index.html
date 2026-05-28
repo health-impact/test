@@ -652,7 +652,7 @@
             const currentPageUrl = encodeURIComponent(window.location.href);
 
             // Create a unique ID for the tip to use with favorites
-            const uniqueTipId = btoa(item.title + (item.date || '') + (item.source || ''));
+            const uniqueTipId = btoa(unescape(encodeURIComponent(item.title + (item.date || '') + (item.source || '')))); // Better unique ID handling
             const isFavoriteTip = getFavorites('tips').some(fav => fav.id === uniqueTipId);
             const favoriteButtonClass = isFavoriteTip ? 'btn-warning' : 'btn-outline-warning';
             const favoriteButtonText = isFavoriteTip ? '<i class="fas fa-bookmark"></i> تم الحفظ' : '<i class="far fa-bookmark"></i> حفظ';
