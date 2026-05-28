@@ -118,48 +118,7 @@ prompt = f"""
 - لا تستخدم علامات الماركدوان مثل ```html.
 الغاء ايقونة انشاء حساب. 
 الغاء ايقونة التنبيهات والاشعارات.
-"""
 
-# 5. طلب الكود وتنظيفه
-try:
-    response = model.generate_content(prompt)
-    raw_text = response.text
-    
-    # محاولة استخراج الكود فقط بين وسوم html لضمان النظافة
-    match = re.search(r'<!DOCTYPE html>.*</html>', raw_text, re.DOTALL | re.IGNORECASE)
-    if match:
-        clean_code = match.group(0)
-    else:
-        # إذا لم يجد الوسوم، يقوم بإزالة علامات الماركدوان التقليدية
-        clean_code = re.sub(r'```html\n|```', '', raw_text)
-
-    # 6. حفظ الكود النظيف في الملف
-    with open("index.html", "w", encoding="utf-8") as f:
-        f.write(clean_code.strip())
-    print(f"تم التحديث بنجاح باستخدام موديل: {model_name}")
-
-except Exception as e:
-    print(f"حدث خطأ أثناء التحديث: {e}")
- 
- import google.generativeai as genai
-import os
-import re
-import json
-
-# 1. إعداد الاتصال بـ الـ API الخاص بـ Gemini
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel('gemini-1.5-flash')
-
-# 2. قراءة كود الـ HTML الحالي للموقع الأصلي
-try:
-    with open("index.html", "r", encoding="utf-8") as f:
-        html_code = f.read()
-except FileNotFoundError:
-    print("خطأ: لم يتم العثور على ملف index.html في المسار الحالي.")
-    exit(1)
-
-# 3. صياغة الأمر المطور للبوت لإنتاج أخبار دقيقة ومصنفة وموثوقة
-prompt = """
 بصفتك خبيراً متخصصاً في الصحة العامة ومكافحة العدوى والتحاليل الطبية المخبرية، قدم لي 3 أخبار طبية وصحية حديثة جداً وموثوقة ومثيرة لاهتمام المتصفحين والشباب.
 ركز على مجالات: مقاومة البكتيريا للمضادات الحيوية، سلامة الأغذية، الصحة العامة الموجهة للوعي اليومي.
 
@@ -209,3 +168,25 @@ try:
 
 except Exception as e:
     print(f"حدث خطأ أثناء الاتصال أو تحديث البيانات: {e}")
+
+
+# 5. طلب الكود وتنظيفه
+try:
+    response = model.generate_content(prompt)
+    raw_text = response.text
+    
+    # محاولة استخراج الكود فقط بين وسوم html لضمان النظافة
+    match = re.search(r'<!DOCTYPE html>.*</html>', raw_text, re.DOTALL | re.IGNORECASE)
+    if match:
+        clean_code = match.group(0)
+    else:
+        # إذا لم يجد الوسوم، يقوم بإزالة علامات الماركدوان التقليدية
+        clean_code = re.sub(r'```html\n|```', '', raw_text)
+
+    # 6. حفظ الكود النظيف في الملف
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(clean_code.strip())
+    print(f"تم التحديث بنجاح باستخدام موديل: {model_name}")
+
+except Exception as e:
+    print(f"حدث خطأ أثناء التحديث: {e}")
