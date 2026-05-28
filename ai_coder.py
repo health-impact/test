@@ -75,7 +75,7 @@ try:
         if 'generateContent' in m.supported_generation_methods:
             model_name = m.name
             break
-except:
+except: 
     model_name = 'models/gemini-1.5-flash'
 
 model = genai.GenerativeModel(model_name)
