@@ -140,6 +140,7 @@ try:
 
 except Exception as e:
     print(f"حدث خطأ أثناء التحديث: {e}")
+ 
  import google.generativeai as genai
 import os
 import re
