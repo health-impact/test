@@ -55,7 +55,78 @@ prompt = f"""
 تأكد من أن الكود يحتوي في قسم الـ Script على مصفوفة فارغة باسم:
 const healthNewsData = []; 
 وقم بملئها تلقائياً بـ 3 أخبار طبية وصحية حديثة جداً وموثوقة ومثيرة لاهتمام المتصفحين والشباب، تركز على مجالات: مقاومة البكتيريا للمضادات الحيوية، سلامة الأغذية، والصحة العامة، مع روابط صور حقيقية من Unsplash داخل المصفوفة.
+خذ كود الـ HTML الحالي للموقع:
+{current_code}
 
+المطلوب منك هو تحديث هذا الكود وإعادة صياغته بالكامل لينفذ المهام التالية بدقة هندسية صارمة:
+
+أولاً: إلغاء واجهة الحساب والتنبيهات نهائياً:
+- قم بحذف أي أزرار أو أيقونات أو نصوص تتعلق بـ (إنشاء حساب / تسجيل دخول / الملف الشخصي / الإشعارات / التنبيهات) من الـ Navbar أو الفوتر أو أي مكان في الصفحة. المنصة يجب أن تكون مفتوحة ومتاحة بالكامل للزوار مباشرة.
+
+ثانياً: حل مشكلة عدم ظهور صور الأخبار (إجباري):
+- في مصفوفة الأخبار `healthNewsData`، يُمنع منعاً باتاً وضع روابط مكسورة أو تركها فارغة.
+- يجب استخدام هذه الروابط الحقيقية والشغالة 100% والمتاحة حالياً في عام 2026 للأخبار الثلاثة بالتناوب:
+  1. الخبر الأول (مكافحة العدوى/المختبرات): https://images.unsplash.com/photo-1579165466511-71e5331940a5?w=600
+  2. الخبر الثاني (سلامة الأغذية/التغذية): https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600
+  3. الخبر الثالث (الصحة العامة/الوعي): https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600
+- تأكد أن الكود يعرض هذه الصور في كروت الأخبار بشكل صحي ومستقر.
+
+ثالثاً: حل مشكلة نظام الحفظ والمفضلة تلقائياً (LocalStorage):
+- تأكد من وجود قسم واضح في واجهة المستخدم تحت اسم "قائمة مفضلاتي" (بجانب أو أسفل قسم الأبحاث) يحتوي على معرف `id="favorites-list"`.
+- يجب أن تقوم بكتابة دوال الجافاسكريبت التالية كاملة وبدون أي اختصار داخل وسم الـ <script> لضمان اشتغال الحفظ فورياً:
+
+  1. دالة الحفظ:
+  function saveToFavorites(id, title, type) {{
+      let favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
+      if (!favorites.some(item => item.id === id)) {{
+          favorites.push({{ id, title, type, date: new Date().toLocaleDateString('ar-LY') }});
+          localStorage.setItem('healthFavorites', JSON.stringify(favorites));
+          renderFavorites();
+          alert('تم الحفظ في المفضلات بنجاح! 🌟');
+      }} else {{
+          alert('هذا العنصر موجود بالفعل في مفضلاتك.');
+      }}
+  }}
+
+  2. دالة العرض التلقائي:
+  function renderFavorites() {{
+      const container = document.getElementById('favorites-list');
+      if (!container) return;
+      let favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
+      if (favorites.length === 0) {{
+          container.innerHTML = '<p class="text-muted small text-center my-3">لا توجد عناصر محفوظة حالياً.</p>';
+          return;
+      }}
+      container.innerHTML = favorites.map(item => `
+          <div class="d-flex justify-content-between align-items-center p-2 mb-2 bg-light rounded" style="border-right: 3px solid #198754;">
+              <div>
+                  <h6 class="fw-bold mb-0 small text-dark">${{item.title}}</h6>
+                  <small class="text-muted" style="font-size:0.7rem;">${{item.type}} - ${{item.date}}</small>
+              </div>
+              <button class="btn btn-sm text-danger" onclick="removeFromFavorites('${{item.id}}')"><i class="fas fa-trash-alt"></i></button>
+          </div>
+      `).join('');
+  }}
+
+  3. دالة الحذف من المفضلة:
+  function removeFromFavorites(id) {{
+      let favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
+      favorites = favorites.filter(item => item.id !== id);
+      localStorage.setItem('healthFavorites', JSON.stringify(favorites));
+      renderFavorites();
+  }}
+
+- تأكد من استدعاء `renderFavorites();` فوراً داخل حدث الـ `DOMContentLoaded` لكي تظهر المفضلات بمجرد فتح الزائر للموقع.
+- تأكد أن أزرار الحفظ في كروت النصائح وفي جدول مكتبة الأبحاث تستدعي الدالة هكذا: `onclick="saveToFavorites('ID_فريد', 'عنوان_العنصر', 'نصيحة أو بحث')"`
+
+رابعاً: الأبحاث وأقسام الموقع:
+- أضف قسم "المصادر الموثوقة" (PubMed, WHO, CDC).
+- بناء جدول الأبحاث (اسم البحث، سنة النشر، المجال، رابط القراءة) يحتوي على الـ 100 صف التجريبية مع زر "عرض المزيد" لفتح 5 صفحات في كل ضغطة، وتفعيل نظام بحث وفلترة ذكي باللغتين العربية والإنجليزية.
+- إضافة قسم الأخبار الصحية بعد (من نحن) وإزالة قسم (التحقق من الشائعات) نهائياً.
+
+شروط صارمة للاستجابة:
+- ممنوع كتابة أي كلمة شرح أو تمهيد خارج كود الـ HTML.
+- ابدأ الرد مباشرة بـ <!DOCTYPE html> وانته بـ </html> دون استخدام علامات الماركدوان الزائدة مثل ```html.
 شروط صارمة للاستجابة:
 - ممنوع كتابة أي كلمة شرح أو تمهيد خارج كود الـ HTML.
 - ابدأ الرد مباشرة بـ <!DOCTYPE html> وانته بـ </html>.
