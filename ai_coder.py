@@ -184,7 +184,7 @@ try:
     else:
         clean_code = re.sub(r'```html\n|```', '', raw_text)
 
-    with open("index.html", "w", encoding="utf-8") as f:
+    with open("index.html", "w", encoding="utf-8") as f: 
         f.write(clean_code.strip())
         
     print(f"تم التحديث بنجاح تام! 🚀 الصور أصبحت حقيقية، ودوال الحفظ والمفضلة حُقنت بالكامل في الموقع الأصلي.")
