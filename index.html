@@ -350,7 +350,9 @@
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-warning">مفضلاتي</h2>
             <div id="favorites-content" class="text-center">
-                <!-- Favorites will be loaded here by JavaScript -->
+                <div class="alert alert-info text-center" role="alert">
+                    <i class="fas fa-info-circle me-2"></i> لا يوجد لديك أي عناصر محفوظة حتى الآن.
+                </div>
             </div>
         </div>
     </section>
@@ -652,7 +654,8 @@
             const currentPageUrl = encodeURIComponent(window.location.href);
 
             // Create a unique ID for the tip to use with favorites
-            const uniqueTipId = btoa(unescape(encodeURIComponent(item.title + (item.date || '') + (item.source || '')))); // Better unique ID handling
+            // Using a simple hash for ID, but a proper UUID generator would be better for real apps
+            const uniqueTipId = btoa(unescape(encodeURIComponent(item.title + (item.date || '') + (item.source || '')))); 
             const isFavoriteTip = getFavorites('tips').some(fav => fav.id === uniqueTipId);
             const favoriteButtonClass = isFavoriteTip ? 'btn-warning' : 'btn-outline-warning';
             const favoriteButtonText = isFavoriteTip ? '<i class="fas fa-bookmark"></i> تم الحفظ' : '<i class="far fa-bookmark"></i> حفظ';
