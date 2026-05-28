@@ -237,6 +237,11 @@
             margin-top: 10px;
             display: block;
         }
+        /* Favorites Section Styles */
+        #favorites .tip-card, #favorites .research-table-container {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
     </style>
 </head>
 <body>
@@ -252,6 +257,7 @@
                 <a href="#about" class="nav-item-link">عن المنصة</a>
                 <a href="#health-news" class="nav-item-link">آخر الأخبار</a>
                 <a href="#user-accounts" class="nav-item-link">حسابي</a>
+                <a href="#favorites" class="nav-item-link">مفضلاتي</a>
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
                 <a href="#store" class="nav-item-link">المتجر</a>
                 <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
@@ -318,7 +324,7 @@
                             <h4 class="fw-bold">محتوى محفوظ</h4>
                             <p class="text-muted small">احفظ نصائحك وأبحاثك المفضلة للرجوع إليها لاحقًا.</p>
                         </div>
-                        <button class="btn btn-outline-secondary rounded-pill px-4 py-2 mt-3" onclick="alert('هذه الميزة تتطلب تسجيل الدخول.')">
+                        <button class="btn btn-outline-warning rounded-pill px-4 py-2 mt-3" onclick="document.getElementById('favorites').scrollIntoView({behavior: 'smooth'});">
                             <i class="fas fa-arrow-right"></i> عرض المحفوظات
                         </button>
                     </div>
@@ -339,6 +345,16 @@
         </div>
     </section>
 
+    <!-- قسم المفضلة -->
+    <section id="favorites" style="background-color: #fcfcfc;">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-5 text-warning">مفضلاتي</h2>
+            <div id="favorites-content" class="text-center">
+                <!-- Favorites will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
     <section id="updates" style="background-color: #f4f7f6;">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5">التوعية الصحية الذكية</h2>
@@ -346,7 +362,7 @@
                 <div id="current-tips-list">
                     <p class="text-center text-muted">جاري تحميل أحدث التحديثات العلمية...</p>
                     <!-- Dummy tip if athardata.json is not available, will be replaced by JS if successful -->
-                    <div class="tip-card" style="border-right-color: #198754">
+                    <div class="tip-card" data-tip-id="dummy-tip-1" style="border-right-color: #198754">
                         <div class="d-flex justify-content-between align-items-start">
                             <h5 class="fw-bold" style="color:#222">أهمية غسل اليدين للوقاية من العدوى</h5>
                             <span style="font-size:1.5rem">💡</span>
@@ -357,6 +373,10 @@
                             <small class="text-muted" style="font-size:0.75rem"> 2024-03-20</small>
                         </div>
                         <div class="d-flex justify-content-end gap-2 mt-2">
+                            <button type="button" class="btn btn-outline-warning btn-sm rounded-pill px-3"
+                                    onclick="toggleFavoriteTip({id: 'dummy-tip-1', title: 'أهمية غسل اليدين للوقاية من العدوى', content: 'غسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.', source: 'WHO', category: 'مكافحة العدوى', date: '2024-03-20', type: 'info'}, this)">
+                                <i class="far fa-bookmark"></i> حفظ
+                            </button>
                             <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3"
                                     onclick="copyTip(this, 'أهمية غسل اليدين للوقاية من العدوى', 'غسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.')">
                                 <i class="fas fa-copy"></i> نسخ
@@ -525,6 +545,16 @@
         // مصفوفة الأخبار - سيقوم البوت بحقن الأخبار هنا تلقائياً كل يوم
         const healthNewsData = [];
 
+        // Helper to get/save favorites from localStorage
+        function getFavorites(type) {
+            const favorites = localStorage.getItem(`impactHealth${type}Favorites`);
+            return favorites ? JSON.parse(favorites) : [];
+        }
+
+        function saveFavorites(type, items) {
+            localStorage.setItem(`impactHealth${type}Favorites`, JSON.stringify(items));
+        }
+
         // دالة لنسخ النص إلى الحافظة
         async function copyTip(buttonElement, title, content) {
             const textToCopy = `💡 نصيحة صحية من أثر صحي:\n${title}\n${content}\n\n🌐 للمزيد من النصائح: ${window.location.href}`;
@@ -543,6 +573,46 @@
                 console.error('Failed to copy tip: ', err);
                 alert('فشل نسخ النصيحة. الرجاء المحاولة مرة أخرى أو النسخ يدوياً.');
             }
+        }
+
+        // Function to add/remove tips from favorites
+        function toggleFavoriteTip(tipData, buttonElement) {
+            let favoriteTips = getFavorites('tips');
+            const isFavorite = favoriteTips.some(fav => fav.id === tipData.id);
+
+            if (isFavorite) {
+                favoriteTips = favoriteTips.filter(fav => fav.id !== tipData.id);
+                buttonElement.innerHTML = '<i class="far fa-bookmark"></i> حفظ';
+                buttonElement.classList.remove('btn-warning');
+                buttonElement.classList.add('btn-outline-warning');
+            } else {
+                favoriteTips.push(tipData);
+                buttonElement.innerHTML = '<i class="fas fa-bookmark"></i> تم الحفظ';
+                buttonElement.classList.remove('btn-outline-warning');
+                buttonElement.classList.add('btn-warning');
+            }
+            saveFavorites('tips', favoriteTips);
+            renderFavorites(); // Re-render favorites section
+        }
+
+        // Function to add/remove research from favorites
+        function toggleFavoriteResearch(researchData, buttonElement) {
+            let favoriteResearch = getFavorites('research');
+            const isFavorite = favoriteResearch.some(fav => fav.id === researchData.id);
+
+            if (isFavorite) {
+                favoriteResearch = favoriteResearch.filter(fav => fav.id !== researchData.id);
+                buttonElement.innerHTML = '<i class="far fa-bookmark"></i> حفظ';
+                buttonElement.classList.remove('btn-warning');
+                buttonElement.classList.add('btn-outline-warning');
+            } else {
+                favoriteResearch.push(researchData);
+                buttonElement.innerHTML = '<i class="fas fa-bookmark"></i> تم الحفظ';
+                buttonElement.classList.remove('btn-outline-warning');
+                buttonElement.classList.add('btn-warning');
+            }
+            saveFavorites('research', favoriteResearch);
+            renderFavorites(); // Re-render favorites section
         }
 
         // دالة جلب نصائح التوعية من ملف athardata.json
@@ -579,11 +649,29 @@
             // Sanitize input for use in JS strings and URL encoding
             const escapedTitle = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
             const escapedContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-            const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
             const currentPageUrl = encodeURIComponent(window.location.href);
 
+            // Create a unique ID for the tip to use with favorites
+            const uniqueTipId = btoa(item.title + (item.date || '') + (item.source || ''));
+            const isFavoriteTip = getFavorites('tips').some(fav => fav.id === uniqueTipId);
+            const favoriteButtonClass = isFavoriteTip ? 'btn-warning' : 'btn-outline-warning';
+            const favoriteButtonText = isFavoriteTip ? '<i class="fas fa-bookmark"></i> تم الحفظ' : '<i class="far fa-bookmark"></i> حفظ';
+
+            // Prepare item data for the toggleFavoriteTip function
+            const tipDataForFavorite = JSON.stringify({
+                id: uniqueTipId,
+                title: item.title,
+                content: item.content,
+                source: item.source || 'أثر صحي',
+                category: item.category || '',
+                date: item.date || '',
+                type: item.type || 'info'
+            });
+
+            const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
+
             return `
-                <div class="tip-card" style="border-right-color: ${borderCol}">
+                <div class="tip-card" data-tip-id="${uniqueTipId}" style="border-right-color: ${borderCol}">
                     <div class="d-flex justify-content-between align-items-start">
                         <h5 class="fw-bold" style="color:#222">${item.title}</h5>
                         <span style="font-size:1.5rem">${icon}</span>
@@ -594,6 +682,9 @@
                         <small class="text-muted" style="font-size:0.75rem"> ${item.date || ''}</small>
                     </div>
                     <div class="d-flex justify-content-end gap-2 mt-2">
+                        <button type="button" class="btn ${favoriteButtonClass} btn-sm rounded-pill px-3" onclick="toggleFavoriteTip(${tipDataForFavorite}, this)">
+                            ${favoriteButtonText}
+                        </button>
                         <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" onclick="copyTip(this, '${escapedTitle}', '${escapedContent}')">
                             <i class="fas fa-copy"></i> نسخ
                         </button>
@@ -696,6 +787,7 @@
                 const pubmedLink = `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(pubmedKeywords)}`;
 
                 researchData.push({
+                    id: i + 1, // Unique ID for favorites
                     title: specificTitle,
                     year: year,
                     field: topic.field,
@@ -741,13 +833,23 @@
             const dataToDisplay = filteredResearchData.slice(0, currentVisibleResearchRows);
 
             dataToDisplay.forEach(item => {
+                const uniqueResearchId = item.id;
+                const isFavoriteResearch = getFavorites('research').some(fav => fav.id === uniqueResearchId);
+                const favoriteResearchButtonClass = isFavoriteResearch ? 'btn-warning' : 'btn-outline-warning';
+                const favoriteResearchButtonText = isFavoriteResearch ? '<i class="fas fa-bookmark"></i> تم الحفظ' : '<i class="far fa-bookmark"></i> حفظ';
+
                 tableBody.innerHTML += `
-                    <tr class="research-row">
+                    <tr class="research-row" data-research-id="${uniqueResearchId}">
                         <td>${item.title}</td>
                         <td>${item.year}</td>
                         <td>${item.field}</td>
                         <td>${item.studyType}</td>
-                        <td><a href="${item.link}" target="_blank" rel="noopener noreferrer">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a></td>
+                        <td class="d-flex gap-2 align-items-center">
+                            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success rounded-pill px-3">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a>
+                            <button type="button" class="btn ${favoriteResearchButtonClass} btn-sm rounded-pill px-3" onclick="toggleFavoriteResearch(${JSON.stringify(item)}, this)">
+                                ${favoriteResearchButtonText}
+                            </button>
+                        </td>
                     </tr>
                 `;
             });
@@ -798,6 +900,90 @@
             // Scroll smoothly to the top of the table
             const table = document.getElementById('researchTable');
             table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Function to render the favorites section
+        function renderFavorites() {
+            const favoritesContainer = document.getElementById('favorites-content'); // New container for content
+            if (!favoritesContainer) return;
+
+            favoritesContainer.innerHTML = ''; // Clear previous content
+
+            const favoriteTips = getFavorites('tips');
+            const favoriteResearch = getFavorites('research');
+
+            if (favoriteTips.length === 0 && favoriteResearch.length === 0) {
+                favoritesContainer.innerHTML = `
+                    <div class="alert alert-info text-center" role="alert">
+                        <i class="fas fa-info-circle me-2"></i> لا يوجد لديك أي عناصر محفوظة حتى الآن.
+                    </div>
+                `;
+                return;
+            }
+
+            if (favoriteTips.length > 0) {
+                favoritesContainer.innerHTML += `
+                    <h3 class="fw-bold mt-4 mb-3 text-dark">نصائح صحية مفضلة</h3>
+                    <div class="row g-3">
+                        ${favoriteTips.map(item => `
+                            <div class="col-12 col-md-6">
+                                <div class="tip-card" data-tip-id="${item.id}" style="border-right-color: ${item.type === 'warning' ? '#dc3545' : '#198754'}">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h5 class="fw-bold" style="color:#222">${item.title}</h5>
+                                        <span style="font-size:1.5rem">${item.type === 'warning' ? '⚠️' : '💡'}</span>
+                                    </div>
+                                    <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">${item.content}</p>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="source-label"> المصدر: ${item.source || 'أثر صحي'}${item.category ? ' - ' + item.category : ''}</span>
+                                        <small class="text-muted" style="font-size:0.75rem"> ${item.date || ''}</small>
+                                    </div>
+                                    <div class="d-flex justify-content-end gap-2 mt-2">
+                                        <button type="button" class="btn btn-warning btn-sm rounded-pill px-3" onclick="toggleFavoriteTip(${JSON.stringify(item)}, this)">
+                                            <i class="fas fa-bookmark"></i> إزالة من المفضلات
+                                        </button>
+                                        <!-- Sharing buttons can also be added here if desired -->
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            if (favoriteResearch.length > 0) {
+                favoritesContainer.innerHTML += `
+                    <h3 class="fw-bold mt-5 mb-3 text-dark">أبحاث مفضلة</h3>
+                    <div class="research-table-container">
+                        <table class="table research-table">
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-file-alt me-2"></i> اسم البحث</th>
+                                    <th style="width: 120px;"><i class="fas fa-calendar-alt me-2"></i> سنة النشر</th>
+                                    <th style="width: 180px;"><i class="fas fa-tags me-2"></i> المجال</th>
+                                    <th style="width: 180px;"><i class="fas fa-microscope me-2"></i> نوع الدراسة</th>
+                                    <th style="width: 120px;"><i class="fas fa-link me-2"></i> الإجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${favoriteResearch.map(item => `
+                                    <tr class="research-row" data-research-id="${item.id}">
+                                        <td>${item.title}</td>
+                                        <td>${item.year}</td>
+                                        <td>${item.field}</td>
+                                        <td>${item.studyType}</td>
+                                        <td class="d-flex gap-2 align-items-center">
+                                            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success rounded-pill px-3">قراءة <i class="fas fa-external-link-alt fa-xs me-1"></i></a>
+                                            <button type="button" class="btn btn-warning btn-sm rounded-pill px-3" onclick="toggleFavoriteResearch(${JSON.stringify(item)}, this)">
+                                                <i class="fas fa-bookmark"></i> إزالة
+                                            </button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
         }
 
         // دالة عرض الأخبار المحدثة تلقائياً بواسطة البوت
@@ -851,6 +1037,8 @@
             allResearchData.sort((a, b) => b.year - a.year); // Sort by year descending
             filteredResearchData = [...allResearchData]; // Initialize filtered data with all data
             renderResearchTable();
+            renderFavorites(); // Render favorites on page load
+
 
             // Add event listeners for filter inputs to trigger filtering
             document.getElementById('researchSearchInput').addEventListener('input', filterResearchTable);
