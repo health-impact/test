@@ -36,4 +36,4 @@ jobs:
           git config --global user.email "action@github.com"
           git add index.html
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-updated health news for today"
-          git push
+          git push 
