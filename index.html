@@ -47,10 +47,9 @@
         }
         .nav-item-link:hover { color: var(--main-green); }
 
-        /* 3. قسم الرئيسية (Hero) */
+        /* 3. قسم الرئيسية (Hero) - تم تحديث الصورة */
         .hero { 
-            /* Updated Hero Image for public health lab/microscope */
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1576091160550-2173dba99934?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Hero Image: Public health lab, microscope */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1533035312389-9a2cf9336bb3?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Hero Image: Public health concept, hands holding plant */
             background-repeat: no-repeat; background-position: center; background-size: cover;
             color: white; display: flex; align-items: center; justify-content: center; text-align: center;
             height: 75vh; /* Maintain height */
@@ -237,7 +236,7 @@
         </div>
     </section>
 
-    <!-- قسم آخر الأخبار الصحية المحلية والعالمية -->
+    <!-- قسم آخر الأخبار الصحية المحلية والعالمية (NEW POSITION) -->
     <section id="health-news" style="background-color: #f4f7f6;">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-success">آخر الأخبار الصحية المحلية والعالمية</h2>
@@ -267,7 +266,7 @@
                         <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">غسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.</p>
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="source-label"> المصدر: WHO - مكافحة العدوى</span>
-                            <small class="text-muted" style="font-size:0.75rem"> </small> <!-- Removed date -->
+                            <small class="text-muted" style="font-size:0.75rem"></small> 
                         </div>
                         <div class="d-flex justify-content-end gap-2 mt-2">
                             <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3"
@@ -297,7 +296,7 @@
         </div>
     </section>
 
-    <!-- مكتبة الأبحاث -->
+    <!-- مكتبة الأبحاث (EXISTING POSITION) -->
     <section id="research-library" style="background-color: #f4f7f6;">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-success">مكتبة الأبحاث</h2>
@@ -368,7 +367,7 @@
         </div>
     </section>
 
-    <!-- المتجر -->
+    <!-- المتجر (EXISTING POSITION) -->
     <section id="store">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-success">متجر المستلزمات</h2>
@@ -473,6 +472,7 @@
         // دالة جلب نصائح التوعية من ملف athardata.json
         async function fetchAwarenessData() {
             try {
+                // Use a cache-busting parameter to ensure the latest file is fetched
                 const res = await fetch('athardata.json?v=' + new Date().getTime());
                 const data = await res.json();
                 
@@ -521,7 +521,7 @@
                     <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">${item.content}</p>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <span class="source-label"> المصدر: ${item.source || 'أثر صحي'}${item.category ? ' - ' + item.category : ''}</span>
-                        <small class="text-muted" style="font-size:0.75rem"> </small> <!-- Removed date field -->
+                        <small class="text-muted" style="font-size:0.75rem"> </small> 
                     </div>
                     <div class="d-flex justify-content-end gap-2 mt-2">
                         <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" onclick="copyTip(this, '${escapedTitle}', '${escapedContent}')">
