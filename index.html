@@ -50,7 +50,7 @@
         /* 3. قسم الرئيسية (Hero) */
         .hero { 
             height: 75vh; 
-            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1579684385153-f76150c29f27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHw3MHx8bWljcm9iaWFsJTIwbGFib3JhdG9yeXxlbnwwfHx8fDE3MDY5NTI4NjV8MA&ixlib=rb-4.0.3&q=80&w=1080'); /* Hero Image related to public health and microbial labs */
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1579684385153-f76150c29f27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHw3MHx8bWljcm9iaWFsJTIwbGElMjBhYm9yYXRvcnl8ZW5wwfHx8fDE3MDY5NTI4NjV8MA&ixlib=rb-4.0.3&q=80&w=1080'); /* Hero Image related to public health and microbial labs */
             background-repeat: no-repeat; background-position: center; background-size: cover;
             color: white; display: flex; align-items: center; justify-content: center; text-align: center;
         }
@@ -481,6 +481,12 @@
             }
         ];
 
+        // Helper to check if an item is favorited
+        function isFavorite(id) {
+            const favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
+            return favorites.some(item => item.id === id);
+        }
+
         // START: Favorites LocalStorage Functions (as provided by user)
         function saveToFavorites(id, title, type) {
             let favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
@@ -527,12 +533,6 @@
             // No alert here, as it's typically initiated from the favorites list itself.
         }
         // END: Favorites LocalStorage Functions
-
-        // Helper to check if an item is favorited
-        function isFavorite(id) {
-            const favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
-            return favorites.some(item => item.id === id);
-        }
 
         // Function to update favorite button state for tips
         function updateTipFavoriteButtons() {
