@@ -2,7 +2,7 @@ import google.generativeai as genai
 import os
 import re
 import json
-import time
+import time 
  
 # 1. إعداد الاتصال بجيمني واختيار الموديل المتاح تلقائياً
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
