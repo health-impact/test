@@ -210,8 +210,8 @@
                 <a href="#about" class="nav-item-link">عن المنصة</a>
                 <a href="#health-news" class="nav-item-link">آخر الأخبار</a>
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
-                <a href="#store" class="nav-item-link">المتجر</a>
                 <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
+                <a href="#store" class="nav-item-link">المتجر</a>
             </nav>
         </div>
     </header>
@@ -237,7 +237,7 @@
         </div>
     </section>
 
-    <!-- قسم آخر الأخبار الصحية المحلية والعالمية -->
+    <!-- قسم آخر الأخبار الصحية المحلية والعالمية (موضع جديد) -->
     <section id="health-news" style="background-color: #f4f7f6;">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-success">آخر الأخبار الصحية المحلية والعالمية</h2>
@@ -297,38 +297,7 @@
         </div>
     </section>
 
-    <section id="store">
-        <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5 text-success">متجر المستلزمات</h2>
-            <div class="row g-4">
-                <div class="col-12 col-md-4">
-                    <div class="store-card">
-                        <div class="icon-box"><i class="fas fa-microscope"></i></div>
-                        <h4 class="fw-bold">تجهيزات مخبرية</h4>
-                        <p class="text-muted small">معدات الفحص الميكروبيولوجي وأدوات سحب العينات.</p>
-                        <span class="badge bg-light text-success border border-success px-4 py-2">قريباً</span>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="store-card">
-                        <div class="icon-box"><i class="fas fa-user-shield text-primary"></i></div>
-                        <h4 class="fw-bold">أدوات الوقاية</h4>
-                        <p class="text-muted small">أقنعة، قفازات، ومعقمات مطابقة للمواصفات القياسية.</p>
-                        <span class="badge bg-light text-primary border border-primary px-4 py-2">قريباً</span>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="store-card">
-                        <div class="icon-box"><i class="fas fa-heartbeat text-danger"></i></div>
-                        <h4 class="fw-bold">أجهزة القياس</h4>
-                        <p class="text-muted small">أجهزة قياس الضغط والسكر المنزلية الموثوقة.</p>
-                        <span class="badge bg-light text-danger border border-danger px-4 py-2">قريباً</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- مكتبة الأبحاث (موضع جديد) -->
     <section id="research-library" style="background-color: #f4f7f6;">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-success">مكتبة الأبحاث</h2>
@@ -365,7 +334,6 @@
                     <option value="صحة الطفل">صحة الطفل</option>
                     <option value="الطب البديل">الطب البديل</option>
                 </select>
-                <!-- تم إزالة فلتر "نوع الدراسة" كما هو مطلوب -->
                 <button class="btn btn-success fw-bold" onclick="filterResearchTable()">
                     <i class="fas fa-search"></i> فلترة
                 </button>
@@ -379,7 +347,6 @@
                             <th><i class="fas fa-file-alt me-2"></i> اسم البحث</th>
                             <th style="width: 120px;"><i class="fas fa-calendar-alt me-2"></i> سنة النشر</th>
                             <th style="width: 180px;"><i class="fas fa-tags me-2"></i> المجال</th>
-                            <!-- تم إزالة عمود "نوع الدراسة" كما هو مطلوب -->
                             <th style="width: 120px;"><i class="fas fa-link me-2"></i> رابط القراءة</th>
                         </tr>
                     </thead>
@@ -398,6 +365,39 @@
                 </button>
             </div>
             
+        </div>
+    </section>
+
+    <!-- المتجر (موضع جديد) -->
+    <section id="store">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-5 text-success">متجر المستلزمات</h2>
+            <div class="row g-4">
+                <div class="col-12 col-md-4">
+                    <div class="store-card">
+                        <div class="icon-box"><i class="fas fa-microscope"></i></div>
+                        <h4 class="fw-bold">تجهيزات مخبرية</h4>
+                        <p class="text-muted small">معدات الفحص الميكروبيولوجي وأدوات سحب العينات.</p>
+                        <span class="badge bg-light text-success border border-success px-4 py-2">قريباً</span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="store-card">
+                        <div class="icon-box"><i class="fas fa-user-shield text-primary"></i></div>
+                        <h4 class="fw-bold">أدوات الوقاية</h4>
+                        <p class="text-muted small">أقنعة، قفازات، ومعقمات مطابقة للمواصفات القياسية.</p>
+                        <span class="badge bg-light text-primary border border-primary px-4 py-2">قريباً</span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="store-card">
+                        <div class="icon-box"><i class="fas fa-heartbeat text-danger"></i></div>
+                        <h4 class="fw-bold">أجهزة القياس</h4>
+                        <p class="text-muted small">أجهزة قياس الضغط والسكر المنزلية الموثوقة.</p>
+                        <span class="badge bg-light text-danger border border-danger px-4 py-2">قريباً</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -431,19 +431,22 @@
                 id: 1,
                 title: "دراسة جديدة تسلط الضوء على تزايد مقاومة البكتيريا للمضادات الحيوية في المياه العذبة",
                 content: "كشفت دراسة حديثة أن انتشار البكتيريا المقاومة للمضادات الحيوية وجيناتها في مصادر المياه العذبة ومياه الصرف الصحي حول العالم يمثل تهديداً متنامياً للصحة العامة. تدعو الدراسة إلى اتخاذ إجراءات عاجلة للحد من التلوث بالمضادات الحيوية وتطوير أنظمة معالجة المياه.",
-                image: "https://images.unsplash.com/photo-1628170138927-449e798ec4e1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Bacteria/microbiology in water
+                image: "https://images.unsplash.com/photo-1628170138927-449e798ec4e1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Bacteria/microbiology in water
+                source: "منظمة الصحة العالمية"
             },
             {
                 id: 2,
                 title: "تكنولوجيا متطورة للكشف السريع عن مسببات الأمراض المنقولة بالغذاء قبل وصولها للمستهلك",
                 content: "أعلنت شركة ناشئة عن إطلاق جهاز محمول مبتكر يمكنه تحليل عينات الغذاء والكشف عن البكتيريا الضارة مثل السالمونيلا والإي كولاي في دقائق معدودة. تهدف هذه التقنية إلى تعزيز سلامة الأغذية بشكل كبير ومنع تفشي الأمراض المنقولة بالغذاء.",
-                image: "https://images.unsplash.com/photo-1559869680-e83d8ee2845c?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Food safety lab testing
+                image: "https://images.unsplash.com/photo-1559869680-e83d8ee2845c?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Food safety lab testing
+                source: "إدارة الغذاء والدواء (FDA)"
             },
             {
                 id: 3,
                 title: "منظمة الصحة العالمية تعزز حملاتها لتدريب العاملين الصحيين على بروتوكولات مكافحة العدوى",
                 content: "لمواجهة تزايد العدوى المرتبطة بالرعاية الصحية، أطلقت منظمة الصحة العالمية حملة عالمية لتدريب الكوادر الطبية على أحدث ممارسات مكافحة العدوى. تشمل الحملة التركيز على نظافة اليدين، الاستخدام الصحيح لمعدات الوقاية الشخصية، وتعقيم الأدوات لضمان بيئة علاجية آمنة.",
-                image: "https://images.unsplash.com/photo-1620336655052-198af4777a4b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Healthcare workers, infection control
+                image: "https://images.unsplash.com/photo-1620336655052-198af4777a4b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Healthcare workers, infection control
+                source: "مراكز مكافحة الأمراض والوقاية منها (CDC)"
             }
         ];
 
@@ -610,7 +613,33 @@
                 { title: "تأثير التلوث الضوئي على جودة النوم", field: "الصحة البيئية", keywords: "light pollution sleep quality circadian rhythm environmental health التلوث الضوئي النوم" },
                 { title: "برامج الكشف المبكر عن سرطان الثدي في المجتمعات الريفية", field: "صحة المرأة", keywords: "breast cancer screening rural communities early detection awareness سرطان الثدي المناطق الريفية" },
                 { title: "الذكاء الاصطناعي وتوقعات تفشي الأمراض الوبائية", field: "مكافحة العدوى", keywords: "AI artificial intelligence epidemic outbreak prediction public health الذكاء الاصطناعي الوباء" },
-                { title: "تأثير الوجبات السريعة على صحة الجهاز الهضمي للأطفال", field: "سلامة الغذاء والتغذية", keywords: "fast food digestive health children nutrition quick meals الوجبات السريعة الهضم" }
+                { title: "تأثير الوجبات السريعة على صحة الجهاز الهضمي للأطفال", field: "سلامة الغذاء والتغذية", keywords: "fast food digestive health children nutrition quick meals الوجبات السريعة الهضم" },
+                { title: "التأهب للأوبئة: الدروس المستفادة من الجوائح السابقة", field: "مكافحة العدوى", keywords: "pandemic preparedness outbreak lessons learned public health استجابة الأوبئة التأهب" },
+                { title: "البروبيوتيك والبريبايوتكس: تأثيرها على صحة الجهاز الهضمي", field: "سلامة الغذاء والتغذية", keywords: "probiotics prebiotics digestive health gut flora supplements البروبيوتيك الهضم" },
+                { title: "استخدام الواقع الافتراضي في العلاج الطبيعي التأهيلي", field: "الابتكار الطبي", keywords: "virtual reality physical therapy rehabilitation innovation VR الواقع الافتراضي التأهيل" },
+                { title: "الصحة النفسية لكبار السن: تحديات وحلول", field: "الصحة النفسية", keywords: "elderly mental health challenges solutions aging well-being كبار السن الصحة النفسية" },
+                { title: "الكشف المبكر عن مرض السكري من النوع الثاني", field: "الوقاية من الأمراض", keywords: "early detection type 2 diabetes screening glucose levels prevention السكري الكشف المبكر" },
+                { title: "تأثير التعرض للملوثات الدقيقة على الجهاز المناعي", field: "الصحة البيئية", keywords: "microplastics immune system pollution environmental health الملوثات الدقيقة المناعة" },
+                { title: "التحكم في ناقلات الأمراض: استخدام الطائرات بدون طيار", field: "مكافحة العدوى", keywords: "vector control drones disease prevention technology مكافحة ناقلات الأمراض طائرات بدون طيار" },
+                { title: "التوعية الصحية لمرضى الضغط المرتفع", field: "الصحة العامة", keywords: "hypertension awareness patient education blood pressure الوقاية الضغط المرتفع" },
+                { title: "الرعاية الصحية المتنقلة للمجتمعات المحرومة", field: "الصحة العامة", keywords: "mobile healthcare underserved communities access equity الرعاية المتنقلة المجتمعات المحرومة" },
+                { title: "نظم المعلومات الجغرافية في رصد الأمراض", field: "مكافحة العدوى", keywords: "GIS geographic information systems disease surveillance public health نظم المعلومات الجغرافية رصد الأمراض" },
+                { title: "تطوير لقاحات جديدة للأمراض المدارية المهملة", field: "الابتكار الطبي", keywords: "new vaccines neglected tropical diseases R&D global health اللقاحات الأمراض المدارية" },
+                { title: "التأمل واليقظة الذهنية لتحسين الصحة النفسية", field: "الصحة النفسية", keywords: "meditation mindfulness mental health stress reduction wellbeing التأمل اليقظة" },
+                { title: "برامج الإقلاع عن التدخين: فعالية ونتائج", field: "الوقاية من الأمراض", keywords: "smoking cessation programs effectiveness public health support الإقلاع عن التدخين" },
+                { title: "أثر التنوع البيولوجي على الصحة العامة", field: "الصحة البيئية", keywords: "biodiversity public health ecosystem health environmental impact التنوع البيولوجي" },
+                { title: "سلامة الغذاء في المطاعم: التحديات والحلول", field: "سلامة الغذاء والتغذية", keywords: "food safety restaurants hygiene regulations training سلامة الغذاء المطاعم" },
+                { title: "تأثير الألعاب الرقمية على نمو الأطفال المعرفي", field: "صحة الطفل", keywords: "digital games child cognitive development screen time education الألعاب الرقمية الأطفال" },
+                { title: "العلاج بالخلايا الجذعية: آمال وتحديات", field: "الابتكار الطبي", keywords: "stem cell therapy regenerative medicine challenges ethics الخلايا الجذعية العلاج" },
+                { title: "التوعية بأهمية الفحص الدوري للعيون", field: "الوقاية من الأمراض", keywords: "eye check-ups vision care prevention blindness فحص العيون الوقاية" },
+                { title: "الصحة الإنجابية للمرأة في المجتمعات النامية", field: "صحة المرأة", keywords: "women's reproductive health developing countries maternal care الصحة الإنجابية للمرأة" },
+                { title: "تأثير الضوضاء البيئية على جودة الحياة", field: "الصحة البيئية", keywords: "environmental noise quality of life sound pollution hearing الضوضاء جودة الحياة" },
+                { title: "الطب التكميلي والبديل في علاج الأمراض المزمنة", field: "الطب البديل", keywords: "complementary alternative medicine chronic diseases herbal therapy الطب البديل الأمراض المزمنة" },
+                { title: "استراتيجيات تعزيز الصحة المدرسية", field: "الصحة العامة", keywords: "school health promotion student well-being education programs الصحة المدرسية" },
+                { title: "التعافي من الإدمان: برامج الدعم والرعاية", field: "الصحة النفسية", keywords: "addiction recovery support programs mental health substance abuse الإدمان التعافي" },
+                { title: "تكنولوجيا النانو في توصيل الأدوية", field: "الابتكار الطبي", keywords: "nanotechnology drug delivery targeted therapy medical innovation تكنولوجيا النانو الأدوية" },
+                { title: "الرضاعة الطبيعية: فوائد وتحديات", field: "صحة الطفل", keywords: "breastfeeding infant health maternal benefits challenges الرضاعة الطبيعية" },
+                { title: "نصائح للوقاية من التسمم الغذائي في المنزل", field: "سلامة الغذاء والتغذية", keywords: "food poisoning prevention home kitchen hygiene التسمم الغذائي الوقاية" }
             ];
 
             const researchData = [];
@@ -690,8 +719,7 @@
             const input = document.getElementById('researchSearchInput');
             const filterTerm = input.value.toLowerCase();
             const fieldFilter = document.getElementById('researchFieldFilter')?.value || ''; 
-            // تم إزالة فلتر نوع الدراسة
-
+            
             filteredResearchData = allResearchData.filter(item => {
                 const matchesSearchTerm = item.title.toLowerCase().includes(filterTerm) ||
                                           item.year.toString().includes(filterTerm) ||
@@ -752,7 +780,7 @@
                                     </div>
                                     <div class="mt-3">
                                         <hr class="text-muted opacity-25">
-                                        <small class="text-success fw-bold"><i class="fas fa-check-circle me-1"></i> مصدر موثوق</small>
+                                        <small class="text-success fw-bold"><i class="fas fa-check-circle me-1"></i> ${news.source || 'مصدر موثوق'}</small>
                                     </div>
                                 </div>
                             </div>
@@ -776,7 +804,6 @@
             // Add event listeners for filter inputs to trigger filtering
             document.getElementById('researchSearchInput').addEventListener('input', filterResearchTable);
             document.getElementById('researchFieldFilter').addEventListener('change', filterResearchTable);
-            // تم إزالة المستمع الخاص بفلتر نوع الدراسة
         });
     </script>
 <script data-goatcounter="https://athar-health.goatcounter.com/count"
