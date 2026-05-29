@@ -240,7 +240,7 @@
         </div>
     </section>
 
-    <!-- قسم آخر الأخبار الصحية (تم نقله بعد قسم من نحن) -->
+    <!-- قسم آخر الأخبار الصحية -->
     <section id="health-news" style="background-color: #f4f7f6;">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-success">آخر الأخبار الصحية المحلية والعالمية</h2>
@@ -418,7 +418,7 @@
         </div>
     </section>
 
-    <!-- قسم المفضلة (تم تبسيط محتواه) -->
+    <!-- قسم المفضلة -->
     <section id="favorites" style="background-color: #fcfcfc;">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-warning">مفضلاتي</h2>
@@ -530,7 +530,6 @@
             favorites = favorites.filter(item => item.id !== id);
             localStorage.setItem('healthFavorites', JSON.stringify(favorites));
             renderFavorites(); // Re-render the favorites list
-            // No alert here, as it's typically initiated from the favorites list itself.
         }
         // END: Favorites LocalStorage Functions
 
@@ -616,6 +615,7 @@
         // دالة جلب نصائح التوعية من ملف athardata.json
         async function fetchAwarenessData() {
             try {
+                // Using a cache-busting parameter for fresh data
                 const res = await fetch('athardata.json?v=' + new Date().getTime());
                 const data = await res.json();
                 
