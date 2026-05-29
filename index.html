@@ -50,7 +50,7 @@
         /* 3. قسم الرئيسية (Hero) */
         .hero { 
             height: 75vh; 
-            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1579684385153-f76150c29f27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHw3MHx8bWljcm9iaWFsJTIwbGElMjBhYm9yYXRvcnl8ZW5wwfHx8fDE3MDY5NTI4NjV8MA&ixlib=rb-4.0.3&q=80&w=1080'); /* Hero Image related to public health and microbial labs */
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1579684385153-f76150c29f27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHw3MHx8bWljcm9biWJpJTIwbGElMjBhYm9yYXRvcnl8ZW5wwfHx8fDE3MDY5NTI4NjV8MA&ixlib=rb-4.0.3&q=80&w=1080'); /* Hero Image related to public health and microbial labs */
             background-repeat: no-repeat; background-position: center; background-size: cover;
             color: white; display: flex; align-items: center; justify-content: center; text-align: center;
         }
@@ -274,6 +274,7 @@
                         </div>
                         <div class="d-flex justify-content-end gap-2 mt-2">
                             <button type="button" class="btn btn-outline-warning btn-sm rounded-pill px-3"
+                                    data-tip-id="dummy-tip-1"
                                     onclick="toggleFavoriteTip({id: 'dummy-tip-1', title: 'أهمية غسل اليدين للوقاية من العدوى', content: 'غسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.', source: 'WHO', category: 'مكافحة العدوى', date: '2024-03-20', type: 'info'}, this)">
                                 <i class="far fa-bookmark"></i> حفظ
                             </button>
