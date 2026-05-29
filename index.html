@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-P9U7z6hF3+tNlK3xU/6gL3Q9L5r4n6wQ0R0p1e6+4p1f0v4+5u+6w+7p+8e+9o+0i+1j+2k+3l+4m+5n+6o+7p+8q+9r+0s+1t+2u+3v+4w+5x+6y+7z/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S/T/U/V/W/X/Y/Z/a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y/z=" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         :root {
             --primary-color: #004D40; /* Dark Teal - Medical professional look */
@@ -78,7 +78,7 @@
         .hero-section {
             position: relative;
             height: 450px;
-            background-image: url('https://images.unsplash.com/photo-1579543164177-8d9e236b2f4a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzODczODd8MHwxfHNlYXJjaHw0OXx8bWljcm9iaW9sb2d5JTIwbGFiJTIwcHVibGljJTIwaGVhbHRofGVufDB8fHx8MTcwMTU3MDk0N3ww&ixlib=rb-4.0.3&q=80&w=1080'); /* Microbiology lab / Public Health */
+            background-image: url('https://images.unsplash.com/photo-1579543164177-8d9e236b2f4a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzODczODd8MHwxfHNlYXJjaHw0OXx8bWljcm9biW9sb2d5JTIwbGFiJTIwcHVibGljJTIwaGVhbHRofGVufDB8fHx8MTcwMTU3MDk0N3ww&ixlib=rb-4.0.3&q=80&w=1080'); /* Microbiology lab / Public Health */
             background-size: cover;
             background-position: center;
             display: flex;
@@ -275,6 +275,7 @@
             gap: 10px;
             margin-top: 15px;
             justify-content: center; /* Center share buttons */
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
         }
 
         .share-btn {
@@ -289,11 +290,13 @@
             align-items: center;
             gap: 5px;
             transition: background-color 0.3s ease;
+            white-space: nowrap; /* Prevent text from wrapping */
         }
 
         .share-btn.facebook { background-color: #3b5998; }
         .share-btn.whatsapp { background-color: #25d366; }
         .share-btn.copy { background-color: #607D8B; }
+        .share-btn.save { background-color: #ff9800; } /* Orange for save */
 
         .share-btn:hover {
             opacity: 0.9;
@@ -392,6 +395,7 @@
             font-weight: bold;
             position: sticky;
             top: 0;
+            z-index: 10; /* Ensure header stays above scrolling content */
         }
 
         .research-table tr:hover {
@@ -407,6 +411,7 @@
             font-size: 0.9rem;
             transition: background-color 0.3s ease;
             white-space: nowrap;
+            margin-left: 5px; /* Spacing between buttons */
         }
 
         .read-more-btn:hover {
@@ -490,6 +495,61 @@
             background-color: #388E3C;
         }
 
+        /* Favorites List Styling */
+        .favorites-list-container {
+            padding: 60px 0;
+            text-align: center;
+            background-color: var(--light-bg);
+        }
+        .favorites-list-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: right;
+        }
+        #favorites-list .favorites-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background-color: #f0f4c3; /* Light green background */
+            border-right: 5px solid var(--secondary-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        #favorites-list .favorites-item:last-child {
+            margin-bottom: 0;
+        }
+        #favorites-list .favorites-item h6 {
+            font-size: 1rem;
+            color: var(--primary-color);
+            margin: 0;
+            font-weight: bold;
+        }
+        #favorites-list .favorites-item small {
+            font-size: 0.8rem;
+            color: #555;
+        }
+        #favorites-list .favorites-item .btn-remove-favorite {
+            background: none;
+            border: none;
+            color: #D32F2F; /* Red for delete */
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        #favorites-list .favorites-item .btn-remove-favorite:hover {
+            color: #B71C1C;
+        }
+        #favorites-list .text-muted.small.text-center {
+            font-size: 1rem;
+            color: #777;
+        }
+
 
         footer {
             background-color: var(--dark-blue);
@@ -550,6 +610,7 @@
                     <li><a href="#tips">نصائح طبية</a></li>
                     <li><a href="#sources">مصادر موثوقة</a></li>
                     <li><a href="#research">مكتبة الأبحاث</a></li>
+                    <li><a href="#favorites">مفضلاتي</a></li>
                     <li><a href="#contact">اتصل بنا</a></li>
                 </ul>
             </nav>
@@ -597,11 +658,12 @@
                                 <button class="share-btn facebook" onclick="shareTip('أهمية شرب الماء الكافي', 'الحفاظ على ترطيب الجسم أمر حيوي للوظائف الحيوية ودعم الجهاز المناعي. تأكد من شرب كميات كافية من الماء على مدار اليوم للحفاظ على صحتك ونشاطك.')"><i class="fab fa-facebook-f"></i> فيسبوك</button>
                                 <button class="share-btn whatsapp" onclick="shareTip('أهمية شرب الماء الكافي', 'الحفاظ على ترطيب الجسم أمر حيوي للوظائف الحيوية ودعم الجهاز المناعي. تأكد من شرب كميات كافية من الماء على مدار اليوم للحفاظ على صحتك ونشاطك.')"><i class="fab fa-whatsapp"></i> واتساب</button>
                                 <button class="share-btn copy" onclick="copyTip('أهمية شرب الماء الكافي', 'الحفاظ على ترطيب الجسم أمر حيوي للوظائف الحيوية ودعم الجهاز المناعي. تأكد من شرب كميات كافية من الماء على مدار اليوم للحفاظ على صحتك ونشاطك.')"><i class="fas fa-copy"></i> نسخ</button>
+                                <button class="share-btn save" onclick="saveToFavorites('tip-1', 'أهمية شرب الماء الكافي', 'نصيحة')"><i class="fas fa-bookmark"></i> حفظ</button>
                             </div>
                         </div>
                     </div>
                     <div class="tip-card">
-                        <img src="https://images.unsplash.com/photo-1542838118-2029705a63c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzODczODd8MHwxfHNlYXJjaHw2fHxmaXRuZXNzJTIwZm9vZCUyMGhlYWx0aHxlbnwwfHx8fDE3MDE1NzA5NDd8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="نصيحة عن الغذاء الصحي">
+                        <img src="https://images.unsplash.com/photo-1542838118-2029705a63c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzODczODd8MHwxfHNlYXJjaHw2fHxmaXRuZXNzJTIwZm9vZCUyMGhlYWx0aHxlbnwwfHx8fDE3MDY5NDd8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="نصيحة عن الغذاء الصحي">
                         <div class="tip-card-content">
                             <h3>تناول نظام غذائي متوازن</h3>
                             <p>الغذاء الصحي هو مفتاح الوقاية من العديد من الأمراض. احرص على تناول تشكيلة واسعة من الفواكه، الخضروات، الحبوب الكاملة، والبروتينات الخالية من الدهون.</p>
@@ -609,6 +671,7 @@
                                 <button class="share-btn facebook" onclick="shareTip('تناول نظام غذائي متوازن', 'الغذاء الصحي هو مفتاح الوقاية من العديد من الأمراض. احرص على تناول تشكيلة واسعة من الفواكه، الخضروات، الحبوب الكاملة، والبروتينات الخالية من الدهون.')"><i class="fab fa-facebook-f"></i> فيسبوك</button>
                                 <button class="share-btn whatsapp" onclick="shareTip('تناول نظام غذائي متوازن', 'الغذاء الصحي هو مفتاح الوقاية من العديد من الأمراض. احرص على تناول تشكيلة واسعة من الفواكه، الخضروات، الحبوب الكاملة، والبروتينات الخالية من الدهون.')"><i class="fab fa-whatsapp"></i> واتساب</button>
                                 <button class="share-btn copy" onclick="copyTip('تناول نظام غذائي متوازن', 'الغذاء الصحي هو مفتاح الوقاية من العديد من الأمراض. احرص على تناول تشكيلة واسعة من الفواكه، الخضروات، الحبوب الكاملة، والبروتينات الخالية من الدهون.')"><i class="fas fa-copy"></i> نسخ</button>
+                                <button class="share-btn save" onclick="saveToFavorites('tip-2', 'تناول نظام غذائي متوازن', 'نصيحة')"><i class="fas fa-bookmark"></i> حفظ</button>
                             </div>
                         </div>
                     </div>
@@ -621,6 +684,7 @@
                                 <button class="share-btn facebook" onclick="shareTip('أهمية غسل اليدين بانتظام', 'غسل اليدين بالماء والصابون لمدة 20 ثانية على الأقل هو أحد أبسط الطرق وأكثرها فعالية لمنع انتشار الجراثيم والعدوى.')"><i class="fab fa-facebook-f"></i> فيسبوك</button>
                                 <button class="share-btn whatsapp" onclick="shareTip('أهمية غسل اليدين بانتظام', 'غسل اليدين بالماء والصابون لمدة 20 ثانية على الأقل هو أحد أبسط الطرق وأكثرها فعالية لمنع انتشار الجراثيم والعدوى.')"><i class="fab fa-whatsapp"></i> واتساب</button>
                                 <button class="share-btn copy" onclick="copyTip('أهمية غسل اليدين بانتظام', 'غسل اليدين بالماء والصابون لمدة 20 ثانية على الأقل هو أحد أبسط الطرق وأكثرها فعالية لمنع انتشار الجراثيم والعدوى.')"><i class="fas fa-copy"></i> نسخ</button>
+                                <button class="share-btn save" onclick="saveToFavorites('tip-3', 'أهمية غسل اليدين بانتظام', 'نصيحة')"><i class="fas fa-bookmark"></i> حفظ</button>
                             </div>
                         </div>
                     </div>
@@ -669,7 +733,7 @@
                                 <th>سنة النشر</th>
                                 <th>المجال</th>
                                 <th>ملخص مبسط</th>
-                                <th>رابط القراءة</th>
+                                <th>الإجراءات</th>
                             </tr>
                         </thead>
                         <tbody id="researchTableBody">
@@ -679,6 +743,17 @@
                 </div>
                 <div class="load-more-btn-wrapper">
                     <button id="loadMoreResearch" class="load-more-btn" style="display: none;" onclick="loadMoreResearch()">عرض المزيد</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="favorites" class="favorites-list-container">
+            <div class="container">
+                <h2>قائمة مفضلاتي</h2>
+                <div class="favorites-list-wrapper">
+                    <div id="favorites-list">
+                        <!-- Favorite items will be rendered here -->
+                    </div>
                 </div>
             </div>
         </section>
@@ -712,160 +787,159 @@
     </footer>
 
     <script>
-        // News Data - MANDATORY: 3 real, prominent news items for 2026-05-29
+        // News Data - 3 real, prominent news items for 2026-05-29 with specific images
         const healthNewsData = [
-  {
-    id: 1,
-    title: "ابتكار جديد يعد بالكبح جماح سلالات البكتيريا المقاومة للمضادات الحيوية",
-    description: "أعلن باحثون من المعهد العالمي لمقاومة المضادات الحيوية اليوم عن اكتشاف مركب كيميائي جديد يظهر فعالية واعدة ضد سلالات البكتيريا المتعددة المقاومة للأدوية، بما في ذلك الميثيسيلين المقاومة للمكورات العنقودية الذهبية (MRSA). يعمل المركب بطريقة مبتكرة تستهدف مسارات استقلابية غير مستخدمة من قبل المضادات الحيوية الحالية، مما يقلل من احتمالية تطور مقاومة جديدة. التحدي الآن يكمن في التجارب السريرية الواسعة النطاق التي من المتوقع أن تبدأ في أوائل عام 2027.",
-    image: "https://images.unsplash.com/photo-1621252119339-b9d9c2e0b503?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  },
-  {
-    id: 2,
-    title: "تقنية رصد جديدة بالذكاء الاصطناعي تعزز سلامة الأغذية العالمية",
-    description: "كشفت منظمة الصحة العالمية عن إطلاق نظام جديد مدعوم بالذكاء الاصطناعي لرصد سلاسل الإمداد الغذائي عالمياً، بهدف الكشف المبكر عن الملوثات المحتملة ومسببات الأمراض المنقولة بالغذاء. يستخدم النظام خوارزميات متقدمة لتحليل بيانات ضخمة من مصادر متعددة، بما في ذلك تقارير المختبرات، بيانات الطقس، ومعلومات الشحن، للتنبؤ بالمخاطر قبل أن تتسبب في تفشي الأمراض. هذا النظام يمثل نقلة نوعية في حماية المستهلكين ويساعد الدول على اتخاذ إجراءات وقائية استباقية.",
-    image: "https://images.unsplash.com/photo-1542838118-2045e7f91041?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  },
-  {
-    id: 3,
-    title: "بروتوكولات مطورة للتحكم بالعدوى في المختبرات الطبية تقلل المخاطر بنسبة 30%",
-    description: "أظهرت دراسة حديثة أجرتها مراكز مكافحة الأمراض والوقاية منها (CDC) أن تطبيق بروتوكولات جديدة للتحكم في العدوى داخل المختبرات الطبية، والتي تشمل استخدام تقنيات تعقيم متقدمة وتدريب مكثف للموظفين على التعامل مع العينات عالية الخطورة، قد أسفر عن انخفاض ملحوظ بنسبة 30% في حوادث العدوى المرتبطة بالمختبرات خلال العام الماضي. هذه النتائج تدعم التوسع في تبني هذه الإجراءات على نطاق أوسع لتعزيز بيئة عمل أكثر أماناً وحماية الصحة العامة.",
-    image: "https://images.unsplash.com/photo-1628005391696-1502f5a6064f?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  }
-];
-
-        // Research Data - 100 entries
-        const allResearchData = [
-            { name: "تأثير بروتوكولات التعقيم الجديدة على العدوى المكتسبة من المستشفيات", year: 2026, field: "مكافحة العدوى", summary: "دراسة شاملة لتقييم فعالية أساليب التعقيم الحديثة في خفض معدلات العدوى بالمرافق الصحية.", link: "https://pubmed.ncbi.nlm.nih.gov/38210001/" },
-            { name: "تحليل جيني لمقاومة البكتيريا المعوية للمضادات الحيوية", year: 2025, field: "مقاومة المضادات الحيوية", summary: "تحديد الجينات المسؤولة عن مقاومة المضادات الحيوية في سلالات بكتيرية شائعة معوية وكيفية انتشارها.", link: "https://pubmed.ncbi.nlm.nih.gov/38210002/" },
-            { name: "ابتكارات في التعبئة والتغليف الذكي لضمان سلامة الأغذية", year: 2026, field: "سلامة الغذاء", summary: "مراجعة لأحدث التقنيات في التعبئة الذكية التي تكشف عن تلف الطعام أو تلوثه مبكرًا.", link: "https://pubmed.ncbi.nlm.nih.gov/38210003/" },
-            { name: "دور الذكاء الاصطناعي في التنبؤ بتفشي الأمراض المعدية", year: 2024, field: "علم الأوبئة", summary: "استخدام نماذج الذكاء الاصطناعي لتحليل البيانات الوبائية والتنبؤ بانتشار الأوبئة مبكرًا.", link: "https://pubmed.ncbi.nlm.nih.gov/38210004/" },
-            { name: "تقييم برامج التوعية الصحية لمكافحة السلوكيات الخطرة", year: 2025, field: "صحة عامة", summary: "دراسة لفعالية حملات التوعية في تغيير السلوكيات التي تزيد من خطر الإصابة بالأمراض.", link: "https://pubmed.ncbi.nlm.nih.gov/38210005/" },
-            { name: "Comparison of Rapid Diagnostic Tests for COVID-19 Variants", year: 2026, field: "مكافحة العدوى", summary: "An evaluation of the accuracy and speed of various rapid antigen tests for newly emerging COVID-19 variants.", link: "https://pubmed.ncbi.nlm.nih.gov/38210006/" },
-            { name: "Mechanisms of Vancomycin Resistance in Staphylococcus aureus", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Investigating the molecular pathways leading to vancomycin resistance in clinical isolates of S. aureus.", link: "https://pubmed.ncbi.nlm.nih.gov/38210007/" },
-            { name: "Blockchain Technology for Enhanced Food Supply Chain Traceability", year: 2026, field: "سلامة الغذاء", summary: "Exploring the application of blockchain to improve transparency and traceability in food supply chains.", link: "https://pubmed.ncbi.nlm.nih.gov/38210008/" },
-            { name: "Public Health Interventions for Climate Change-Related Diseases", year: 2024, field: "صحة عامة", summary: "Examining strategies to mitigate the impact of climate change on infectious disease patterns.", link: "https://pubmed.ncbi.nlm.nih.gov/38210009/" },
-            { name: "Efficacy of Hand Hygiene Compliance Monitoring Systems in Hospitals", year: 2025, field: "مكافحة العدوى", summary: "A study on the impact of automated hand hygiene monitoring systems on healthcare worker compliance.", link: "https://pubmed.ncbi.nlm.nih.gov/38210010/" },
-            { name: "Novel Antifungal Agents for Drug-Resistant Candida Infections", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Development and testing of new compounds active against fluconazole-resistant Candida species.", link: "https://pubmed.ncbi.nlm.nih.gov/38210011/" },
-            { name: "Risk Assessment of Microplastic Contamination in Seafood", year: 2025, field: "سلامة الغذاء", summary: "Evaluating the prevalence and potential health risks associated with microplastic ingestion from seafood.", link: "https://pubmed.ncbi.nlm.nih.gov/38210012/" },
-            { name: "Mental Health Impact of Pandemic Lockdowns on Adolescents", year: 2024, field: "صحة عامة", summary: "A longitudinal study assessing the psychological effects of COVID-19 lockdowns on adolescent populations.", link: "https://pubmed.ncbi.nlm.nih.gov/38210013/" },
-            { name: "Advanced Air Filtration Systems for Airborne Pathogen Control", year: 2026, field: "مكافحة العدوى", summary: "Research on the efficiency of new HVAC systems in filtering viral and bacterial aerosols in public spaces.", link: "https://pubmed.ncbi.nlm.nih.gov/38210014/" },
-            { name: "CRISPR-Cas9 for Reversing Antibiotic Resistance in Bacteria", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Exploring genetic editing technologies to disable resistance genes in pathogenic bacteria.", link: "https://pubmed.ncbi.nlm.nih.gov/38210015/" },
-            { name: "Development of Biosensors for Real-time Foodborne Pathogen Detection", year: 2026, field: "سلامة الغذاء", summary: "Creating rapid, on-site detection methods for common foodborne pathogens like Salmonella and E. coli.", link: "https://pubmed.ncbi.nlm.nih.gov/38210016/" },
-            { name: "Global Burden of Non-Communicable Diseases in Low-Income Countries", year: 2024, field: "صحة عامة", summary: "An epidemiological study on the rising prevalence of NCDs and their impact on public health in developing nations.", link: "https://pubmed.ncbi.nlm.nih.gov/38210017/" },
-            { name: "Impact of Telemedicine on Infection Control Practices", year: 2025, field: "مكافحة العدوى", summary: "Assessing how virtual care models influence the prevention and spread of infections.", link: "https://pubmed.ncbi.nlm.nih.gov/38210018/" },
-            { name: "New Vaccine Strategies Against Multi-Drug Resistant Tuberculosis", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Research into novel vaccine candidates for protection against drug-resistant strains of Mycobacterium tuberculosis.", link: "https://pubmed.ncbi.nlm.nih.gov/38210019/" },
-            { name: "Effect of Pesticide Residues on Children's Health", year: 2025, field: "سلامة الغذاء", summary: "A study investigating the correlation between dietary exposure to pesticides and developmental outcomes in children.", link: "https://pubmed.ncbi.nlm.nih.gov/38210020/" },
-            { name: "Public Health Policy for Dengue Fever Prevention in Urban Areas", year: 2024, field: "علم الأوبئة", summary: "Evaluating the effectiveness of public health campaigns and mosquito control programs for dengue in cities.", link: "https://pubmed.ncbi.nlm.nih.gov/38210021/" },
-            { name: "Strategies for Combating Hospital-Acquired Pneumonia", year: 2026, field: "مكافحة العدوى", summary: "Best practices and innovative approaches to reduce the incidence of ventilator-associated pneumonia (VAP).", link: "https://pubmed.ncbi.nlm.nih.gov/38210022/" },
-            { name: "The Role of Phage Therapy in Treating Bacterial Biofilms", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Investigating bacteriophages as an alternative treatment for chronic infections involving antibiotic-resistant biofilms.", link: "https://pubmed.ncbi.nlm.nih.gov/38210023/" },
-            { name: "Impact of Climate Change on Food Security and Nutritional Health", year: 2026, field: "سلامة الغذاء", summary: "Analyzing the effects of changing climatic patterns on agricultural yields and global food supply, and subsequent health outcomes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210024/" },
-            { name: "Epidemiology of Zoonotic Diseases in Southeast Asia", year: 2024, field: "علم الأوبئة", summary: "Mapping the spread and risk factors of diseases transmitted from animals to humans in the region.", link: "https://pubmed.ncbi.nlm.nih.gov/38210025/" },
-            { name: "Advanced Disinfection Technologies for Operating Rooms", year: 2025, field: "مكافحة العدوى", summary: "Evaluation of UV-C light and hydrogen peroxide vapor systems for terminal disinfection in surgical environments.", link: "https://pubmed.ncbi.nlm.nih.gov/38210026/" },
-            { name: "Predicting Antimicrobial Resistance Genes Using Machine Learning", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Developing AI models to identify and predict the emergence of new resistance genes from genomic data.", link: "https://pubmed.ncbi.nlm.nih.gov/38210027/" },
-            { name: "Food Fraud Detection: New Spectroscopic Methods", year: 2025, field: "سلامة الغذاء", summary: "Application of advanced spectroscopic techniques to identify adulteration and mislabeling in food products.", link: "https://pubmed.ncbi.nlm.nih.gov/38210028/" },
-            { name: "Community-Based Interventions for Diabetes Prevention", year: 2024, field: "صحة عامة", summary: "Assessing the effectiveness of local programs in promoting healthy lifestyles to reduce diabetes incidence.", link: "https://pubmed.ncbi.nlm.nih.gov/38210029/" },
-            { name: "Role of Probiotics in Preventing Clostridium difficile Infection", year: 2026, field: "مكافحة العدوى", summary: "Clinical trials investigating the use of specific probiotic strains to reduce C. difficile recurrence.", link: "https://pubmed.ncbi.nlm.nih.gov/38210030/" },
-            { name: "Targeting Persister Cells to Overcome Antibiotic Tolerance", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Research into strategies to eliminate dormant bacterial cells that evade antibiotic treatment.", link: "https://pubmed.ncbi.nlm.nih.gov/38210031/" },
-            { name: "Foodborne Outbreak Investigation: A Data Science Approach", year: 2026, field: "سلامة الغذاء", summary: "Utilizing big data analytics to rapidly identify sources and spread patterns of foodborne illnesses.", link: "https://pubmed.ncbi.nlm.nih.gov/38210032/" },
-            { name: "Environmental Factors Influencing Childhood Asthma Prevalence", year: 2024, field: "صحة عامة", summary: "A study on air pollution, indoor allergens, and their contribution to asthma rates in urban children.", link: "https://pubmed.ncbi.nlm.nih.gov/38210033/" },
-            { name: "Infection Control in Long-Term Care Facilities for the Elderly", year: 2025, field: "مكافحة العدوى", summary: "Developing tailored infection prevention strategies for vulnerable populations in nursing homes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210034/" },
-            { name: "Understanding Cross-Resistance Mechanisms in Gram-Negative Bacteria", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Molecular analysis of how bacteria develop resistance to multiple classes of antibiotics simultaneously.", link: "https://pubmed.ncbi.nlm.nih.gov/38210035/" },
-            { name: "Pesticide Use in Agriculture and its Impact on Biodiversity", year: 2025, field: "سلامة الغذاء", summary: "Assessing the ecological and indirect human health consequences of widespread pesticide application.", link: "https://pubmed.ncbi.nlm.nih.gov/38210036/" },
-            { name: "Global Health Security: Preparing for Future Pandemics", year: 2024, field: "علم الأوبئة", summary: "Policy recommendations and strategic planning for enhancing global preparedness and response to emerging infectious threats.", link: "https://pubmed.ncbi.nlm.nih.gov/38210037/" },
-            { name: "The Role of AI in Predicting Nosocomial Infections", year: 2026, field: "مكافحة العدوى", summary: "Machine learning algorithms to predict which patients are at highest risk for hospital-acquired infections.", link: "https://pubmed.ncbi.nlm.nih.gov/38210038/" },
-            { name: "New Drug Discovery Approaches for Multidrug-Resistant Bacteria", year: 2025, field: "مقاومة المضادات الحيوية", summary: "High-throughput screening and rational design techniques for identifying novel antibacterial agents.", link: "https://pubmed.ncbi.nlm.nih.gov/38210039/" },
-            { name: "Monitoring Heavy Metal Contamination in Freshwater Fish", year: 2026, field: "سلامة الغذاء", summary: "A surveillance study on levels of mercury, lead, and cadmium in fish from various freshwater sources.", link: "https://pubmed.ncbi.nlm.nih.gov/38210040/" },
-            { name: "Impact of Urban Green Spaces on Public Mental Health", year: 2024, field: "صحة عامة", summary: "Research exploring the psychological benefits and stress reduction associated with access to urban parks and nature.", link: "https://pubmed.ncbi.nlm.nih.gov/38210041/" },
-            { name: "Environmental Cleaning Protocols and Infection Rates", year: 2025, field: "مكافحة العدوى", summary: "Study on the correlation between thorough environmental cleaning and reduced infection rates in healthcare settings.", link: "https://pubmed.ncbi.nlm.nih.gov/38210042/" },
-            { name: "Nanotechnology in Combating Antimicrobial Resistance", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Review of nanoparticles as delivery systems for antibiotics or as intrinsic antibacterial agents.", link: "https://pubmed.ncbi.nlm.nih.gov/38210043/" },
-            { name: "Food Allergy Management in Schools: Best Practices", year: 2025, field: "سلامة الغذاء", summary: "Guidelines and protocols for schools to safely manage students with food allergies.", link: "https://pubmed.ncbi.nlm.nih.gov/38210044/" },
-            { name: "Effectiveness of Influenza Vaccination Campaigns in the Elderly", year: 2024, field: "صحة عامة", summary: "Analyzing the impact and uptake of annual flu vaccination programs among older adults.", link: "https://pubmed.ncbi.nlm.nih.gov/38210045/" },
-            { name: "Prevention of Surgical Site Infections with Novel Dressings", year: 2026, field: "مكافحة العدوى", summary: "Evaluation of antimicrobial-impregnated dressings in preventing post-operative wound infections.", link: "https://pubmed.ncbi.nlm.nih.gov/38210046/" },
-            { name: "Emergence of Colistin Resistance in Animal Agriculture", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Tracking the development and spread of colistin resistance in bacteria from livestock and its implications for human health.", link: "https://pubmed.ncbi.nlm.nih.gov/38210047/" },
-            { name: "Food Irradiation Technology for Pathogen Reduction", year: 2026, field: "سلامة الغذاء", summary: "Assessing the safety and effectiveness of food irradiation in extending shelf-life and eliminating harmful microbes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210048/" },
-            { name: "Public Health Approaches to Combat Opioid Epidemic", year: 2024, field: "صحة عامة", summary: "Strategies involving harm reduction, treatment access, and prevention programs to address the opioid crisis.", link: "https://pubmed.ncbi.nlm.nih.gov/38210049/" },
-            { name: "Impact of Ventilation Systems on Airborne Infection Transmission", year: 2025, field: "مكافحة العدوى", summary: "Research into optimal ventilation rates and designs to minimize the spread of airborne pathogens indoors.", link: "https://pubmed.ncbi.nlm.nih.gov/38210050/" },
-            { name: "Antimicrobial Peptides as a Novel Class of Antibiotics", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Exploring naturally occurring peptides with broad-spectrum antimicrobial activity as therapeutic agents.", link: "https://pubmed.ncbi.nlm.nih.gov/38210051/" },
-            { name: "Detecting Aflatoxins in Cereal Grains: Advanced Methods", year: 2025, field: "سلامة الغذاء", summary: "New techniques for rapid and sensitive detection of carcinogenic aflatoxins in staple food crops.", link: "https://pubmed.ncbi.nlm.nih.gov/38210052/" },
-            { name: "Health Equity and Access to Healthcare in Rural Areas", year: 2024, field: "صحة عامة", summary: "Investigating disparities in healthcare access and outcomes for populations in remote and rural communities.", link: "https://pubmed.ncbi.nlm.nih.gov/38210053/" },
-            { name: "Infection Prevention in Dental Settings", year: 2026, field: "مكافحة العدوى", summary: "Guidelines and best practices for preventing cross-contamination and transmission of infections in dental clinics.", link: "https://pubmed.ncbi.nlm.nih.gov/38210054/" },
-            { name: "Drug Resistance in Malaria Parasites: Global Trends", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Monitoring the spread of antimalarial drug resistance in Plasmodium falciparum and vivax across endemic regions.", link: "https://pubmed.ncbi.nlm.nih.gov/38210055/" },
-            { name: "Food Safety Culture in Restaurants and Catering Services", year: 2026, field: "سلامة الغذاء", summary: "Assessing the importance of organizational culture in promoting and maintaining high food safety standards.", link: "https://pubmed.ncbi.nlm.nih.gov/38210056/" },
-            { name: "Impact of Climate Change on Vector-Borne Diseases", year: 2024, field: "علم الأوبئة", summary: "Examining how rising temperatures and altered rainfall patterns influence the geographic range and incidence of diseases like Zika and Lyme.", link: "https://pubmed.ncbi.nlm.nih.gov/38210057/" },
-            { name: "Sterilization of Medical Devices: Challenges and Solutions", year: 2025, field: "مكافحة العدوى", summary: "Addressing the complexities of sterilizing heat-sensitive and complex medical instruments.", link: "https://pubmed.ncbi.nlm.nih.gov/38210058/" },
-            { name: "Antimicrobial Stewardship Programs in Veterinary Medicine", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Implementing guidelines for responsible antibiotic use in animals to reduce the development of resistance.", link: "https://pubmed.ncbi.nlm.nih.gov/38210059/" },
-            { name: "Genetic Modification of Crops for Enhanced Nutritional Value", year: 2025, field: "سلامة الغذاء", summary: "Exploring biotechnology approaches to improve the vitamin and mineral content of staple foods.", link: "https://pubmed.ncbi.nlm.nih.gov/38210060/" },
-            { name: "Childhood Immunization Programs: Coverage and Hesitancy", year: 2024, field: "صحة عامة", summary: "Analysis of vaccination rates and factors contributing to vaccine hesitancy in pediatric populations.", link: "https://pubmed.ncbi.nlm.nih.gov/38210061/" },
-            { name: "Preventing Healthcare-Associated UTIs: Best Practices", year: 2026, field: "مكافحة العدوى", summary: "Strategies to reduce catheter-associated urinary tract infections (CAUTI) in inpatient settings.", link: "https://pubmed.ncbi.nlm.nih.gov/38210062/" },
-            { name: "Mechanisms of Biofilm Formation in Antibiotic Resistance", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Understanding how bacterial biofilms contribute to increased resistance to antimicrobial agents.", link: "https://pubmed.ncbi.nlm.nih.gov/38210063/" },
-            { name: "Emerging Food Processing Technologies for Safety and Quality", year: 2026, field: "سلامة الغذاء", summary: "Review of novel methods like high-pressure processing and pulsed electric fields in food production.", link: "https://pubmed.ncbi.nlm.nih.gov/38210064/" },
-            { name: "Occupational Health Risks in Healthcare Workers", year: 2024, field: "صحة عامة", summary: "Study on exposure to infectious agents, chemicals, and burnout among healthcare professionals.", link: "https://pubmed.ncbi.nlm.nih.gov/38210065/" },
-            { name: "Role of Environmental Surveillance in Outbreak Detection", year: 2025, field: "مكافحة العدوى", summary: "Using wastewater and surface sampling to detect circulating pathogens before clinical outbreaks.", link: "https://pubmed.ncbi.nlm.nih.gov/38210066/" },
-            { name: "Drug Repurposing for Antibiotic-Resistant Infections", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Investigating existing non-antibiotic drugs for potential antibacterial activity against resistant strains.", link: "https://pubmed.ncbi.nlm.nih.gov/38210067/" },
-            { name: "Traceability Systems for Organic Food Products", year: 2025, field: "سلامة الغذاء", summary: "Developing robust systems to ensure the authenticity and safety of organic produce.", link: "https://pubmed.ncbi.nlm.nih.gov/38210068/" },
-            { name: "Public Health Response to Natural Disasters", year: 2024, field: "صحة عامة", summary: "Strategies for mitigating health impacts, managing outbreaks, and providing care in post-disaster scenarios.", link: "https://pubmed.ncbi.nlm.nih.gov/38210069/" },
-            { name: "Infection Prevention in Schools and Daycare Centers", year: 2026, field: "مكافحة العدوى", summary: "Developing guidelines and educational programs to minimize infectious disease transmission in child settings.", link: "https://pubmed.ncbi.nlm.nih.gov/38210070/" },
-            { name: "Mechanisms of Efflux Pump Mediated Antibiotic Resistance", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Detailed study of bacterial efflux pumps that actively transport antibiotics out of the cell, conferring resistance.", link: "https://pubmed.ncbi.nlm.nih.gov/38210071/" },
-            { name: "Nanomaterials for Smart Food Packaging", year: 2026, field: "سلامة الغذاء", summary: "Designing packaging materials with embedded nanosensors that can detect spoilage or pathogens.", link: "https://pubmed.ncbi.nlm.nih.gov/38210072/" },
-            { name: "Adolescent Health and Risky Behaviors: A Longitudinal Study", year: 2024, field: "صحة عامة", summary: "Tracking health outcomes and risk-taking behaviors among adolescents over several years.", link: "https://pubmed.ncbi.nlm.nih.gov/38210073/" },
-            { name: "Reusable Medical Devices: Reprocessing and Sterilization Challenges", year: 2025, field: "مكافحة العدوى", summary: "Ensuring effective cleaning and sterilization of complex reusable devices to prevent cross-infection.", link: "https://pubmed.ncbi.nlm.nih.gov/38210074/" },
-            { name: "Impact of Antibiotics in Livestock on Human Gut Microbiome", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Investigating the transfer of antibiotic resistance genes from animal gut bacteria to human gut bacteria.", link: "https://pubmed.ncbi.nlm.nih.gov/38210075/" },
-            { name: "Food Additives and Their Long-Term Health Effects", year: 2025, field: "سلامة الغذاء", summary: "Review of scientific evidence on the safety and potential adverse effects of common food additives.", link: "https://pubmed.ncbi.nlm.nih.gov/38210076/" },
-            { name: "The Role of Social Determinants in Health Disparities", year: 2024, field: "صحة عامة", summary: "Examining how socioeconomic status, education, and environment contribute to unequal health outcomes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210077/" },
-            { name: "Airborne Infection Isolation Rooms: Design and Efficacy", year: 2026, field: "مكافحة العدوى", summary: "Optimizing negative pressure room design and ventilation for containing highly infectious airborne pathogens.", link: "https://pubmed.ncbi.nlm.nih.gov/38210078/" },
-            { name: "Emerging Alternatives to Traditional Antibiotics", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Research into innovative therapies such as CRISPR, phage therapy, and immunomodulators.", link: "https://pubmed.ncbi.nlm.nih.gov/38210079/" },
-            { name: "Microbial Risk Assessment for Fresh Produce", year: 2026, field: "سلامة الغذاء", summary: "Quantifying the risks of pathogenic contamination in fruits and vegetables from farm to fork.", link: "https://pubmed.ncbi.nlm.nih.gov/38210080/" },
-            { name: "Health Promotion Strategies for Chronic Disease Management", year: 2024, field: "صحة عامة", summary: "Developing and evaluating programs that empower individuals to manage conditions like heart disease and diabetes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210081/" },
-            { name: "Control of Legionella in Water Systems of Healthcare Facilities", year: 2025, field: "مكافحة العدوى", summary: "Protocols and technologies for preventing Legionnaires' disease outbreaks from hospital water sources.", link: "https://pubmed.ncbi.nlm.nih.gov/38210082/" },
-            { name: "Horizontal Gene Transfer of Antibiotic Resistance in Soil Microbes", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Study of how resistance genes spread among bacteria in environmental reservoirs like soil.", link: "https://pubmed.ncbi.nlm.nih.gov/38210083/" },
-            { name: "Food Labeling Regulations and Consumer Understanding", year: 2025, field: "سلامة الغذاء", summary: "Research on how clear and effective food labeling can help consumers make healthier and safer choices.", link: "https://pubmed.ncbi.nlm.nih.gov/38210084/" },
-            { name: "Global Health Diplomacy and International Collaboration", year: 2024, field: "صحة عامة", summary: "The role of international agreements and partnerships in addressing global health challenges.", link: "https://pubmed.ncbi.nlm.nih.gov/38210085/" },
-            { name: "Hand Hygiene Education Programs for Healthcare Professionals", year: 2026, field: "مكافحة العدوى", summary: "Evaluating the effectiveness of different educational interventions in improving hand hygiene compliance.", link: "https://pubmed.ncbi.nlm.nih.gov/38210086/" },
-            { name: "Mechanisms of Quinolone Resistance in E. coli", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Investigating the genetic mutations and enzymatic modifications conferring resistance to quinolone antibiotics in E. coli.", link: "https://pubmed.ncbi.nlm.nih.gov/38210087/" },
-            { name: "Impact of Food Safety Audits on Restaurant Compliance", year: 2026, field: "سلامة الغذاء", summary: "Analyzing the effect of regular health inspections and audits on food safety practices in food service establishments.", link: "https://pubmed.ncbi.nlm.nih.gov/38210088/" },
-            { name: "The Role of Lifestyle Interventions in Preventing Type 2 Diabetes", year: 2024, field: "صحة عامة", summary: "A comprehensive review of the efficacy of diet and exercise programs in reducing the risk of developing type 2 diabetes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210089/" },
-            { name: "Infection Control in Hemodialysis Units", year: 2025, field: "مكافحة العدوى", summary: "Specific protocols and guidelines for preventing bloodstream infections and other complications in dialysis patients.", link: "https://pubmed.ncbi.nlm.nih.gov/38210090/" },
-            { name: "Genetic Basis of Multi-Drug Resistance in Salmonella", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Mapping the genetic elements responsible for multidrug resistance in various Salmonella serotypes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210091/" },
-            { name: "Assessing Consumer Perceptions of Food Safety Risks", year: 2025, field: "سلامة الغذاء", summary: "Survey-based research on public awareness and concerns regarding foodborne hazards.", link: "https://pubmed.ncbi.nlm.nih.gov/38210092/" },
-            { name: "Effectiveness of School-Based Health Programs", year: 2024, field: "صحة عامة", summary: "Evaluating programs that address nutrition, physical activity, and mental health in school-aged children.", link: "https://pubmed.ncbi.nlm.nih.gov/38210093/" },
-            { name: "Strategies for Combating Fungal Infections in Immunocompromised Patients", year: 2026, field: "مكافحة العدوى", summary: "New approaches to prevent and treat invasive fungal infections in patients with weakened immune systems.", link: "https://pubmed.ncbi.nlm.nih.gov/38210094/" },
-            { name: "Role of Bacteriocins in the Fight Against Superbugs", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Exploring antimicrobial peptides produced by bacteria themselves as potential therapeutic agents.", link: "https://pubmed.ncbi.nlm.nih.gov/38210095/" },
-            { name: "Food Waste Reduction and its Public Health Benefits", year: 2026, field: "سلامة الغذاء", summary: "Analyzing the health and environmental advantages of minimizing food waste at various stages of the food chain.", link: "https://pubmed.ncbi.nlm.nih.gov/38210096/" },
-            { name: "Impact of Air Quality on Respiratory Health in Urban Areas", year: 2024, field: "صحة عامة", summary: "Study on the correlation between urban air pollution levels and the incidence of respiratory diseases.", link: "https://pubmed.ncbi.nlm.nih.gov/38210097/" },
-            { name: "Optimizing Disinfection of Endoscopes to Prevent Cross-Contamination", year: 2025, field: "مكافحة العدوى", summary: "Research on advanced automated reprocessing systems and protocols for flexible endoscopes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210098/" },
-            { name: "Antimicrobial Resistance in Aquaculture: A Global Threat", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Investigating the prevalence of antibiotic resistance in fish farms and its potential transfer to humans.", link: "https://pubmed.ncbi.nlm.nih.gov/38210099/" },
-            { name: "Rapid Detection Methods for Allergens in Packaged Foods", year: 2025, field: "سلامة الغذاء", summary: "Development of quick and accurate tests to identify undeclared allergens in processed food products.", link: "https://pubmed.ncbi.nlm.nih.gov/38210100/" },
-            { name: "The Effectiveness of Smoking Cessation Programs", year: 2024, field: "صحة عامة", summary: "An evaluation of different interventions and support systems designed to help individuals quit smoking.", link: "https://pubmed.ncbi.nlm.nih.gov/38210101/" },
-            { name: "Strategies for Preventing Catheter-Related Bloodstream Infections", year: 2026, field: "مكافحة العدوى", summary: "Best practices for insertion, maintenance, and removal of central venous catheters to minimize infection risk.", link: "https://pubmed.ncbi.nlm.nih.gov/38210102/" },
-            { name: "Understanding the Evolution of Antibiotic Resistance in Gram-Positive Bacteria", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Genetic and phenotypic analysis of how Gram-positive bacteria acquire and disseminate resistance mechanisms.", link: "https://pubmed.ncbi.nlm.nih.gov/38210103/" },
-            { name: "Food Safety in Street Food Vendors: A Public Health Challenge", year: 2026, field: "سلامة الغذاء", summary: "Addressing the unique food safety risks associated with street food preparation and vending in urban areas.", link: "https://pubmed.ncbi.nlm.nih.gov/38210104/" },
-            { name: "Impact of Sleep Deprivation on Public Health and Safety", year: 2024, field: "صحة عامة", summary: "Examining the widespread consequences of insufficient sleep on physical health, mental well-being, and accident rates.", link: "https://pubmed.ncbi.nlm.nih.gov/38210105/" },
-            { name: "Advanced Technologies for Hospital Surface Disinfection", year: 2025, field: "مكافحة العدوى", summary: "Evaluation of novel automated disinfection robots and persistent antimicrobial coatings for hospital environments.", link: "https://pubmed.ncbi.nlm.nih.gov/38210106/" },
-            { name: "Genomic Epidemiology of Methicillin-Resistant Staphylococcus aureus (MRSA)", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Using whole-genome sequencing to track the spread and evolution of MRSA strains in various settings.", link: "https://pubmed.ncbi.nlm.nih.gov/38210107/" },
-            { name: "Role of Artificial Intelligence in Food Quality Control", year: 2025, field: "سلامة الغذاء", summary: "Application of AI and machine vision systems for automated inspection and quality assessment of food products.", link: "https://pubmed.ncbi.nlm.nih.gov/38210108/" },
-            { name: "Public Health Ethics in Pandemic Response", year: 2024, field: "صحة عامة", summary: "An examination of ethical considerations in decision-making during public health emergencies, including resource allocation and individual liberties.", link: "https://pubmed.ncbi.nlm.nih.gov/38210109/" },
-            { name: "Developing Rapid Diagnostics for Drug-Resistant Tuberculosis", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Innovation in diagnostic tools that can quickly identify drug-resistant Mycobacterium tuberculosis strains.", link: "https://pubmed.ncbi.nlm.nih.gov/38210110/" },
-            { name: "Consumer Behavior and Food Safety Practices at Home", year: 2025, field: "سلامة الغذاء", summary: "Research on common consumer errors in food handling and preparation at home that lead to foodborne illness.", link: "https://pubmed.ncbi.nlm.nih.gov/38210111/" },
-            { name: "Impact of Physical Activity on Cardiovascular Health", year: 2024, field: "صحة عامة", summary: "A review of the benefits of regular exercise in preventing and managing cardiovascular diseases.", link: "https://pubmed.ncbi.nlm.nih.gov/38210112/" },
-            { name: "Infection Prevention in Operating Theaters: Beyond Sterilization", year: 2026, field: "مكافحة العدوى", summary: "Comprehensive approach to surgical infection prevention including air quality, personnel practices, and instrument handling.", link: "https://pubmed.ncbi.nlm.nih.gov/38210113/" },
-            { name: "Antibiotic Resistance in Aquatic Environments", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Investigating the presence and spread of antibiotic resistance genes in rivers, lakes, and oceans due to human activities.", link: "https://pubmed.ncbi.nlm.nih.gov/38210114/" },
-            { name: "Food Allergens Management in Manufacturing Facilities", year: 2026, field: "سلامة الغذاء", summary: "Best practices for preventing cross-contamination with allergens in food production environments.", link: "https://pubmed.ncbi.nlm.nih.gov/38210115/" },
-            { name: "Public Health Campaigns for Cancer Prevention", year: 2024, field: "صحة عامة", summary: "Evaluation of awareness campaigns targeting modifiable risk factors for cancer, such as diet, smoking, and sun exposure.", link: "https://pubmed.ncbi.nlm.nih.gov/38210116/" },
-            { name: "Role of Hand Sanitizers in Reducing Healthcare-Associated Infections", year: 2025, field: "مكافحة العدوى", summary: "Assessing the effectiveness of alcohol-based hand rub programs in reducing pathogen transmission in hospitals.", link: "https://pubmed.ncbi.nlm.nih.gov/38210117/" },
-            { name: "Next-Generation Sequencing for Antimicrobial Resistance Surveillance", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Using advanced genomic technologies for rapid and comprehensive detection of resistance determinants in pathogens.", link: "https://pubmed.ncbi.nlm.nih.gov/38210118/" },
-            { name: "Food Authenticity Testing: Detecting Adulteration and Fraud", year: 2025, field: "سلامة الغذاء", summary: "Methods for verifying the origin, composition, and quality of food products to combat food fraud.", link: "https://pubmed.ncbi.nlm.nih.gov/38210119/" },
-            { name: "Health Literacy and Its Impact on Public Health Outcomes", year: 2024, field: "صحة عامة", summary: "Investigating how individuals' ability to understand health information affects their health decisions and outcomes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210120/" },
-            { name: "Infection Control in Dialysis Centers: A Comprehensive Review", year: 2026, field: "مكافحة العدوى", summary: "Review of the latest guidelines and emerging strategies for preventing infections in hemodialysis and peritoneal dialysis facilities.", link: "https://pubmed.ncbi.nlm.nih.gov/38210121/" },
-            { name: "Alternative Therapeutic Strategies for Carbapenem-Resistant Enterobacteriaceae (CRE)", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Exploring novel drug combinations, phages, and immunotherapy for highly resistant CRE infections.", link: "https://pubmed.ncbi.nlm.nih.gov/38210122/" },
-            { name: "Food Safety Training Programs for Food Handlers: Efficacy Study", year: 2026, field: "سلامة الغذاء", summary: "Evaluating the impact of different training methods on improving knowledge and practices of food safety among food service workers.", link: "https://pubmed.ncbi.nlm.nih.gov/38210123/" },
-            { name: "The Role of Early Childhood Education in Promoting Healthy Habits", year: 2024, field: "صحة عامة", summary: "Research on how health education interventions in preschool and early elementary years influence long-term health behaviors.", link: "https://pubmed.ncbi.nlm.nih.gov/38210124/" },
-            { name: "Antimicrobial Coatings for High-Touch Surfaces in Healthcare", year: 2025, field: "مكافحة العدوى", summary: "Development and evaluation of surface coatings that actively kill or inhibit microbial growth on frequently touched objects.", link: "https://pubmed.ncbi.nlm.nih.gov/38210125/" },
-            { name: "Impact of Agricultural Practices on Antibiotic Resistance in the Environment", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Investigating how the use of antibiotics in agriculture contributes to the spread of resistance genes in soil and water.", link: "https://pubmed.ncbi.nlm.nih.gov/38210126/" },
-            { name: "Food Waste Valorization: Converting Waste to Value-Added Products", year: 2025, field: "سلامة الغذاء", summary: "Research into innovative methods for transforming food waste into new food ingredients, biofuels, or other useful materials.", link: "https://pubmed.ncbi.nlm.nih.gov/38210127/" },
-            { name: "Digital Health Interventions for Chronic Disease Self-Management", year: 2024, field: "صحة عامة", summary: "Evaluation of mobile apps, wearable devices, and online platforms in helping patients manage chronic conditions effectively.", link: "https://pubmed.ncbi.nlm.nih.gov/38210128/" }
+            {
+                id: 1,
+                title: "ابتكار جديد يعد بالكبح جماح سلالات البكتيريا المقاومة للمضادات الحيوية",
+                summary: "أعلن باحثون من المعهد العالمي لمقاومة المضادات الحيوية اليوم عن اكتشاف مركب كيميائي جديد يظهر فعالية واعدة ضد سلالات البكتيريا المتعددة المقاومة للأدوية، بما في ذلك الميثيسيلين المقاومة للمكورات العنقودية الذهبية (MRSA). يعمل المركب بطريقة مبتكرة تستهدف مسارات استقلابية غير مستخدمة من قبل المضادات الحيوية الحالية، مما يقلل من احتمالية تطور مقاومة جديدة. التحدي الآن يكمن في التجارب السريرية الواسعة النطاق التي من المتوقع أن تبدأ في أوائل عام 2027.",
+                image: "https://images.unsplash.com/photo-1579165466511-71e5331940a5?w=600" // Specific image for infection control/lab
+            },
+            {
+                id: 2,
+                title: "تقنية رصد جديدة بالذكاء الاصطناعي تعزز سلامة الأغذية العالمية",
+                summary: "كشفت منظمة الصحة العالمية عن إطلاق نظام جديد مدعوم بالذكاء الاصطناعي لرصد سلاسل الإمداد الغذائي عالمياً، بهدف الكشف المبكر عن الملوثات المحتملة ومسببات الأمراض المنقولة بالغذاء. يستخدم النظام خوارزميات متقدمة لتحليل بيانات ضخمة من مصادر متعددة، بما في ذلك تقارير المختبرات، بيانات الطقس، ومعلومات الشحن، للتنبؤ بالمخاطر قبل أن تتسبب في تفشي الأمراض. هذا النظام يمثل نقلة نوعية في حماية المستهلكين ويساعد الدول على اتخاذ إجراءات وقائية استباقية.",
+                image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600" // Specific image for food safety/nutrition
+            },
+            {
+                id: 3,
+                title: "بروتوكولات مطورة للتحكم بالعدوى في المختبرات الطبية تقلل المخاطر بنسبة 30%",
+                summary: "أظهرت دراسة حديثة أجرتها مراكز مكافحة الأمراض والوقاية منها (CDC) أن تطبيق بروتوكولات جديدة للتحكم في العدوى داخل المختبرات الطبية، والتي تشمل استخدام تقنيات تعقيم متقدمة وتدريب مكثف للموظفين على التعامل مع العينات عالية الخطورة، قد أسفر عن انخفاض ملحوظ بنسبة 30% في حوادث العدوى المرتبطة بالمختبرات خلال العام الماضي. هذه النتائج تدعم التوسع في تبني هذه الإجراءات على نطاق أوسع لتعزيز بيئة عمل أكثر أماناً وحماية الصحة العامة.",
+                image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600" // Specific image for public health/awareness
+            }
         ];
 
+        // Research Data - 100 entries with unique IDs
+        const allResearchData = [
+            { id: 'res-1', name: "تأثير بروتوكولات التعقيم الجديدة على العدوى المكتسبة من المستشفيات", year: 2026, field: "مكافحة العدوى", summary: "دراسة شاملة لتقييم فعالية أساليب التعقيم الحديثة في خفض معدلات العدوى بالمرافق الصحية.", link: "https://pubmed.ncbi.nlm.nih.gov/38210001/" },
+            { id: 'res-2', name: "تحليل جيني لمقاومة البكتيريا المعوية للمضادات الحيوية", year: 2025, field: "مقاومة المضادات الحيوية", summary: "تحديد الجينات المسؤولة عن مقاومة المضادات الحيوية في سلالات بكتيرية شائعة معوية وكيفية انتشارها.", link: "https://pubmed.ncbi.nlm.nih.gov/38210002/" },
+            { id: 'res-3', name: "ابتكارات في التعبئة والتغليف الذكي لضمان سلامة الأغذية", year: 2026, field: "سلامة الغذاء", summary: "مراجعة لأحدث التقنيات في التعبئة الذكية التي تكشف عن تلف الطعام أو تلوثه مبكرًا.", link: "https://pubmed.ncbi.nlm.nih.gov/38210003/" },
+            { id: 'res-4', name: "دور الذكاء الاصطناعي في التنبؤ بتفشي الأمراض المعدية", year: 2024, field: "علم الأوبئة", summary: "استخدام نماذج الذكاء الاصطناعي لتحليل البيانات الوبائية والتنبؤ بانتشار الأوبئة مبكرًا.", link: "https://pubmed.ncbi.nlm.nih.gov/38210004/" },
+            { id: 'res-5', name: "تقييم برامج التوعية الصحية لمكافحة السلوكيات الخطرة", year: 2025, field: "صحة عامة", summary: "دراسة لفعالية حملات التوعية في تغيير السلوكيات التي تزيد من خطر الإصابة بالأمراض.", link: "https://pubmed.ncbi.nlm.nih.gov/38210005/" },
+            { id: 'res-6', name: "Comparison of Rapid Diagnostic Tests for COVID-19 Variants", year: 2026, field: "مكافحة العدوى", summary: "An evaluation of the accuracy and speed of various rapid antigen tests for newly emerging COVID-19 variants.", link: "https://pubmed.ncbi.nlm.nih.gov/38210006/" },
+            { id: 'res-7', name: "Mechanisms of Vancomycin Resistance in Staphylococcus aureus", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Investigating the molecular pathways leading to vancomycin resistance in clinical isolates of S. aureus.", link: "https://pubmed.ncbi.nlm.nih.gov/38210007/" },
+            { id: 'res-8', name: "Blockchain Technology for Enhanced Food Supply Chain Traceability", year: 2026, field: "سلامة الغذاء", summary: "Exploring the application of blockchain to improve transparency and traceability in food supply chains.", link: "https://pubmed.ncbi.nlm.nih.gov/38210008/" },
+            { id: 'res-9', name: "Public Health Interventions for Climate Change-Related Diseases", year: 2024, field: "صحة عامة", summary: "Examining strategies to mitigate the impact of climate change on infectious disease patterns.", link: "https://pubmed.ncbi.nlm.nih.gov/38210009/" },
+            { id: 'res-10', name: "Efficacy of Hand Hygiene Compliance Monitoring Systems in Hospitals", year: 2025, field: "مكافحة العدوى", summary: "A study on the impact of automated hand hygiene monitoring systems on healthcare worker compliance.", link: "https://pubmed.ncbi.nlm.nih.gov/38210010/" },
+            { id: 'res-11', name: "Novel Antifungal Agents for Drug-Resistant Candida Infections", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Development and testing of new compounds active against fluconazole-resistant Candida species.", link: "https://pubmed.ncbi.nlm.nih.gov/38210011/" },
+            { id: 'res-12', name: "Risk Assessment of Microplastic Contamination in Seafood", year: 2025, field: "سلامة الغذاء", summary: "Evaluating the prevalence and potential health risks associated with microplastic ingestion from seafood.", link: "https://pubmed.ncbi.nlm.nih.gov/38210012/" },
+            { id: 'res-13', name: "Mental Health Impact of Pandemic Lockdowns on Adolescents", year: 2024, field: "صحة عامة", summary: "A longitudinal study assessing the psychological effects of COVID-19 lockdowns on adolescent populations.", link: "https://pubmed.ncbi.nlm.nih.gov/38210013/" },
+            { id: 'res-14', name: "Advanced Air Filtration Systems for Airborne Pathogen Control", year: 2026, field: "مكافحة العدوى", summary: "Research on the efficiency of new HVAC systems in filtering viral and bacterial aerosols in public spaces.", link: "https://pubmed.ncbi.nlm.nih.gov/38210014/" },
+            { id: 'res-15', name: "CRISPR-Cas9 for Reversing Antibiotic Resistance in Bacteria", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Exploring genetic editing technologies to disable resistance genes in pathogenic bacteria.", link: "https://pubmed.ncbi.nlm.nih.gov/38210015/" },
+            { id: 'res-16', name: "Development of Biosensors for Real-time Foodborne Pathogen Detection", year: 2026, field: "سلامة الغذاء", summary: "Creating rapid, on-site detection methods for common foodborne pathogens like Salmonella and E. coli.", link: "https://pubmed.ncbi.nlm.nih.gov/38210016/" },
+            { id: 'res-17', name: "Global Burden of Non-Communicable Diseases in Low-Income Countries", year: 2024, field: "صحة عامة", summary: "An epidemiological study on the rising prevalence of NCDs and their impact on public health in developing nations.", link: "https://pubmed.ncbi.nlm.nih.gov/38210017/" },
+            { id: 'res-18', name: "Impact of Telemedicine on Infection Control Practices", year: 2025, field: "مكافحة العدوى", summary: "Assessing how virtual care models influence the prevention and spread of infections.", link: "https://pubmed.ncbi.nlm.nih.gov/38210018/" },
+            { id: 'res-19', name: "New Vaccine Strategies Against Multi-Drug Resistant Tuberculosis", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Research into novel vaccine candidates for protection against drug-resistant strains of Mycobacterium tuberculosis.", link: "https://pubmed.ncbi.nlm.nih.gov/38210019/" },
+            { id: 'res-20', name: "Effect of Pesticide Residues on Children's Health", year: 2025, field: "سلامة الغذاء", summary: "A study investigating the correlation between dietary exposure to pesticides and developmental outcomes in children.", link: "https://pubmed.ncbi.nlm.nih.gov/38210020/" },
+            { id: 'res-21', name: "Public Health Policy for Dengue Fever Prevention in Urban Areas", year: 2024, field: "علم الأوبئة", summary: "Evaluating the effectiveness of public health campaigns and mosquito control programs for dengue in cities.", link: "https://pubmed.ncbi.nlm.nih.gov/38210021/" },
+            { id: 'res-22', name: "Strategies for Combating Hospital-Acquired Pneumonia", year: 2026, field: "مكافحة العدوى", summary: "Best practices and innovative approaches to reduce the incidence of ventilator-associated pneumonia (VAP).", link: "https://pubmed.ncbi.nlm.nih.gov/38210022/" },
+            { id: 'res-23', name: "The Role of Phage Therapy in Treating Bacterial Biofilms", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Investigating bacteriophages as an alternative treatment for chronic infections involving antibiotic-resistant biofilms.", link: "https://pubmed.ncbi.nlm.nih.gov/38210023/" },
+            { id: 'res-24', name: "Impact of Climate Change on Food Security and Nutritional Health", year: 2026, field: "سلامة الغذاء", summary: "Analyzing the effects of changing climatic patterns on agricultural yields and global food supply, and subsequent health outcomes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210024/" },
+            { id: 'res-25', name: "Epidemiology of Zoonotic Diseases in Southeast Asia", year: 2024, field: "علم الأوبئة", summary: "Mapping the spread and risk factors of diseases transmitted from animals to humans in the region.", link: "https://pubmed.ncbi.nlm.nih.gov/38210025/" },
+            { id: 'res-26', name: "Advanced Disinfection Technologies for Operating Rooms", year: 2025, field: "مكافحة العدوى", summary: "Evaluation of UV-C light and hydrogen peroxide vapor systems for terminal disinfection in surgical environments.", link: "https://pubmed.ncbi.nlm.nih.gov/38210026/" },
+            { id: 'res-27', name: "Predicting Antimicrobial Resistance Genes Using Machine Learning", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Developing AI models to identify and predict the emergence of new resistance genes from genomic data.", link: "https://pubmed.ncbi.nlm.nih.gov/38210027/" },
+            { id: 'res-28', name: "Food Fraud Detection: New Spectroscopic Methods", year: 2025, field: "سلامة الغذاء", summary: "Application of advanced spectroscopic techniques to identify adulteration and mislabeling in food products.", link: "https://pubmed.ncbi.nlm.nih.gov/38210028/" },
+            { id: 'res-29', name: "Community-Based Interventions for Diabetes Prevention", year: 2024, field: "صحة عامة", summary: "Assessing the effectiveness of local programs in promoting healthy lifestyles to reduce diabetes incidence.", link: "https://pubmed.ncbi.nlm.nih.gov/38210029/" },
+            { id: 'res-30', name: "Role of Probiotics in Preventing Clostridium difficile Infection", year: 2026, field: "مكافحة العدوى", summary: "Clinical trials investigating the use of specific probiotic strains to reduce C. difficile recurrence.", link: "https://pubmed.ncbi.nlm.nih.gov/38210030/" },
+            { id: 'res-31', name: "Targeting Persister Cells to Overcome Antibiotic Tolerance", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Research into strategies to eliminate dormant bacterial cells that evade antibiotic treatment.", link: "https://pubmed.ncbi.nlm.nih.gov/38210031/" },
+            { id: 'res-32', name: "Foodborne Outbreak Investigation: A Data Science Approach", year: 2026, field: "سلامة الغذاء", summary: "Utilizing big data analytics to rapidly identify sources and spread patterns of foodborne illnesses.", link: "https://pubmed.ncbi.nlm.nih.gov/38210032/" },
+            { id: 'res-33', name: "Environmental Factors Influencing Childhood Asthma Prevalence", year: 2024, field: "صحة عامة", summary: "A study on air pollution, indoor allergens, and their contribution to asthma rates in urban children.", link: "https://pubmed.ncbi.nlm.nih.gov/38210033/" },
+            { id: 'res-34', name: "Infection Control in Long-Term Care Facilities for the Elderly", year: 2025, field: "مكافحة العدوى", summary: "Developing tailored infection prevention strategies for vulnerable populations in nursing homes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210034/" },
+            { id: 'res-35', name: "Understanding Cross-Resistance Mechanisms in Gram-Negative Bacteria", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Molecular analysis of how bacteria develop resistance to multiple classes of antibiotics simultaneously.", link: "https://pubmed.ncbi.nlm.nih.gov/38210035/" },
+            { id: 'res-36', name: "Pesticide Use in Agriculture and its Impact on Biodiversity", year: 2025, field: "سلامة الغذاء", summary: "Assessing the ecological and indirect human health consequences of widespread pesticide application.", link: "https://pubmed.ncbi.nlm.nih.gov/38210036/" },
+            { id: 'res-37', name: "Global Health Security: Preparing for Future Pandemics", year: 2024, field: "علم الأوبئة", summary: "Policy recommendations and strategic planning for enhancing global preparedness and response to emerging infectious threats.", link: "https://pubmed.ncbi.nlm.nih.gov/38210037/" },
+            { id: 'res-38', name: "The Role of AI in Predicting Nosocomial Infections", year: 2026, field: "مكافحة العدوى", summary: "Machine learning algorithms to predict which patients are at highest risk for hospital-acquired infections.", link: "https://pubmed.ncbi.nlm.nih.gov/38210038/" },
+            { id: 'res-39', name: "New Drug Discovery Approaches for Multidrug-Resistant Bacteria", year: 2025, field: "مقاومة المضادات الحيوية", summary: "High-throughput screening and rational design techniques for identifying novel antibacterial agents.", link: "https://pubmed.ncbi.nlm.nih.gov/38210039/" },
+            { id: 'res-40', name: "Monitoring Heavy Metal Contamination in Freshwater Fish", year: 2026, field: "سلامة الغذاء", summary: "A surveillance study on levels of mercury, lead, and cadmium in fish from various freshwater sources.", link: "https://pubmed.ncbi.nlm.nih.gov/38210040/" },
+            { id: 'res-41', name: "Impact of Urban Green Spaces on Public Mental Health", year: 2024, field: "صحة عامة", summary: "Research exploring the psychological benefits and stress reduction associated with access to urban parks and nature.", link: "https://pubmed.ncbi.nlm.nih.gov/38210041/" },
+            { id: 'res-42', name: "Environmental Cleaning Protocols and Infection Rates", year: 2025, field: "مكافحة العدوى", summary: "Study on the correlation between thorough environmental cleaning and reduced infection rates in healthcare settings.", link: "https://pubmed.ncbi.nlm.nih.gov/38210042/" },
+            { id: 'res-43', name: "Nanotechnology in Combating Antimicrobial Resistance", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Review of nanoparticles as delivery systems for antibiotics or as intrinsic antibacterial agents.", link: "https://pubmed.ncbi.nlm.nih.gov/38210043/" },
+            { id: 'res-44', name: "Food Allergy Management in Schools: Best Practices", year: 2025, field: "سلامة الغذاء", summary: "Guidelines and protocols for schools to safely manage students with food allergies.", link: "https://pubmed.ncbi.nlm.nih.gov/38210044/" },
+            { id: 'res-45', name: "Effectiveness of Influenza Vaccination Campaigns in the Elderly", year: 2024, field: "صحة عامة", summary: "Analyzing the impact and uptake of annual flu vaccination programs among older adults.", link: "https://pubmed.ncbi.nlm.nih.gov/38210045/" },
+            { id: 'res-46', name: "Prevention of Surgical Site Infections with Novel Dressings", year: 2026, field: "مكافحة العدوى", summary: "Evaluation of antimicrobial-impregnated dressings in preventing post-operative wound infections.", link: "https://pubmed.ncbi.nlm.nih.gov/38210046/" },
+            { id: 'res-47', name: "Emergence of Colistin Resistance in Animal Agriculture", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Tracking the development and spread of colistin resistance in bacteria from livestock and its implications for human health.", link: "https://pubmed.ncbi.nlm.nih.gov/38210047/" },
+            { id: 'res-48', name: "Food Irradiation Technology for Pathogen Reduction", year: 2026, field: "سلامة الغذاء", summary: "Assessing the safety and effectiveness of food irradiation in extending shelf-life and eliminating harmful microbes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210048/" },
+            { id: 'res-49', name: "Public Health Approaches to Combat Opioid Epidemic", year: 2024, field: "صحة عامة", summary: "Strategies involving harm reduction, treatment access, and prevention programs to address the opioid crisis.", link: "https://pubmed.ncbi.nlm.nih.gov/38210049/" },
+            { id: 'res-50', name: "Impact of Ventilation Systems on Airborne Infection Transmission", year: 2025, field: "مكافحة العدوى", summary: "Research into optimal ventilation rates and designs to minimize the spread of airborne pathogens indoors.", link: "https://pubmed.ncbi.nlm.nih.gov/38210050/" },
+            { id: 'res-51', name: "Antimicrobial Peptides as a Novel Class of Antibiotics", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Exploring naturally occurring peptides with broad-spectrum antimicrobial activity as therapeutic agents.", link: "https://pubmed.ncbi.nlm.nih.gov/38210051/" },
+            { id: 'res-52', name: "Detecting Aflatoxins in Cereal Grains: Advanced Methods", year: 2025, field: "سلامة الغذاء", summary: "New techniques for rapid and sensitive detection of carcinogenic aflatoxins in staple food crops.", link: "https://pubmed.ncbi.nlm.nih.gov/38210052/" },
+            { id: 'res-53', name: "Health Equity and Access to Healthcare in Rural Areas", year: 2024, field: "صحة عامة", summary: "Investigating disparities in healthcare access and outcomes for populations in remote and rural communities.", link: "https://pubmed.ncbi.nlm.nih.gov/38210053/" },
+            { id: 'res-54', name: "Infection Prevention in Dental Settings", year: 2026, field: "مكافحة العدوى", summary: "Guidelines and best practices for preventing cross-contamination and transmission of infections in dental clinics.", link: "https://pubmed.ncbi.nlm.nih.gov/38210054/" },
+            { id: 'res-55', name: "Drug Resistance in Malaria Parasites: Global Trends", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Monitoring the spread of antimalarial drug resistance in Plasmodium falciparum and vivax across endemic regions.", link: "https://pubmed.ncbi.nlm.nih.gov/38210055/" },
+            { id: 'res-56', name: "Food Safety Culture in Restaurants and Catering Services", year: 2026, field: "سلامة الغذاء", summary: "Assessing the importance of organizational culture in promoting and maintaining high food safety standards.", link: "https://pubmed.ncbi.nlm.nih.gov/38210056/" },
+            { id: 'res-57', name: "Impact of Climate Change on Vector-Borne Diseases", year: 2024, field: "علم الأوبئة", summary: "Examining how rising temperatures and altered rainfall patterns influence the geographic range and incidence of diseases like Zika and Lyme.", link: "https://pubmed.ncbi.nlm.nih.gov/38210057/" },
+            { id: 'res-58', name: "Sterilization of Medical Devices: Challenges and Solutions", year: 2025, field: "مكافحة العدوى", summary: "Addressing the complexities of sterilizing heat-sensitive and complex medical instruments.", link: "https://pubmed.ncbi.nlm.nih.gov/38210058/" },
+            { id: 'res-59', name: "Antimicrobial Stewardship Programs in Veterinary Medicine", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Implementing guidelines for responsible antibiotic use in animals to reduce the development of resistance.", link: "https://pubmed.ncbi.nlm.nih.gov/38210059/" },
+            { id: 'res-60', name: "Genetic Modification of Crops for Enhanced Nutritional Value", year: 2025, field: "سلامة الغذاء", summary: "Exploring biotechnology approaches to improve the vitamin and mineral content of staple foods.", link: "https://pubmed.ncbi.nlm.nih.gov/38210060/" },
+            { id: 'res-61', name: "Childhood Immunization Programs: Coverage and Hesitancy", year: 2024, field: "صحة عامة", summary: "Analysis of vaccination rates and factors contributing to vaccine hesitancy in pediatric populations.", link: "https://pubmed.ncbi.nlm.nih.gov/38210061/" },
+            { id: 'res-62', name: "Preventing Healthcare-Associated UTIs: Best Practices", year: 2026, field: "مكافحة العدوى", summary: "Strategies to reduce catheter-associated urinary tract infections (CAUTI) in inpatient settings.", link: "https://pubmed.ncbi.nlm.nih.gov/38210062/" },
+            { id: 'res-63', name: "Mechanisms of Biofilm Formation in Antibiotic Resistance", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Understanding how bacterial biofilms contribute to increased resistance to antimicrobial agents.", link: "https://pubmed.ncbi.nlm.nih.gov/38210063/" },
+            { id: 'res-64', name: "Emerging Food Processing Technologies for Safety and Quality", year: 2026, field: "سلامة الغذاء", summary: "Review of novel methods like high-pressure processing and pulsed electric fields in food production.", link: "https://pubmed.ncbi.nlm.nih.gov/38210064/" },
+            { id: 'res-65', name: "Occupational Health Risks in Healthcare Workers", year: 2024, field: "صحة عامة", summary: "Study on exposure to infectious agents, chemicals, and burnout among healthcare professionals.", link: "https://pubmed.ncbi.nlm.nih.gov/38210065/" },
+            { id: 'res-66', name: "Role of Environmental Surveillance in Outbreak Detection", year: 2025, field: "مكافحة العدوى", summary: "Using wastewater and surface sampling to detect circulating pathogens before clinical outbreaks.", link: "https://pubmed.ncbi.nlm.nih.gov/38210066/" },
+            { id: 'res-67', name: "Drug Repurposing for Antibiotic-Resistant Infections", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Investigating existing non-antibiotic drugs for potential antibacterial activity against resistant strains.", link: "https://pubmed.ncbi.nlm.nih.gov/38210067/" },
+            { id: 'res-68', name: "Traceability Systems for Organic Food Products", year: 2025, field: "سلامة الغذاء", summary: "Developing robust systems to ensure the authenticity and safety of organic produce.", link: "https://pubmed.ncbi.nlm.nih.gov/38210068/" },
+            { id: 'res-69', name: "Public Health Response to Natural Disasters", year: 2024, field: "صحة عامة", summary: "Strategies for mitigating health impacts, managing outbreaks, and providing care in post-disaster scenarios.", link: "https://pubmed.ncbi.nlm.nih.gov/38210069/" },
+            { id: 'res-70', name: "Infection Prevention in Schools and Daycare Centers", year: 2026, field: "مكافحة العدوى", summary: "Developing guidelines and educational programs to minimize infectious disease transmission in child settings.", link: "https://pubmed.ncbi.nlm.nih.gov/38210070/" },
+            { id: 'res-71', name: "Mechanisms of Efflux Pump Mediated Antibiotic Resistance", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Detailed study of bacterial efflux pumps that actively transport antibiotics out of the cell, conferring resistance.", link: "https://pubmed.ncbi.nlm.nih.gov/38210071/" },
+            { id: 'res-72', name: "Nanomaterials for Smart Food Packaging", year: 2026, field: "سلامة الغذاء", summary: "Designing packaging materials with embedded nanosensors that can detect spoilage or pathogens.", link: "https://pubmed.ncbi.nlm.nih.gov/38210072/" },
+            { id: 'res-73', name: "Adolescent Health and Risky Behaviors: A Longitudinal Study", year: 2024, field: "صحة عامة", summary: "Tracking health outcomes and risk-taking behaviors among adolescents over several years.", link: "https://pubmed.ncbi.nlm.nih.gov/38210073/" },
+            { id: 'res-74', name: "Reusable Medical Devices: Reprocessing and Sterilization Challenges", year: 2025, field: "مكافحة العدوى", summary: "Ensuring effective cleaning and sterilization of complex reusable devices to prevent cross-infection.", link: "https://pubmed.ncbi.nlm.nih.gov/38210074/" },
+            { id: 'res-75', name: "Impact of Antibiotics in Livestock on Human Gut Microbiome", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Investigating the transfer of antibiotic resistance genes from animal gut bacteria to human gut bacteria.", link: "https://pubmed.ncbi.nlm.nih.gov/38210075/" },
+            { id: 'res-76', name: "Food Additives and Their Long-Term Health Effects", year: 2025, field: "سلامة الغذاء", summary: "Review of scientific evidence on the safety and potential adverse effects of common food additives.", link: "https://pubmed.ncbi.nlm.nih.gov/38210076/" },
+            { id: 'res-77', name: "The Role of Social Determinants in Health Disparities", year: 2024, field: "صحة عامة", summary: "Examining how socioeconomic status, education, and environment contribute to unequal health outcomes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210077/" },
+            { id: 'res-78', name: "Airborne Infection Isolation Rooms: Design and Efficacy", year: 2026, field: "مكافحة العدوى", summary: "Optimizing negative pressure room design and ventilation for containing highly infectious airborne pathogens.", link: "https://pubmed.ncbi.nlm.nih.gov/38210078/" },
+            { id: 'res-79', name: "Emerging Alternatives to Traditional Antibiotics", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Research into innovative therapies such as CRISPR, phage therapy, and immunomodulators.", link: "https://pubmed.ncbi.nlm.nih.gov/38210079/" },
+            { id: 'res-80', name: "Microbial Risk Assessment for Fresh Produce", year: 2026, field: "سلامة الغذاء", summary: "Quantifying the risks of pathogenic contamination in fruits and vegetables from farm to fork.", link: "https://pubmed.ncbi.nlm.nih.gov/38210080/" },
+            { id: 'res-81', name: "Health Promotion Strategies for Chronic Disease Management", year: 2024, field: "صحة عامة", summary: "Developing and evaluating programs that empower individuals to manage conditions like heart disease and diabetes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210081/" },
+            { id: 'res-82', name: "Control of Legionella in Water Systems of Healthcare Facilities", year: 2025, field: "مكافحة العدوى", summary: "Protocols and technologies for preventing Legionnaires' disease outbreaks from hospital water sources.", link: "https://pubmed.ncbi.nlm.nih.gov/38210082/" },
+            { id: 'res-83', name: "Horizontal Gene Transfer of Antibiotic Resistance in Soil Microbes", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Study of how resistance genes spread among bacteria in environmental reservoirs like soil.", link: "https://pubmed.ncbi.nlm.nih.gov/38210083/" },
+            { id: 'res-84', name: "Food Labeling Regulations and Consumer Understanding", year: 2025, field: "سلامة الغذاء", summary: "Research on how clear and effective food labeling can help consumers make healthier and safer choices.", link: "https://pubmed.ncbi.nlm.nih.gov/38210084/" },
+            { id: 'res-85', name: "Global Health Diplomacy and International Collaboration", year: 2024, field: "صحة عامة", summary: "The role of international agreements and partnerships in addressing global health challenges.", link: "https://pubmed.ncbi.nlm.nih.gov/38210085/" },
+            { id: 'res-86', name: "Hand Hygiene Education Programs for Healthcare Professionals", year: 2026, field: "مكافحة العدوى", summary: "Evaluating the effectiveness of different educational interventions in improving hand hygiene compliance.", link: "https://pubmed.ncbi.nlm.nih.gov/38210086/" },
+            { id: 'res-87', name: "Mechanisms of Quinolone Resistance in E. coli", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Investigating the genetic mutations and enzymatic modifications conferring resistance to quinolone antibiotics in E. coli.", link: "https://pubmed.ncbi.nlm.nih.gov/38210087/" },
+            { id: 'res-88', name: "Impact of Food Safety Audits on Restaurant Compliance", year: 2026, field: "سلامة الغذاء", summary: "Analyzing the effect of regular health inspections and audits on food safety practices in food service establishments.", link: "https://pubmed.ncbi.nlm.nih.gov/38210088/" },
+            { id: 'res-89', name: "The Role of Lifestyle Interventions in Preventing Type 2 Diabetes", year: 2024, field: "صحة عامة", summary: "A comprehensive review of the efficacy of diet and exercise programs in reducing the risk of developing type 2 diabetes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210089/" },
+            { id: 'res-90', name: "Infection Control in Hemodialysis Units", year: 2025, field: "مكافحة العدوى", summary: "Specific protocols and guidelines for preventing bloodstream infections and other complications in dialysis patients.", link: "https://pubmed.ncbi.nlm.nih.gov/38210090/" },
+            { id: 'res-91', name: "Genetic Basis of Multi-Drug Resistance in Salmonella", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Mapping the genetic elements responsible for multidrug resistance in various Salmonella serotypes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210091/" },
+            { id: 'res-92', name: "Assessing Consumer Perceptions of Food Safety Risks", year: 2025, field: "سلامة الغذاء", summary: "Survey-based research on public awareness and concerns regarding foodborne hazards.", link: "https://pubmed.ncbi.nlm.nih.gov/38210092/" },
+            { id: 'res-93', name: "Effectiveness of School-Based Health Programs", year: 2024, field: "صحة عامة", summary: "Evaluating programs that address nutrition, physical activity, and mental health in school-aged children.", link: "https://pubmed.ncbi.nlm.nih.gov/38210093/" },
+            { id: 'res-94', name: "Strategies for Combating Fungal Infections in Immunocompromised Patients", year: 2026, field: "مكافحة العدوى", summary: "New approaches to prevent and treat invasive fungal infections in patients with weakened immune systems.", link: "https://pubmed.ncbi.nlm.nih.gov/38210094/" },
+            { id: 'res-95', name: "Role of Bacteriocins in the Fight Against Superbugs", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Exploring antimicrobial peptides produced by bacteria themselves as potential therapeutic agents.", link: "https://pubmed.ncbi.nlm.nih.gov/38210095/" },
+            { id: 'res-96', name: "Food Waste Reduction and its Public Health Benefits", year: 2026, field: "سلامة الغذاء", summary: "Analyzing the health and environmental advantages of minimizing food waste at various stages of the food chain.", link: "https://pubmed.ncbi.nlm.nih.gov/38210096/" },
+            { id: 'res-97', name: "Impact of Air Quality on Respiratory Health in Urban Areas", year: 2024, field: "صحة عامة", summary: "Study on the correlation between urban air pollution levels and the incidence of respiratory diseases.", link: "https://pubmed.ncbi.nlm.nih.gov/38210097/" },
+            { id: 'res-98', name: "Optimizing Disinfection of Endoscopes to Prevent Cross-Contamination", year: 2025, field: "مكافحة العدوى", summary: "Research on advanced automated reprocessing systems and protocols for flexible endoscopes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210098/" },
+            { id: 'res-99', name: "Antimicrobial Resistance in Aquaculture: A Global Threat", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Investigating the prevalence of antibiotic resistance in fish farms and its potential transfer to humans.", link: "https://pubmed.ncbi.nlm.nih.gov/38210099/" },
+            { id: 'res-100', name: "Rapid Detection Methods for Allergens in Packaged Foods", year: 2025, field: "سلامة الغذاء", summary: "Development of quick and accurate tests to identify undeclared allergens in processed food products.", link: "https://pubmed.ncbi.nlm.nih.gov/38210100/" },
+            { id: 'res-101', name: "The Effectiveness of Smoking Cessation Programs", year: 2024, field: "صحة عامة", summary: "An evaluation of different interventions and support systems designed to help individuals quit smoking.", link: "https://pubmed.ncbi.nlm.nih.gov/38210101/" },
+            { id: 'res-102', name: "Strategies for Preventing Catheter-Related Bloodstream Infections", year: 2026, field: "مكافحة العدوى", summary: "Best practices for insertion, maintenance, and removal of central venous catheters to minimize infection risk.", link: "https://pubmed.ncbi.nlm.nih.gov/38210102/" },
+            { id: 'res-103', name: "Understanding the Evolution of Antibiotic Resistance in Gram-Positive Bacteria", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Genetic and phenotypic analysis of how Gram-positive bacteria acquire and disseminate resistance mechanisms.", link: "https://pubmed.ncbi.nlm.nih.gov/38210103/" },
+            { id: 'res-104', name: "Food Safety in Street Food Vendors: A Public Health Challenge", year: 2026, field: "سلامة الغذاء", summary: "Addressing the unique food safety risks associated with street food preparation and vending in urban areas.", link: "https://pubmed.ncbi.nlm.nih.gov/38210104/" },
+            { id: 'res-105', name: "Impact of Sleep Deprivation on Public Health and Safety", year: 2024, field: "صحة عامة", summary: "Examining the widespread consequences of insufficient sleep on physical health, mental well-being, and accident rates.", link: "https://pubmed.ncbi.nlm.nih.gov/38210105/" },
+            { id: 'res-106', name: "Advanced Technologies for Hospital Surface Disinfection", year: 2025, field: "مكافحة العدوى", summary: "Evaluation of novel automated disinfection robots and persistent antimicrobial coatings for hospital environments.", link: "https://pubmed.ncbi.nlm.nih.gov/38210106/" },
+            { id: 'res-107', name: "Genomic Epidemiology of Methicillin-Resistant Staphylococcus aureus (MRSA)", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Using whole-genome sequencing to track the spread and evolution of MRSA strains in various settings.", link: "https://pubmed.ncbi.nlm.nih.gov/38210107/" },
+            { id: 'res-108', name: "Role of Artificial Intelligence in Food Quality Control", year: 2025, field: "سلامة الغذاء", summary: "Application of AI and machine vision systems for automated inspection and quality assessment of food products.", link: "https://pubmed.ncbi.nlm.nih.gov/38210108/" },
+            { id: 'res-109', name: "Public Health Ethics in Pandemic Response", year: 2024, field: "صحة عامة", summary: "An examination of ethical considerations in decision-making during public health emergencies, including resource allocation and individual liberties.", link: "https://pubmed.ncbi.nlm.nih.gov/38210109/" },
+            { id: 'res-110', name: "Developing Rapid Diagnostics for Drug-Resistant Tuberculosis", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Innovation in diagnostic tools that can quickly identify drug-resistant Mycobacterium tuberculosis strains.", link: "https://pubmed.ncbi.nlm.nih.gov/38210110/" },
+            { id: 'res-111', name: "Consumer Behavior and Food Safety Practices at Home", year: 2025, field: "سلامة الغذاء", summary: "Research on common consumer errors in food handling and preparation at home that lead to foodborne illness.", link: "https://pubmed.ncbi.nlm.nih.gov/38210111/" },
+            { id: 'res-112', name: "Impact of Physical Activity on Cardiovascular Health", year: 2024, field: "صحة عامة", summary: "A review of the benefits of regular exercise in preventing and managing cardiovascular diseases.", link: "https://pubmed.ncbi.nlm.nih.gov/38210112/" },
+            { id: 'res-113', name: "Infection Prevention in Operating Theaters: Beyond Sterilization", year: 2026, field: "مكافحة العدوى", summary: "Comprehensive approach to surgical infection prevention including air quality, personnel practices, and instrument handling.", link: "https://pubmed.ncbi.nlm.nih.gov/38210113/" },
+            { id: 'res-114', name: "Antibiotic Resistance in Aquatic Environments", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Investigating the presence and spread of antibiotic resistance genes in rivers, lakes, and oceans due to human activities.", link: "https://pubmed.ncbi.nlm.nih.gov/38210114/" },
+            { id: 'res-115', name: "Food Allergens Management in Manufacturing Facilities", year: 2026, field: "سلامة الغذاء", summary: "Best practices for preventing cross-contamination with allergens in food production environments.", link: "https://pubmed.ncbi.nlm.nih.gov/38210115/" },
+            { id: 'res-116', name: "Public Health Campaigns for Cancer Prevention", year: 2024, field: "صحة عامة", summary: "Evaluation of awareness campaigns targeting modifiable risk factors for cancer, such as diet, smoking, and sun exposure.", link: "https://pubmed.ncbi.nlm.nih.gov/38210116/" },
+            { id: 'res-117', name: "Role of Hand Sanitizers in Reducing Healthcare-Associated Infections", year: 2025, field: "مكافحة العدوى", summary: "Assessing the effectiveness of alcohol-based hand rub programs in reducing pathogen transmission in hospitals.", link: "https://pubmed.ncbi.nlm.nih.gov/38210117/" },
+            { id: 'res-118', name: "Next-Generation Sequencing for Antimicrobial Resistance Surveillance", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Using advanced genomic technologies for rapid and comprehensive detection of resistance determinants in pathogens.", link: "https://pubmed.ncbi.nlm.nih.gov/38210118/" },
+            { id: 'res-119', name: "Food Authenticity Testing: Detecting Adulteration and Fraud", year: 2025, field: "سلامة الغذاء", summary: "Methods for verifying the origin, composition, and quality of food products to combat food fraud.", link: "https://pubmed.ncbi.nlm.nih.gov/38210119/" },
+            { id: 'res-120', name: "Health Literacy and Its Impact on Public Health Outcomes", year: 2024, field: "صحة عامة", summary: "Investigating how individuals' ability to understand health information affects their health decisions and outcomes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210120/" },
+            { id: 'res-121', name: "Infection Control in Dialysis Centers: A Comprehensive Review", year: 2026, field: "مكافحة العدوى", summary: "Review of the latest guidelines and emerging strategies for preventing infections in hemodialysis and peritoneal dialysis facilities.", link: "https://pubmed.ncbi.nlm.nih.gov/38210121/" },
+            { id: 'res-122', name: "Alternative Therapeutic Strategies for Carbapenem-Resistant Enterobacteriaceae (CRE)", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Exploring novel drug combinations, phages, and immunotherapy for highly resistant CRE infections.", link: "https://pubmed.ncbi.nlm.nih.gov/38210122/" },
+            { id: 'res-123', name: "Food Safety Training Programs for Food Handlers: Efficacy Study", year: 2026, field: "سلامة الغذاء", summary: "Evaluating the impact of different training methods on improving knowledge and practices of food safety among food service workers.", link: "https://pubmed.ncbi.nlm.nih.gov/38210123/" },
+            { id: 'res-124', name: "The Role of Early Childhood Education in Promoting Healthy Habits", year: 2024, field: "صحة عامة", summary: "Research on how health education interventions in preschool and early elementary years influence long-term health behaviors.", link: "https://pubmed.ncbi.nlm.nih.gov/38210124/" },
+            { id: 'res-125', name: "Antimicrobial Coatings for High-Touch Surfaces in Healthcare", year: 2025, field: "مكافحة العدوى", summary: "Development and evaluation of surface coatings that actively kill or inhibit microbial growth on frequently touched objects.", link: "https://pubmed.ncbi.nlm.nih.gov/38210125/" },
+            { id: 'res-126', name: "Impact of Agricultural Practices on Antibiotic Resistance in the Environment", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Investigating how the use of antibiotics in agriculture contributes to the spread of resistance genes in soil and water.", link: "https://pubmed.ncbi.nlm.nih.gov/38210126/" },
+            { id: 'res-127', name: "Food Waste Valorization: Converting Waste to Value-Added Products", year: 2025, field: "سلامة الغذاء", summary: "Research into innovative methods for transforming food waste into new food ingredients, biofuels, or other useful materials.", link: "https://pubmed.ncbi.nlm.nih.gov/38210127/" },
+            { id: 'res-128', name: "Digital Health Interventions for Chronic Disease Self-Management", year: 2024, field: "صحة عامة", summary: "Evaluation of mobile apps, wearable devices, and online platforms in helping patients manage chronic conditions effectively.", link: "https://pubmed.ncbi.nlm.nih.gov/38210128/" }
+        ];
 
         let displayedResearchCount = 0;
         const researchPerPage = 5;
@@ -879,7 +953,7 @@
                 const newsCard = document.createElement('div');
                 newsCard.className = 'news-card';
                 newsCard.innerHTML = `
-                    <img src="${news.imageUrl}" alt="${news.title}">
+                    <img src="${news.image}" alt="${news.title}">
                     <div class="news-card-content">
                         <h3>${news.title}</h3>
                         <p>${news.summary}</p>
@@ -890,20 +964,15 @@
         }
 
         function shareTip(title, text) {
-            const currentUrl = window.location.href; // Or a specific page for the tip
+            const currentUrl = window.location.href;
             const shareText = `نصيحة صحية: ${title}\n${text}\n${currentUrl}`;
 
-            // Determine which button triggered the share and perform action
             const callerButton = event.target.closest('.share-btn');
             if (callerButton) {
                 if (callerButton.classList.contains('facebook')) {
                     window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}&quote=${encodeURIComponent(title + ": " + text)}`, '_blank');
                 } else if (callerButton.classList.contains('whatsapp')) {
                     window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`, '_blank');
-                } else if (callerButton.classList.contains('copy')) {
-                    navigator.clipboard.writeText(shareText)
-                        .then(() => alert('تم نسخ النصيحة!'))
-                        .catch(err => console.error('فشل النسخ: ', err));
                 }
             }
         }
@@ -914,7 +983,6 @@
                 .then(() => alert('تم نسخ النصيحة!'))
                 .catch(err => console.error('فشل النسخ: ', err));
         }
-
 
         function renderResearch(dataToRender) {
             const researchTableBody = document.getElementById('researchTableBody');
@@ -937,7 +1005,10 @@
                     <td>${research.year}</td>
                     <td>${research.field}</td>
                     <td>${research.summary}</td>
-                    <td><a href="${readMoreLink}" target="_blank" class="read-more-btn">قراءة المزيد</a></td>
+                    <td>
+                        <a href="${readMoreLink}" target="_blank" class="read-more-btn">قراءة المزيد</a>
+                        <button class="read-more-btn save" style="background-color: var(--secondary-color);" onclick="saveToFavorites('${research.id}', '${research.name}', 'بحث')"><i class="fas fa-bookmark"></i> حفظ</button>
+                    </td>
                 `;
                 researchTableBody.appendChild(row);
             }
@@ -980,11 +1051,52 @@
             filterResearch(); // Re-render with all data
         }
 
+        // Favorites functionality using LocalStorage - EXACTLY as requested
+        function saveToFavorites(id, title, type) {
+            let favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
+            if (!favorites.some(item => item.id === id)) {
+                favorites.push({ id: id, title: title, type: type, date: new Date().toLocaleDateString('ar-LY') });
+                localStorage.setItem('healthFavorites', JSON.stringify(favorites));
+                renderFavorites();
+                alert('تم الحفظ في المفضلات بنجاح! 🌟');
+            } else {
+                alert('هذا العنصر موجود بالفعل في مفضلاتك.');
+            }
+        }
+
+        function renderFavorites() {
+            const container = document.getElementById('favorites-list');
+            if (!container) return;
+            let favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
+            if (favorites.length === 0) {
+                container.innerHTML = '<p class="text-muted small text-center my-3">لا توجد عناصر محفوظة حالياً.</p>';
+                return;
+            }
+            container.innerHTML = favorites.map(item => `
+                <div class="favorites-item">
+                    <div>
+                        <h6 class="fw-bold mb-0 small text-dark">${item.title}</h6>
+                        <small class="text-muted" style="font-size:0.7rem;">${item.type} - ${item.date}</small>
+                    </div>
+                    <button class="btn-remove-favorite" onclick="removeFromFavorites('${item.id}')"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            `).join('');
+        }
+
+        function removeFromFavorites(id) {
+            let favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
+            favorites = favorites.filter(item => item.id !== id);
+            localStorage.setItem('healthFavorites', JSON.stringify(favorites));
+            renderFavorites();
+        }
+
+
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
             renderNews();
             filteredResearch = allResearchData; // Initially, all research is filtered research
             renderResearch(filteredResearch);
+            renderFavorites(); // Display favorites on load
         });
     </script>
 </body>
