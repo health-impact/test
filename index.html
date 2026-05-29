@@ -3,1101 +3,1021 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مكافحة العدوى والصحة العامة</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-P9U7z6hF3+tNlK3xU/6gL3Q9L5r4n6wQ0R0p1e6+4p1f0v4+5u+6w+7p+8e+9o+0i+1j+2k+3l+4m+5n+6o+7p+8q+9r+0s+1t+2u+3v+4w+5x+6y+7z/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S/T/U/V/W/X/Y/Z/a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y/z=" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>أثر صحي | نصائح الصحة العامة المعتمدة</title>
+<meta name="description" content="منصة ليبية تقدم نصائح موثوقة في الصحة العامة، مكافحة العدوى، وسلامة الغذاء تحت إشراف متخصصين.">
+<meta name="keywords" content="صحة عامة، ليبيا، نصائح طبية، أثر صحي، طرابلس، وقاية">
+    <meta name="google-site-verification" content="i5UXVqCFfyDU9PnXd3nLwCLeB2KdXY-Jd_Mf-aZXVkQ" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #004D40; /* Dark Teal - Medical professional look */
-            --secondary-color: #4CAF50; /* Medical Green */
-            --accent-color: #81C784; /* Lighter Green */
-            --text-color: #333;
-            --light-bg: #F9FBE7; /* Very light subtle background */
-            --card-bg: #FFFFFF;
-            --border-color: #ECEFF1;
-            --dark-blue: #1A237E; /* Deep Blue for contrast/headers */
-        }
+        /* 1. التنسيق العام والخطوط */
+        :root { --dark-gray: #1e2022; --main-green: #198754; --light-bg: #fdfdfd; --blue-accent: #007ee5; --red-accent: #dc3545;}
+        body { font-family: 'Tajawal', sans-serif; background-color: var(--light-bg); color: #333; scroll-behavior: smooth; overflow-x: hidden; }
 
-        body {
-            font-family: 'Cairo', sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            background-color: var(--light-bg);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 1rem 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #fff;
-            text-decoration: none;
-        }
-
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 25px;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: var(--accent-color);
-        }
-
-        .hero-section {
-            position: relative;
-            height: 450px;
-            background-image: url('https://images.unsplash.com/photo-1579543164177-8d9e236b2f4a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzODczODd8MHwxfHNlYXJjaHw0OXx8bWljcm9biW9sb2d5JTIwbGFiJTIwcHVibGljJTIwaGVhbHRofGVufDB8fHx8MTcwMTU3MDk0N3ww&ixlib=rb-4.0.3&q=80&w=1080'); /* Microbiology lab / Public Health */
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            text-align: center;
-            overflow: hidden;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 77, 64, 0.7); /* Dark Teal overlay */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .hero-section h1 {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .hero-section p {
-            font-size: 1.5rem;
-            max-width: 800px;
-            line-height: 1.4;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
-        }
-
-        section {
-            padding: 60px 0;
-            text-align: center;
-        }
-
-        section:nth-of-type(even) {
-            background-color: #E0F2F7; /* Light blueish grey */
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            color: var(--dark-blue);
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background-color: var(--secondary-color);
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .about-us-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: justify;
-        }
-
-        .about-us-content img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .about-us-content p {
-            font-size: 1.1rem;
-            color: #555;
-        }
-
-        /* News Section Styling */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .news-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: right;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        .news-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-        }
-
-        .news-card-content {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .news-card h3 {
-            font-size: 1.4rem;
-            color: var(--primary-color);
-            margin-top: 0;
-            margin-bottom: 10px;
-            line-height: 1.3;
-        }
-
-        .news-card p {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 15px;
-            flex-grow: 1;
-        }
-
-        /* Medical Tips Section Styling */
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .tip-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: right;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .tip-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        .tip-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .tip-card-content {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .tip-card h3 {
-            font-size: 1.4rem;
-            color: var(--primary-color);
-            margin-top: 0;
-            margin-bottom: 10px;
-            line-height: 1.3;
-        }
-
-        .tip-card p {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 15px;
-            flex-grow: 1;
-        }
-
-        .share-buttons {
-            display: flex;
+        /* 2. الهيدر المطور للموبايل والكمبيوتر */ 
+        .header-top { 
+            background-color: var(--dark-gray); 
+            color: white; 
+            padding: 10px 0; 
+            border-bottom: 4px solid var(--main-green); 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        } 
+        .brand-text { font-size: clamp(1.1rem, 4vw, 1.8rem); font-weight: 800; letter-spacing: 1px; }
+        
+        /* شريط التنقل المتجاوب */
+        .nav-box { 
+            display: flex; 
+            overflow-x: auto; 
+            white-space: nowrap; 
             gap: 10px;
-            margin-top: 15px;
-            justify-content: center; /* Center share buttons */
-            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+            -webkit-overflow-scrolling: touch; 
+        }
+        .nav-box::-webkit-scrollbar { display: none; } /* إخفاء شريط التمرير */
+
+        .nav-item-link { 
+            color: #bbb; 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 0.9rem; 
+            padding: 8px 15px;
+            transition: 0.3s;
+        }
+        .nav-item-link:hover { color: var(--main-green); }
+
+        /* 3. قسم الرئيسية (Hero) */
+        .hero { 
+            height: 75vh; 
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1579684385153-f76150c29f27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHw3MHx8bWljcm9iaWFsJTIwbGFib3JhdG9yeXxlbnwwfHx8fDE3MDY5NTI4NjV8MA&ixlib=rb-4.0.3&q=80&w=1080'); /* Hero Image related to public health and microbial labs */
+            background-repeat: no-repeat; background-position: center; background-size: cover;
+            color: white; display: flex; align-items: center; justify-content: center; text-align: center;
+        }
+        .hero h1 { font-size: clamp(1.8rem, 8vw, 4.5rem); font-weight: 900; line-height: 1.2; }
+        .hero p { font-size: clamp(0.95rem, 4vw, 1.8rem); max-width: 800px; margin: 15px auto; font-weight: 500; color: #eee; }
+
+        /* 4. قسم "عن المنصة" */
+        section { padding: 80px 0; }
+        .about-card { 
+            background: #fff; padding: clamp(20px, 5vw, 50px); border-radius: 25px; 
+            box-shadow: 0 15px 45px rgba(39, 174, 96, 0.12); 
+            border-right: 12px solid var(--main-green); 
         }
 
-        .share-btn {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: background-color 0.3s ease;
-            white-space: nowrap; /* Prevent text from wrapping */
+        /* 5. التوعية الذكية والكروت */
+        .updates-container { background: #fff; border-radius: 25px; padding: clamp(15px, 4vw, 40px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .tip-card { 
+            background: #fff; border-right: 5px solid var(--main-green); border-radius: 12px; 
+            padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); 
+            transition: 0.3s; text-align: right; 
+        }
+        .tip-card h5 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+        .source-label { background: #e8f5e9; color: var(--main-green); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; display: inline-block; margin-top: 10px; }
+
+        /* 6. المتجر */
+        .store-card { border-radius: 20px; background: white; padding: 35px; text-align: center; box-shadow: 0 8px 25px rgba(0,0,0,0.05); height: 100%; border: 1px solid #f0f0f0; transition: 0.4s; }
+        .store-card:hover { transform: translateY(-10px); border-color: var(--main-green); }
+        .icon-box i { font-size: 4rem; color: var(--main-green); margin-bottom: 20px; }
+
+        /* 7. الفوتر */
+        .footer { background: var(--dark-gray); color: #999; padding: 70px 0 30px; text-align: center; }
+        .ai-status { border: 2px solid var(--main-green); border-radius: 20px; padding: 25px; display: inline-flex; flex-direction: column; align-items: center; color: white; background: rgba(25,135,84,0.08); margin-top: 30px; max-width: 90%; }
+
+        /* تنسيق خاص للهاتف */
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 10px; }
+            .nav-box { width: 100%; justify-content: flex-start; padding-bottom: 5px; }
+            section { padding: 50px 0; }
+            /* Adjust news card image height for smaller screens */
+            .news-item .card-img-top { height: 180px !important; }
         }
 
-        .share-btn.facebook { background-color: #3b5998; }
-        .share-btn.whatsapp { background-color: #25d366; }
-        .share-btn.copy { background-color: #607D8B; }
-        .share-btn.save { background-color: #ff9800; } /* Orange for save */
-
-        .share-btn:hover {
-            opacity: 0.9;
-        }
-
-        /* Trusted Sources */
-        .sources-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 40px;
-        }
-
+        /* تنسيقات إضافية للمصادر والأبحاث */
         .source-button {
-            background-color: var(--dark-blue);
-            color: #fff;
-            padding: 15px 30px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        .source-button:hover {
-            background-color: #2C3E50;
-            transform: translateY(-3px);
-        }
-
-        /* Research Library */
-        .research-library-controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 30px;
             justify-content: center;
-            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            white-space: nowrap;
+            font-size: 0.95rem;
         }
+        .source-button.pubmed { background-color: var(--blue-accent); color: white; border: 1px solid var(--blue-accent); }
+        .source-button.pubmed:hover { background-color: #006bbd; border-color: #006bbd; }
+        .source-button.who { background-color: var(--main-green); color: white; border: 1px solid var(--main-green); }
+        .source-button.who:hover { background-color: #146c43; border-color: #146c43; }
+        .source-button.cdc { background-color: #3e6d8e; color: white; border: 1px solid #3e6d8e; }
+        .source-button.cdc:hover { background-color: #335973; border-color: #335973; }
 
-        .research-library-controls input,
-        .research-library-controls select {
-            padding: 10px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            font-size: 1rem;
-            flex: 1;
-            min-width: 180px;
-            max-width: 250px;
-            text-align: right;
+        .research-table-container {
+            background: #fff;
+            border-radius: 25px;
+            padding: clamp(15px, 4vw, 40px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            overflow-x: auto; /* For responsive tables */
         }
-
-        .research-library-controls button {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-        }
-
-        .research-library-controls button:hover {
-            background-color: #388E3C;
-        }
-
-        .research-table-wrapper {
-            overflow-x: auto;
-            margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border-radius: 10px;
-        }
-
         .research-table {
             width: 100%;
-            border-collapse: collapse;
-            background-color: var(--card-bg);
-            min-width: 700px; /* Ensure table doesn't get too small */
-            text-align: right;
-        }
-
-        .research-table th, .research-table td {
-            padding: 15px;
-            border-bottom: 1px solid var(--border-color);
-            text-align: right;
-        }
-
-        .research-table th {
-            background-color: var(--primary-color);
-            color: #fff;
-            font-weight: bold;
-            position: sticky;
-            top: 0;
-            z-index: 10; /* Ensure header stays above scrolling content */
-        }
-
-        .research-table tr:hover {
-            background-color: #f5f5f5;
-        }
-
-        .read-more-btn {
-            background-color: var(--accent-color);
-            color: var(--dark-blue);
-            padding: 8px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: background-color 0.3s ease;
-            white-space: nowrap;
-            margin-left: 5px; /* Spacing between buttons */
-        }
-
-        .read-more-btn:hover {
-            background-color: #689F38;
-        }
-
-        .load-more-btn-wrapper {
-            margin-top: 30px;
-        }
-
-        .load-more-btn {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: background-color 0.3s ease;
-        }
-
-        .load-more-btn:hover {
-            background-color: #388E3C;
-        }
-        
-        /* Contact Section */
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: var(--card-bg);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            text-align: right;
-        }
-
-        .contact-form .form-group {
-            margin-bottom: 20px;
-        }
-
-        .contact-form label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        .contact-form input[type="text"],
-        .contact-form input[type="email"],
-        .contact-form textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            font-size: 1rem;
-            box-sizing: border-box;
-            background-color: #fdfdfd;
-        }
-
-        .contact-form textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .contact-form button {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: background-color 0.3s ease;
-            width: auto;
-            display: block;
-            margin-top: 20px;
-            margin-right: auto;
-        }
-
-        .contact-form button:hover {
-            background-color: #388E3C;
-        }
-
-        /* Favorites List Styling */
-        .favorites-list-container {
-            padding: 60px 0;
-            text-align: center;
-            background-color: var(--light-bg);
-        }
-        .favorites-list-wrapper {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            text-align: right;
-        }
-        #favorites-list .favorites-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            background-color: #f0f4c3; /* Light green background */
-            border-right: 5px solid var(--secondary-color);
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        #favorites-list .favorites-item:last-child {
             margin-bottom: 0;
+            border-collapse: separate;
+            border-spacing: 0 10px; /* Space between rows */
         }
-        #favorites-list .favorites-item h6 {
-            font-size: 1rem;
-            color: var(--primary-color);
-            margin: 0;
-            font-weight: bold;
-        }
-        #favorites-list .favorites-item small {
-            font-size: 0.8rem;
-            color: #555;
-        }
-        #favorites-list .favorites-item .btn-remove-favorite {
-            background: none;
+        .research-table th {
+            background-color: var(--main-green);
+            color: white;
+            padding: 15px;
+            text-align: right;
             border: none;
-            color: #D32F2F; /* Red for delete */
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
+            font-weight: 700;
         }
-        #favorites-list .favorites-item .btn-remove-favorite:hover {
-            color: #B71C1C;
+        .research-table th:first-child { border-top-right-radius: 10px; }
+        .research-table th:last-child { border-top-left-radius: 10px; }
+        .research-table td {
+            padding: 15px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eee;
+            background-color: #fdfdfd;
+            text-align: right;
         }
-        #favorites-list .text-muted.small.text-center {
-            font-size: 1rem;
-            color: #777;
+        .research-table tbody tr {
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .research-table tbody tr:hover {
+            background-color: #f0fdf0;
+        }
+        .research-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .research-table a {
+            color: var(--main-green);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .research-table a:hover {
+            text-decoration: underline;
+        }
+        .filter-section {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+            gap: 10px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #f8fcf8;
+            border-radius: 15px;
+            border: 1px solid #e9ecef;
+        }
+        .filter-section .form-control,
+        .filter-section .form-select {
+            border-radius: 25px;
+            border-color: #ced4da;
+            padding: 10px 20px;
+            flex-grow: 1; /* Allow inputs to grow */
+            min-width: 150px; /* Ensure filters don't collapse too much */
+        }
+        .filter-section .btn {
+            border-radius: 25px;
+            padding: 10px 25px;
         }
 
-
-        footer {
-            background-color: var(--dark-blue);
-            color: #fff;
-            padding: 30px 0;
+        /* News Section Styles */
+        .news-container {
+            background: #fff;
+            border-radius: 25px;
+            padding: clamp(15px, 4vw, 40px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             text-align: center;
-            font-size: 0.9rem;
         }
-
-        @media (max-width: 768px) {
-            header .container {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .hero-section h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-section p {
-                font-size: 1.2rem;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
-
-            .news-grid, .tips-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .research-library-controls {
-                flex-direction: column;
-            }
-
-            .research-library-controls input,
-            .research-library-controls select,
-            .research-library-controls button {
-                width: 100%;
-                max-width: none;
-            }
+        /* Favorites Section Styles */
+        #favorites .tip-card, #favorites .research-table-container {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <a href="#" class="logo">الصحة العامة ومكافحة العدوى</a>
-            <nav>
-                <ul>
-                    <li><a href="#about">من نحن</a></li>
-                    <li><a href="#news">آخر الأخبار</a></li>
-                    <li><a href="#tips">نصائح طبية</a></li>
-                    <li><a href="#sources">مصادر موثوقة</a></li>
-                    <li><a href="#research">مكتبة الأبحاث</a></li>
-                    <li><a href="#favorites">مفضلاتي</a></li>
-                    <li><a href="#contact">اتصل بنا</a></li>
-                </ul>
+
+    <header class="header-top">
+        <div class="container header-content d-flex align-items-center justify-content-between">
+            <div class="brand-section d-flex align-items-center gap-2">
+                <i class="fas fa-heartbeat fa-lg text-success"></i>
+                <span class="brand-text">IMPACT HEALTH</span>
+            </div>
+            <nav class="nav-box">
+                <a href="#hero" class="nav-item-link">الرئيسية</a>
+                <a href="#about" class="nav-item-link">عن المنصة</a>
+                <a href="#health-news" class="nav-item-link">آخر الأخبار</a>
+                <a href="#favorites" class="nav-item-link">مفضلاتي</a>
+                <a href="#updates" class="nav-item-link">التوعية الذكية</a>
+                <a href="#store" class="nav-item-link">المتجر</a>
+                <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
             </nav>
         </div>
     </header>
 
-    <main>
-        <section class="hero-section">
-            <div class="hero-overlay">
-                <h1>معًا لمجتمع أكثر صحة وأمانًا</h1>
-                <p>مكافحة العدوى، سلامة الغذاء، ومقاومة المضادات الحيوية: ركائز أساسية لصحتك وصحة مجتمعك.</p>
-            </div>
-        </section>
+    <section id="hero" class="hero p-0">
+        <div class="container px-4">
+            <h1>أثر صحي | Impact Health</h1>
+            <p> .نحو مجتمع ليبي واعي، مبني على نصائح صحية معتمدة </p>
+        </div>
+    </section>
 
-        <section id="about" class="about-us">
-            <div class="container">
-                <h2>من نحن</h2>
-                <div class="about-us-content">
-                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba99932?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzODczODd8MHwxfHNlYXJjaHw3OXx8cHVibGljJTIwaGVhbHRoJTIwaW5mZWN0aW9uJTIwY29udHJvbHxlbnwwfHx8fDE3MDE1NzA5NDd8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="About Us Image: Healthcare professionals working together">
-                    <p>نحن منصة متخصصة ملتزمة بتعزيز الوعي الصحي العام وتوفير معلومات موثوقة حول مكافحة العدوى، سلامة الأغذية، وأحدث الأبحاث في مجال مقاومة المضادات الحيوية. هدفنا هو تمكين الأفراد والمؤسسات بالمعرفة والأدوات اللازمة لحماية أنفسهم ومجتمعاتهم من المخاطر الصحية.</p>
-                    <p>نسعى لتقديم محتوى دقيق ومُحدث باستمرار، مستقاة من مصادر علمية وطبية عالمية موثوقة، لتكون مرجعكم الأول في كل ما يتعلق بالصحة العامة والوقاية من الأمراض المعدية.</p>
-                </div>
+    <section id="about">
+        <div class="container px-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-success" style="font-size: 2.5rem;">من نحن؟</h2>
+                <div style="width: 70px; height: 5px; background: var(--main-green); margin: 10px auto; border-radius: 10px;"></div>
             </div>
-        </section>
-
-        <section id="news" class="latest-news">
-            <div class="container">
-                <h2>آخر الأخبار الصحية العالمية والمحلية</h2>
-                <div class="news-grid" id="newsGrid">
-                    <!-- News cards will be loaded here by JavaScript -->
-                </div>
+            <div class="about-card">
+                <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
+                    منصة توعوية متخصصة تعمل بالذكاء الإصطناعي يشرف عليها <strong>طالب دراسات عليا بقسم الصحة العامة</strong>، تهدف لتقديم محتوى موثوق يعتمد بشكل أساسي على تحديثات منظمات ومصادر عالمية ومحلية مثل  <strong>WHO</strong> و <strong>NCDC</strong> و <strong>FDA</strong> وغيرها لضمان دقة المعلومة وترك أثر إيجابي يدوم في المجتمع الليبي .
+                </p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="tips" class="medical-tips">
-            <div class="container">
-                <h2>نصائح طبية هامة</h2>
-                <div class="tips-grid">
-                    <div class="tip-card">
-                        <img src="https://images.unsplash.com/photo-1584820982990-671e3518e11a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzODczODd8MHwxfHNlYXJjaHwzMHx8aHlkcmF0aW9uJTIwaGVhbHRofGVufDB8fHx8MTcwMTU3MDk0N3ww&ixlib=rb-4.0.3&q=80&w=1080" alt="نصيحة عن الماء">
-                        <div class="tip-card-content">
-                            <h3>أهمية شرب الماء الكافي</h3>
-                            <p>الحفاظ على ترطيب الجسم أمر حيوي للوظائف الحيوية ودعم الجهاز المناعي. تأكد من شرب كميات كافية من الماء على مدار اليوم للحفاظ على صحتك ونشاطك.</p>
-                            <div class="share-buttons">
-                                <button class="share-btn facebook" onclick="shareTip('أهمية شرب الماء الكافي', 'الحفاظ على ترطيب الجسم أمر حيوي للوظائف الحيوية ودعم الجهاز المناعي. تأكد من شرب كميات كافية من الماء على مدار اليوم للحفاظ على صحتك ونشاطك.')"><i class="fab fa-facebook-f"></i> فيسبوك</button>
-                                <button class="share-btn whatsapp" onclick="shareTip('أهمية شرب الماء الكافي', 'الحفاظ على ترطيب الجسم أمر حيوي للوظائف الحيوية ودعم الجهاز المناعي. تأكد من شرب كميات كافية من الماء على مدار اليوم للحفاظ على صحتك ونشاطك.')"><i class="fab fa-whatsapp"></i> واتساب</button>
-                                <button class="share-btn copy" onclick="copyTip('أهمية شرب الماء الكافي', 'الحفاظ على ترطيب الجسم أمر حيوي للوظائف الحيوية ودعم الجهاز المناعي. تأكد من شرب كميات كافية من الماء على مدار اليوم للحفاظ على صحتك ونشاطك.')"><i class="fas fa-copy"></i> نسخ</button>
-                                <button class="share-btn save" onclick="saveToFavorites('tip-1', 'أهمية شرب الماء الكافي', 'نصيحة')"><i class="fas fa-bookmark"></i> حفظ</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tip-card">
-                        <img src="https://images.unsplash.com/photo-1542838118-2029705a63c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzODczODd8MHwxfHNlYXJjaHw2fHxmaXRuZXNzJTIwZm9vZCUyMGhlYWx0aHxlbnwwfHx8fDE3MDY5NDd8MA&ixlib=rb-4.0.3&q=80&w=1080" alt="نصيحة عن الغذاء الصحي">
-                        <div class="tip-card-content">
-                            <h3>تناول نظام غذائي متوازن</h3>
-                            <p>الغذاء الصحي هو مفتاح الوقاية من العديد من الأمراض. احرص على تناول تشكيلة واسعة من الفواكه، الخضروات، الحبوب الكاملة، والبروتينات الخالية من الدهون.</p>
-                            <div class="share-buttons">
-                                <button class="share-btn facebook" onclick="shareTip('تناول نظام غذائي متوازن', 'الغذاء الصحي هو مفتاح الوقاية من العديد من الأمراض. احرص على تناول تشكيلة واسعة من الفواكه، الخضروات، الحبوب الكاملة، والبروتينات الخالية من الدهون.')"><i class="fab fa-facebook-f"></i> فيسبوك</button>
-                                <button class="share-btn whatsapp" onclick="shareTip('تناول نظام غذائي متوازن', 'الغذاء الصحي هو مفتاح الوقاية من العديد من الأمراض. احرص على تناول تشكيلة واسعة من الفواكه، الخضروات، الحبوب الكاملة، والبروتينات الخالية من الدهون.')"><i class="fab fa-whatsapp"></i> واتساب</button>
-                                <button class="share-btn copy" onclick="copyTip('تناول نظام غذائي متوازن', 'الغذاء الصحي هو مفتاح الوقاية من العديد من الأمراض. احرص على تناول تشكيلة واسعة من الفواكه، الخضروات، الحبوب الكاملة، والبروتينات الخالية من الدهون.')"><i class="fas fa-copy"></i> نسخ</button>
-                                <button class="share-btn save" onclick="saveToFavorites('tip-2', 'تناول نظام غذائي متوازن', 'نصيحة')"><i class="fas fa-bookmark"></i> حفظ</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tip-card">
-                        <img src="https://images.unsplash.com/photo-1540198083049-34b726c5ac2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzODczODd8MHwxfHNlYXJjaHwxNXx8aGFuZCUyMHdhc2hpbmclMjBpbmZlY3Rpb24lMjBjb250cm9sfGVufDB8fHx8MTcwMTU3MDk0N3ww&ixlib=rb-4.0.3&q=80&w=1080" alt="نصيحة عن غسل اليدين">
-                        <div class="tip-card-content">
-                            <h3>أهمية غسل اليدين بانتظام</h3>
-                            <p>غسل اليدين بالماء والصابون لمدة 20 ثانية على الأقل هو أحد أبسط الطرق وأكثرها فعالية لمنع انتشار الجراثيم والعدوى.</p>
-                            <div class="share-buttons">
-                                <button class="share-btn facebook" onclick="shareTip('أهمية غسل اليدين بانتظام', 'غسل اليدين بالماء والصابون لمدة 20 ثانية على الأقل هو أحد أبسط الطرق وأكثرها فعالية لمنع انتشار الجراثيم والعدوى.')"><i class="fab fa-facebook-f"></i> فيسبوك</button>
-                                <button class="share-btn whatsapp" onclick="shareTip('أهمية غسل اليدين بانتظام', 'غسل اليدين بالماء والصابون لمدة 20 ثانية على الأقل هو أحد أبسط الطرق وأكثرها فعالية لمنع انتشار الجراثيم والعدوى.')"><i class="fab fa-whatsapp"></i> واتساب</button>
-                                <button class="share-btn copy" onclick="copyTip('أهمية غسل اليدين بانتظام', 'غسل اليدين بالماء والصابون لمدة 20 ثانية على الأقل هو أحد أبسط الطرق وأكثرها فعالية لمنع انتشار الجراثيم والعدوى.')"><i class="fas fa-copy"></i> نسخ</button>
-                                <button class="share-btn save" onclick="saveToFavorites('tip-3', 'أهمية غسل اليدين بانتظام', 'نصيحة')"><i class="fas fa-bookmark"></i> حفظ</button>
-                            </div>
-                        </div>
+    <!-- قسم آخر الأخبار الصحية -->
+    <section id="health-news" style="background-color: #f4f7f6;">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-5 text-success">آخر الأخبار الصحية المحلية والعالمية</h2>
+            <div class="news-container">
+                <div id="news-list">
+                    <!-- News items will be dynamically loaded here by JavaScript -->
+                    <div class="alert alert-info text-center" role="alert">
+                        <i class="fas fa-newspaper me-2"></i> جاري تحميل آخر الأخبار الصحية...
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+    
+    <!-- قسم المفضلة -->
+    <section id="favorites" style="background-color: #fcfcfc;">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-5 text-warning">مفضلاتي</h2>
+            <div id="favorites-content" class="text-center">
+                <div class="alert alert-info text-center" role="alert">
+                    <i class="fas fa-info-circle me-2"></i> لا يوجد لديك أي عناصر محفوظة حتى الآن.
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section id="sources" class="trusted-sources">
-            <div class="container">
-                <h2>مصادر موثوقة</h2>
-                <div class="sources-grid">
-                    <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" class="source-button">
+    <section id="updates" style="background-color: #f4f7f6;">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-5">التوعية الصحية الذكية</h2>
+            <div class="updates-container">
+                <div id="current-tips-list">
+                    <p class="text-center text-muted">جاري تحميل أحدث التحديثات العلمية...</p>
+                    <!-- Dummy tip if athardata.json is not available, will be replaced by JS if successful -->
+                    <div class="tip-card" data-tip-id="dummy-tip-1" style="border-right-color: #198754">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h5 class="fw-bold" style="color:#222">أهمية غسل اليدين للوقاية من العدوى</h5>
+                            <span style="font-size:1.5rem">💡</span>
+                        </div>
+                        <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">غسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.</p>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="source-label"> المصدر: WHO - مكافحة العدوى</span>
+                            <small class="text-muted" style="font-size:0.75rem"> 2024-03-20</small>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 mt-2">
+                            <button type="button" class="btn btn-outline-warning btn-sm rounded-pill px-3"
+                                    onclick="toggleFavoriteTip({id: 'dummy-tip-1', title: 'أهمية غسل اليدين للوقاية من العدوى', content: 'غسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.', source: 'WHO', category: 'مكافحة العدوى', date: '2024-03-20', type: 'info'}, this)">
+                                <i class="far fa-bookmark"></i> حفظ
+                            </button>
+                            <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3"
+                                    onclick="copyTip(this, 'أهمية غسل اليدين للوقاية من العدوى', 'غسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.')">
+                                <i class="fas fa-copy"></i> نسخ
+                            </button>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent('💡 نصيحة صحية من أثر صحي:\nأهمية غسل اليدين للوقاية من العدوى\nغسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.')}"
+                               target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm rounded-pill px-3">
+                                <i class="fab fa-facebook-f"></i> فيسبوك
+                            </a>
+                            <a href="https://wa.me/?text=${encodeURIComponent('💡 نصيحة صحية من أثر صحي:\nأهمية غسل اليدين للوقاية من العدوى\nغسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.' + '\n\n🌐 للمزيد: ') + encodeURIComponent(window.location.href)}"
+                               target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm rounded-pill px-3">
+                                <i class="fab fa-whatsapp"></i> واتساب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="archive-tips-list" style="display: none;"></div>
+
+                <div class="text-center mt-5">
+                    <button id="archive-btn" onclick="toggleArchive()" class="btn btn-success rounded-pill px-5 py-3 fw-bold shadow-sm">
+                        تصفح أرشيف المعلومات الكامل
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="store">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-5 text-success">متجر المستلزمات</h2>
+            <div class="row g-4">
+                <div class="col-12 col-md-4">
+                    <div class="store-card">
+                        <div class="icon-box"><i class="fas fa-microscope"></i></div>
+                        <h4 class="fw-bold">تجهيزات مخبرية</h4>
+                        <p class="text-muted small">معدات الفحص الميكروبيولوجي وأدوات سحب العينات.</p>
+                        <span class="badge bg-light text-success border border-success px-4 py-2">قريباً</span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="store-card">
+                        <div class="icon-box"><i class="fas fa-user-shield text-primary"></i></div>
+                        <h4 class="fw-bold">أدوات الوقاية</h4>
+                        <p class="text-muted small">أقنعة، قفازات، ومعقمات مطابقة للمواصفات القياسية.</p>
+                        <span class="badge bg-light text-primary border border-primary px-4 py-2">قريباً</span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="store-card">
+                        <div class="icon-box"><i class="fas fa-heartbeat text-danger"></i></div>
+                        <h4 class="fw-bold">أجهزة القياس</h4>
+                        <p class="text-muted small">أجهزة قياس الضغط والسكر المنزلية الموثوقة.</p>
+                        <span class="badge bg-light text-danger border border-danger px-4 py-2">قريباً</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="research-library" style="background-color: #f4f7f6;">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-5 text-success">مكتبة الأبحاث</h2>
+            
+            <!-- قسم المصادر الموثوقة -->
+            <div class="text-center mb-5">
+                <h3 class="fw-bold mb-4">مصادرنا الموثوقة</h3>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener noreferrer" class="source-button pubmed shadow-sm">
                         <i class="fas fa-book-medical"></i> PubMed
                     </a>
-                    <a href="https://www.who.int/publications" target="_blank" class="source-button">
-                        <i class="fas fa-globe"></i> منشورات منظمة الصحة العالمية
+                    <a href="https://www.who.int/publications" target="_blank" rel="noopener noreferrer" class="source-button who shadow-sm">
+                        <i class="fas fa-globe"></i> WHO Publications
                     </a>
-                    <a href="https://www.cdc.gov/infectioncontrol/index.html" target="_blank" class="source-button">
-                        <i class="fas fa-shield-alt"></i> مراكز السيطرة على الأمراض والوقاية منها (مكافحة العدوى)
+                    <a href="https://www.cdc.gov/infectioncontrol/" target="_blank" rel="noopener noreferrer" class="source-button cdc shadow-sm">
+                        <i class="fas fa-bug-slash"></i> CDC Infection Control
                     </a>
                 </div>
             </div>
-        </section>
 
-        <section id="research" class="scientific-research-library">
-            <div class="container">
-                <h2>مكتبة الأبحاث العلمية</h2>
-                <div class="research-library-controls">
-                    <input type="text" id="researchSearch" placeholder="ابحث باسم البحث أو الكلمات المفتاحية..." onkeyup="filterResearch()">
-                    <select id="researchField" onchange="filterResearch()">
-                        <option value="">جميع المجالات</option>
-                        <option value="مقاومة المضادات الحيوية">مقاومة المضادات الحيوية</option>
-                        <option value="مكافحة العدوى">مكافحة العدوى</option>
-                        <option value="سلامة الغذاء">سلامة الغذاء</option>
-                        <option value="صحة عامة">صحة عامة</option>
-                        <option value="علم الأوبئة">علم الأوبئة</option>
-                    </select>
-                    <input type="number" id="researchYear" placeholder="سنة النشر (مثال: 2023)" onkeyup="filterResearch()">
-                    <button onclick="clearResearchFilters()">مسح الفلاتر</button>
-                </div>
-                <div class="research-table-wrapper">
-                    <table class="research-table">
-                        <thead>
-                            <tr>
-                                <th>اسم البحث</th>
-                                <th>سنة النشر</th>
-                                <th>المجال</th>
-                                <th>ملخص مبسط</th>
-                                <th>الإجراءات</th>
-                            </tr>
-                        </thead>
-                        <tbody id="researchTableBody">
-                            <!-- Research rows will be loaded here by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-                <div class="load-more-btn-wrapper">
-                    <button id="loadMoreResearch" class="load-more-btn" style="display: none;" onclick="loadMoreResearch()">عرض المزيد</button>
-                </div>
+            <!-- قسم البحث والفلترة -->
+            <div class="filter-section align-items-center">
+                <input type="text" id="researchSearchInput" class="form-control flex-grow-1" placeholder="ابحث عن أبحاث (عنوان، كلمة مفتاحية، سنة)...">
+                <select id="researchFieldFilter" class="form-select flex-grow-1">
+                    <option value="">جميع المجالات</option>
+                    <option value="الصحة العامة">الصحة العامة</option>
+                    <option value="مكافحة العدوى">مكافحة العدوى</option>
+                    <option value="سلامة الغذاء والتغذية">سلامة الغذاء والتغذية</option>
+                    <option value="الصحة البيئية">الصحة البيئية</option>
+                    <option value="الصحة النفسية">الصحة النفسية</option>
+                    <option value="الابتكار الطبي">الابتكار الطبي</option>
+                    <option value="الوقاية من الأمراض">الوقاية من الأمراض</option>
+                    <option value="صحة المرأة">صحة المرأة</option>
+                    <option value="صحة الطفل">صحة الطفل</option>
+                    <option value="الطب البديل">الطب البديل</option>
+                </select>
+                <select id="researchStudyTypeFilter" class="form-select flex-grow-1">
+                    <option value="">جميع أنواع الدراسات</option>
+                    <option value="تجربة سريرية">تجربة سريرية</option>
+                    <option value="مراجعة منهجية">مراجعة منهجية</option>
+                    <option value="دراسة أترابية">دراسة أترابية</option>
+                    <option value="دراسة حالات">دراسة حالات</option>
+                    <option value="تحليل تلوي">تحليل تلوي</option>
+                    <option value="بحث تجريبي">بحث تجريبي</option>
+                    <option value="دراسة مقطعية">دراسة مقطعية</option>
+                    <option value="استطلاع رأي">استطلاع رأي</option>
+                </select>
+                <button class="btn btn-success fw-bold" onclick="filterResearchTable()">
+                    <i class="fas fa-search"></i> فلترة
+                </button>
             </div>
-        </section>
 
-        <section id="favorites" class="favorites-list-container">
-            <div class="container">
-                <h2>قائمة مفضلاتي</h2>
-                <div class="favorites-list-wrapper">
-                    <div id="favorites-list">
-                        <!-- Favorite items will be rendered here -->
-                    </div>
-                </div>
+            <!-- جدول الأبحاث -->
+            <div class="research-table-container">
+                <table class="table research-table" id="researchTable">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-file-alt me-2"></i> اسم البحث</th>
+                            <th style="width: 120px;"><i class="fas fa-calendar-alt me-2"></i> سنة النشر</th>
+                            <th style="width: 180px;"><i class="fas fa-tags me-2"></i> المجال</th>
+                            <th style="width: 180px;"><i class="fas fa-microscope me-2"></i> نوع الدراسة</th>
+                            <th style="width: 120px;"><i class="fas fa-link me-2"></i> رابط القراءة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Research rows will be dynamically loaded here by JavaScript -->
+                    </tbody>
+                </table>
+                <p id="noResultsMessage" class="text-center text-muted mt-4" style="display:none;">لا توجد نتائج مطابقة لبحثك.</p>
             </div>
-        </section>
-
-        <section id="contact" class="contact-us">
-            <div class="container">
-                <h2>اتصل بنا</h2>
-                <form class="contact-form">
-                    <div class="form-group">
-                        <label for="name">الاسم:</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">البريد الإلكتروني:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">رسالتك:</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit">إرسال الرسالة</button>
-                </form>
+            <div class="text-center mt-4 d-flex justify-content-center gap-3">
+                <button id="showMoreResearchBtn" onclick="showMoreResearch()" class="btn btn-success rounded-pill px-5 py-3 fw-bold shadow-sm" style="display:none;">
+                    عرض المزيد من الأبحاث
+                </button>
+                <button id="showLessResearchBtn" onclick="showLessResearch()" class="btn btn-outline-secondary rounded-pill px-5 py-3 fw-bold shadow-sm" style="display:none;">
+                    إظهار أقل
+                </button>
             </div>
-        </section>
-    </main>
+            
+        </div>
+    </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 الصحة العامة ومكافحة العدوى. جميع الحقوق محفوظة.</p>
+    <footer class="footer">
+        <div class="container px-4">
+            <h4 class="text-white fw-bold mb-3">Impact Health | أثر صحي</h4>
+            
+            <div class="contact-info mb-4">
+                <p class="small text-light mb-2">للتواصل المباشر أو للإعلان عن منتجاتكم الصحية :</p>
+                <a href="https://wa.me/218915303534" class="text-success text-decoration-none fw-bold" style="font-size: 1.2rem;">
+                    <i class="fab fa-whatsapp"></i> 218915303534+
+                </a>
+            </div>
+
+            <p class="small mb-1">صمم بواسطة mohamed jalal alnfati لدعم الصحة العامة في ليبيا</p>
+            
+            <p class="small text-muted">جميع الحقوق محفوظة &copy; 2026 <span class="text-white-50">| منصة أثر صحي</span></p>
+
+            <div class="ai-status mt-4">
+                <i class="fas fa-robot fa-2x mb-2 text-success"></i>
+                <p class="mb-1 fw-bold" style="font-size: 0.9rem;">نظام تحديث ذكي تحت إشراف متخصص</p>
+                <small class="text-white-50" style="font-size: 0.75rem;">يتم توليد النصائح يومياً وتحديثها تلقائياً من مصادر موثوقة</small>
+            </div>
         </div>
     </footer>
 
     <script>
-        // News Data - 3 real, prominent news items for 2026-05-29 with specific images
+        // مصفوفة الأخبار - سيقوم البوت بحقن الأخبار هنا تلقائياً كل يوم
         const healthNewsData = [
             {
-                id: 1,
-                title: "ابتكار جديد يعد بالكبح جماح سلالات البكتيريا المقاومة للمضادات الحيوية",
-                summary: "أعلن باحثون من المعهد العالمي لمقاومة المضادات الحيوية اليوم عن اكتشاف مركب كيميائي جديد يظهر فعالية واعدة ضد سلالات البكتيريا المتعددة المقاومة للأدوية، بما في ذلك الميثيسيلين المقاومة للمكورات العنقودية الذهبية (MRSA). يعمل المركب بطريقة مبتكرة تستهدف مسارات استقلابية غير مستخدمة من قبل المضادات الحيوية الحالية، مما يقلل من احتمالية تطور مقاومة جديدة. التحدي الآن يكمن في التجارب السريرية الواسعة النطاق التي من المتوقع أن تبدأ في أوائل عام 2027.",
-                image: "https://images.unsplash.com/photo-1579165466511-71e5331940a5?w=600" // Specific image for infection control/lab
+                id: 'news-1',
+                title: "مقاومة المضادات الحيوية: تحدٍ عالمي جديد يتطلب استجابة عاجلة",
+                content: "تزايد معدلات مقاومة البكتيريا للمضادات الحيوية يهدد الفعالية العلاجية ويزيد من صعوبة علاج الأمراض المعدية الشائعة. تحتاج الجهود العالمية لتعاون مكثف لتطوير مضادات حيوية جديدة وتطبيق ممارسات صحية أفضل للحد من انتشار هذه الظاهرة الخطيرة.",
+                date: "2024-07-28",
+                image: "https://images.unsplash.com/photo-1582234033005-92762b9a101b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHw3MXx8YW50aWJpb3RpYyUyMHJlc2lzdGFuY2V8ZW58MHx8fHwxNzA2OTU0MjIyfDA&ixlib=rb-4.0.3&q=80&w=1080",
+                source: "منظمة الصحة العالمية"
             },
             {
-                id: 2,
-                title: "تقنية رصد جديدة بالذكاء الاصطناعي تعزز سلامة الأغذية العالمية",
-                summary: "كشفت منظمة الصحة العالمية عن إطلاق نظام جديد مدعوم بالذكاء الاصطناعي لرصد سلاسل الإمداد الغذائي عالمياً، بهدف الكشف المبكر عن الملوثات المحتملة ومسببات الأمراض المنقولة بالغذاء. يستخدم النظام خوارزميات متقدمة لتحليل بيانات ضخمة من مصادر متعددة، بما في ذلك تقارير المختبرات، بيانات الطقس، ومعلومات الشحن، للتنبؤ بالمخاطر قبل أن تتسبب في تفشي الأمراض. هذا النظام يمثل نقلة نوعية في حماية المستهلكين ويساعد الدول على اتخاذ إجراءات وقائية استباقية.",
-                image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600" // Specific image for food safety/nutrition
+                id: 'news-2',
+                title: "سلامة الأغذية في الصيف: نصائح لتجنب التسمم الغذائي",
+                content: "مع ارتفاع درجات الحرارة، يزداد خطر التسمم الغذائي. من الضروري اتباع إرشادات صارمة لسلامة الأغذية، مثل تخزين الطعام بشكل صحيح، وطهيه جيدًا، وتجنب التلوث المتبادل بين الأطعمة النيئة والمطبوخة، لضمان صحة وسلامة المستهلكين.",
+                date: "2024-07-27",
+                image: "https://images.unsplash.com/photo-1590494056252-0545f1b1338d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHw0OXx8Zm9vZCUyMHNhZmV0eXxlbnwwfHx8fDE3MDY5NTQyMjF8MA&ixlib=rb-4.0.3&q=80&w=1080",
+                source: "إدارة الغذاء والدواء"
             },
             {
-                id: 3,
-                title: "بروتوكولات مطورة للتحكم بالعدوى في المختبرات الطبية تقلل المخاطر بنسبة 30%",
-                summary: "أظهرت دراسة حديثة أجرتها مراكز مكافحة الأمراض والوقاية منها (CDC) أن تطبيق بروتوكولات جديدة للتحكم في العدوى داخل المختبرات الطبية، والتي تشمل استخدام تقنيات تعقيم متقدمة وتدريب مكثف للموظفين على التعامل مع العينات عالية الخطورة، قد أسفر عن انخفاض ملحوظ بنسبة 30% في حوادث العدوى المرتبطة بالمختبرات خلال العام الماضي. هذه النتائج تدعم التوسع في تبني هذه الإجراءات على نطاق أوسع لتعزيز بيئة عمل أكثر أماناً وحماية الصحة العامة.",
-                image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600" // Specific image for public health/awareness
+                id: 'news-3',
+                title: "برامج التطعيم الشاملة: حجر الزاوية في الصحة العامة الحديثة",
+                content: "تعتبر برامج التطعيم الفعالة من أهم إنجازات الصحة العامة في القرن الماضي، حيث ساهمت في القضاء على العديد من الأمراض الفتاكة أو الحد منها بشكل كبير. يؤكد الخبراء على ضرورة مواصلة هذه البرامج وتوسيع نطاقها لحماية المجتمعات من التهديدات الصحية الجديدة.",
+                date: "2024-07-26",
+                image: "https://images.unsplash.com/photo-1614748123285-d143c7b2c011?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHwyMHx8dmFjY2luYXRpb24lMjBwdWJsaWMlMjBoZWFsdGh8ZW58MHx8fHwxNzA2OTU0MjYzfDA&ixlib=rb-4.0.3&q=80&w=1080",
+                source: "مراكز مكافحة الأمراض والوقاية منها"
             }
         ];
 
-        // Research Data - 100 entries with unique IDs
-        const allResearchData = [
-            { id: 'res-1', name: "تأثير بروتوكولات التعقيم الجديدة على العدوى المكتسبة من المستشفيات", year: 2026, field: "مكافحة العدوى", summary: "دراسة شاملة لتقييم فعالية أساليب التعقيم الحديثة في خفض معدلات العدوى بالمرافق الصحية.", link: "https://pubmed.ncbi.nlm.nih.gov/38210001/" },
-            { id: 'res-2', name: "تحليل جيني لمقاومة البكتيريا المعوية للمضادات الحيوية", year: 2025, field: "مقاومة المضادات الحيوية", summary: "تحديد الجينات المسؤولة عن مقاومة المضادات الحيوية في سلالات بكتيرية شائعة معوية وكيفية انتشارها.", link: "https://pubmed.ncbi.nlm.nih.gov/38210002/" },
-            { id: 'res-3', name: "ابتكارات في التعبئة والتغليف الذكي لضمان سلامة الأغذية", year: 2026, field: "سلامة الغذاء", summary: "مراجعة لأحدث التقنيات في التعبئة الذكية التي تكشف عن تلف الطعام أو تلوثه مبكرًا.", link: "https://pubmed.ncbi.nlm.nih.gov/38210003/" },
-            { id: 'res-4', name: "دور الذكاء الاصطناعي في التنبؤ بتفشي الأمراض المعدية", year: 2024, field: "علم الأوبئة", summary: "استخدام نماذج الذكاء الاصطناعي لتحليل البيانات الوبائية والتنبؤ بانتشار الأوبئة مبكرًا.", link: "https://pubmed.ncbi.nlm.nih.gov/38210004/" },
-            { id: 'res-5', name: "تقييم برامج التوعية الصحية لمكافحة السلوكيات الخطرة", year: 2025, field: "صحة عامة", summary: "دراسة لفعالية حملات التوعية في تغيير السلوكيات التي تزيد من خطر الإصابة بالأمراض.", link: "https://pubmed.ncbi.nlm.nih.gov/38210005/" },
-            { id: 'res-6', name: "Comparison of Rapid Diagnostic Tests for COVID-19 Variants", year: 2026, field: "مكافحة العدوى", summary: "An evaluation of the accuracy and speed of various rapid antigen tests for newly emerging COVID-19 variants.", link: "https://pubmed.ncbi.nlm.nih.gov/38210006/" },
-            { id: 'res-7', name: "Mechanisms of Vancomycin Resistance in Staphylococcus aureus", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Investigating the molecular pathways leading to vancomycin resistance in clinical isolates of S. aureus.", link: "https://pubmed.ncbi.nlm.nih.gov/38210007/" },
-            { id: 'res-8', name: "Blockchain Technology for Enhanced Food Supply Chain Traceability", year: 2026, field: "سلامة الغذاء", summary: "Exploring the application of blockchain to improve transparency and traceability in food supply chains.", link: "https://pubmed.ncbi.nlm.nih.gov/38210008/" },
-            { id: 'res-9', name: "Public Health Interventions for Climate Change-Related Diseases", year: 2024, field: "صحة عامة", summary: "Examining strategies to mitigate the impact of climate change on infectious disease patterns.", link: "https://pubmed.ncbi.nlm.nih.gov/38210009/" },
-            { id: 'res-10', name: "Efficacy of Hand Hygiene Compliance Monitoring Systems in Hospitals", year: 2025, field: "مكافحة العدوى", summary: "A study on the impact of automated hand hygiene monitoring systems on healthcare worker compliance.", link: "https://pubmed.ncbi.nlm.nih.gov/38210010/" },
-            { id: 'res-11', name: "Novel Antifungal Agents for Drug-Resistant Candida Infections", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Development and testing of new compounds active against fluconazole-resistant Candida species.", link: "https://pubmed.ncbi.nlm.nih.gov/38210011/" },
-            { id: 'res-12', name: "Risk Assessment of Microplastic Contamination in Seafood", year: 2025, field: "سلامة الغذاء", summary: "Evaluating the prevalence and potential health risks associated with microplastic ingestion from seafood.", link: "https://pubmed.ncbi.nlm.nih.gov/38210012/" },
-            { id: 'res-13', name: "Mental Health Impact of Pandemic Lockdowns on Adolescents", year: 2024, field: "صحة عامة", summary: "A longitudinal study assessing the psychological effects of COVID-19 lockdowns on adolescent populations.", link: "https://pubmed.ncbi.nlm.nih.gov/38210013/" },
-            { id: 'res-14', name: "Advanced Air Filtration Systems for Airborne Pathogen Control", year: 2026, field: "مكافحة العدوى", summary: "Research on the efficiency of new HVAC systems in filtering viral and bacterial aerosols in public spaces.", link: "https://pubmed.ncbi.nlm.nih.gov/38210014/" },
-            { id: 'res-15', name: "CRISPR-Cas9 for Reversing Antibiotic Resistance in Bacteria", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Exploring genetic editing technologies to disable resistance genes in pathogenic bacteria.", link: "https://pubmed.ncbi.nlm.nih.gov/38210015/" },
-            { id: 'res-16', name: "Development of Biosensors for Real-time Foodborne Pathogen Detection", year: 2026, field: "سلامة الغذاء", summary: "Creating rapid, on-site detection methods for common foodborne pathogens like Salmonella and E. coli.", link: "https://pubmed.ncbi.nlm.nih.gov/38210016/" },
-            { id: 'res-17', name: "Global Burden of Non-Communicable Diseases in Low-Income Countries", year: 2024, field: "صحة عامة", summary: "An epidemiological study on the rising prevalence of NCDs and their impact on public health in developing nations.", link: "https://pubmed.ncbi.nlm.nih.gov/38210017/" },
-            { id: 'res-18', name: "Impact of Telemedicine on Infection Control Practices", year: 2025, field: "مكافحة العدوى", summary: "Assessing how virtual care models influence the prevention and spread of infections.", link: "https://pubmed.ncbi.nlm.nih.gov/38210018/" },
-            { id: 'res-19', name: "New Vaccine Strategies Against Multi-Drug Resistant Tuberculosis", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Research into novel vaccine candidates for protection against drug-resistant strains of Mycobacterium tuberculosis.", link: "https://pubmed.ncbi.nlm.nih.gov/38210019/" },
-            { id: 'res-20', name: "Effect of Pesticide Residues on Children's Health", year: 2025, field: "سلامة الغذاء", summary: "A study investigating the correlation between dietary exposure to pesticides and developmental outcomes in children.", link: "https://pubmed.ncbi.nlm.nih.gov/38210020/" },
-            { id: 'res-21', name: "Public Health Policy for Dengue Fever Prevention in Urban Areas", year: 2024, field: "علم الأوبئة", summary: "Evaluating the effectiveness of public health campaigns and mosquito control programs for dengue in cities.", link: "https://pubmed.ncbi.nlm.nih.gov/38210021/" },
-            { id: 'res-22', name: "Strategies for Combating Hospital-Acquired Pneumonia", year: 2026, field: "مكافحة العدوى", summary: "Best practices and innovative approaches to reduce the incidence of ventilator-associated pneumonia (VAP).", link: "https://pubmed.ncbi.nlm.nih.gov/38210022/" },
-            { id: 'res-23', name: "The Role of Phage Therapy in Treating Bacterial Biofilms", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Investigating bacteriophages as an alternative treatment for chronic infections involving antibiotic-resistant biofilms.", link: "https://pubmed.ncbi.nlm.nih.gov/38210023/" },
-            { id: 'res-24', name: "Impact of Climate Change on Food Security and Nutritional Health", year: 2026, field: "سلامة الغذاء", summary: "Analyzing the effects of changing climatic patterns on agricultural yields and global food supply, and subsequent health outcomes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210024/" },
-            { id: 'res-25', name: "Epidemiology of Zoonotic Diseases in Southeast Asia", year: 2024, field: "علم الأوبئة", summary: "Mapping the spread and risk factors of diseases transmitted from animals to humans in the region.", link: "https://pubmed.ncbi.nlm.nih.gov/38210025/" },
-            { id: 'res-26', name: "Advanced Disinfection Technologies for Operating Rooms", year: 2025, field: "مكافحة العدوى", summary: "Evaluation of UV-C light and hydrogen peroxide vapor systems for terminal disinfection in surgical environments.", link: "https://pubmed.ncbi.nlm.nih.gov/38210026/" },
-            { id: 'res-27', name: "Predicting Antimicrobial Resistance Genes Using Machine Learning", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Developing AI models to identify and predict the emergence of new resistance genes from genomic data.", link: "https://pubmed.ncbi.nlm.nih.gov/38210027/" },
-            { id: 'res-28', name: "Food Fraud Detection: New Spectroscopic Methods", year: 2025, field: "سلامة الغذاء", summary: "Application of advanced spectroscopic techniques to identify adulteration and mislabeling in food products.", link: "https://pubmed.ncbi.nlm.nih.gov/38210028/" },
-            { id: 'res-29', name: "Community-Based Interventions for Diabetes Prevention", year: 2024, field: "صحة عامة", summary: "Assessing the effectiveness of local programs in promoting healthy lifestyles to reduce diabetes incidence.", link: "https://pubmed.ncbi.nlm.nih.gov/38210029/" },
-            { id: 'res-30', name: "Role of Probiotics in Preventing Clostridium difficile Infection", year: 2026, field: "مكافحة العدوى", summary: "Clinical trials investigating the use of specific probiotic strains to reduce C. difficile recurrence.", link: "https://pubmed.ncbi.nlm.nih.gov/38210030/" },
-            { id: 'res-31', name: "Targeting Persister Cells to Overcome Antibiotic Tolerance", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Research into strategies to eliminate dormant bacterial cells that evade antibiotic treatment.", link: "https://pubmed.ncbi.nlm.nih.gov/38210031/" },
-            { id: 'res-32', name: "Foodborne Outbreak Investigation: A Data Science Approach", year: 2026, field: "سلامة الغذاء", summary: "Utilizing big data analytics to rapidly identify sources and spread patterns of foodborne illnesses.", link: "https://pubmed.ncbi.nlm.nih.gov/38210032/" },
-            { id: 'res-33', name: "Environmental Factors Influencing Childhood Asthma Prevalence", year: 2024, field: "صحة عامة", summary: "A study on air pollution, indoor allergens, and their contribution to asthma rates in urban children.", link: "https://pubmed.ncbi.nlm.nih.gov/38210033/" },
-            { id: 'res-34', name: "Infection Control in Long-Term Care Facilities for the Elderly", year: 2025, field: "مكافحة العدوى", summary: "Developing tailored infection prevention strategies for vulnerable populations in nursing homes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210034/" },
-            { id: 'res-35', name: "Understanding Cross-Resistance Mechanisms in Gram-Negative Bacteria", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Molecular analysis of how bacteria develop resistance to multiple classes of antibiotics simultaneously.", link: "https://pubmed.ncbi.nlm.nih.gov/38210035/" },
-            { id: 'res-36', name: "Pesticide Use in Agriculture and its Impact on Biodiversity", year: 2025, field: "سلامة الغذاء", summary: "Assessing the ecological and indirect human health consequences of widespread pesticide application.", link: "https://pubmed.ncbi.nlm.nih.gov/38210036/" },
-            { id: 'res-37', name: "Global Health Security: Preparing for Future Pandemics", year: 2024, field: "علم الأوبئة", summary: "Policy recommendations and strategic planning for enhancing global preparedness and response to emerging infectious threats.", link: "https://pubmed.ncbi.nlm.nih.gov/38210037/" },
-            { id: 'res-38', name: "The Role of AI in Predicting Nosocomial Infections", year: 2026, field: "مكافحة العدوى", summary: "Machine learning algorithms to predict which patients are at highest risk for hospital-acquired infections.", link: "https://pubmed.ncbi.nlm.nih.gov/38210038/" },
-            { id: 'res-39', name: "New Drug Discovery Approaches for Multidrug-Resistant Bacteria", year: 2025, field: "مقاومة المضادات الحيوية", summary: "High-throughput screening and rational design techniques for identifying novel antibacterial agents.", link: "https://pubmed.ncbi.nlm.nih.gov/38210039/" },
-            { id: 'res-40', name: "Monitoring Heavy Metal Contamination in Freshwater Fish", year: 2026, field: "سلامة الغذاء", summary: "A surveillance study on levels of mercury, lead, and cadmium in fish from various freshwater sources.", link: "https://pubmed.ncbi.nlm.nih.gov/38210040/" },
-            { id: 'res-41', name: "Impact of Urban Green Spaces on Public Mental Health", year: 2024, field: "صحة عامة", summary: "Research exploring the psychological benefits and stress reduction associated with access to urban parks and nature.", link: "https://pubmed.ncbi.nlm.nih.gov/38210041/" },
-            { id: 'res-42', name: "Environmental Cleaning Protocols and Infection Rates", year: 2025, field: "مكافحة العدوى", summary: "Study on the correlation between thorough environmental cleaning and reduced infection rates in healthcare settings.", link: "https://pubmed.ncbi.nlm.nih.gov/38210042/" },
-            { id: 'res-43', name: "Nanotechnology in Combating Antimicrobial Resistance", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Review of nanoparticles as delivery systems for antibiotics or as intrinsic antibacterial agents.", link: "https://pubmed.ncbi.nlm.nih.gov/38210043/" },
-            { id: 'res-44', name: "Food Allergy Management in Schools: Best Practices", year: 2025, field: "سلامة الغذاء", summary: "Guidelines and protocols for schools to safely manage students with food allergies.", link: "https://pubmed.ncbi.nlm.nih.gov/38210044/" },
-            { id: 'res-45', name: "Effectiveness of Influenza Vaccination Campaigns in the Elderly", year: 2024, field: "صحة عامة", summary: "Analyzing the impact and uptake of annual flu vaccination programs among older adults.", link: "https://pubmed.ncbi.nlm.nih.gov/38210045/" },
-            { id: 'res-46', name: "Prevention of Surgical Site Infections with Novel Dressings", year: 2026, field: "مكافحة العدوى", summary: "Evaluation of antimicrobial-impregnated dressings in preventing post-operative wound infections.", link: "https://pubmed.ncbi.nlm.nih.gov/38210046/" },
-            { id: 'res-47', name: "Emergence of Colistin Resistance in Animal Agriculture", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Tracking the development and spread of colistin resistance in bacteria from livestock and its implications for human health.", link: "https://pubmed.ncbi.nlm.nih.gov/38210047/" },
-            { id: 'res-48', name: "Food Irradiation Technology for Pathogen Reduction", year: 2026, field: "سلامة الغذاء", summary: "Assessing the safety and effectiveness of food irradiation in extending shelf-life and eliminating harmful microbes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210048/" },
-            { id: 'res-49', name: "Public Health Approaches to Combat Opioid Epidemic", year: 2024, field: "صحة عامة", summary: "Strategies involving harm reduction, treatment access, and prevention programs to address the opioid crisis.", link: "https://pubmed.ncbi.nlm.nih.gov/38210049/" },
-            { id: 'res-50', name: "Impact of Ventilation Systems on Airborne Infection Transmission", year: 2025, field: "مكافحة العدوى", summary: "Research into optimal ventilation rates and designs to minimize the spread of airborne pathogens indoors.", link: "https://pubmed.ncbi.nlm.nih.gov/38210050/" },
-            { id: 'res-51', name: "Antimicrobial Peptides as a Novel Class of Antibiotics", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Exploring naturally occurring peptides with broad-spectrum antimicrobial activity as therapeutic agents.", link: "https://pubmed.ncbi.nlm.nih.gov/38210051/" },
-            { id: 'res-52', name: "Detecting Aflatoxins in Cereal Grains: Advanced Methods", year: 2025, field: "سلامة الغذاء", summary: "New techniques for rapid and sensitive detection of carcinogenic aflatoxins in staple food crops.", link: "https://pubmed.ncbi.nlm.nih.gov/38210052/" },
-            { id: 'res-53', name: "Health Equity and Access to Healthcare in Rural Areas", year: 2024, field: "صحة عامة", summary: "Investigating disparities in healthcare access and outcomes for populations in remote and rural communities.", link: "https://pubmed.ncbi.nlm.nih.gov/38210053/" },
-            { id: 'res-54', name: "Infection Prevention in Dental Settings", year: 2026, field: "مكافحة العدوى", summary: "Guidelines and best practices for preventing cross-contamination and transmission of infections in dental clinics.", link: "https://pubmed.ncbi.nlm.nih.gov/38210054/" },
-            { id: 'res-55', name: "Drug Resistance in Malaria Parasites: Global Trends", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Monitoring the spread of antimalarial drug resistance in Plasmodium falciparum and vivax across endemic regions.", link: "https://pubmed.ncbi.nlm.nih.gov/38210055/" },
-            { id: 'res-56', name: "Food Safety Culture in Restaurants and Catering Services", year: 2026, field: "سلامة الغذاء", summary: "Assessing the importance of organizational culture in promoting and maintaining high food safety standards.", link: "https://pubmed.ncbi.nlm.nih.gov/38210056/" },
-            { id: 'res-57', name: "Impact of Climate Change on Vector-Borne Diseases", year: 2024, field: "علم الأوبئة", summary: "Examining how rising temperatures and altered rainfall patterns influence the geographic range and incidence of diseases like Zika and Lyme.", link: "https://pubmed.ncbi.nlm.nih.gov/38210057/" },
-            { id: 'res-58', name: "Sterilization of Medical Devices: Challenges and Solutions", year: 2025, field: "مكافحة العدوى", summary: "Addressing the complexities of sterilizing heat-sensitive and complex medical instruments.", link: "https://pubmed.ncbi.nlm.nih.gov/38210058/" },
-            { id: 'res-59', name: "Antimicrobial Stewardship Programs in Veterinary Medicine", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Implementing guidelines for responsible antibiotic use in animals to reduce the development of resistance.", link: "https://pubmed.ncbi.nlm.nih.gov/38210059/" },
-            { id: 'res-60', name: "Genetic Modification of Crops for Enhanced Nutritional Value", year: 2025, field: "سلامة الغذاء", summary: "Exploring biotechnology approaches to improve the vitamin and mineral content of staple foods.", link: "https://pubmed.ncbi.nlm.nih.gov/38210060/" },
-            { id: 'res-61', name: "Childhood Immunization Programs: Coverage and Hesitancy", year: 2024, field: "صحة عامة", summary: "Analysis of vaccination rates and factors contributing to vaccine hesitancy in pediatric populations.", link: "https://pubmed.ncbi.nlm.nih.gov/38210061/" },
-            { id: 'res-62', name: "Preventing Healthcare-Associated UTIs: Best Practices", year: 2026, field: "مكافحة العدوى", summary: "Strategies to reduce catheter-associated urinary tract infections (CAUTI) in inpatient settings.", link: "https://pubmed.ncbi.nlm.nih.gov/38210062/" },
-            { id: 'res-63', name: "Mechanisms of Biofilm Formation in Antibiotic Resistance", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Understanding how bacterial biofilms contribute to increased resistance to antimicrobial agents.", link: "https://pubmed.ncbi.nlm.nih.gov/38210063/" },
-            { id: 'res-64', name: "Emerging Food Processing Technologies for Safety and Quality", year: 2026, field: "سلامة الغذاء", summary: "Review of novel methods like high-pressure processing and pulsed electric fields in food production.", link: "https://pubmed.ncbi.nlm.nih.gov/38210064/" },
-            { id: 'res-65', name: "Occupational Health Risks in Healthcare Workers", year: 2024, field: "صحة عامة", summary: "Study on exposure to infectious agents, chemicals, and burnout among healthcare professionals.", link: "https://pubmed.ncbi.nlm.nih.gov/38210065/" },
-            { id: 'res-66', name: "Role of Environmental Surveillance in Outbreak Detection", year: 2025, field: "مكافحة العدوى", summary: "Using wastewater and surface sampling to detect circulating pathogens before clinical outbreaks.", link: "https://pubmed.ncbi.nlm.nih.gov/38210066/" },
-            { id: 'res-67', name: "Drug Repurposing for Antibiotic-Resistant Infections", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Investigating existing non-antibiotic drugs for potential antibacterial activity against resistant strains.", link: "https://pubmed.ncbi.nlm.nih.gov/38210067/" },
-            { id: 'res-68', name: "Traceability Systems for Organic Food Products", year: 2025, field: "سلامة الغذاء", summary: "Developing robust systems to ensure the authenticity and safety of organic produce.", link: "https://pubmed.ncbi.nlm.nih.gov/38210068/" },
-            { id: 'res-69', name: "Public Health Response to Natural Disasters", year: 2024, field: "صحة عامة", summary: "Strategies for mitigating health impacts, managing outbreaks, and providing care in post-disaster scenarios.", link: "https://pubmed.ncbi.nlm.nih.gov/38210069/" },
-            { id: 'res-70', name: "Infection Prevention in Schools and Daycare Centers", year: 2026, field: "مكافحة العدوى", summary: "Developing guidelines and educational programs to minimize infectious disease transmission in child settings.", link: "https://pubmed.ncbi.nlm.nih.gov/38210070/" },
-            { id: 'res-71', name: "Mechanisms of Efflux Pump Mediated Antibiotic Resistance", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Detailed study of bacterial efflux pumps that actively transport antibiotics out of the cell, conferring resistance.", link: "https://pubmed.ncbi.nlm.nih.gov/38210071/" },
-            { id: 'res-72', name: "Nanomaterials for Smart Food Packaging", year: 2026, field: "سلامة الغذاء", summary: "Designing packaging materials with embedded nanosensors that can detect spoilage or pathogens.", link: "https://pubmed.ncbi.nlm.nih.gov/38210072/" },
-            { id: 'res-73', name: "Adolescent Health and Risky Behaviors: A Longitudinal Study", year: 2024, field: "صحة عامة", summary: "Tracking health outcomes and risk-taking behaviors among adolescents over several years.", link: "https://pubmed.ncbi.nlm.nih.gov/38210073/" },
-            { id: 'res-74', name: "Reusable Medical Devices: Reprocessing and Sterilization Challenges", year: 2025, field: "مكافحة العدوى", summary: "Ensuring effective cleaning and sterilization of complex reusable devices to prevent cross-infection.", link: "https://pubmed.ncbi.nlm.nih.gov/38210074/" },
-            { id: 'res-75', name: "Impact of Antibiotics in Livestock on Human Gut Microbiome", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Investigating the transfer of antibiotic resistance genes from animal gut bacteria to human gut bacteria.", link: "https://pubmed.ncbi.nlm.nih.gov/38210075/" },
-            { id: 'res-76', name: "Food Additives and Their Long-Term Health Effects", year: 2025, field: "سلامة الغذاء", summary: "Review of scientific evidence on the safety and potential adverse effects of common food additives.", link: "https://pubmed.ncbi.nlm.nih.gov/38210076/" },
-            { id: 'res-77', name: "The Role of Social Determinants in Health Disparities", year: 2024, field: "صحة عامة", summary: "Examining how socioeconomic status, education, and environment contribute to unequal health outcomes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210077/" },
-            { id: 'res-78', name: "Airborne Infection Isolation Rooms: Design and Efficacy", year: 2026, field: "مكافحة العدوى", summary: "Optimizing negative pressure room design and ventilation for containing highly infectious airborne pathogens.", link: "https://pubmed.ncbi.nlm.nih.gov/38210078/" },
-            { id: 'res-79', name: "Emerging Alternatives to Traditional Antibiotics", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Research into innovative therapies such as CRISPR, phage therapy, and immunomodulators.", link: "https://pubmed.ncbi.nlm.nih.gov/38210079/" },
-            { id: 'res-80', name: "Microbial Risk Assessment for Fresh Produce", year: 2026, field: "سلامة الغذاء", summary: "Quantifying the risks of pathogenic contamination in fruits and vegetables from farm to fork.", link: "https://pubmed.ncbi.nlm.nih.gov/38210080/" },
-            { id: 'res-81', name: "Health Promotion Strategies for Chronic Disease Management", year: 2024, field: "صحة عامة", summary: "Developing and evaluating programs that empower individuals to manage conditions like heart disease and diabetes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210081/" },
-            { id: 'res-82', name: "Control of Legionella in Water Systems of Healthcare Facilities", year: 2025, field: "مكافحة العدوى", summary: "Protocols and technologies for preventing Legionnaires' disease outbreaks from hospital water sources.", link: "https://pubmed.ncbi.nlm.nih.gov/38210082/" },
-            { id: 'res-83', name: "Horizontal Gene Transfer of Antibiotic Resistance in Soil Microbes", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Study of how resistance genes spread among bacteria in environmental reservoirs like soil.", link: "https://pubmed.ncbi.nlm.nih.gov/38210083/" },
-            { id: 'res-84', name: "Food Labeling Regulations and Consumer Understanding", year: 2025, field: "سلامة الغذاء", summary: "Research on how clear and effective food labeling can help consumers make healthier and safer choices.", link: "https://pubmed.ncbi.nlm.nih.gov/38210084/" },
-            { id: 'res-85', name: "Global Health Diplomacy and International Collaboration", year: 2024, field: "صحة عامة", summary: "The role of international agreements and partnerships in addressing global health challenges.", link: "https://pubmed.ncbi.nlm.nih.gov/38210085/" },
-            { id: 'res-86', name: "Hand Hygiene Education Programs for Healthcare Professionals", year: 2026, field: "مكافحة العدوى", summary: "Evaluating the effectiveness of different educational interventions in improving hand hygiene compliance.", link: "https://pubmed.ncbi.nlm.nih.gov/38210086/" },
-            { id: 'res-87', name: "Mechanisms of Quinolone Resistance in E. coli", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Investigating the genetic mutations and enzymatic modifications conferring resistance to quinolone antibiotics in E. coli.", link: "https://pubmed.ncbi.nlm.nih.gov/38210087/" },
-            { id: 'res-88', name: "Impact of Food Safety Audits on Restaurant Compliance", year: 2026, field: "سلامة الغذاء", summary: "Analyzing the effect of regular health inspections and audits on food safety practices in food service establishments.", link: "https://pubmed.ncbi.nlm.nih.gov/38210088/" },
-            { id: 'res-89', name: "The Role of Lifestyle Interventions in Preventing Type 2 Diabetes", year: 2024, field: "صحة عامة", summary: "A comprehensive review of the efficacy of diet and exercise programs in reducing the risk of developing type 2 diabetes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210089/" },
-            { id: 'res-90', name: "Infection Control in Hemodialysis Units", year: 2025, field: "مكافحة العدوى", summary: "Specific protocols and guidelines for preventing bloodstream infections and other complications in dialysis patients.", link: "https://pubmed.ncbi.nlm.nih.gov/38210090/" },
-            { id: 'res-91', name: "Genetic Basis of Multi-Drug Resistance in Salmonella", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Mapping the genetic elements responsible for multidrug resistance in various Salmonella serotypes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210091/" },
-            { id: 'res-92', name: "Assessing Consumer Perceptions of Food Safety Risks", year: 2025, field: "سلامة الغذاء", summary: "Survey-based research on public awareness and concerns regarding foodborne hazards.", link: "https://pubmed.ncbi.nlm.nih.gov/38210092/" },
-            { id: 'res-93', name: "Effectiveness of School-Based Health Programs", year: 2024, field: "صحة عامة", summary: "Evaluating programs that address nutrition, physical activity, and mental health in school-aged children.", link: "https://pubmed.ncbi.nlm.nih.gov/38210093/" },
-            { id: 'res-94', name: "Strategies for Combating Fungal Infections in Immunocompromised Patients", year: 2026, field: "مكافحة العدوى", summary: "New approaches to prevent and treat invasive fungal infections in patients with weakened immune systems.", link: "https://pubmed.ncbi.nlm.nih.gov/38210094/" },
-            { id: 'res-95', name: "Role of Bacteriocins in the Fight Against Superbugs", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Exploring antimicrobial peptides produced by bacteria themselves as potential therapeutic agents.", link: "https://pubmed.ncbi.nlm.nih.gov/38210095/" },
-            { id: 'res-96', name: "Food Waste Reduction and its Public Health Benefits", year: 2026, field: "سلامة الغذاء", summary: "Analyzing the health and environmental advantages of minimizing food waste at various stages of the food chain.", link: "https://pubmed.ncbi.nlm.nih.gov/38210096/" },
-            { id: 'res-97', name: "Impact of Air Quality on Respiratory Health in Urban Areas", year: 2024, field: "صحة عامة", summary: "Study on the correlation between urban air pollution levels and the incidence of respiratory diseases.", link: "https://pubmed.ncbi.nlm.nih.gov/38210097/" },
-            { id: 'res-98', name: "Optimizing Disinfection of Endoscopes to Prevent Cross-Contamination", year: 2025, field: "مكافحة العدوى", summary: "Research on advanced automated reprocessing systems and protocols for flexible endoscopes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210098/" },
-            { id: 'res-99', name: "Antimicrobial Resistance in Aquaculture: A Global Threat", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Investigating the prevalence of antibiotic resistance in fish farms and its potential transfer to humans.", link: "https://pubmed.ncbi.nlm.nih.gov/38210099/" },
-            { id: 'res-100', name: "Rapid Detection Methods for Allergens in Packaged Foods", year: 2025, field: "سلامة الغذاء", summary: "Development of quick and accurate tests to identify undeclared allergens in processed food products.", link: "https://pubmed.ncbi.nlm.nih.gov/38210100/" },
-            { id: 'res-101', name: "The Effectiveness of Smoking Cessation Programs", year: 2024, field: "صحة عامة", summary: "An evaluation of different interventions and support systems designed to help individuals quit smoking.", link: "https://pubmed.ncbi.nlm.nih.gov/38210101/" },
-            { id: 'res-102', name: "Strategies for Preventing Catheter-Related Bloodstream Infections", year: 2026, field: "مكافحة العدوى", summary: "Best practices for insertion, maintenance, and removal of central venous catheters to minimize infection risk.", link: "https://pubmed.ncbi.nlm.nih.gov/38210102/" },
-            { id: 'res-103', name: "Understanding the Evolution of Antibiotic Resistance in Gram-Positive Bacteria", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Genetic and phenotypic analysis of how Gram-positive bacteria acquire and disseminate resistance mechanisms.", link: "https://pubmed.ncbi.nlm.nih.gov/38210103/" },
-            { id: 'res-104', name: "Food Safety in Street Food Vendors: A Public Health Challenge", year: 2026, field: "سلامة الغذاء", summary: "Addressing the unique food safety risks associated with street food preparation and vending in urban areas.", link: "https://pubmed.ncbi.nlm.nih.gov/38210104/" },
-            { id: 'res-105', name: "Impact of Sleep Deprivation on Public Health and Safety", year: 2024, field: "صحة عامة", summary: "Examining the widespread consequences of insufficient sleep on physical health, mental well-being, and accident rates.", link: "https://pubmed.ncbi.nlm.nih.gov/38210105/" },
-            { id: 'res-106', name: "Advanced Technologies for Hospital Surface Disinfection", year: 2025, field: "مكافحة العدوى", summary: "Evaluation of novel automated disinfection robots and persistent antimicrobial coatings for hospital environments.", link: "https://pubmed.ncbi.nlm.nih.gov/38210106/" },
-            { id: 'res-107', name: "Genomic Epidemiology of Methicillin-Resistant Staphylococcus aureus (MRSA)", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Using whole-genome sequencing to track the spread and evolution of MRSA strains in various settings.", link: "https://pubmed.ncbi.nlm.nih.gov/38210107/" },
-            { id: 'res-108', name: "Role of Artificial Intelligence in Food Quality Control", year: 2025, field: "سلامة الغذاء", summary: "Application of AI and machine vision systems for automated inspection and quality assessment of food products.", link: "https://pubmed.ncbi.nlm.nih.gov/38210108/" },
-            { id: 'res-109', name: "Public Health Ethics in Pandemic Response", year: 2024, field: "صحة عامة", summary: "An examination of ethical considerations in decision-making during public health emergencies, including resource allocation and individual liberties.", link: "https://pubmed.ncbi.nlm.nih.gov/38210109/" },
-            { id: 'res-110', name: "Developing Rapid Diagnostics for Drug-Resistant Tuberculosis", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Innovation in diagnostic tools that can quickly identify drug-resistant Mycobacterium tuberculosis strains.", link: "https://pubmed.ncbi.nlm.nih.gov/38210110/" },
-            { id: 'res-111', name: "Consumer Behavior and Food Safety Practices at Home", year: 2025, field: "سلامة الغذاء", summary: "Research on common consumer errors in food handling and preparation at home that lead to foodborne illness.", link: "https://pubmed.ncbi.nlm.nih.gov/38210111/" },
-            { id: 'res-112', name: "Impact of Physical Activity on Cardiovascular Health", year: 2024, field: "صحة عامة", summary: "A review of the benefits of regular exercise in preventing and managing cardiovascular diseases.", link: "https://pubmed.ncbi.nlm.nih.gov/38210112/" },
-            { id: 'res-113', name: "Infection Prevention in Operating Theaters: Beyond Sterilization", year: 2026, field: "مكافحة العدوى", summary: "Comprehensive approach to surgical infection prevention including air quality, personnel practices, and instrument handling.", link: "https://pubmed.ncbi.nlm.nih.gov/38210113/" },
-            { id: 'res-114', name: "Antibiotic Resistance in Aquatic Environments", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Investigating the presence and spread of antibiotic resistance genes in rivers, lakes, and oceans due to human activities.", link: "https://pubmed.ncbi.nlm.nih.gov/38210114/" },
-            { id: 'res-115', name: "Food Allergens Management in Manufacturing Facilities", year: 2026, field: "سلامة الغذاء", summary: "Best practices for preventing cross-contamination with allergens in food production environments.", link: "https://pubmed.ncbi.nlm.nih.gov/38210115/" },
-            { id: 'res-116', name: "Public Health Campaigns for Cancer Prevention", year: 2024, field: "صحة عامة", summary: "Evaluation of awareness campaigns targeting modifiable risk factors for cancer, such as diet, smoking, and sun exposure.", link: "https://pubmed.ncbi.nlm.nih.gov/38210116/" },
-            { id: 'res-117', name: "Role of Hand Sanitizers in Reducing Healthcare-Associated Infections", year: 2025, field: "مكافحة العدوى", summary: "Assessing the effectiveness of alcohol-based hand rub programs in reducing pathogen transmission in hospitals.", link: "https://pubmed.ncbi.nlm.nih.gov/38210117/" },
-            { id: 'res-118', name: "Next-Generation Sequencing for Antimicrobial Resistance Surveillance", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Using advanced genomic technologies for rapid and comprehensive detection of resistance determinants in pathogens.", link: "https://pubmed.ncbi.nlm.nih.gov/38210118/" },
-            { id: 'res-119', name: "Food Authenticity Testing: Detecting Adulteration and Fraud", year: 2025, field: "سلامة الغذاء", summary: "Methods for verifying the origin, composition, and quality of food products to combat food fraud.", link: "https://pubmed.ncbi.nlm.nih.gov/38210119/" },
-            { id: 'res-120', name: "Health Literacy and Its Impact on Public Health Outcomes", year: 2024, field: "صحة عامة", summary: "Investigating how individuals' ability to understand health information affects their health decisions and outcomes.", link: "https://pubmed.ncbi.nlm.nih.gov/38210120/" },
-            { id: 'res-121', name: "Infection Control in Dialysis Centers: A Comprehensive Review", year: 2026, field: "مكافحة العدوى", summary: "Review of the latest guidelines and emerging strategies for preventing infections in hemodialysis and peritoneal dialysis facilities.", link: "https://pubmed.ncbi.nlm.nih.gov/38210121/" },
-            { id: 'res-122', name: "Alternative Therapeutic Strategies for Carbapenem-Resistant Enterobacteriaceae (CRE)", year: 2025, field: "مقاومة المضادات الحيوية", summary: "Exploring novel drug combinations, phages, and immunotherapy for highly resistant CRE infections.", link: "https://pubmed.ncbi.nlm.nih.gov/38210122/" },
-            { id: 'res-123', name: "Food Safety Training Programs for Food Handlers: Efficacy Study", year: 2026, field: "سلامة الغذاء", summary: "Evaluating the impact of different training methods on improving knowledge and practices of food safety among food service workers.", link: "https://pubmed.ncbi.nlm.nih.gov/38210123/" },
-            { id: 'res-124', name: "The Role of Early Childhood Education in Promoting Healthy Habits", year: 2024, field: "صحة عامة", summary: "Research on how health education interventions in preschool and early elementary years influence long-term health behaviors.", link: "https://pubmed.ncbi.nlm.nih.gov/38210124/" },
-            { id: 'res-125', name: "Antimicrobial Coatings for High-Touch Surfaces in Healthcare", year: 2025, field: "مكافحة العدوى", summary: "Development and evaluation of surface coatings that actively kill or inhibit microbial growth on frequently touched objects.", link: "https://pubmed.ncbi.nlm.nih.gov/38210125/" },
-            { id: 'res-126', name: "Impact of Agricultural Practices on Antibiotic Resistance in the Environment", year: 2026, field: "مقاومة المضادات الحيوية", summary: "Investigating how the use of antibiotics in agriculture contributes to the spread of resistance genes in soil and water.", link: "https://pubmed.ncbi.nlm.nih.gov/38210126/" },
-            { id: 'res-127', name: "Food Waste Valorization: Converting Waste to Value-Added Products", year: 2025, field: "سلامة الغذاء", summary: "Research into innovative methods for transforming food waste into new food ingredients, biofuels, or other useful materials.", link: "https://pubmed.ncbi.nlm.nih.gov/38210127/" },
-            { id: 'res-128', name: "Digital Health Interventions for Chronic Disease Self-Management", year: 2024, field: "صحة عامة", summary: "Evaluation of mobile apps, wearable devices, and online platforms in helping patients manage chronic conditions effectively.", link: "https://pubmed.ncbi.nlm.nih.gov/38210128/" }
-        ];
+        // Helper to get/save favorites from localStorage
+        function getFavorites(type) {
+            const favorites = localStorage.getItem(`impactHealth${type}Favorites`);
+            return favorites ? JSON.parse(favorites) : [];
+        }
 
-        let displayedResearchCount = 0;
-        const researchPerPage = 5;
-        let filteredResearch = [];
+        function saveFavorites(type, items) {
+            localStorage.setItem(`impactHealth${type}Favorites`, JSON.stringify(items));
+        }
 
-        function renderNews() {
-            const newsGrid = document.getElementById('newsGrid');
-            newsGrid.innerHTML = ''; // Clear existing news
+        // دالة لنسخ النص إلى الحافظة
+        async function copyTip(buttonElement, title, content) {
+            const textToCopy = `💡 نصيحة صحية من أثر صحي:\n${title}\n${content}\n\n🌐 للمزيد: ${window.location.href}`;
+            try {
+                await navigator.clipboard.writeText(textToCopy);
+                const originalHtml = buttonElement.innerHTML;
+                buttonElement.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
+                buttonElement.classList.remove('btn-secondary');
+                buttonElement.classList.add('btn-success');
+                setTimeout(() => {
+                    buttonElement.innerHTML = originalHtml;
+                    buttonElement.classList.remove('btn-success');
+                    buttonElement.classList.add('btn-secondary');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy tip: ', err);
+                alert('فشل نسخ النصيحة. الرجاء المحاولة مرة أخرى أو النسخ يدوياً.');
+            }
+        }
 
-            healthNewsData.forEach(news => {
-                const newsCard = document.createElement('div');
-                newsCard.className = 'news-card';
-                newsCard.innerHTML = `
-                    <img src="${news.image}" alt="${news.title}">
-                    <div class="news-card-content">
-                        <h3>${news.title}</h3>
-                        <p>${news.summary}</p>
+        // Function to add/remove tips from favorites
+        function toggleFavoriteTip(tipData, buttonElement) {
+            let favoriteTips = getFavorites('tips');
+            const isFavorite = favoriteTips.some(fav => fav.id === tipData.id);
+
+            if (isFavorite) {
+                favoriteTips = favoriteTips.filter(fav => fav.id !== tipData.id);
+                buttonElement.innerHTML = '<i class="far fa-bookmark"></i> حفظ';
+                buttonElement.classList.remove('btn-warning');
+                buttonElement.classList.add('btn-outline-warning');
+            } else {
+                favoriteTips.push(tipData);
+                buttonElement.innerHTML = '<i class="fas fa-bookmark"></i> تم الحفظ';
+                buttonElement.classList.remove('btn-outline-warning');
+                buttonElement.classList.add('btn-warning');
+            }
+            saveFavorites('tips', favoriteTips);
+            renderFavorites(); // Re-render favorites section
+        }
+
+        // Function to add/remove research from favorites
+        function toggleFavoriteResearch(researchData, buttonElement) {
+            let favoriteResearch = getFavorites('research');
+            const isFavorite = favoriteResearch.some(fav => fav.id === researchData.id);
+
+            if (isFavorite) {
+                favoriteResearch = favoriteResearch.filter(fav => fav.id !== researchData.id);
+                buttonElement.innerHTML = '<i class="far fa-bookmark"></i> حفظ';
+                buttonElement.classList.remove('btn-warning');
+                buttonElement.classList.add('btn-outline-warning');
+            } else {
+                favoriteResearch.push(researchData);
+                buttonElement.innerHTML = '<i class="fas fa-bookmark"></i> تم الحفظ';
+                buttonElement.classList.remove('btn-outline-warning');
+                buttonElement.classList.add('btn-warning');
+            }
+            saveFavorites('research', favoriteResearch);
+            renderFavorites(); // Re-render favorites section
+        }
+
+        // دالة جلب نصائح التوعية من ملف athardata.json
+        async function fetchAwarenessData() {
+            try {
+                const res = await fetch('athardata.json?v=' + new Date().getTime());
+                const data = await res.json();
+                
+                const currentContainer = document.getElementById('current-tips-list');
+                const archiveContainer = document.getElementById('archive-tips-list');
+                
+                if(currentContainer) currentContainer.innerHTML = ''; 
+                if(archiveContainer) archiveContainer.innerHTML = '';
+
+                // Filter for unique titles, then slice
+                const uniqueData = data.filter((v,i,a)=>a.findIndex(t=>(t.title === v.title))===i);
+
+                const currentItems = uniqueData.slice(0, 5);
+                const archiveItems = uniqueData.slice(5);
+
+                currentItems.forEach(item => { if(currentContainer) currentContainer.innerHTML += buildTipCard(item); });
+                archiveItems.forEach(item => { if(archiveContainer) archiveContainer.innerHTML += buildTipCard(item); });
+
+                // After loading new tips, re-check and update favorite buttons if any
+                document.querySelectorAll('#current-tips-list .tip-card, #archive-tips-list .tip-card').forEach(card => {
+                    const tipId = card.dataset.tipId;
+                    const favoriteButton = card.querySelector('.btn-outline-warning, .btn-warning');
+                    if (favoriteButton) {
+                        const isFavorite = getFavorites('tips').some(fav => fav.id === tipId);
+                        if (isFavorite) {
+                            favoriteButton.innerHTML = '<i class="fas fa-bookmark"></i> تم الحفظ';
+                            favoriteButton.classList.remove('btn-outline-warning');
+                            favoriteButton.classList.add('btn-warning');
+                        } else {
+                            favoriteButton.innerHTML = '<i class="far fa-bookmark"></i> حفظ';
+                            favoriteButton.classList.remove('btn-warning');
+                            favoriteButton.classList.add('btn-outline-warning');
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error("Failed to fetch awareness data:", error);
+                // If fetch fails, the initial dummy content in HTML will remain, which is desired.
+            }
+        }
+
+        function buildTipCard(item) {
+            const isWarning = item.type === 'warning';
+            const borderCol = isWarning ? 'var(--red-accent)' : 'var(--main-green)';
+            const icon = isWarning ? '⚠️' : '💡';
+            
+            // Sanitize input for use in JS strings and URL encoding
+            const escapedTitle = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+            const escapedContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+            const currentPageUrl = encodeURIComponent(window.location.href);
+
+            // Create a unique ID for the tip to use with favorites - ensure it's truly unique
+            // Using Base64 encoding for a robust unique ID based on content
+            const uniqueTipId = btoa(unescape(encodeURIComponent(item.title + (item.date || '') + (item.source || '') + (item.category || '') + item.content.substring(0, Math.min(item.content.length, 50))))); 
+            
+            const isFavoriteTip = getFavorites('tips').some(fav => fav.id === uniqueTipId);
+            const favoriteButtonClass = isFavoriteTip ? 'btn-warning' : 'btn-outline-warning';
+            const favoriteButtonText = isFavoriteTip ? '<i class="fas fa-bookmark"></i> تم الحفظ' : '<i class="far fa-bookmark"></i> حفظ';
+
+            // Prepare item data for the toggleFavoriteTip function
+            const tipDataForFavorite = JSON.stringify({
+                id: uniqueTipId,
+                title: item.title,
+                content: item.content,
+                source: item.source || 'أثر صحي',
+                category: item.category || '',
+                date: item.date || '',
+                type: item.type || 'info'
+            });
+
+            const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
+
+            return `
+                <div class="tip-card" data-tip-id="${uniqueTipId}" style="border-right-color: ${borderCol}">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h5 class="fw-bold" style="color:#222">${item.title}</h5>
+                        <span style="font-size:1.5rem">${icon}</span>
+                    </div>
+                    <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">${item.content}</p>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="source-label"> المصدر: ${item.source || 'أثر صحي'}${item.category ? ' - ' + item.category : ''}</span>
+                        <small class="text-muted" style="font-size:0.75rem"> ${item.date || ''}</small>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2 mt-2">
+                        <button type="button" class="btn ${favoriteButtonClass} btn-sm rounded-pill px-3" onclick="toggleFavoriteTip(${tipDataForFavorite}, this)">
+                            ${favoriteButtonText}
+                        </button>
+                        <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" onclick="copyTip(this, '${escapedTitle}', '${escapedContent}')">
+                            <i class="fas fa-copy"></i> نسخ
+                        </button>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${currentPageUrl}&quote=${shareText}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm rounded-pill px-3">
+                            <i class="fab fa-facebook-f"></i> فيسبوك
+                        </a>
+                        <a href="https://wa.me/?text=${shareText + encodeURIComponent('\n\n🌐 للمزيد: ') + currentPageUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm rounded-pill px-3">
+                            <i class="fab fa-whatsapp"></i> واتساب
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleArchive() {
+            const arc = document.getElementById('archive-tips-list');
+            const btn = document.getElementById('archive-btn');
+            if (arc && arc.style.display === 'none') {
+                arc.style.display = 'block';
+                btn.innerText = 'إخفاء أرشيف المعلومات';
+                // Use scrollIntoView to smoothly scroll to the archive list
+                arc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else if(arc) {
+                arc.style.display = 'none';
+                btn.innerText = 'تصفح أرشيف المعلومات الكامل';
+                // Scroll back to the current tips section
+                document.getElementById('current-tips-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        let allResearchData = [];
+        let filteredResearchData = [];
+        const RESEARCH_INITIAL_DISPLAY_COUNT = 5;
+        const RESEARCH_INCREMENT_COUNT = 5; // Display 5 more rows at a time
+        let currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
+
+        function generateDummyResearch(count) {
+            const researchTopics = [
+                { title: "تأثير التغيرات المناخية على انتشار الأمراض المعدية", field: "الصحة البيئية", keywords: "climate change infectious diseases environment global warming المناخ التلوث الأمراض المعدية", studyTypes: ["مراجعة منهجية", "دراسة حالات", "بحث تجريبي", "دراسة مقطعية"] },
+                { title: "فعالية اللقاحات الجديدة ضد سلالات الأنفلونزا المتحورة", field: "مكافحة العدوى", keywords: "new vaccines influenza strains antiviral immunity pandemic اللقاحات الإنفلونزا الوقاية العدوى", studyTypes: ["تجربة سريرية", "دراسة أترابية", "تحليل تلوي"] },
+                { title: "دور التغذية السليمة في تعزيز المناعة لدى الأطفال", field: "سلامة الغذاء والتغذية", keywords: "nutrition child immunity diet food supplements vitamins التغذية الأطفال المناعة الغذاء", studyTypes: ["دراسة مقطعية", "تحليل تلوي", "دراسة أترابية"] },
+                { title: "الوعي الصحي ومكافحة الأمراض المزمنة في المجتمعات النامية", field: "الصحة العامة", keywords: "health awareness chronic diseases developing countries education prevention الوعي الأمراض المزمنة التنمية", studyTypes: ["مراجعة منهجية", "دراسة مقطعية"] },
+                { title: "تكنولوجيا الرصد الوبائي: التحديات والفرص", field: "مكافحة العدوى", keywords: "epidemiological surveillance technology public health data AI الرصد الوبائي التكنولوجيا الذكاء الاصطناعي", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "سلامة المياه الصالحة للشرب وتأثيرها على صحة السكان", field: "الصحة البيئية", keywords: "drinking water safety public health contamination sanitation المياه الشرب التلوث النظافة", studyTypes: ["دراسة حالات", "دراسة مقطعية"] },
+                { title: "استراتيجيات الحد من مقاومة المضادات الحيوية في البيئة الصحية", field: "مكافحة العدوى", keywords: "antibiotic resistance strategies healthcare infection control AMR المضادات الحيوية المقاومة المستشفيات", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "تأثير النشاط البدني على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "physical activity adolescent mental health depression anxiety well-being النشاط البدني المراهقين الصحة النفسية", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
+                { title: "فحص جودة الأغذية المستوردة ودورها في الحماية من الأمراض", field: "سلامة الغذاء والتغذية", keywords: "imported food quality foodborne diseases safety regulation standards الغذاء المستورد الجودة الأمراض", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
+                { title: "الابتكارات في التشخيص المبكر للأمراض السرطانية", field: "الابتكار الطبي", keywords: "innovations early cancer diagnosis screening biomarkers technology الابتكار السرطان التشخيص المبكر", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
+                { title: "مكافحة العدوى في مراكز الرعاية الأولية", field: "مكافحة العدوى", keywords: "infection control primary healthcare hygiene hand washing PPE العدوى الرعاية الأولية النظافة", studyTypes: ["بحث تجريبي", "دراسة مقطعية"] },
+                { title: "التعليم الصحي للمجتمعات الريفية: التحديات والحلول", field: "الصحة العامة", keywords: "health education rural communities disparities access solutions التعليم الصحي المناطق الريفية", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
+                { title: "تأثير التلوث البيئي على الجهاز التنفسي", field: "الصحة البيئية", keywords: "environmental pollution respiratory health air quality asthma COPD التلوث الجهاز التنفسي الهواء", studyTypes: ["دراسة أترابية", "دراسة مقطعية"] },
+                { title: "طرق جديدة للكشف عن الملوثات في الغذاء", field: "سلامة الغذاء والتغذية", keywords: "new methods food contaminants detection safety technology analysis الملوثات الغذاء الكشف", studyTypes: ["بحث تجريبي"] },
+                { title: "الأمن البيولوجي في المختبرات الطبية", field: "مكافحة العدوى", keywords: "biosafety medical laboratories pathogens containment protocols الأمن البيولوجي المختبرات", studyTypes: ["مراجعة منهجية", "بحث تجريبي"] },
+                { title: "تقييم برامج التطعيم الوطنية وأثرها على الصحة العامة", field: "الصحة العامة", keywords: "national vaccination programs public health impact coverage diseases برامج التطعيم الصحة العامة", studyTypes: ["تحليل تلوي", "مراجعة منهجية", "دراسة أترابية"] },
+                { title: "التحديات الصحية لسكان المناطق النائية", field: "الصحة العامة", keywords: "health challenges remote areas access healthcare equity infrastructure المناطق النائية التحديات الصحية", studyTypes: ["دراسة مقطعية", "دراسة حالات"] },
+                { title: "استخدام تقنيات الذكاء الاصطناعي في تشخيص الأمراض", field: "الابتكار الطبي", keywords: "AI technologies disease diagnosis medical imaging machine learning الذكاء الاصطناعي التشخيص", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "دراسة حول فعالية حملات التوعية بسرطان الثدي", field: "صحة المرأة", keywords: "breast cancer awareness campaigns effectiveness screening early detection سرطان الثدي التوعية", studyTypes: ["دراسة مقطعية", "دراسة أترابية"] },
+                { title: "تحسين جودة الهواء في المدن وتأثيره على الصحة", field: "الصحة البيئية", keywords: "urban air quality health impact pollution mitigation policies جودة الهواء التلوث المدن", studyTypes: ["مراجعة منهجية", "دراسة مقطعية"] },
+                { title: "دور الأنماط الحياتية في الوقاية من أمراض القلب", field: "الوقاية من الأمراض", keywords: "lifestyle cardiovascular disease prevention diet exercise stress أنماط الحياة أمراض القلب", studyTypes: ["دراسة أترابية", "تحليل تلوي"] },
+                { title: "تأثير الجوائح على الصحة النفسية للمجتمعات", field: "الصحة النفسية", keywords: "pandemics mental health community anxiety depression trauma الجوائح الصحة النفسية", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
+                { title: "التقنيات الحديثة في علاج داء السكري", field: "الابتكار الطبي", keywords: "modern techniques diabetes treatment insulin pumps continuous glucose monitoring السكري العلاج", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
+                { title: "سلامة منتجات التجميل وتأثيرها على البشرة", field: "صحة المرأة", keywords: "cosmetic product safety skin impact allergies regulations ingredients منتجات التجميل البشرة", studyTypes: ["دراسة حالات", "بحث تجريبي"] },
+                { title: "برامج الفحص المبكر لسرطان القولون والمستقيم", field: "الوقاية من الأمراض", keywords: "colorectal cancer screening programs early detection endoscopy awareness سرطان القولون الفحص المبكر", studyTypes: ["مراجعة منهجية", "دراسة أترابية"] },
+                { title: "تأثير جائحة كوفيد-19 على الصحة النفسية للمراهقين", field: "الصحة النفسية", keywords: "COVID-19 pandemic mental health adolescents anxiety depression stress كوفيد-19 الصحة النفسية المراهقين", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
+                { title: "تحليل فعالية برامج مكافحة السمنة في المدارس", field: "صحة الطفل", keywords: "obesity prevention school programs children health nutrition physical activity السمنة المدارس", studyTypes: ["بحث تجريبي", "دراسة مقطعية"] },
+                { title: "التحكم في ناقلات الأمراض: استراتيجيات جديدة", field: "مكافحة العدوى", keywords: "vector control disease prevention mosquitoes ticks public health strategies ناقلات الأمراض المكافحة", studyTypes: ["مراجعة منهجية", "بحث تجريبي"] },
+                { title: "دور التثقيف الغذائي في الوقاية من السكري من النوع الثاني", field: "سلامة الغذاء والتغذية", keywords: "nutrition education type 2 diabetes prevention diet healthy eating lifestyle التثقيف الغذائي السكري", studyTypes: ["دراسة أترابية", "تجربة سريرية"] },
+                { title: "ابتكارات في التشخيص السريع للأمراض المعدية", field: "الابتكار الطبي", keywords: "rapid diagnostics infectious diseases point-of-care testing technology innovation التشخيص السريع الأمراض المعدية", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "صحة الفم والأسنان وعلاقتها بالأمراض المزمنة", field: "الصحة العامة", keywords: "oral health dental chronic diseases periodontitis diabetes صحة الفم الأسنان", studyTypes: ["دراسة مقطعية", "مراجعة منهجية"] },
+                { title: "تأثير العلاج الطبيعي على جودة حياة كبار السن", field: "الصحة العامة", keywords: "physical therapy quality of life elderly aging mobility العلاج الطبيعي كبار السن", studyTypes: ["تجربة سريرية", "دراسة أترابية"] },
+                { title: "التحصين ضد فيروس الورم الحليمي البشري (HPV) للوقاية من السرطان", field: "صحة المرأة", keywords: "HPV vaccine cancer prevention cervical cancer immunization لقاح HPV سرطان عنق الرحم", studyTypes: ["دراسة أترابية", "تحليل تلوي"] },
+                { title: "تأثير استخدام الشاشات على صحة العين لدى الأطفال", field: "صحة الطفل", keywords: "screen time eye health children myopia digital eye strain الشاشات صحة العين الأطفال", studyTypes: ["دراسة مقطعية", "استطلاع رأي"] },
+                { title: "تقييم برامج التوعية بمخاطر التدخين الإلكتروني", field: "الوقاية من الأمراض", keywords: "e-cigarettes vaping awareness campaigns public health smoking التدخين الإلكتروني", studyTypes: ["دراسة مقطعية", "بحث تجريبي"] },
+                { title: "الاستدامة في الرعاية الصحية: مفاهيم وتطبيقات", field: "الصحة البيئية", keywords: "sustainable healthcare green hospitals environmental impact الاستدامة الرعاية الصحية", studyTypes: ["مراجعة منهجية", "دراسة حالات"] },
+                { title: "دور الميكروبيوم المعوي في الصحة والمرض", field: "سلامة الغذاء والتغذية", keywords: "gut microbiome health disease probiotics prebiotics الميكروبيوم الأمعاء", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "التدخلات السلوكية لتحسين عادات النوم", field: "الصحة النفسية", keywords: "behavioral interventions sleep habits insomnia cognitive behavioral therapy النوم", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
+                { title: "الطب الشخصي وعلاقته بتحسين نتائج العلاج", field: "الابتكار الطبي", keywords: "personalized medicine treatment outcomes genomics pharmacogenomics الطب الشخصي", studyTypes: ["مراجعة منهجية", "بحث تجريبي"] },
+                { title: "الوقاية من الحوادث المنزلية لدى الأطفال", field: "صحة الطفل", keywords: "child safety home accidents injury prevention education حوادث منزلية الأطفال", studyTypes: ["دراسة مقطعية", "استطلاع رأي"] },
+                { title: "تأثير زيت الزيتون البكر على صحة القلب والأوعية الدموية", field: "سلامة الغذاء والتغذية", keywords: "olive oil virgin heart health cardiovascular disease diet زيت الزيتون القلب", studyTypes: ["تجربة سريرية", "دراسة أترابية"] },
+                { title: "العلاقة بين التوتر المزمن والأمراض المناعية", field: "الصحة النفسية", keywords: "chronic stress immune diseases autoimmune inflammation التوتر الأمراض المناعية", studyTypes: ["مراجعة منهجية", "دراسة حالات"] },
+                { title: "تطبيقات البلوك تشين في إدارة السجلات الطبية", field: "الابتكار الطبي", keywords: "blockchain medical records health data management security البلوك تشين السجلات الطبية", studyTypes: ["بحث تجريبي", "مراجعة منهجية"] },
+                { title: "دراسة حول فعالية الوخز بالإبر في تخفيف الألم المزمن", field: "الطب البديل", keywords: "acupuncture chronic pain relief complementary medicine الوخز بالإبر الألم المزمن", studyTypes: ["تجربة سريرية", "مراجعة منهجية"] },
+                { title: "استخدام العلاج بالموسيقى لتحسين الحالة المزاجية", field: "الصحة النفسية", keywords: "music therapy mood improvement mental well-being depression الموسيقى الحالة المزاجية", studyTypes: ["تجربة سريرية", "دراسة حالات"] },
+                { title: "الوقاية من حروق الشمس وسرطان الجلد", field: "الوقاية من الأمراض", keywords: "sunburn prevention skin cancer UV protection sunscreen حروق الشمس سرطان الجلد", studyTypes: ["استطلاع رأي", "دراسة مقطعية"] },
+                { title: "دور الفيتامينات في تعزيز صحة العظام", field: "سلامة الغذاء والتغذية", keywords: "vitamins bone health calcium vitamin D osteoporosis الفيتامينات العظام", studyTypes: ["مراجعة منهجية", "دراسة أترابية"] },
+                { title: "تأثير التلوث الضوئي على جودة النوم", field: "الصحة البيئية", keywords: "light pollution sleep quality circadian rhythm environmental health التلوث الضوئي النوم", studyTypes: ["دراسة مقطعية", "بحث تجريبي"] },
+                { title: "برامج الكشف المبكر عن سرطان الثدي في المجتمعات الريفية", field: "صحة المرأة", keywords: "breast cancer screening rural communities early detection awareness سرطان الثدي المناطق الريفية", studyTypes: ["دراسة مقطعية", "استطلاع رأي"] }
+            ];
+
+            const researchData = [];
+            const currentYear = new Date().getFullYear();
+
+            for (let i = 0; i < count; i++) {
+                const topic = researchTopics[i % researchTopics.length];
+                const year = currentYear - Math.floor(Math.random() * 5); // From current year to 4 years prior
+                const specificTitle = topic.title; // Use base title
+                const studyType = topic.studyTypes[Math.floor(Math.random() * topic.studyTypes.length)];
+                
+                // Construct a more specific PubMed search query as a fallback link
+                const pubmedKeywords = `${specificTitle} ${topic.field} ${topic.keywords} ${studyType} health`;
+                const pubmedLink = `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(pubmedKeywords)}`;
+
+                researchData.push({
+                    id: `research-${i + 1}`, // Unique ID for favorites
+                    title: specificTitle,
+                    year: year,
+                    field: topic.field,
+                    studyType: studyType,
+                    link: pubmedLink, // Use PubMed search link
+                    keywords: `${topic.keywords} ${topic.field} ${studyType} ${specificTitle}` // Combine all for general search matching
+                });
+            }
+            return researchData;
+        }
+
+        function updateResearchButtonsVisibility() {
+            const showMoreBtn = document.getElementById('showMoreResearchBtn');
+            const showLessBtn = document.getElementById('showLessResearchBtn');
+            
+            if (filteredResearchData.length > currentVisibleResearchRows) {
+                showMoreBtn.style.display = 'block';
+                const remaining = filteredResearchData.length - currentVisibleResearchRows;
+                showMoreBtn.textContent = `عرض المزيد من الأبحاث (${remaining} متبقية)`;
+            } else {
+                showMoreBtn.style.display = 'none';
+            }
+
+            // Show "Show Less" only if more than initial items are displayed AND there are items to hide
+            if (currentVisibleResearchRows > RESEARCH_INITIAL_DISPLAY_COUNT && filteredResearchData.length > RESEARCH_INITIAL_DISPLAY_COUNT) {
+                showLessBtn.style.display = 'block';
+            } else {
+                showLessBtn.style.display = 'none';
+            }
+        }
+
+        function renderResearchTable() {
+            const tableBody = document.querySelector('#researchTable tbody');
+            tableBody.innerHTML = '';
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            
+            if (filteredResearchData.length === 0) {
+                noResultsMessage.style.display = 'block';
+            } else {
+                noResultsMessage.style.display = 'none';
+            }
+
+            const dataToDisplay = filteredResearchData.slice(0, currentVisibleResearchRows);
+
+            dataToDisplay.forEach(item => {
+                const uniqueResearchId = item.id;
+                const isFavoriteResearch = getFavorites('research').some(fav => fav.id === uniqueResearchId);
+                const favoriteResearchButtonClass = isFavoriteResearch ? 'btn-warning' : 'btn-outline-warning';
+                const favoriteResearchButtonText = isFavoriteResearch ? '<i class="fas fa-bookmark"></i> تم الحفظ' : '<i class="far fa-bookmark"></i> حفظ';
+
+                tableBody.innerHTML += `
+                    <tr class="research-row" data-research-id="${uniqueResearchId}">
+                        <td>${item.title}</td>
+                        <td>${item.year}</td>
+                        <td>${item.field}</td>
+                        <td>${item.studyType}</td>
+                        <td class="d-flex gap-2 align-items-center">
+                            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success rounded-pill px-3">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a>
+                            <button type="button" class="btn ${favoriteResearchButtonClass} btn-sm rounded-pill px-3" onclick="toggleFavoriteResearch(${JSON.stringify(item)}, this)">
+                                ${favoriteResearchButtonText}
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            updateResearchButtonsVisibility();
+        }
+
+        function filterResearchTable() {
+            const input = document.getElementById('researchSearchInput');
+            const filterTerm = input.value.toLowerCase();
+            const fieldFilter = document.getElementById('researchFieldFilter')?.value || ''; 
+            const studyTypeFilter = document.getElementById('researchStudyTypeFilter')?.value || '';
+
+            filteredResearchData = allResearchData.filter(item => {
+                const matchesSearchTerm = item.title.toLowerCase().includes(filterTerm) ||
+                                          item.year.toString().includes(filterTerm) ||
+                                          item.field.toLowerCase().includes(filterTerm) ||
+                                          item.keywords.toLowerCase().includes(filterTerm) || 
+                                          item.studyType.toLowerCase().includes(filterTerm); 
+                
+                const matchesField = fieldFilter === '' || item.field === fieldFilter;
+                const matchesStudyType = studyTypeFilter === '' || item.studyType === studyTypeFilter;
+
+                return matchesSearchTerm && matchesField && matchesStudyType;
+            });
+
+            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT; // Reset visible rows on new filter
+            renderResearchTable();
+        }
+
+        function showMoreResearch() {
+            currentVisibleResearchRows += RESEARCH_INCREMENT_COUNT; 
+            if (currentVisibleResearchRows > filteredResearchData.length) {
+                currentVisibleResearchRows = filteredResearchData.length;
+            }
+            renderResearchTable();
+            // Scroll smoothly to the end of the new items or bottom of the table
+            const table = document.getElementById('researchTable');
+            table.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+
+        function showLessResearch() {
+            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT; // Reset to initial display count
+            renderResearchTable();
+            // Scroll smoothly to the top of the table
+            const table = document.getElementById('researchTable');
+            table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Function to render the favorites section
+        function renderFavorites() {
+            const favoritesContainer = document.getElementById('favorites-content'); 
+            if (!favoritesContainer) return;
+
+            favoritesContainer.innerHTML = ''; // Clear previous content
+
+            const favoriteTips = getFavorites('tips');
+            const favoriteResearch = getFavorites('research');
+
+            if (favoriteTips.length === 0 && favoriteResearch.length === 0) {
+                favoritesContainer.innerHTML = `
+                    <div class="alert alert-info text-center" role="alert">
+                        <i class="fas fa-info-circle me-2"></i> لا يوجد لديك أي عناصر محفوظة حتى الآن.
                     </div>
                 `;
-                newsGrid.appendChild(newsCard);
-            });
-        }
-
-        function shareTip(title, text) {
-            const currentUrl = window.location.href;
-            const shareText = `نصيحة صحية: ${title}\n${text}\n${currentUrl}`;
-
-            const callerButton = event.target.closest('.share-btn');
-            if (callerButton) {
-                if (callerButton.classList.contains('facebook')) {
-                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}&quote=${encodeURIComponent(title + ": " + text)}`, '_blank');
-                } else if (callerButton.classList.contains('whatsapp')) {
-                    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`, '_blank');
-                }
-            }
-        }
-
-        function copyTip(title, text) {
-            const shareText = `نصيحة صحية: ${title}\n${text}`;
-            navigator.clipboard.writeText(shareText)
-                .then(() => alert('تم نسخ النصيحة!'))
-                .catch(err => console.error('فشل النسخ: ', err));
-        }
-
-        function renderResearch(dataToRender) {
-            const researchTableBody = document.getElementById('researchTableBody');
-            if (displayedResearchCount === 0) { // Clear only on initial render or new filter
-                researchTableBody.innerHTML = '';
-            }
-
-            const startIndex = displayedResearchCount;
-            const endIndex = Math.min(startIndex + researchPerPage, dataToRender.length);
-
-            for (let i = startIndex; i < endIndex; i++) {
-                const research = dataToRender[i];
-                const row = document.createElement('tr');
-                const readMoreLink = research.link && research.link.trim() !== ''
-                    ? research.link
-                    : `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(research.name)}`;
-
-                row.innerHTML = `
-                    <td>${research.name}</td>
-                    <td>${research.year}</td>
-                    <td>${research.field}</td>
-                    <td>${research.summary}</td>
-                    <td>
-                        <a href="${readMoreLink}" target="_blank" class="read-more-btn">قراءة المزيد</a>
-                        <button class="read-more-btn save" style="background-color: var(--secondary-color);" onclick="saveToFavorites('${research.id}', '${research.name}', 'بحث')"><i class="fas fa-bookmark"></i> حفظ</button>
-                    </td>
-                `;
-                researchTableBody.appendChild(row);
-            }
-            displayedResearchCount = endIndex;
-
-            const loadMoreBtn = document.getElementById('loadMoreResearch');
-            if (displayedResearchCount < dataToRender.length) {
-                loadMoreBtn.style.display = 'block';
-            } else {
-                loadMoreBtn.style.display = 'none';
-            }
-        }
-
-        function filterResearch() {
-            const searchTerm = document.getElementById('researchSearch').value.toLowerCase();
-            const fieldFilter = document.getElementById('researchField').value;
-            const yearFilter = document.getElementById('researchYear').value;
-
-            filteredResearch = allResearchData.filter(research => {
-                const matchesSearch = research.name.toLowerCase().includes(searchTerm) ||
-                                      research.summary.toLowerCase().includes(searchTerm) ||
-                                      research.field.toLowerCase().includes(searchTerm);
-                const matchesField = fieldFilter === '' || research.field === fieldFilter;
-                const matchesYear = yearFilter === '' || research.year.toString() === yearFilter;
-                return matchesSearch && matchesField && matchesYear;
-            });
-
-            displayedResearchCount = 0; // Reset count for filtered results
-            renderResearch(filteredResearch);
-        }
-
-        function loadMoreResearch() {
-            renderResearch(filteredResearch);
-        }
-
-        function clearResearchFilters() {
-            document.getElementById('researchSearch').value = '';
-            document.getElementById('researchField').value = '';
-            document.getElementById('researchYear').value = '';
-            filterResearch(); // Re-render with all data
-        }
-
-        // Favorites functionality using LocalStorage - EXACTLY as requested
-        function saveToFavorites(id, title, type) {
-            let favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
-            if (!favorites.some(item => item.id === id)) {
-                favorites.push({ id: id, title: title, type: type, date: new Date().toLocaleDateString('ar-LY') });
-                localStorage.setItem('healthFavorites', JSON.stringify(favorites));
-                renderFavorites();
-                alert('تم الحفظ في المفضلات بنجاح! 🌟');
-            } else {
-                alert('هذا العنصر موجود بالفعل في مفضلاتك.');
-            }
-        }
-
-        function renderFavorites() {
-            const container = document.getElementById('favorites-list');
-            if (!container) return;
-            let favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
-            if (favorites.length === 0) {
-                container.innerHTML = '<p class="text-muted small text-center my-3">لا توجد عناصر محفوظة حالياً.</p>';
                 return;
             }
-            container.innerHTML = favorites.map(item => `
-                <div class="favorites-item">
-                    <div>
-                        <h6 class="fw-bold mb-0 small text-dark">${item.title}</h6>
-                        <small class="text-muted" style="font-size:0.7rem;">${item.type} - ${item.date}</small>
+
+            if (favoriteTips.length > 0) {
+                favoritesContainer.innerHTML += `
+                    <h3 class="fw-bold mt-4 mb-3 text-dark">نصائح صحية مفضلة</h3>
+                    <div class="row g-3">
+                        ${favoriteTips.map(item => {
+                            const escapedFavTipTitle = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+                            const escapedFavTipContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+                            const currentPageUrl = encodeURIComponent(window.location.href);
+                            const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
+
+                            return `
+                            <div class="col-12 col-md-6">
+                                <div class="tip-card" data-tip-id="${item.id}" style="border-right-color: ${item.type === 'warning' ? 'var(--red-accent)' : 'var(--main-green)'}">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h5 class="fw-bold" style="color:#222">${item.title}</h5>
+                                        <span style="font-size:1.5rem">${item.type === 'warning' ? '⚠️' : '💡'}</span>
+                                    </div>
+                                    <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">${item.content}</p>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="source-label"> المصدر: ${item.source || 'أثر صحي'}${item.category ? ' - ' + item.category : ''}</span>
+                                        <small class="text-muted" style="font-size:0.75rem"> ${item.date || ''}</small>
+                                    </div>
+                                    <div class="d-flex justify-content-end gap-2 mt-2">
+                                        <button type="button" class="btn btn-warning btn-sm rounded-pill px-3" onclick="toggleFavoriteTip(${JSON.stringify(item)}, this)">
+                                            <i class="fas fa-bookmark"></i> إزالة من المفضلات
+                                        </button>
+                                        <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" onclick="copyTip(this, '${escapedFavTipTitle}', '${escapedFavTipContent}')">
+                                            <i class="fas fa-copy"></i> نسخ
+                                        </button>
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u=${currentPageUrl}&quote=${shareText}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm rounded-pill px-3">
+                                            <i class="fab fa-facebook-f"></i> فيسبوك
+                                        </a>
+                                        <a href="https://wa.me/?text=${shareText + encodeURIComponent('\n\n🌐 للمزيد: ') + currentPageUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm rounded-pill px-3">
+                                            <i class="fab fa-whatsapp"></i> واتساب
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;}).join('')}
                     </div>
-                    <button class="btn-remove-favorite" onclick="removeFromFavorites('${item.id}')"><i class="fas fa-trash-alt"></i></button>
+                `;
+            }
+
+            if (favoriteResearch.length > 0) {
+                favoritesContainer.innerHTML += `
+                    <h3 class="fw-bold mt-5 mb-3 text-dark">أبحاث مفضلة</h3>
+                    <div class="research-table-container">
+                        <table class="table research-table">
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-file-alt me-2"></i> اسم البحث</th>
+                                    <th style="width: 120px;"><i class="fas fa-calendar-alt me-2"></i> سنة النشر</th>
+                                    <th style="width: 180px;"><i class="fas fa-tags me-2"></i> المجال</th>
+                                    <th style="width: 180px;"><i class="fas fa-microscope me-2"></i> نوع الدراسة</th>
+                                    <th style="width: 120px;"><i class="fas fa-link me-2"></i> الإجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${favoriteResearch.map(item => `
+                                    <tr class="research-row" data-research-id="${item.id}">
+                                        <td>${item.title}</td>
+                                        <td>${item.year}</td>
+                                        <td>${item.field}</td>
+                                        <td>${item.studyType}</td>
+                                        <td class="d-flex gap-2 align-items-center">
+                                            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success rounded-pill px-3">قراءة <i class="fas fa-external-link-alt fa-xs me-1"></i></a>
+                                            <button type="button" class="btn btn-warning btn-sm rounded-pill px-3" onclick="toggleFavoriteResearch(${JSON.stringify(item)}, this)">
+                                                <i class="fas fa-bookmark"></i> إزالة
+                                            </button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+        }
+
+        // دالة عرض الأخبار المحدثة تلقائياً بواسطة البوت
+        function renderHealthNews() {
+            const newsListContainer = document.getElementById('news-list');
+            if (!newsListContainer) return;
+
+            if (healthNewsData.length === 0) {
+                // Keep the placeholder alert if no news data is loaded
+                newsListContainer.innerHTML = `
+                    <div class="alert alert-info text-center" role="alert">
+                        <i class="fas fa-newspaper me-2"></i> هذه الميزة قيد التطوير. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
+                    </div>`;
+                return;
+            }
+            
+            newsListContainer.innerHTML = `
+                <div class="row g-4">
+                    ${healthNewsData.map(news => `
+                        <div class="col-12 col-md-4">
+                            <div class="card h-100 border-0 shadow-sm" style="border-radius: 20px; overflow: hidden;">
+                                <img src="${news.image}" class="card-img-top" alt="${news.title}" style="height: 200px; object-fit: cover;">
+                                <div class="card-body text-end d-flex flex-column justify-content-between">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="badge bg-success-subtle text-success">${news.date}</span>
+                                        </div>
+                                        <h5 class="card-title fw-bold text-dark">${news.title}</h5>
+                                        <p class="card-text text-muted small" style="line-height: 1.6;">${news.content}</p>
+                                    </div>
+                                    <div class="mt-3">
+                                        <hr class="text-muted opacity-25">
+                                        <small class="text-success fw-bold"><i class="fas fa-check-circle me-1"></i> مصدر موثوق</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
                 </div>
-            `).join('');
-        }
-
-        function removeFromFavorites(id) {
-            let favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
-            favorites = favorites.filter(item => item.id !== id);
-            localStorage.setItem('healthFavorites', JSON.stringify(favorites));
-            renderFavorites();
+            `;
         }
 
 
-        // Initialize on page load
+        // بدء التشغيل
         document.addEventListener('DOMContentLoaded', () => {
-            renderNews();
-            filteredResearch = allResearchData; // Initially, all research is filtered research
-            renderResearch(filteredResearch);
-            renderFavorites(); // Display favorites on load
+            fetchAwarenessData();
+            renderHealthNews(); // Call this to show the news
+
+            allResearchData = generateDummyResearch(100);
+            allResearchData.sort((a, b) => b.year - a.year); // Sort by year descending
+            filteredResearchData = [...allResearchData]; // Initialize filtered data with all data
+            renderResearchTable();
+            renderFavorites(); // Render favorites on page load
+
+
+            // Add event listeners for filter inputs to trigger filtering
+            document.getElementById('researchSearchInput').addEventListener('input', filterResearchTable);
+            document.getElementById('researchFieldFilter').addEventListener('change', filterResearchTable);
+            document.getElementById('researchStudyTypeFilter').addEventListener('change', filterResearchTable);
         });
     </script>
+<script data-goatcounter="https://athar-health.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
