@@ -49,10 +49,11 @@
 
         /* 3. قسم الرئيسية (Hero) */
         .hero { 
-            height: 75vh; 
-            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1579684385153-f76150c29f27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHw3MHx8bWljcm9iaWFsJTIwbGFib3JhdG9yeXxlbnwwfHx8fDE3MDY5NTI4NjV8MA&ixlib=rb-4.0.3&q=80&w=1080'); /* Hero Image related to public health and microbial labs */
+            /* Updated Hero Image for public health lab/microscope */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1576091160550-2173dba99934?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Hero Image: Public health lab, microscope */
             background-repeat: no-repeat; background-position: center; background-size: cover;
             color: white; display: flex; align-items: center; justify-content: center; text-align: center;
+            height: 75vh; /* Maintain height */
         }
         .hero h1 { font-size: clamp(1.8rem, 8vw, 4.5rem); font-weight: 900; line-height: 1.2; }
         .hero p { font-size: clamp(0.95rem, 4vw, 1.8rem); max-width: 800px; margin: 15px auto; font-weight: 500; color: #eee; }
@@ -106,6 +107,7 @@
             transition: background-color 0.3s, color 0.3s, border-color 0.3s;
             white-space: nowrap;
             font-size: 0.95rem;
+            min-width: 150px; /* Ensure buttons have a minimum width */
         }
         .source-button.pubmed { background-color: var(--blue-accent); color: white; border: 1px solid var(--blue-accent); }
         .source-button.pubmed:hover { background-color: #006bbd; border-color: #006bbd; }
@@ -193,11 +195,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             text-align: center;
         }
-        /* Favorites Section Styles */
-        #favorites .tip-card, #favorites .research-table-container {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
-        }
+        /* No favorites section styles needed */
     </style>
 </head>
 <body>
@@ -212,7 +210,6 @@
                 <a href="#hero" class="nav-item-link">الرئيسية</a>
                 <a href="#about" class="nav-item-link">عن المنصة</a>
                 <a href="#health-news" class="nav-item-link">آخر الأخبار</a>
-                <a href="#favorites" class="nav-item-link">مفضلاتي</a>
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
                 <a href="#store" class="nav-item-link">المتجر</a>
                 <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
@@ -241,7 +238,7 @@
         </div>
     </section>
 
-    <!-- قسم آخر الأخبار الصحية -->
+    <!-- قسم آخر الأخبار الصحية - Moved as requested -->
     <section id="health-news" style="background-color: #f4f7f6;">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-success">آخر الأخبار الصحية المحلية والعالمية</h2>
@@ -256,17 +253,7 @@
         </div>
     </section>
     
-    <!-- قسم المفضلة -->
-    <section id="favorites" style="background-color: #fcfcfc;">
-        <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5 text-warning">مفضلاتي</h2>
-            <div id="favorites-content" class="text-center">
-                <div class="alert alert-info text-center" role="alert">
-                    <i class="fas fa-info-circle me-2"></i> لا يوجد لديك أي عناصر محفوظة حتى الآن.
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Removed Favorites Section entirely as per requirements -->
 
     <section id="updates" style="background-color: #f4f7f6;">
         <div class="container px-4">
@@ -286,10 +273,6 @@
                             <small class="text-muted" style="font-size:0.75rem"> 2024-03-20</small>
                         </div>
                         <div class="d-flex justify-content-end gap-2 mt-2">
-                            <button type="button" class="btn btn-outline-warning btn-sm rounded-pill px-3"
-                                    onclick="toggleFavoriteTip({id: 'dummy-tip-1', title: 'أهمية غسل اليدين للوقاية من العدوى', content: 'غسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.', source: 'WHO', category: 'مكافحة العدوى', date: '2024-03-20', type: 'info'}, this)">
-                                <i class="far fa-bookmark"></i> حفظ
-                            </button>
                             <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3"
                                     onclick="copyTip(this, 'أهمية غسل اليدين للوقاية من العدوى', 'غسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.')">
                                 <i class="fas fa-copy"></i> نسخ
@@ -455,37 +438,27 @@
     </footer>
 
     <script>
-        // مصفوفة الأخبار - سيقوم البوت بحقن الأخبار هنا تلقائياً كل يوم
+        // مصفوفة الأخبار - سيتم تحديثها تلقائياً بواسطة البوت (3 أخبار بدون تاريخ)
         const healthNewsData = [
-  {
-    id: 1,
-    title: "العلماء يحذرون من تزايد مقاومة المضادات الحيوية في مياه الصرف الصحي العالمية",
-    description: "كشفت دراسة حديثة عن انتشار مقلق لجينات مقاومة المضادات الحيوية في أنظمة معالجة مياه الصرف الصحي حول العالم. يحذر الخبراء من أن هذه المياه قد تكون بؤرة لنقل البكتيريا المقاومة إلى البيئة المحيطة والبشر، مما يستدعي إجراءات عاجلة لتحسين المعالجة والرقابة للحد من هذا التهديد المتنامي للصحة العامة. تدعو الدراسة إلى تنسيق جهود عالمية لمكافحة هذه الظاهرة.",
-    image: "https://images.unsplash.com/photo-1588701901452-f63390f77271?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
-  },
-  {
-    id: 2,
-    title: "ابتكار تقنية جديدة للكشف السريع عن ملوثات الأغذية في أقل من 30 دقيقة",
-    description: "أعلن باحثون عن تطوير جهاز محمول ثوري يمكنه الكشف عن البكتيريا الضارة والمواد الكيميائية في الأغذية خلال دقائق معدودة. تهدف هذه التقنية إلى تعزيز سلامة الأغذية بشكل كبير، خاصة في سلاسل التوريد الكبيرة وخلال عمليات التفتيش الميدانية، مما يقلل من مخاطر تفشي الأمراض المنقولة بالغذاء ويحمي المستهلكين من المنتجات الملوثة بفاعلية أكبر.",
-    image: "https://images.unsplash.com/photo-1621252197775-685d031c2c31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
-  },
-  {
-    id: 3,
-    title: "حملة توعية عالمية لتعزيز بروتوكولات مكافحة العدوى في المختبرات الطبية",
-    description: "أطلقت منظمة الصحة العالمية بالشراكة مع هيئات صحية دولية حملة توعية مكثفة لتعزيز الالتزام بأعلى معايير مكافحة العدوى والسلامة الحيوية في المختبرات الطبية حول العالم. تركز الحملة على تدريب الكوادر الفنية وتحديث البروتوكولات للتعامل مع العينات المعدية، والوقاية من العدوى المرتبطة بالرعاية الصحية، وحماية العاملين والمرضى والمجتمع من مخاطر انتشار مسببات الأمراض، بما في ذلك التحديات الجديدة.",
-    image: "https://images.unsplash.com/photo-1634125828821-654483ae5971?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
-  }
-];
-
-        // Helper to get/save favorites from localStorage
-        function getFavorites(type) {
-            const favorites = localStorage.getItem(`impactHealth${type}Favorites`);
-            return favorites ? JSON.parse(favorites) : [];
-        }
-
-        function saveFavorites(type, items) {
-            localStorage.setItem(`impactHealth${type}Favorites`, JSON.stringify(items));
-        }
+            {
+                id: 1,
+                title: "دراسة تكشف عن تزايد مقلق في مقاومة المضادات الحيوية بالبيئات المائية",
+                content: "أظهرت دراسة بحثية حديثة أن البكتيريا المقاومة للمضادات الحيوية وجيناتها تنتشر بشكل متزايد في مصادر المياه العذبة ومياه الصرف الصحي حول العالم. يحذر العلماء من أن هذا الانتشار يمثل تهديداً خطيراً للصحة العامة ويتطلب استراتيجيات عالمية عاجلة للحد من التلوث بالمضادات الحيوية وتعزيز أنظمة معالجة المياه لمنع تفاقم هذه الأزمة.",
+                image: "https://images.unsplash.com/photo-1549419149-a2123d9b4b08?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Bacteria under microscope / water sample
+            },
+            {
+                id: 2,
+                title: "تكنولوجيا جديدة للكشف السريع عن مسببات الأمراض المنقولة بالغذاء",
+                content: "أعلنت شركة ناشئة عن تطوير جهاز محمول مبتكر يمكنه تحليل عينات الغذاء والكشف عن مسببات الأمراض البكتيرية مثل السالمونيلا والإي كولاي في غضون دقائق قليلة. تهدف هذه التقنية إلى إحداث ثورة في مجال سلامة الأغذية، مما يتيح للمصنعين والمفتشين تحديد المنتجات الملوثة بسرعة فائقة ومنع تفشي الأمراض المنقولة بالغذاء قبل وصولها للمستهلك.",
+                image: "https://images.unsplash.com/photo-1621252197775-685d031c2c31?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Food safety / lab testing food
+            },
+            {
+                id: 3,
+                title: "منظمة الصحة العالمية تطلق حملة لتعزيز ممارسات مكافحة العدوى في المستشفيات",
+                content: "في استجابة لتزايد حالات العدوى المرتبطة بالرعاية الصحية، أطلقت منظمة الصحة العالمية حملة عالمية مكثفة لتدريب العاملين في المجال الصحي على أحدث بروتوكولات مكافحة العدوى. تركز الحملة على أهمية نظافة اليدين، الاستخدام السليم لمعدات الوقاية الشخصية، وتعقيم الأدوات لضمان بيئة علاجية آمنة للمرضى وتقليل انتشار الأمراض داخل المنشآت الطبية.",
+                image: "https://images.unsplash.com/photo-1620336655052-198af4777a4b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Healthcare workers / infection control
+            }
+        ];
 
         // دالة لنسخ النص إلى الحافظة
         async function copyTip(buttonElement, title, content) {
@@ -505,46 +478,6 @@
                 console.error('Failed to copy tip: ', err);
                 alert('فشل نسخ النصيحة. الرجاء المحاولة مرة أخرى أو النسخ يدوياً.');
             }
-        }
-
-        // Function to add/remove tips from favorites
-        function toggleFavoriteTip(tipData, buttonElement) {
-            let favoriteTips = getFavorites('tips');
-            const isFavorite = favoriteTips.some(fav => fav.id === tipData.id);
-
-            if (isFavorite) {
-                favoriteTips = favoriteTips.filter(fav => fav.id !== tipData.id);
-                buttonElement.innerHTML = '<i class="far fa-bookmark"></i> حفظ';
-                buttonElement.classList.remove('btn-warning');
-                buttonElement.classList.add('btn-outline-warning');
-            } else {
-                favoriteTips.push(tipData);
-                buttonElement.innerHTML = '<i class="fas fa-bookmark"></i> تم الحفظ';
-                buttonElement.classList.remove('btn-outline-warning');
-                buttonElement.classList.add('btn-warning');
-            }
-            saveFavorites('tips', favoriteTips);
-            renderFavorites(); // Re-render favorites section
-        }
-
-        // Function to add/remove research from favorites
-        function toggleFavoriteResearch(researchData, buttonElement) {
-            let favoriteResearch = getFavorites('research');
-            const isFavorite = favoriteResearch.some(fav => fav.id === researchData.id);
-
-            if (isFavorite) {
-                favoriteResearch = favoriteResearch.filter(fav => fav.id !== researchData.id);
-                buttonElement.innerHTML = '<i class="far fa-bookmark"></i> حفظ';
-                buttonElement.classList.remove('btn-warning');
-                buttonElement.classList.add('btn-outline-warning');
-            } else {
-                favoriteResearch.push(researchData);
-                buttonElement.innerHTML = '<i class="fas fa-bookmark"></i> تم الحفظ';
-                buttonElement.classList.remove('btn-outline-warning');
-                buttonElement.classList.add('btn-warning');
-            }
-            saveFavorites('research', favoriteResearch);
-            renderFavorites(); // Re-render favorites section
         }
 
         // دالة جلب نصائح التوعية من ملف athardata.json
@@ -568,24 +501,6 @@
                 currentItems.forEach(item => { if(currentContainer) currentContainer.innerHTML += buildTipCard(item); });
                 archiveItems.forEach(item => { if(archiveContainer) archiveContainer.innerHTML += buildTipCard(item); });
 
-                // After loading new tips, re-check and update favorite buttons if any
-                document.querySelectorAll('#current-tips-list .tip-card, #archive-tips-list .tip-card').forEach(card => {
-                    const tipId = card.dataset.tipId;
-                    const favoriteButton = card.querySelector('.btn-outline-warning, .btn-warning');
-                    if (favoriteButton) {
-                        const isFavorite = getFavorites('tips').some(fav => fav.id === tipId);
-                        if (isFavorite) {
-                            favoriteButton.innerHTML = '<i class="fas fa-bookmark"></i> تم الحفظ';
-                            favoriteButton.classList.remove('btn-outline-warning');
-                            favoriteButton.classList.add('btn-warning');
-                        } else {
-                            favoriteButton.innerHTML = '<i class="far fa-bookmark"></i> حفظ';
-                            favoriteButton.classList.remove('btn-warning');
-                            favoriteButton.classList.add('btn-outline-warning');
-                        }
-                    }
-                });
-
             } catch (error) {
                 console.error("Failed to fetch awareness data:", error);
                 // If fetch fails, the initial dummy content in HTML will remain, which is desired.
@@ -602,25 +517,9 @@
             const escapedContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
             const currentPageUrl = encodeURIComponent(window.location.href);
 
-            // Create a unique ID for the tip to use with favorites - ensure it's truly unique
-            // Using Base64 encoding for a robust unique ID based on content
+            // Create a unique ID for the tip based on content (no favorites, but good for data-attribute)
             const uniqueTipId = btoa(unescape(encodeURIComponent(item.title + (item.date || '') + (item.source || '') + (item.category || '') + item.content.substring(0, Math.min(item.content.length, 50))))); 
             
-            const isFavoriteTip = getFavorites('tips').some(fav => fav.id === uniqueTipId);
-            const favoriteButtonClass = isFavoriteTip ? 'btn-warning' : 'btn-outline-warning';
-            const favoriteButtonText = isFavoriteTip ? '<i class="fas fa-bookmark"></i> تم الحفظ' : '<i class="far fa-bookmark"></i> حفظ';
-
-            // Prepare item data for the toggleFavoriteTip function
-            const tipDataForFavorite = JSON.stringify({
-                id: uniqueTipId,
-                title: item.title,
-                content: item.content,
-                source: item.source || 'أثر صحي',
-                category: item.category || '',
-                date: item.date || '',
-                type: item.type || 'info'
-            });
-
             const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
 
             return `
@@ -635,9 +534,6 @@
                         <small class="text-muted" style="font-size:0.75rem"> ${item.date || ''}</small>
                     </div>
                     <div class="d-flex justify-content-end gap-2 mt-2">
-                        <button type="button" class="btn ${favoriteButtonClass} btn-sm rounded-pill px-3" onclick="toggleFavoriteTip(${tipDataForFavorite}, this)">
-                            ${favoriteButtonText}
-                        </button>
                         <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" onclick="copyTip(this, '${escapedTitle}', '${escapedContent}')">
                             <i class="fas fa-copy"></i> نسخ
                         </button>
@@ -741,7 +637,7 @@
                 const pubmedLink = `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(pubmedKeywords)}`;
 
                 researchData.push({
-                    id: `research-${i + 1}`, // Unique ID for favorites
+                    id: `research-${i + 1}`, // Unique ID for each research
                     title: specificTitle,
                     year: year,
                     field: topic.field,
@@ -787,22 +683,14 @@
             const dataToDisplay = filteredResearchData.slice(0, currentVisibleResearchRows);
 
             dataToDisplay.forEach(item => {
-                const uniqueResearchId = item.id;
-                const isFavoriteResearch = getFavorites('research').some(fav => fav.id === uniqueResearchId);
-                const favoriteResearchButtonClass = isFavoriteResearch ? 'btn-warning' : 'btn-outline-warning';
-                const favoriteResearchButtonText = isFavoriteResearch ? '<i class="fas fa-bookmark"></i> تم الحفظ' : '<i class="far fa-bookmark"></i> حفظ';
-
                 tableBody.innerHTML += `
-                    <tr class="research-row" data-research-id="${uniqueResearchId}">
+                    <tr class="research-row">
                         <td>${item.title}</td>
                         <td>${item.year}</td>
                         <td>${item.field}</td>
                         <td>${item.studyType}</td>
                         <td class="d-flex gap-2 align-items-center">
                             <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success rounded-pill px-3">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a>
-                            <button type="button" class="btn ${favoriteResearchButtonClass} btn-sm rounded-pill px-3" onclick="toggleFavoriteResearch(${JSON.stringify(item)}, this)">
-                                ${favoriteResearchButtonText}
-                            </button>
                         </td>
                     </tr>
                 `;
@@ -853,114 +741,15 @@
             table.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // Function to render the favorites section
-        function renderFavorites() {
-            const favoritesContainer = document.getElementById('favorites-content'); 
-            if (!favoritesContainer) return;
-
-            favoritesContainer.innerHTML = ''; // Clear previous content
-
-            const favoriteTips = getFavorites('tips');
-            const favoriteResearch = getFavorites('research');
-
-            if (favoriteTips.length === 0 && favoriteResearch.length === 0) {
-                favoritesContainer.innerHTML = `
-                    <div class="alert alert-info text-center" role="alert">
-                        <i class="fas fa-info-circle me-2"></i> لا يوجد لديك أي عناصر محفوظة حتى الآن.
-                    </div>
-                `;
-                return;
-            }
-
-            if (favoriteTips.length > 0) {
-                favoritesContainer.innerHTML += `
-                    <h3 class="fw-bold mt-4 mb-3 text-dark">نصائح صحية مفضلة</h3>
-                    <div class="row g-3">
-                        ${favoriteTips.map(item => {
-                            const escapedFavTipTitle = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-                            const escapedFavTipContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-                            const currentPageUrl = encodeURIComponent(window.location.href);
-                            const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
-
-                            return `
-                            <div class="col-12 col-md-6">
-                                <div class="tip-card" data-tip-id="${item.id}" style="border-right-color: ${item.type === 'warning' ? 'var(--red-accent)' : 'var(--main-green)'}">
-                                    <div class="d-flex justify-content-between align-items-start">
-                                        <h5 class="fw-bold" style="color:#222">${item.title}</h5>
-                                        <span style="font-size:1.5rem">${item.type === 'warning' ? '⚠️' : '💡'}</span>
-                                    </div>
-                                    <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">${item.content}</p>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="source-label"> المصدر: ${item.source || 'أثر صحي'}${item.category ? ' - ' + item.category : ''}</span>
-                                        <small class="text-muted" style="font-size:0.75rem"> ${item.date || ''}</small>
-                                    </div>
-                                    <div class="d-flex justify-content-end gap-2 mt-2">
-                                        <button type="button" class="btn btn-warning btn-sm rounded-pill px-3" onclick="toggleFavoriteTip(${JSON.stringify(item)}, this)">
-                                            <i class="fas fa-bookmark"></i> إزالة من المفضلات
-                                        </button>
-                                        <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" onclick="copyTip(this, '${escapedFavTipTitle}', '${escapedFavTipContent}')">
-                                            <i class="fas fa-copy"></i> نسخ
-                                        </button>
-                                        <a href="https://www.facebook.com/sharer/sharer.php?u=${currentPageUrl}&quote=${shareText}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm rounded-pill px-3">
-                                            <i class="fab fa-facebook-f"></i> فيسبوك
-                                        </a>
-                                        <a href="https://wa.me/?text=${shareText + encodeURIComponent('\n\n🌐 للمزيد: ') + currentPageUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm rounded-pill px-3">
-                                            <i class="fab fa-whatsapp"></i> واتساب
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        `;}).join('')}
-                    </div>
-                `;
-            }
-
-            if (favoriteResearch.length > 0) {
-                favoritesContainer.innerHTML += `
-                    <h3 class="fw-bold mt-5 mb-3 text-dark">أبحاث مفضلة</h3>
-                    <div class="research-table-container">
-                        <table class="table research-table">
-                            <thead>
-                                <tr>
-                                    <th><i class="fas fa-file-alt me-2"></i> اسم البحث</th>
-                                    <th style="width: 120px;"><i class="fas fa-calendar-alt me-2"></i> سنة النشر</th>
-                                    <th style="width: 180px;"><i class="fas fa-tags me-2"></i> المجال</th>
-                                    <th style="width: 180px;"><i class="fas fa-microscope me-2"></i> نوع الدراسة</th>
-                                    <th style="width: 120px;"><i class="fas fa-link me-2"></i> الإجراء</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${favoriteResearch.map(item => `
-                                    <tr class="research-row" data-research-id="${item.id}">
-                                        <td>${item.title}</td>
-                                        <td>${item.year}</td>
-                                        <td>${item.field}</td>
-                                        <td>${item.studyType}</td>
-                                        <td class="d-flex gap-2 align-items-center">
-                                            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success rounded-pill px-3">قراءة <i class="fas fa-external-link-alt fa-xs me-1"></i></a>
-                                            <button type="button" class="btn btn-warning btn-sm rounded-pill px-3" onclick="toggleFavoriteResearch(${JSON.stringify(item)}, this)">
-                                                <i class="fas fa-bookmark"></i> إزالة
-                                            </button>
-                                        </td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                `;
-            }
-        }
-
         // دالة عرض الأخبار المحدثة تلقائياً بواسطة البوت
         function renderHealthNews() {
             const newsListContainer = document.getElementById('news-list');
             if (!newsListContainer) return;
 
             if (healthNewsData.length === 0) {
-                // Keep the placeholder alert if no news data is loaded
                 newsListContainer.innerHTML = `
                     <div class="alert alert-info text-center" role="alert">
-                        <i class="fas fa-newspaper me-2"></i> هذه الميزة قيد التطوير. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
+                        <i class="fas fa-newspaper me-2"></i> لا توجد أخبار متاحة حالياً. سيتم توفير تحديثات الأخبار الصحية المحلية والعالمية تلقائيًا هنا قريباً!
                     </div>`;
                 return;
             }
@@ -973,9 +762,6 @@
                                 <img src="${news.image}" class="card-img-top" alt="${news.title}" style="height: 200px; object-fit: cover;">
                                 <div class="card-body text-end d-flex flex-column justify-content-between">
                                     <div>
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <span class="badge bg-success-subtle text-success">${news.date}</span>
-                                        </div>
                                         <h5 class="card-title fw-bold text-dark">${news.title}</h5>
                                         <p class="card-text text-muted small" style="line-height: 1.6;">${news.content}</p>
                                     </div>
@@ -1001,8 +787,6 @@
             allResearchData.sort((a, b) => b.year - a.year); // Sort by year descending
             filteredResearchData = [...allResearchData]; // Initialize filtered data with all data
             renderResearchTable();
-            renderFavorites(); // Render favorites on page load
-
 
             // Add event listeners for filter inputs to trigger filtering
             document.getElementById('researchSearchInput').addEventListener('input', filterResearchTable);
