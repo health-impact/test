@@ -1,7 +1,7 @@
 import google.generativeai as genai
 import os
 import re
-import json
+import json 
 import time 
  
 # 1. إعداد الاتصال بجيمني واختيار الموديل المتاح تلقائياً
