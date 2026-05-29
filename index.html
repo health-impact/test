@@ -194,9 +194,8 @@
             text-align: center;
         }
         /* Favorites Section Styles */
-        #favorites .tip-card, #favorites .research-table-container {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
+        #favorites .alert {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -212,10 +211,10 @@
                 <a href="#hero" class="nav-item-link">الرئيسية</a>
                 <a href="#about" class="nav-item-link">عن المنصة</a>
                 <a href="#health-news" class="nav-item-link">آخر الأخبار</a>
-                <a href="#favorites" class="nav-item-link">مفضلاتي</a>
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
                 <a href="#store" class="nav-item-link">المتجر</a>
                 <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
+                <a href="#favorites" class="nav-item-link">مفضلاتي</a>
             </nav>
         </div>
     </header>
@@ -241,7 +240,7 @@
         </div>
     </section>
 
-    <!-- قسم آخر الأخبار الصحية -->
+    <!-- قسم آخر الأخبار الصحية (تم نقله بعد قسم من نحن) -->
     <section id="health-news" style="background-color: #f4f7f6;">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-success">آخر الأخبار الصحية المحلية والعالمية</h2>
@@ -256,18 +255,6 @@
         </div>
     </section>
     
-    <!-- قسم المفضلة -->
-    <section id="favorites" style="background-color: #fcfcfc;">
-        <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5 text-warning">مفضلاتي</h2>
-            <div id="favorites-content" class="text-center">
-                <div class="alert alert-info text-center" role="alert">
-                    <i class="fas fa-info-circle me-2"></i> لا يوجد لديك أي عناصر محفوظة حتى الآن.
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="updates" style="background-color: #f4f7f6;">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5">التوعية الصحية الذكية</h2>
@@ -431,6 +418,17 @@
         </div>
     </section>
 
+    <!-- قسم المفضلة (تم تبسيط محتواه) -->
+    <section id="favorites" style="background-color: #fcfcfc;">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-5 text-warning">مفضلاتي</h2>
+            <div id="favorites-list" class="mx-auto" style="max-width: 800px;">
+                <!-- Favorites will be rendered here by JavaScript -->
+                <p class="text-muted small text-center my-3">جاري تحميل المفضلة...</p>
+            </div>
+        </div>
+    </section>
+
     <footer class="footer">
         <div class="container px-4">
             <h4 class="text-white fw-bold mb-3">Impact Health | أثر صحي</h4>
@@ -462,7 +460,7 @@
                 title: "مقاومة المضادات الحيوية: تحدٍ عالمي جديد يتطلب استجابة عاجلة",
                 content: "تزايد معدلات مقاومة البكتيريا للمضادات الحيوية يهدد الفعالية العلاجية ويزيد من صعوبة علاج الأمراض المعدية الشائعة. تحتاج الجهود العالمية لتعاون مكثف لتطوير مضادات حيوية جديدة وتطبيق ممارسات صحية أفضل للحد من انتشار هذه الظاهرة الخطيرة.",
                 date: "2024-07-28",
-                image: "https://images.unsplash.com/photo-1582234033005-92762b9a101b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHw3MXx8YW50aWJpb3RpYyUyMHJlc2lzdGFuY2V8ZW58MHx8fHwxNzA2OTU0MjIyfDA&ixlib=rb-4.0.3&q=80&w=1080",
+                image: "https://images.unsplash.com/photo-1579165466511-71e5331940a5?w=600",
                 source: "منظمة الصحة العالمية"
             },
             {
@@ -470,7 +468,7 @@
                 title: "سلامة الأغذية في الصيف: نصائح لتجنب التسمم الغذائي",
                 content: "مع ارتفاع درجات الحرارة، يزداد خطر التسمم الغذائي. من الضروري اتباع إرشادات صارمة لسلامة الأغذية، مثل تخزين الطعام بشكل صحيح، وطهيه جيدًا، وتجنب التلوث المتبادل بين الأطعمة النيئة والمطبوخة، لضمان صحة وسلامة المستهلكين.",
                 date: "2024-07-27",
-                image: "https://images.unsplash.com/photo-1590494056252-0545f1b1338d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHw0OXx8Zm9vZCUyMHNhZmV0eXxlbnwwfHx8fDE3MDY5NTQyMjF8MA&ixlib=rb-4.0.3&q=80&w=1080",
+                image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600",
                 source: "إدارة الغذاء والدواء"
             },
             {
@@ -478,20 +476,102 @@
                 title: "برامج التطعيم الشاملة: حجر الزاوية في الصحة العامة الحديثة",
                 content: "تعتبر برامج التطعيم الفعالة من أهم إنجازات الصحة العامة في القرن الماضي، حيث ساهمت في القضاء على العديد من الأمراض الفتاكة أو الحد منها بشكل كبير. يؤكد الخبراء على ضرورة مواصلة هذه البرامج وتوسيع نطاقها لحماية المجتمعات من التهديدات الصحية الجديدة.",
                 date: "2024-07-26",
-                image: "https://images.unsplash.com/photo-1614748123285-d143c7b2c011?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjM5MjJ8MHwxfHNlYXJjaHwyMHx8dmFjY2luYXRpb24lMjBwdWJsaWMlMjBoZWFsdGh8ZW58MHx8fHwxNzA2OTU0MjYzfDA&ixlib=rb-4.0.3&q=80&w=1080",
+                image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600",
                 source: "مراكز مكافحة الأمراض والوقاية منها"
             }
         ];
 
-        // Helper to get/save favorites from localStorage
-        function getFavorites(type) {
-            const favorites = localStorage.getItem(`impactHealth${type}Favorites`);
-            return favorites ? JSON.parse(favorites) : [];
+        // START: Favorites LocalStorage Functions (as provided by user)
+        function saveToFavorites(id, title, type) {
+            let favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
+            if (!favorites.some(item => item.id === id)) {
+                favorites.push({ id: id, title: title, type: type, date: new Date().toLocaleDateString('ar-LY') });
+                localStorage.setItem('healthFavorites', JSON.stringify(favorites));
+                renderFavorites();
+                alert('تم الحفظ في المفضلات بنجاح! 🌟');
+                return true; // Indicate success for button update
+            } else {
+                alert('هذا العنصر موجود بالفعل في مفضلاتك.');
+                return false; // Indicate item already exists
+            }
         }
 
-        function saveFavorites(type, items) {
-            localStorage.setItem(`impactHealth${type}Favorites`, JSON.stringify(items));
+        function renderFavorites() {
+            const container = document.getElementById('favorites-list');
+            if (!container) return;
+            let favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
+            if (favorites.length === 0) {
+                container.innerHTML = '<p class="text-muted small text-center my-3">لا توجد عناصر محفوظة حالياً.</p>';
+                return;
+            }
+            container.innerHTML = favorites.map(item => `
+                <div class="d-flex justify-content-between align-items-center p-2 mb-2 bg-light rounded" style="border-right: 3px solid #198754;">
+                    <div>
+                        <h6 class="fw-bold mb-0 small text-dark">${item.title}</h6>
+                        <small class="text-muted" style="font-size:0.7rem;">${item.type} - ${item.date}</small>
+                    </div>
+                    <button class="btn btn-sm text-danger" onclick="removeFromFavorites('${item.id}')"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            `).join('');
+            
+            // Re-render awareness tips and research table to update button states
+            updateTipFavoriteButtons();
+            updateResearchFavoriteButtons();
         }
+
+        function removeFromFavorites(id) {
+            let favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
+            favorites = favorites.filter(item => item.id !== id);
+            localStorage.setItem('healthFavorites', JSON.stringify(favorites));
+            renderFavorites(); // Re-render the favorites list
+            // No alert here, as it's typically initiated from the favorites list itself.
+        }
+        // END: Favorites LocalStorage Functions
+
+        // Helper to check if an item is favorited
+        function isFavorite(id) {
+            const favorites = JSON.parse(localStorage.getItem('healthFavorites')) || [];
+            return favorites.some(item => item.id === id);
+        }
+
+        // Function to update favorite button state for tips
+        function updateTipFavoriteButtons() {
+            document.querySelectorAll('#current-tips-list .tip-card, #archive-tips-list .tip-card').forEach(card => {
+                const tipId = card.dataset.tipId;
+                const favoriteButton = card.querySelector('.btn[data-tip-id]');
+                if (favoriteButton) {
+                    if (isFavorite(tipId)) {
+                        favoriteButton.innerHTML = '<i class="fas fa-bookmark"></i> تم الحفظ';
+                        favoriteButton.classList.remove('btn-outline-warning');
+                        favoriteButton.classList.add('btn-warning');
+                    } else {
+                        favoriteButton.innerHTML = '<i class="far fa-bookmark"></i> حفظ';
+                        favoriteButton.classList.remove('btn-warning');
+                        favoriteButton.classList.add('btn-outline-warning');
+                    }
+                }
+            });
+        }
+
+        // Function to update favorite button state for research
+        function updateResearchFavoriteButtons() {
+            document.querySelectorAll('#researchTable .research-row').forEach(row => {
+                const researchId = row.dataset.researchId;
+                const favoriteButton = row.querySelector('.btn[data-research-id]');
+                if (favoriteButton) {
+                    if (isFavorite(researchId)) {
+                        favoriteButton.innerHTML = '<i class="fas fa-bookmark"></i> تم الحفظ';
+                        favoriteButton.classList.remove('btn-outline-warning');
+                        favoriteButton.classList.add('btn-warning');
+                    } else {
+                        favoriteButton.innerHTML = '<i class="far fa-bookmark"></i> حفظ';
+                        favoriteButton.classList.remove('btn-warning');
+                        favoriteButton.classList.add('btn-outline-warning');
+                    }
+                }
+            });
+        }
+
 
         // دالة لنسخ النص إلى الحافظة
         async function copyTip(buttonElement, title, content) {
@@ -513,44 +593,24 @@
             }
         }
 
-        // Function to add/remove tips from favorites
+        // Function to add/remove tips from favorites (now uses saveToFavorites/removeFromFavorites)
         function toggleFavoriteTip(tipData, buttonElement) {
-            let favoriteTips = getFavorites('tips');
-            const isFavorite = favoriteTips.some(fav => fav.id === tipData.id);
-
-            if (isFavorite) {
-                favoriteTips = favoriteTips.filter(fav => fav.id !== tipData.id);
-                buttonElement.innerHTML = '<i class="far fa-bookmark"></i> حفظ';
-                buttonElement.classList.remove('btn-warning');
-                buttonElement.classList.add('btn-outline-warning');
+            if (isFavorite(tipData.id)) {
+                removeFromFavorites(tipData.id);
             } else {
-                favoriteTips.push(tipData);
-                buttonElement.innerHTML = '<i class="fas fa-bookmark"></i> تم الحفظ';
-                buttonElement.classList.remove('btn-outline-warning');
-                buttonElement.classList.add('btn-warning');
+                saveToFavorites(tipData.id, tipData.title, 'نصيحة صحية');
             }
-            saveFavorites('tips', favoriteTips);
-            renderFavorites(); // Re-render favorites section
+            updateTipFavoriteButtons(); // Update button state
         }
 
-        // Function to add/remove research from favorites
+        // Function to add/remove research from favorites (now uses saveToFavorites/removeFromFavorites)
         function toggleFavoriteResearch(researchData, buttonElement) {
-            let favoriteResearch = getFavorites('research');
-            const isFavorite = favoriteResearch.some(fav => fav.id === researchData.id);
-
-            if (isFavorite) {
-                favoriteResearch = favoriteResearch.filter(fav => fav.id !== researchData.id);
-                buttonElement.innerHTML = '<i class="far fa-bookmark"></i> حفظ';
-                buttonElement.classList.remove('btn-warning');
-                buttonElement.classList.add('btn-outline-warning');
+            if (isFavorite(researchData.id)) {
+                removeFromFavorites(researchData.id);
             } else {
-                favoriteResearch.push(researchData);
-                buttonElement.innerHTML = '<i class="fas fa-bookmark"></i> تم الحفظ';
-                buttonElement.classList.remove('btn-outline-warning');
-                buttonElement.classList.add('btn-warning');
+                saveToFavorites(researchData.id, researchData.title, 'بحث علمي');
             }
-            saveFavorites('research', favoriteResearch);
-            renderFavorites(); // Re-render favorites section
+            updateResearchFavoriteButtons(); // Update button state
         }
 
         // دالة جلب نصائح التوعية من ملف athardata.json
@@ -574,27 +634,12 @@
                 currentItems.forEach(item => { if(currentContainer) currentContainer.innerHTML += buildTipCard(item); });
                 archiveItems.forEach(item => { if(archiveContainer) archiveContainer.innerHTML += buildTipCard(item); });
 
-                // After loading new tips, re-check and update favorite buttons if any
-                document.querySelectorAll('#current-tips-list .tip-card, #archive-tips-list .tip-card').forEach(card => {
-                    const tipId = card.dataset.tipId;
-                    const favoriteButton = card.querySelector('.btn-outline-warning, .btn-warning');
-                    if (favoriteButton) {
-                        const isFavorite = getFavorites('tips').some(fav => fav.id === tipId);
-                        if (isFavorite) {
-                            favoriteButton.innerHTML = '<i class="fas fa-bookmark"></i> تم الحفظ';
-                            favoriteButton.classList.remove('btn-outline-warning');
-                            favoriteButton.classList.add('btn-warning');
-                        } else {
-                            favoriteButton.innerHTML = '<i class="far fa-bookmark"></i> حفظ';
-                            favoriteButton.classList.remove('btn-warning');
-                            favoriteButton.classList.add('btn-outline-warning');
-                        }
-                    }
-                });
+                updateTipFavoriteButtons(); // Update favorite button states after loading tips
 
             } catch (error) {
                 console.error("Failed to fetch awareness data:", error);
                 // If fetch fails, the initial dummy content in HTML will remain, which is desired.
+                updateTipFavoriteButtons(); // Ensure dummy tip button state is also updated
             }
         }
 
@@ -612,9 +657,9 @@
             // Using Base64 encoding for a robust unique ID based on content
             const uniqueTipId = btoa(unescape(encodeURIComponent(item.title + (item.date || '') + (item.source || '') + (item.category || '') + item.content.substring(0, Math.min(item.content.length, 50))))); 
             
-            const isFavoriteTip = getFavorites('tips').some(fav => fav.id === uniqueTipId);
-            const favoriteButtonClass = isFavoriteTip ? 'btn-warning' : 'btn-outline-warning';
-            const favoriteButtonText = isFavoriteTip ? '<i class="fas fa-bookmark"></i> تم الحفظ' : '<i class="far fa-bookmark"></i> حفظ';
+            const isFavoriteStatus = isFavorite(uniqueTipId);
+            const favoriteButtonClass = isFavoriteStatus ? 'btn-warning' : 'btn-outline-warning';
+            const favoriteButtonText = isFavoriteStatus ? '<i class="fas fa-bookmark"></i> تم الحفظ' : '<i class="far fa-bookmark"></i> حفظ';
 
             // Prepare item data for the toggleFavoriteTip function
             const tipDataForFavorite = JSON.stringify({
@@ -641,7 +686,7 @@
                         <small class="text-muted" style="font-size:0.75rem"> ${item.date || ''}</small>
                     </div>
                     <div class="d-flex justify-content-end gap-2 mt-2">
-                        <button type="button" class="btn ${favoriteButtonClass} btn-sm rounded-pill px-3" onclick="toggleFavoriteTip(${tipDataForFavorite}, this)">
+                        <button type="button" class="btn ${favoriteButtonClass} btn-sm rounded-pill px-3" data-tip-id="${uniqueTipId}" onclick="toggleFavoriteTip(${tipDataForFavorite}, this)">
                             ${favoriteButtonText}
                         </button>
                         <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" onclick="copyTip(this, '${escapedTitle}', '${escapedContent}')">
@@ -794,9 +839,9 @@
 
             dataToDisplay.forEach(item => {
                 const uniqueResearchId = item.id;
-                const isFavoriteResearch = getFavorites('research').some(fav => fav.id === uniqueResearchId);
-                const favoriteResearchButtonClass = isFavoriteResearch ? 'btn-warning' : 'btn-outline-warning';
-                const favoriteResearchButtonText = isFavoriteResearch ? '<i class="fas fa-bookmark"></i> تم الحفظ' : '<i class="far fa-bookmark"></i> حفظ';
+                const isFavoriteStatus = isFavorite(uniqueResearchId);
+                const favoriteResearchButtonClass = isFavoriteStatus ? 'btn-warning' : 'btn-outline-warning';
+                const favoriteResearchButtonText = isFavoriteStatus ? '<i class="fas fa-bookmark"></i> تم الحفظ' : '<i class="far fa-bookmark"></i> حفظ';
 
                 tableBody.innerHTML += `
                     <tr class="research-row" data-research-id="${uniqueResearchId}">
@@ -806,7 +851,7 @@
                         <td>${item.studyType}</td>
                         <td class="d-flex gap-2 align-items-center">
                             <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success rounded-pill px-3">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a>
-                            <button type="button" class="btn ${favoriteResearchButtonClass} btn-sm rounded-pill px-3" onclick="toggleFavoriteResearch(${JSON.stringify(item)}, this)">
+                            <button type="button" class="btn ${favoriteResearchButtonClass} btn-sm rounded-pill px-3" data-research-id="${uniqueResearchId}" onclick="toggleFavoriteResearch(${JSON.stringify(item)}, this)">
                                 ${favoriteResearchButtonText}
                             </button>
                         </td>
@@ -815,6 +860,7 @@
             });
 
             updateResearchButtonsVisibility();
+            updateResearchFavoriteButtons(); // Ensure buttons reflect state immediately after render
         }
 
         function filterResearchTable() {
@@ -857,104 +903,6 @@
             // Scroll smoothly to the top of the table
             const table = document.getElementById('researchTable');
             table.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        // Function to render the favorites section
-        function renderFavorites() {
-            const favoritesContainer = document.getElementById('favorites-content'); 
-            if (!favoritesContainer) return;
-
-            favoritesContainer.innerHTML = ''; // Clear previous content
-
-            const favoriteTips = getFavorites('tips');
-            const favoriteResearch = getFavorites('research');
-
-            if (favoriteTips.length === 0 && favoriteResearch.length === 0) {
-                favoritesContainer.innerHTML = `
-                    <div class="alert alert-info text-center" role="alert">
-                        <i class="fas fa-info-circle me-2"></i> لا يوجد لديك أي عناصر محفوظة حتى الآن.
-                    </div>
-                `;
-                return;
-            }
-
-            if (favoriteTips.length > 0) {
-                favoritesContainer.innerHTML += `
-                    <h3 class="fw-bold mt-4 mb-3 text-dark">نصائح صحية مفضلة</h3>
-                    <div class="row g-3">
-                        ${favoriteTips.map(item => {
-                            const escapedFavTipTitle = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-                            const escapedFavTipContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-                            const currentPageUrl = encodeURIComponent(window.location.href);
-                            const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
-
-                            return `
-                            <div class="col-12 col-md-6">
-                                <div class="tip-card" data-tip-id="${item.id}" style="border-right-color: ${item.type === 'warning' ? 'var(--red-accent)' : 'var(--main-green)'}">
-                                    <div class="d-flex justify-content-between align-items-start">
-                                        <h5 class="fw-bold" style="color:#222">${item.title}</h5>
-                                        <span style="font-size:1.5rem">${item.type === 'warning' ? '⚠️' : '💡'}</span>
-                                    </div>
-                                    <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">${item.content}</p>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="source-label"> المصدر: ${item.source || 'أثر صحي'}${item.category ? ' - ' + item.category : ''}</span>
-                                        <small class="text-muted" style="font-size:0.75rem"> ${item.date || ''}</small>
-                                    </div>
-                                    <div class="d-flex justify-content-end gap-2 mt-2">
-                                        <button type="button" class="btn btn-warning btn-sm rounded-pill px-3" onclick="toggleFavoriteTip(${JSON.stringify(item)}, this)">
-                                            <i class="fas fa-bookmark"></i> إزالة من المفضلات
-                                        </button>
-                                        <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" onclick="copyTip(this, '${escapedFavTipTitle}', '${escapedFavTipContent}')">
-                                            <i class="fas fa-copy"></i> نسخ
-                                        </button>
-                                        <a href="https://www.facebook.com/sharer/sharer.php?u=${currentPageUrl}&quote=${shareText}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm rounded-pill px-3">
-                                            <i class="fab fa-facebook-f"></i> فيسبوك
-                                        </a>
-                                        <a href="https://wa.me/?text=${shareText + encodeURIComponent('\n\n🌐 للمزيد: ') + currentPageUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm rounded-pill px-3">
-                                            <i class="fab fa-whatsapp"></i> واتساب
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        `;}).join('')}
-                    </div>
-                `;
-            }
-
-            if (favoriteResearch.length > 0) {
-                favoritesContainer.innerHTML += `
-                    <h3 class="fw-bold mt-5 mb-3 text-dark">أبحاث مفضلة</h3>
-                    <div class="research-table-container">
-                        <table class="table research-table">
-                            <thead>
-                                <tr>
-                                    <th><i class="fas fa-file-alt me-2"></i> اسم البحث</th>
-                                    <th style="width: 120px;"><i class="fas fa-calendar-alt me-2"></i> سنة النشر</th>
-                                    <th style="width: 180px;"><i class="fas fa-tags me-2"></i> المجال</th>
-                                    <th style="width: 180px;"><i class="fas fa-microscope me-2"></i> نوع الدراسة</th>
-                                    <th style="width: 120px;"><i class="fas fa-link me-2"></i> الإجراء</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${favoriteResearch.map(item => `
-                                    <tr class="research-row" data-research-id="${item.id}">
-                                        <td>${item.title}</td>
-                                        <td>${item.year}</td>
-                                        <td>${item.field}</td>
-                                        <td>${item.studyType}</td>
-                                        <td class="d-flex gap-2 align-items-center">
-                                            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success rounded-pill px-3">قراءة <i class="fas fa-external-link-alt fa-xs me-1"></i></a>
-                                            <button type="button" class="btn btn-warning btn-sm rounded-pill px-3" onclick="toggleFavoriteResearch(${JSON.stringify(item)}, this)">
-                                                <i class="fas fa-bookmark"></i> إزالة
-                                            </button>
-                                        </td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                `;
-            }
         }
 
         // دالة عرض الأخبار المحدثة تلقائياً بواسطة البوت
