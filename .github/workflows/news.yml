@@ -1,38 +1,39 @@
-name: Automated Health Impact Bot
- 
+name: Auto Update Health Platform
+
 on:
   push:
     branches:
       - main
   schedule:
-    - cron: '0 0 * * *' # هذا هو الأمر السحري: تشغيل تلقائي كل 24 ساعة (عند منتصف الليل)
+    - cron: '0 0 * * *' # هذا السطر يخبر الجيت هاب بتشغيل السكربت تلقائياً كل يوم الساعة 12 منتصف الليل لتحديث الأخبار
 
 jobs:
-  update-website:
+  update-code:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-python: '3.10'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
-    - name: Install Dependencies
-      run: |
-        pip install google-generativeai
+      - name: Install Dependencies
+        run: |
+          pip install google-generativeai
 
-    - name: Run Bot Updates
-      env:
-        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      run: |
-        python ai_coder.py
+      - name: Run Script
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python ai_coder.py
 
-    - name: Commit and Push Changes
-      run: |
-        git config --global user.name "AtharSehi-Bot"
-        git config --global user.email "bot@atharsehi.com"
-        git add index.html
-        git diff-index --quiet HEAD || git commit -m "تحديث تلقائي يومي للأخبار الطبية 🚀"
-        git push
+      # هذا الجزء مهم جداً لحفظ التعديلات الجديدة ودفعها للمستودع تلقائياً
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add index.html
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-updated health news for today"
+          git push
