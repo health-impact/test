@@ -49,7 +49,7 @@
 
         /* 3. قسم الرئيسية (Hero) - تم تحديث الصورة */
         .hero { 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1533035312389-9a2cf9336bb3?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Hero Image: Public health concept, hands holding plant */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1632160124354-9ee1f39f37c4?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Hero Image: Lab technician looking at samples */
             background-repeat: no-repeat; background-position: center; background-size: cover;
             color: white; display: flex; align-items: center; justify-content: center; text-align: center;
             height: 75vh; /* Maintain height */
@@ -194,6 +194,68 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             text-align: center;
         }
+
+        /* Contact Us Section Styles */
+        .contact-card {
+            background: #fff;
+            border-radius: 25px;
+            padding: clamp(20px, 5vw, 50px);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.05);
+            text-align: right;
+        }
+        .contact-form .form-control {
+            border-radius: 15px;
+            padding: 12px 20px;
+            border-color: #e0e0e0;
+        }
+        .contact-form .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+            border-color: var(--main-green);
+        }
+        .contact-info-block {
+            background-color: #f8fcf8; /* light-bg variant */
+            border-radius: 15px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end; /* Align right for RTL */
+            height: 100%;
+            text-align: right;
+        }
+        .contact-info-block .icon-text {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        .contact-info-block .icon-text i {
+            font-size: 1.8rem;
+            color: var(--main-green);
+            min-width: 40px; /* Ensure icon alignment */
+            text-align: center;
+        }
+        .contact-info-block h4 {
+            color: var(--dark-gray);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .contact-info-block p {
+            margin: 0;
+            font-size: 1rem;
+        }
+        .contact-info-block .social-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .contact-info-block .social-buttons .btn {
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -211,6 +273,7 @@
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
                 <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
                 <a href="#store" class="nav-item-link">المتجر</a>
+                <a href="#contact-us" class="nav-item-link">تواصل معنا</a>
             </nav>
         </div>
     </header>
@@ -230,13 +293,13 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    منصة توعوية متخصصة تعمل بالذكاء الإصطناعي يشرف عليها <strong>طالب دراسات عليا بقسم الصحة العامة</strong>، تهدف لتقديم محتوى موثوق يعتمد بشكل أساسي على تحديثات منظمات ومصادر عالمية ومحلية مثل  <strong>WHO</strong> و <strong>NCDC</strong> و <strong>FDA</strong> وغيرها لضمان دقة المعلومة وترك أثر إيجابي يدوم في المجتمع الليبي .
+                    منصة 'أثر صحي' هي مبادرة توعوية متخصصة، تعمل بتقنيات الذكاء الاصطناعي ويُشرف عليها فريق من الأكاديميين والمتخصصين في مجال <strong>الصحة العامة</strong>. تهدف المنصة إلى إثراء الوعي المجتمعي الليبي بأسس الصحة العامة الشاملة، مع التركيز العميق على <strong>مكافحة العدوى والوقاية من الأمراض</strong>، وضمان <strong>سلامة الغذاء والتغذية السليمة</strong>. نلتزم بتقديم معلومات موثوقة تستند إلى أحدث التوصيات الصادرة عن الهيئات الصحية العالمية والمحلية الرائدة، مثل <strong>منظمة الصحة العالمية (WHO)</strong>، ومراكز <strong>مكافحة الأمراض والوقاية منها (CDC)</strong>، وإدارة <strong>الغذاء والدواء (FDA)</strong>، والمراكز الوطنية لمكافحة الأمراض <strong>(NCDC)</strong>. كما نسلط الضوء على أهمية <strong>الفحوصات المختبرية الدقيقة</strong> في التشخيص المبكر، ونكافح ظاهرة <strong>مقاومة البكتيريا للمضادات الحيوية</strong>، ساعين لخلق أثر صحي مستدام وإيجابي في حياة الأفراد والمجتمع.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- قسم آخر الأخبار الصحية المحلية والعالمية (NEW POSITION) -->
+    <!-- قسم آخر الأخبار الصحية المحلية والعالمية -->
     <section id="health-news" style="background-color: #f4f7f6;">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-success">آخر الأخبار الصحية المحلية والعالمية</h2>
@@ -266,7 +329,7 @@
                         <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">غسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.</p>
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="source-label"> المصدر: WHO - مكافحة العدوى</span>
-                            <small class="text-muted" style="font-size:0.75rem"></small> 
+                            <small class="text-muted" style="font-size:0.75rem">25-10-2023</small> 
                         </div>
                         <div class="d-flex justify-content-end gap-2 mt-2">
                             <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3"
@@ -296,7 +359,7 @@
         </div>
     </section>
 
-    <!-- مكتبة الأبحاث (EXISTING POSITION) -->
+    <!-- مكتبة الأبحاث -->
     <section id="research-library" style="background-color: #f4f7f6;">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-success">مكتبة الأبحاث</h2>
@@ -367,7 +430,7 @@
         </div>
     </section>
 
-    <!-- المتجر (EXISTING POSITION) -->
+    <!-- المتجر -->
     <section id="store">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-success">متجر المستلزمات</h2>
@@ -394,6 +457,73 @@
                         <h4 class="fw-bold">أجهزة القياس</h4>
                         <p class="text-muted small">أجهزة قياس الضغط والسكر المنزلية الموثوقة.</p>
                         <span class="badge bg-light text-danger border border-danger px-4 py-2">قريباً</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم تواصل معنا -->
+    <section id="contact-us" style="background-color: #f4f7f6;">
+        <div class="container px-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-success" style="font-size: 2.5rem;">تواصل معنا</h2>
+                <div style="width: 70px; height: 5px; background: var(--main-green); margin: 10px auto; border-radius: 10px;"></div>
+            </div>
+            <div class="row g-4 align-items-stretch">
+                <div class="col-lg-6">
+                    <div class="contact-card h-100">
+                        <h3 class="fw-bold mb-4" style="color: var(--dark-gray);">أرسل لنا رسالة</h3>
+                        <form class="contact-form">
+                            <div class="mb-3">
+                                <label for="contactName" class="form-label fw-bold">الاسم:</label>
+                                <input type="text" class="form-control" id="contactName" placeholder="اسمك الكامل" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contactEmail" class="form-label fw-bold">البريد الإلكتروني:</label>
+                                <input type="email" class="form-control" id="contactEmail" placeholder="بريدك الإلكتروني" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contactMessage" class="form-label fw-bold">رسالتك:</label>
+                                <textarea class="form-control" id="contactMessage" rows="5" placeholder="اكتب رسالتك هنا..." required></textarea>
+                            </div>
+                            <div class="text-start">
+                                <button type="submit" class="btn btn-success rounded-pill px-5 py-3 fw-bold shadow-sm">
+                                    <i class="fas fa-paper-plane me-2"></i> إرسال الرسالة
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="contact-info-block">
+                        <h3 class="fw-bold mb-4" style="color: var(--dark-gray);">معلومات التواصل</h3>
+                        <div class="icon-text">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4 class="mb-0">البريد الإلكتروني</h4>
+                                <p>info@atharsahe.ly</p>
+                            </div>
+                        </div>
+                        <div class="icon-text">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <h4 class="mb-0">واتساب</h4>
+                                <p>+218915303534</p>
+                            </div>
+                        </div>
+                        <div class="icon-text">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4 class="mb-0">الموقع</h4>
+                                <p>ليبيا، طرابلس</p>
+                            </div>
+                        </div>
+                        <div class="social-buttons mt-4">
+                            <a href="https://wa.me/218915303534" target="_blank" rel="noopener noreferrer" class="btn btn-success"><i class="fab fa-whatsapp me-2"></i> واتساب</a>
+                            <a href="https://www.facebook.com/yourpage" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fab fa-facebook-f me-2"></i> فيسبوك</a>
+                            <a href="mailto:info@atharsahe.ly" class="btn btn-info text-white"><i class="fas fa-envelope me-2"></i> بريد إلكتروني</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -471,30 +601,136 @@
 
         // دالة جلب نصائح التوعية من ملف athardata.json
         async function fetchAwarenessData() {
+            // Dummy data for awareness tips if athardata.json is not present or fails
+            const dummyAwarenessData = [
+                {
+                    id: 1,
+                    title: "أهمية غسل اليدين للوقاية من العدوى",
+                    content: "غسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.",
+                    source: "WHO",
+                    category: "مكافحة العدوى",
+                    date: "25-10-2023",
+                    type: "info"
+                },
+                {
+                    id: 2,
+                    title: "نصائح لسلامة الغذاء في المنزل",
+                    content: "تجنب التلوث المتقاطع، اطهو الطعام جيدًا، برد الطعام بسرعة، ونظف يديك وأسطح العمل بانتظام.",
+                    source: "FDA",
+                    category: "سلامة الغذاء والتغذية",
+                    date: "01-11-2023",
+                    type: "info"
+                },
+                {
+                    id: 3,
+                    title: "الوقاية من الإنفلونزا الموسمية",
+                    content: "احصل على لقاح الإنفلونزا سنوياً، وتجنب لمس وجهك، وغطِ فمك وأنفك عند السعال أو العطس.",
+                    source: "CDC",
+                    category: "الوقاية من الأمراض",
+                    date: "15-11-2023",
+                    type: "info"
+                },
+                {
+                    id: 4,
+                    title: "مخاطر مقاومة المضادات الحيوية",
+                    content: "الاستخدام المفرط وغير الصحيح للمضادات الحيوية يؤدي إلى تطور بكتيريا مقاومة، مما يجعل علاج العدوى أكثر صعوبة.",
+                    source: "WHO",
+                    category: "مكافحة العدوى",
+                    date: "05-12-2023",
+                    type: "warning"
+                },
+                {
+                    id: 5,
+                    title: "أهمية التغذية المتوازنة",
+                    content: "اتباع نظام غذائي غني بالفواكه والخضروات والبروتينات الخالية من الدهون ضروري للحفاظ على صحة جيدة وتعزيز المناعة.",
+                    source: "أثر صحي",
+                    category: "سلامة الغذاء والتغذية",
+                    date: "10-12-2023",
+                    type: "info"
+                },
+                {
+                    id: 6,
+                    title: "الحد من استخدام البلاستيك للحفاظ على البيئة والصحة",
+                    content: "تقليل استهلاك البلاستيك يساهم في حماية البيئة من التلوث ويقلل من تعرضنا للمواد الكيميائية الضارة.",
+                    source: "UNEP",
+                    category: "الصحة البيئية",
+                    date: "20-12-2023",
+                    type: "info"
+                },
+                {
+                    id: 7,
+                    title: "علامات الإنذار المبكر للسكري",
+                    content: "كثرة التبول، العطش الشديد، فقدان الوزن غير المبرر، التعب، وزغللة العينين قد تكون علامات للسكري، استشر طبيبك.",
+                    source: "Mayo Clinic",
+                    category: "الوقاية من الأمراض",
+                    date: "03-01-2024",
+                    type: "warning"
+                },
+                {
+                    id: 8,
+                    title: "أهمية النشاط البدني المنتظم",
+                    content: "ممارسة الرياضة لمدة 30 دقيقة معظم أيام الأسبوع تحسن صحة القلب، المزاج، وتساعد في إدارة الوزن.",
+                    source: "Heart Foundation",
+                    category: "الصحة العامة",
+                    date: "15-01-2024",
+                    type: "info"
+                },
+                {
+                    id: 9,
+                    title: "النوم الكافي لتعزيز المناعة",
+                    content: "الحصول على 7-9 ساعات من النوم الجيد ليلاً ضروري للحفاظ على جهاز مناعي قوي وصحة عقلية جيدة.",
+                    source: "Sleep Foundation",
+                    category: "الصحة النفسية",
+                    date: "28-01-2024",
+                    type: "info"
+                },
+                {
+                    id: 10,
+                    title: "فحص الدم الدوري للكشف المبكر عن الأمراض",
+                    content: "الفحوصات المنتظمة تساعد في الكشف عن المشاكل الصحية مبكرًا قبل أن تتفاقم، مما يسهل العلاج.",
+                    source: "أثر صحي",
+                    category: "الوقاية من الأمراض",
+                    date: "10-02-2024",
+                    type: "info"
+                }
+            ];
+
+            let data = [];
             try {
-                // Use a cache-busting parameter to ensure the latest file is fetched
+                // Try to fetch athardata.json
                 const res = await fetch('athardata.json?v=' + new Date().getTime());
-                const data = await res.json();
-                
-                const currentContainer = document.getElementById('current-tips-list');
-                const archiveContainer = document.getElementById('archive-tips-list');
-                
-                if(currentContainer) currentContainer.innerHTML = ''; 
-                if(archiveContainer) archiveContainer.innerHTML = '';
-
-                // Filter for unique titles, then slice
-                const uniqueData = data.filter((v,i,a)=>a.findIndex(t=>(t.title === v.title))===i);
-
-                const currentItems = uniqueData.slice(0, 5);
-                const archiveItems = uniqueData.slice(5);
-
-                currentItems.forEach(item => { if(currentContainer) currentContainer.innerHTML += buildTipCard(item); });
-                archiveItems.forEach(item => { if(archiveContainer) archiveContainer.innerHTML += buildTipCard(item); });
-
+                if (res.ok) {
+                    data = await res.json();
+                } else {
+                    console.warn("Failed to fetch athardata.json, using dummy data.");
+                    data = dummyAwarenessData;
+                }
             } catch (error) {
-                console.error("Failed to fetch awareness data:", error);
-                // If fetch fails, the initial dummy content in HTML will remain, which is desired.
+                console.error("Error fetching athardata.json:", error);
+                console.warn("Using dummy awareness data due to fetch error.");
+                data = dummyAwarenessData;
             }
+                
+            const currentContainer = document.getElementById('current-tips-list');
+            const archiveContainer = document.getElementById('archive-tips-list');
+            
+            if(currentContainer) currentContainer.innerHTML = ''; 
+            if(archiveContainer) archiveContainer.innerHTML = '';
+
+            // Filter for unique titles, then slice
+            const uniqueData = data.filter((v,i,a)=>a.findIndex(t=>(t.title === v.title))===i);
+
+            const currentItems = uniqueData.slice(0, 5);
+            const archiveItems = uniqueData.slice(5);
+
+            currentItems.forEach(item => { if(currentContainer) currentContainer.innerHTML += buildTipCard(item); });
+            archiveItems.forEach(item => { if(archiveContainer) archiveContainer.innerHTML += buildTipCard(item); });
+
+            // If athardata.json was empty or only had a few items, ensure dummy is there
+            if (uniqueData.length === 0 && currentContainer.innerHTML === '') {
+                 currentContainer.innerHTML = buildTipCard(dummyAwarenessData[0]); // Add at least one dummy tip
+            }
+
         }
 
         function buildTipCard(item) {
@@ -511,6 +747,7 @@
             const uniqueTipId = btoa(unescape(encodeURIComponent(item.title + (item.date || '') + (item.source || '') + (item.category || '') + item.content.substring(0, Math.min(item.content.length, 50))))); 
             
             const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
+            const tipDate = item.date ? item.date : ''; // Display date if available
 
             return `
                 <div class="tip-card" data-tip-id="${uniqueTipId}" style="border-right-color: ${borderCol}">
@@ -521,7 +758,7 @@
                     <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">${item.content}</p>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <span class="source-label"> المصدر: ${item.source || 'أثر صحي'}${item.category ? ' - ' + item.category : ''}</span>
-                        <small class="text-muted" style="font-size:0.75rem"> </small> 
+                        <small class="text-muted" style="font-size:0.75rem">${tipDate}</small> 
                     </div>
                     <div class="d-flex justify-content-end gap-2 mt-2">
                         <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" onclick="copyTip(this, '${escapedTitle}', '${escapedContent}')">
@@ -782,6 +1019,7 @@
                                         <hr class="text-muted opacity-25">
                                         <small class="text-success fw-bold"><i class="fas fa-check-circle me-1"></i> ${news.source || 'مصدر موثوق'}</small>
                                     </div>
+                                    <a href="#" class="btn btn-sm btn-outline-success mt-2 rounded-pill fw-bold" onclick="alert('تفاصيل الخبر غير متاحة حالياً، يرجى زيارة المصدر للحصول على المزيد من المعلومات.')">قراءة المزيد</a>
                                 </div>
                             </div>
                         </div>
