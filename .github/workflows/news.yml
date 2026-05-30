@@ -1,39 +1,22 @@
-name: Auto Update Health Platform
 
-on:
-  push:
-    branches:
-      - main
-  schedule:
-    - cron: '0 0 * * *'
-
-jobs:
-  update-code:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install Dependencies
-        run: |
-          pip install google-generativeai
-
-      - name: Run Script
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          python ai_coder.py
-
-      - name: Commit and Push Changes
-        run: |
+      name: - name: Commit and Push Changes
+      run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
+          
+          # 1. إلغاء أي عملية ريباس مكسورة أو معلقة في السيرفر لتنظيف البيئة
+          git rebase --abort || true
+          
+          # 2. جلب آخر التحديثات من المستودع أولاً وقبل أي تعديل
+          git fetch origin main
+          
+          # 3. دمج التغيرات مع إعطاء الأولوية القصوى لنسخة السكربت في حال حدوث تعارض
+          git checkout main
           git add index.html
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-updated health news for today"
-          git pull --rebase origin main
+          
+          # 4. السحب الذكي وحل التعارضات تلقائياً لصالح السكربت
+          git pull --rebase -X theirs origin main
+          
+          # 5. الرفع النهائي المستقر
           git push origin main
