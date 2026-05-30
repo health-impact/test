@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 0 * * *' # هذا السطر يخبر الجيت هاب بتشغيل السكربت تلقائياً كل يوم الساعة 12 منتصف الليل لتحديث الأخبار
+    - cron: '0 0 * * *'
 
 jobs:
   update-code:
@@ -29,11 +29,11 @@ jobs:
         run: |
           python ai_coder.py
 
-      # هذا الجزء مهم جداً لحفظ التعديلات الجديدة ودفعها للمستودع تلقائياً
       - name: Commit and Push Changes
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           git add index.html
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-updated health news for today"
-          git push 
+          git pull --rebase origin main
+          git push origin main
