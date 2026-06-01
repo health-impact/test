@@ -1,4 +1,4 @@
-name: Auto Update Health Platform
+name: Auto Update Health news
 
 on:
   push:
