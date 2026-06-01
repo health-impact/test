@@ -49,10 +49,40 @@
 
         /* 3. قسم الرئيسية (Hero) - تم تحديث الصورة */
         .hero { 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1579547622340-a352bf65d491?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Hero Image: Updated to a detailed lab setting */
-            background-repeat: no-repeat; background-position: center; background-size: cover;
-            color: white; display: flex; align-items: center; justify-content: center; text-align: center;
-            height: 75vh; /* Maintain height */
+            position: relative; /* Make it a positioning context for absolute children */
+            height: 75vh;
+            overflow: hidden; /* Hide overflow from carousel */
+            display: flex; /* Keep flex for centering the content */
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white; /* Ensure text is white over dark images */
+            padding: 0; /* Remove padding from hero itself, will be handled by container */
+        }
+        /* New CSS for carousel and its items */
+        .hero .carousel,
+        .hero .carousel-inner,
+        .hero .carousel-item {
+            position: absolute; /* Cover the entire hero section */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Behind text */
+        }
+
+        .hero .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the area, crop if necessary */
+            filter: brightness(60%); /* Darken images slightly for text readability */
+        }
+
+        /* Content wrapper for text to ensure it's on top */
+        .hero .content-wrapper {
+            position: relative; /* Make it stack above carousel */
+            z-index: 10; /* Above carousel */
+            width: 100%; /* Ensure content wrapper takes full width for padding */
         }
         .hero h1 { font-size: clamp(1.8rem, 8vw, 4.5rem); font-weight: 900; line-height: 1.2; }
         .hero p { font-size: clamp(0.95rem, 4vw, 1.8rem); max-width: 800px; margin: 15px auto; font-weight: 500; color: #eee; }
@@ -215,8 +245,32 @@
         </div>
     </header>
 
-    <section id="hero" class="hero p-0">
-        <div class="container px-4">
+    <section id="hero" class="hero">
+        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://images.unsplash.com/photo-1576091160550-fd42aae2e0a4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="فريق طبي يناقش حالة">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://images.unsplash.com/photo-1530210080309-8d76a3e155e8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="مجهر متطور في مختبر">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://images.unsplash.com/photo-1628348001614-74c10a40a830?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="بحث علمي في بيئة مختبرية">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://images.unsplash.com/photo-1505751172876-fa1923c58567?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="طبيب يقدم استشارة لمريض">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="container px-4 content-wrapper">
             <h1>أثر صحي | Impact Health</h1>
             <p> .نحو مجتمع ليبي واعي، مبني على نصائح صحية معتمدة </p>
         </div>
@@ -230,7 +284,7 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    "أثر صحي" هي منصة ليبية رائدة، تُعنى بالارتقاء بالوعي المجتمعي تجاه الصحة العامة استناداً إلى أسس علمية رصينة وبراهين موثوقة. تحت إشراف نخبة من الأكاديميين والخبراء في مجالات الصحة العامة، نلتزم بتقديم توعية متعمقة وشاملة تغطي محاور استراتيجية تتضمن: <strong>تطبيق بروتوكولات مكافحة العدوى المتقدمة والتدابير الوقائية للأمراض السارية</strong>، ضمان <strong>سلامة الغذاء وتعزيز التغذية العلاجية والوقائية</strong>، إضافة إلى تسليط الضوء على التحدي العالمي المتنامي المتمثل في <strong>مقاومة مضادات الميكروبات (Antimicrobial Resistance - AMR)</strong>. تستند كافة معلوماتنا إلى أحدث التوصيات الصادرة عن هيئات عالمية مرجعية مثل <strong>منظمة الصحة العالمية (WHO)</strong>، ومراكز <strong>مكافحة الأمراض والوقاية منها (CDC)</strong>، وإدارة <strong>الغذاء والدواء (FDA)</strong>، والمراكز الوطنية لمكافحة الأمراض <strong>(NCDC)</strong>. كما نركز على الدور المحوري <strong>للتشخيصات المختبرية الدقيقة</strong> في الكشف المبكر عن الأمراض ومراقبة استجابتها للعلاج، مما يعزز قدرتنا على التصدي الفعال للتحديات الصحية. هدفنا الأسمى هو تمكين الأفراد والمجتمعات في ليبيا من اتخاذ قرارات صحية مستنيرة تساهم في بناء مستقبل صحي ومستدام.
+                    "أثر صحي" هي منصة ليبية رائدة، تكرس جهودها للارتقاء بالوعي المجتمعي نحو صحة عامة مثلى، مرتكزة على أسس علمية رصينة وبراهين طبية موثوقة. تحت إشراف نخبة من الأكاديميين والخبراء المتخصصين في ميادين الصحة العامة، نلتزم بتقديم توعية شاملة ومتعمقة تغطي محاور استراتيجية حيوية، أبرزها: <strong>التطبيق الفعال لبروتوكولات مكافحة العدوى المتقدمة والتدابير الوقائية للأمراض السارية</strong>، ضمان <strong>سلامة الغذاء وتعزيز التغذية العلاجية والوقائية</strong>، مع تسليط الضوء على التحدي العالمي المتفاقم المتمثل في <strong>مقاومة مضادات الميكروبات (Antimicrobial Resistance - AMR)</strong> وتداعياتها الخطيرة. تعتمد كافة معلوماتنا على أحدث التوصيات الصادرة عن هيئات عالمية مرجعية مرموقة كـ <strong>منظمة الصحة العالمية (WHO)</strong>، ومراكز <strong>مكافحة الأمراض والوقاية منها (CDC)</strong>، وإدارة <strong>الغذاء والدواء (FDA)</strong>، والمراكز الوطنية لمكافحة الأمراض <strong>(NCDC)</strong>. كما نركز على الدور المحوري <strong>للتشخيصات المختبرية الدقيقة</strong> في الكشف المبكر عن الأمراض، تحديد مسبباتها، ومراقبة استجابتها للعلاج، مما يعزز قدرتنا على التصدي الفعال للتحديات الصحية المعاصرة. هدفنا الأسمى هو تمكين الأفراد والمجتمعات في ليبيا من اتخاذ قرارات صحية مستنيرة تسهم في بناء مستقبل صحي ومستدام، مع التركيز على الوقاية كأول خط دفاع ضد الأمراض.
                 </p>
             </div>
         </div>
@@ -404,13 +458,6 @@
         <div class="container px-4">
             <h4 class="text-white fw-bold mb-3">Impact Health | أثر صحي</h4>
             
-            <div class="contact-info mb-4">
-                <p class="small text-light mb-2">للتواصل المباشر أو للإعلان عن منتجاتكم الصحية :</p>
-                <a href="https://wa.me/218915303534" class="text-success text-decoration-none fw-bold" style="font-size: 1.2rem;">
-                    <i class="fab fa-whatsapp"></i> 218915303534+
-                </a>
-            </div>
-
             <p class="small mb-1">صمم بواسطة mohamed jalal alnfati لدعم الصحة العامة في ليبيا</p>
             
             <p class="small text-muted">جميع الحقوق محفوظة &copy; 2026 <span class="text-white-50">| منصة أثر صحي</span></p>
@@ -428,24 +475,24 @@
         const healthNewsData = [
             {
                 id: 1,
-                title: "جهود عالمية لمكافحة الأمراض غير المعدية وتأثيرها على الصحة العامة",
-                content: "تتكاتف المنظمات الصحية العالمية والحكومات لتعزيز استراتيجيات الوقاية والتحكم في الأمراض غير المعدية مثل السكري وأمراض القلب والسرطان. تركز الجهود على التوعية بأنماط الحياة الصحية، الفحص المبكر، وتوفير رعاية صحية مستدامة للمجتمعات.",
-                image: "https://images.unsplash.com/photo-1571019623097-f5acb023192e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                title: "تطورات لقاحات الأمراض الاستوائية المهملة: أمل جديد للمجتمعات الفقيرة",
+                content: "تشهد الأبحاث في مجال لقاحات الأمراض الاستوائية المهملة (NTDs) تقدماً ملحوظاً، مما يبشر بأمل جديد لملايين الأشخاص في المجتمعات ذات الدخل المنخفض، حيث تُعد هذه الأمراض سبباً رئيسياً للمرض والوفاة.",
+                image: "https://images.unsplash.com/photo-1621243764953-29a3a9a16f2c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Scientist working on vaccines
                 source: "منظمة الصحة العالمية"
             },
             {
                 id: 2,
-                title: "الطب الدقيق: ثورة في علاج الأمراض وتقديم رعاية صحية مخصصة",
-                content: "يشهد مجال الطب الدقيق تطورات هائلة، حيث يتم تصميم العلاجات لتناسب التركيب الجيني الفريد لكل مريض. هذه المقاربة الواعدة تفتح آفاقاً جديدة في علاج الأمراض المستعصية وتوفر رعاية صحية أكثر فعالية وتخصيصاً.",
-                image: "https://images.unsplash.com/photo-1628348001614-74c10a40a830?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                source: "المعهد الوطني للصحة (NIH)"
+                title: "تأثير التكنولوجيا الرقمية على صحة الجهاز الهضمي: دراسة حديثة",
+                content: "كشفت دراسة حديثة عن العلاقة المعقدة بين الإفراط في استخدام الأجهزة الرقمية وتأثيرها على صحة الجهاز الهضمي، خاصة لدى الشباب. تبحث الدراسة في آليات هذا التأثير وتقدم توصيات للحفاظ على توازن صحي.",
+                image: "https://images.unsplash.com/photo-1542838128-d89345e656d0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Person using phone with food/digestion concept
+                source: "المعهد الوطني للصحة"
             },
             {
                 id: 3,
-                title: "تأثير التغير المناخي المتزايد على انتشار الأمراض المعدية عالمياً",
-                content: "يُسهم التغير المناخي في تغير أنماط انتشار الأمراض المعدية، حيث يؤثر على موائل ناقلات الأمراض ويخلق ظروفاً مواتية لتفشي الأوبئة. يتطلب هذا التحدي العالمي استراتيجيات صحة عامة مبتكرة للتكيف والوقاية.",
-                image: "https://images.unsplash.com/photo-1578135759795-17726615b3c3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                source: "مراكز مكافحة الأمراض والوقاية منها (CDC)"
+                title: "استراتيجيات مبتكرة لمكافحة مقاومة المضادات الحيوية في المستشفيات",
+                content: "تتخذ المستشفيات حول العالم خطوات جريئة لتطبيق استراتيجيات مبتكرة لمواجهة التهديد المتزايد لمقاومة المضادات الحيوية (AMR)، بما في ذلك برامج إدارة المضادات الحيوية وتطبيق تقنيات جديدة للتعقيم والكشف.",
+                image: "https://images.unsplash.com/photo-1579684385161-eb4520dd476e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Medical lab with antibiotics/resistance focus
+                source: "مراكز مكافحة الأمراض"
             }
         ];
 
@@ -746,7 +793,30 @@
                 { title: "التعافي من الإدمان: برامج الدعم والرعاية", field: "الصحة النفسية", keywords: "addiction recovery support programs mental health substance abuse الإدمان التعافي" },
                 { title: "تكنولوجيا النانو في توصيل الأدوية", field: "الابتكار الطبي", keywords: "nanotechnology drug delivery targeted therapy medical innovation تكنولوجيا النانو الأدوية" },
                 { title: "الرضاعة الطبيعية: فوائد وتحديات", field: "صحة الطفل", keywords: "breastfeeding infant health maternal benefits challenges الرضاعة الطبيعية" },
-                { title: "نصائح للوقاية من التسمم الغذائي في المنزل", field: "سلامة الغذاء والتغذية", keywords: "food poisoning prevention home kitchen hygiene التسمم الغذائي الوقاية" }
+                { title: "نصائح للوقاية من التسمم الغذائي في المنزل", field: "سلامة الغذاء والتغذية", keywords: "food poisoning prevention home kitchen hygiene التسمم الغذائي الوقاية" },
+                { title: "تأثير نقص فيتامين د على صحة العظام والمناعة", field: "سلامة الغذاء والتغذية", keywords: "vitamin D deficiency bone health immunity osteoporosis فيتامين د العظام" },
+                { title: "التطبيب عن بعد: فرص وتحديات في الرعاية الصحية", field: "الابتكار الطبي", keywords: "telemedicine remote healthcare digital health challenges opportunities التطبيب عن بعد" },
+                { title: "برامج التوعية الصحية لمرضى السكري في المدارس", field: "صحة الطفل", keywords: "diabetes awareness school programs children health education السكري المدارس" },
+                { title: "تأثير الإجهاد البيئي على الصحة العقلية", field: "الصحة البيئية", keywords: "environmental stress mental health wellbeing pollution الإجهاد البيئي الصحة العقلية" },
+                { title: "الطب الوقائي: أهميته في الحد من انتشار الأوبئة", field: "الوقاية من الأمراض", keywords: "preventive medicine epidemic prevention public health strategies الطب الوقائي الأوبئة" },
+                { title: "صحة المراهقين: تحديات التغذية والنشاط البدني", field: "سلامة الغذاء والتغذية", keywords: "adolescent health nutrition physical activity challenges المراهقين التغذية" },
+                { title: "تقييم تأثير التلوث الضوضائي على جودة النوم في المدن", field: "الصحة البيئية", keywords: "noise pollution sleep quality urban areas environmental health التلوث الضوضائي النوم" },
+                { title: "استراتيجيات التعامل مع القلق والتوتر في الحياة اليومية", field: "الصحة النفسية", keywords: "anxiety stress management daily life coping strategies القلق التوتر" },
+                { title: "تقنيات التشخيص الجزيئي للأمراض المعدية", field: "الابتكار الطبي", keywords: "molecular diagnostics infectious diseases PCR technology التشخيص الجزيئي الأمراض المعدية" },
+                { title: "دور الممارسات الصحية في الوقاية من السرطان", field: "الوقاية من الأمراض", keywords: "healthy practices cancer prevention lifestyle diet exercise السرطان الوقاية" },
+                { title: "تأثير العوامل الاجتماعية والاقتصادية على صحة المرأة", field: "صحة المرأة", keywords: "socioeconomic factors women's health disparities access الصحة الاجتماعية للمرأة" },
+                { title: "الصحة الرقمية: تطبيقاتها في تعزيز الوعي الصحي", field: "الابتكار الطبي", keywords: "digital health health awareness mobile apps technology الصحة الرقمية" },
+                { title: "الحد من انتشار العدوى المرتبطة بالرعاية الصحية", field: "مكافحة العدوى", keywords: "healthcare-associated infections prevention control patient safety العدوى الرعاية الصحية" },
+                { title: "التوعية بأهمية التطعيمات الروتينية للأطفال", field: "صحة الطفل", keywords: "childhood vaccinations routine immunization public health التطعيمات الأطفال" },
+                { title: "تأثير الزراعة العضوية على جودة الغذاء وسلامته", field: "سلامة الغذاء والتغذية", keywords: "organic farming food quality safety pesticides الزراعة العضوية الغذاء" },
+                { title: "العلاج بالليزر في طب الأسنان: تطبيقات وفوائد", field: "الابتكار الطبي", keywords: "laser therapy dentistry applications benefits العلاج بالليزر طب الأسنان" },
+                { title: "الصحة المدرسية الشاملة: برنامج لتنمية الأطفال", field: "صحة الطفل", keywords: "comprehensive school health child development education الصحة المدرسية الأطفال" },
+                { title: "تقييم برامج التدخل المبكر للأطفال ذوي الاحتياجات الخاصة", field: "صحة الطفل", keywords: "early intervention special needs children developmental delays التدخل المبكر الأطفال" },
+                { title: "التغذية العلاجية للمرضى المصابين بأمراض الكلى المزمنة", field: "سلامة الغذاء والتغذية", keywords: "renal diet chronic kidney disease nutrition therapy التغذية الكلى" },
+                { title: "تأثير التمارين الرياضية على صحة العظام لكبار السن", field: "الصحة العامة", keywords: "exercise bone health elderly osteoporosis prevention التمارين العظام كبار السن" },
+                { title: "الصحة المهنية وسلامة العاملين في القطاع الصحي", field: "الصحة العامة", keywords: "occupational health worker safety healthcare industry الصحة المهنية العاملين" },
+                { title: "تقنيات التعقيم الحديثة في المستشفيات", field: "مكافحة العدوى", keywords: "modern sterilization techniques hospitals infection control التعقيم المستشفيات" },
+                { title: "التوعية بمخاطر استخدام المبيدات الحشرية على الصحة العامة", field: "الصحة البيئية", keywords: "pesticides public health risks environmental exposure المبيدات الحشرية" }
             ];
 
             const researchData = [];
