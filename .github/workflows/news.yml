@@ -1,22 +1,11 @@
-
-      name: - name: Commit and Push Changes
-      run: |
+- name: Commit and Push Changes
+        run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          
-          # 1. إلغاء أي عملية ريباس مكسورة أو معلقة في السيرفر لتنظيف البيئة
           git rebase --abort || true
-          
-          # 2. جلب آخر التحديثات من المستودع أولاً وقبل أي تعديل
           git fetch origin main
-          
-          # 3. دمج التغيرات مع إعطاء الأولوية القصوى لنسخة السكربت في حال حدوث تعارض
           git checkout main
           git add index.html
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-updated health news for today"
-          
-          # 4. السحب الذكي وحل التعارضات تلقائياً لصالح السكربت
           git pull --rebase -X theirs origin main
-          
-          # 5. الرفع النهائي المستقر
           git push origin main
