@@ -49,40 +49,40 @@
 
         /* 3. قسم الرئيسية (Hero) - تم تحديث الصورة */
         .hero { 
-            position: relative; /* Make it a positioning context for absolute children */
-            height: 550px; /* Adjusted height for hero section */
-            overflow: hidden; /* Hide overflow from carousel */
-            display: flex; /* Keep flex for centering the content */
+            position: relative; 
+            height: 500px; /* Adjusted height for hero section as per instruction */
+            overflow: hidden; 
+            display: flex; 
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: white; /* Ensure text is white over dark images */
-            padding: 0; /* Remove padding from hero itself, will be handled by container */
+            color: white; 
+            padding: 0; 
         }
         /* New CSS for carousel and its items */
         .hero .carousel,
         .hero .carousel-inner,
         .hero .carousel-item {
-            position: absolute; /* Cover the entire hero section */
+            position: absolute; 
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%; /* Will take the 550px height of .hero */
-            z-index: 1; /* Behind text */
+            height: 100%; /* Will take the 500px height of .hero */
+            z-index: 1; 
         }
 
         .hero .carousel-item img {
             width: 100%;
-            height: 100%; /* Will now fill the 550px height of its parent */
-            object-fit: cover; /* Cover the area, crop if necessary */
-            filter: brightness(60%); /* Darken images slightly for text readability */
+            height: 100%; 
+            object-fit: cover; 
+            filter: brightness(60%); 
         }
 
         /* Content wrapper for text to ensure it's on top */
         .hero .content-wrapper {
-            position: relative; /* Make it stack above carousel */
-            z-index: 10; /* Above carousel */
-            width: 100%; /* Ensure content wrapper takes full width for padding */
+            position: relative; 
+            z-index: 10; 
+            width: 100%; 
         }
         .hero h1 { font-size: clamp(1.8rem, 8vw, 4.5rem); font-weight: 900; line-height: 1.2; }
         .hero p { font-size: clamp(0.95rem, 4vw, 1.8rem); max-width: 800px; margin: 15px auto; font-weight: 500; color: #eee; }
@@ -136,7 +136,7 @@
             transition: background-color 0.3s, color 0.3s, border-color 0.3s;
             white-space: nowrap;
             font-size: 0.95rem;
-            min-width: 150px; /* Ensure buttons have a minimum width */
+            min-width: 150px; 
         }
         .source-button.pubmed { background-color: var(--blue-accent); color: white; border: 1px solid var(--blue-accent); }
         .source-button.pubmed:hover { background-color: #006bbd; border-color: #006bbd; }
@@ -150,13 +150,13 @@
             border-radius: 25px;
             padding: clamp(15px, 4vw, 40px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            overflow-x: auto; /* For responsive tables */
+            overflow-x: auto; 
         }
         .research-table {
             width: 100%;
             margin-bottom: 0;
             border-collapse: separate;
-            border-spacing: 0 10px; /* Space between rows */
+            border-spacing: 0 10px; 
         }
         .research-table th {
             background-color: var(--main-green);
@@ -195,7 +195,7 @@
         }
         .filter-section {
             display: flex;
-            flex-wrap: wrap; /* Allow wrapping on small screens */
+            flex-wrap: wrap; 
             gap: 10px;
             margin-bottom: 25px;
             padding: 15px;
@@ -208,8 +208,8 @@
             border-radius: 25px;
             border-color: #ced4da;
             padding: 10px 20px;
-            flex-grow: 1; /* Allow inputs to grow */
-            min-width: 150px; /* Ensure filters don't collapse too much */
+            flex-grow: 1; 
+            min-width: 150px; 
         }
         .filter-section .btn {
             border-radius: 25px;
@@ -223,6 +223,20 @@
             padding: clamp(15px, 4vw, 40px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             text-align: center;
+        }
+        /* Style for full content in news card */
+        .news-full-content {
+            display: none; /* Hidden by default */
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        .news-summary-content {
+            text-align: justify; /* Ensure summary is justified as well */
         }
     </style>
 </head>
@@ -281,7 +295,7 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    بصفتي طالب ماجستير في الصحة العامة والمشرف على هذه المنصة، "أثر صحي" هي مبادرة ليبية رائدة تهدف إلى إثراء الوعي الصحي المجتمعي وتقديم الدعم الأكاديمي الشامل. نلتزم بنشر أحدث الأبحاث والمعلومات الصحية الموثوقة والمبنية على براهين علمية راسخة، مع التركيز على المحاور الأساسية التالية:
+                    بصفتي طالب ماجستير في الصحة العامة والمشرف على هذه المنصة، "أثر صحي" هي مبادرة ليبية تهدف إلى الارتقاء بالوعي الصحي المجتمعي من خلال تقديم معلومات موثوقة ومبنية على أحدث البراهين العلمية. هدفنا هو التوعية الصحية الشاملة، وتقديم الدعم الأكاديمي عبر توفير أحدث الأبحاث العلمية المتعلقة بالصحة العامة، بالإضافة إلى نشر الأخبار الصحية الموثوقة. نركز جهودنا على محاور أساسية لتعزيز الصحة العامة، تشمل:
                     <br>
                     <strong>1. الصحة العامة والوقاية المجتمعية:</strong> نعمل على تعزيز فهم أبعاد الصحة العامة وأهمية التدابير الوقائية على المستوى الفردي والمجتمعي لبناء مجتمع أكثر صحة وحيوية.
                     <br>
@@ -464,27 +478,54 @@
     </footer>
 
     <script>
+        // دالة لتبديل عرض محتوى الخبر بين الملخص والمحتوى الكامل
+        function toggleNewsContent(buttonElement, newsId) {
+            const cardBody = buttonElement.closest('.card-body');
+            const summarySpan = cardBody.querySelector(`.news-summary-content[data-news-id="${newsId}"]`);
+            const fullContentDiv = cardBody.querySelector(`.news-full-content[data-news-id="${newsId}"]`);
+
+            if (!summarySpan || !fullContentDiv) return;
+
+            if (fullContentDiv.style.display === 'none' || fullContentDiv.style.display === '') {
+                summarySpan.style.display = 'none';
+                fullContentDiv.style.display = 'block';
+                buttonElement.innerHTML = '<i class="fas fa-minus-circle me-1"></i> إظهار أقل';
+                buttonElement.classList.remove('btn-success');
+                buttonElement.classList.add('btn-secondary');
+            } else {
+                summarySpan.style.display = 'block';
+                fullContentDiv.style.display = 'none';
+                buttonElement.innerHTML = '<i class="fas fa-plus-circle me-1"></i> قراءة المزيد';
+                buttonElement.classList.remove('btn-secondary');
+                buttonElement.classList.add('btn-success');
+            }
+        }
+
+
         // مصفوفة الأخبار - تم تحديثها لتشمل 3 أخبار جديدة بصور Unsplash وبدون تاريخ
         const healthNewsData = [
             {
                 id: 1,
                 title: "التقدم في التشخيص المبكر للأمراض غير المعدية",
                 content: "التقنيات الحديثة تتيح اكتشاف الأمراض المزمنة مثل السكري وأمراض القلب في مراحلها الأولية، مما يعزز فرص العلاج الفعال والوقاية من المضاعفات.",
-                image: "https://images.unsplash.com/photo-1579165466827-e43527e08920?q=80&w=1200&auto=format&fit=crop", // Doctor showing results on a tablet - general diagnosis
+                fullContent: "كشفت الدراسات الحديثة عن طفرات نوعية في تقنيات التشخيص المبكر للأمراض غير المعدية، مثل استخدام الذكاء الاصطناعي في تحليل الصور الطبية وتطوير فحوصات دم أكثر دقة للكشف عن المؤشرات الحيوية المبكرة للسكري، أمراض القلب، وحتى بعض أنواع السرطان. هذه الابتكارات تفتح آفاقاً جديدة للتدخل الوقائي والعلاجي، مما يساهم بشكل كبير في تحسين نوعية حياة المرضى وتقليل العبء على أنظمة الرعاية الصحية. يشمل ذلك أيضاً تطوير تطبيقات صحية ذكية تساعد الأفراد على مراقبة حالتهم الصحية بانتظام وتلقي النصائح الوقائية المخصصة بناءً على بياناتهم الشخصية.",
+                image: "https://images.unsplash.com/photo-1579165466827-e43527e08920?q=80&w=1200&auto=format&fit=crop", 
                 source: "مراكز البحوث الطبية"
             },
             {
                 id: 2,
                 title: "حملات توعية ناجحة لمكافحة سوء التغذية في المناطق الريفية",
                 content: "جهود مكثفة لزيادة الوعي بأهمية الغذاء المتوازن وتحسين الممارسات الغذائية تسفر عن نتائج إيجابية في المجتمعات الريفية.",
-                image: "https://images.unsplash.com/photo-1542838132-92520625a657?q=80&w=1200&auto=format&fit=crop", // Fresh vegetables/healthy food
+                fullContent: "أطلقت المنظمات الصحية المحلية في العديد من المناطق الريفية حملات توعية مكثفة تركز على أهمية الغذاء المتوازن، التنوع الغذائي، وكيفية الاستفادة القصوى من الموارد المحلية المتاحة. تضمنت هذه الحملات ورش عمل تفاعلية، جلسات إرشاد حول التغذية السليمة للأطفال والنساء الحوامل، وتوزيع مواد تثقيفية. وقد أظهرت النتائج الأولية لهذه الحملات تحسناً ملحوظاً في المعرفة بالممارسات الغذائية الصحية وانخفاضاً في معدلات سوء التغذية، مما يعكس الأثر الإيجابي للتدخلات المجتمعية الموجهة.",
+                image: "https://images.unsplash.com/photo-1542838132-92520625a657?q=80&w=1200&auto=format&fit=crop", 
                 source: "المنظمات الصحية المحلية"
             },
             {
                 id: 3,
                 title: "الاستعداد للمستقبل: أهمية التأهب للأوبئة القادمة",
                 content: "الدروس المستفادة من الجوائح السابقة تسلط الضوء على ضرورة بناء أنظمة صحية مرنة وقادرة على الاستجابة السريعة لأي تهديدات وبائية مستقبلية.",
-                image: "https://images.unsplash.com/photo-1606761247385-236b322a46c6?q=80&w=1200&auto=format&fit=crop", // Medical team discussing, preparing
+                fullContent: "في ضوء الخبرات المكتسبة من الجوائح العالمية، بات من الضروري تعزيز استراتيجيات التأهب للأوبئة المستقبلية. يشمل ذلك تطوير أنظمة رصد وبائي متقدمة، تعزيز القدرات المخبرية للكشف السريع عن مسببات الأمراض، وتأمين سلاسل إمداد مستدامة للمعدات الطبية واللقاحات. كما تتطلب هذه الاستراتيجيات بناء كوادر صحية مدربة ومؤهلة، وتفعيل برامج توعية مجتمعية لضمان استجابة سريعة وفعالة في حال ظهور أي تهديدات صحية جديدة، مع التركيز على التعاون الدولي وتبادل الخبرات.",
+                image: "https://images.unsplash.com/photo-1606761247385-236b322a46c6?q=80&w=1200&auto=format&fit=crop", 
                 source: "خبراء الصحة العامة"
             }
         ];
@@ -638,7 +679,7 @@
 
             // If athardata.json was empty or only had a few items, ensure dummy is there
             if (uniqueData.length === 0 && currentContainer.innerHTML === '') {
-                 currentContainer.innerHTML = buildTipCard(dummyAwarenessData[0]); // Add at least one dummy tip
+                 currentContainer.innerHTML = buildTipCard(dummyAwarenessData[0]); 
             }
 
         }
@@ -691,12 +732,10 @@
             if (arc && arc.style.display === 'none') {
                 arc.style.display = 'block';
                 btn.innerText = 'إخفاء أرشيف المعلومات';
-                // Use scrollIntoView to smoothly scroll to the archive list
                 arc.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else if(arc) {
                 arc.style.display = 'none';
                 btn.innerText = 'تصفح أرشيف المعلومات الكامل';
-                // Scroll back to the current tips section
                 document.getElementById('current-tips-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
@@ -704,7 +743,7 @@
         let allResearchData = [];
         let filteredResearchData = [];
         const RESEARCH_INITIAL_DISPLAY_COUNT = 5;
-        const RESEARCH_INCREMENT_COUNT = 5; // Display 5 more rows at a time
+        const RESEARCH_INCREMENT_COUNT = 5; 
         let currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
 
         // دالة لتوليد بيانات أبحاث وهمية (100 صف) مع كلمات مفتاحية للبحث
@@ -825,10 +864,10 @@
                 const pubmedLink = `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(pubmedKeywords)}`;
 
                 researchData.push({
-                    id: `research-${i + 1}`, // Unique ID for each research
+                    id: `research-${i + 1}`, 
                     title: specificTitle,
                     year: year,
-                    keywords: `${topic.keywords} ${specificTitle}`, // Combine all for general search matching
+                    keywords: `${topic.keywords} ${topic.field} ${specificTitle}`, 
                     link: pubmedLink 
                 });
             }
@@ -847,7 +886,6 @@
                 showMoreBtn.style.display = 'none';
             }
 
-            // Show "Show Less" only if more than initial items are displayed AND there are items to hide
             if (currentVisibleResearchRows > RESEARCH_INITIAL_DISPLAY_COUNT && filteredResearchData.length > RESEARCH_INITIAL_DISPLAY_COUNT) {
                 showLessBtn.style.display = 'block';
             } else {
@@ -895,7 +933,7 @@
                 return matchesSearchTerm;
             });
 
-            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT; // Reset visible rows on new filter
+            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT; 
             renderResearchTable();
         }
 
@@ -905,15 +943,13 @@
                 currentVisibleResearchRows = filteredResearchData.length;
             }
             renderResearchTable();
-            // Scroll smoothly to the end of the new items or bottom of the table
             const table = document.getElementById('researchTable');
             table.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }
 
         function showLessResearch() {
-            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT; // Reset to initial display count
+            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT; 
             renderResearchTable();
-            // Scroll smoothly to the top of the table
             const table = document.getElementById('researchTable');
             table.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -940,11 +976,19 @@
                                 <div class="card-body text-end d-flex flex-column justify-content-between">
                                     <div>
                                         <h5 class="card-title fw-bold text-dark">${news.title}</h5>
-                                        <p class="card-text text-muted small" style="line-height: 1.6;">${news.content}</p>
+                                        <p class="card-text text-muted small news-summary-content" data-news-id="${news.id}" style="line-height: 1.6;">${news.content}</p>
+                                        <div class="news-full-content text-muted small" data-news-id="${news.id}" style="display: none;">
+                                            <p>${news.fullContent}</p>
+                                        </div>
                                     </div>
                                     <div class="mt-3">
                                         <hr class="text-muted opacity-25">
-                                        <small class="text-success fw-bold"><i class="fas fa-check-circle me-1"></i> ${news.source || 'مصدر موثوق'}</small>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <button type="button" class="btn btn-success btn-sm rounded-pill px-3" onclick="toggleNewsContent(this, ${news.id})">
+                                                <i class="fas fa-plus-circle me-1"></i> قراءة المزيد
+                                            </button>
+                                            <small class="text-success fw-bold"><i class="fas fa-check-circle me-1"></i> ${news.source || 'مصدر موثوق'}</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -958,14 +1002,13 @@
         // بدء التشغيل
         document.addEventListener('DOMContentLoaded', () => {
             fetchAwarenessData();
-            renderHealthNews(); // Call this to show the news
+            renderHealthNews(); 
 
             allResearchData = generateDummyResearch(100);
-            allResearchData.sort((a, b) => b.year - a.year); // Sort by year descending
-            filteredResearchData = [...allResearchData]; // Initialize filtered data with all data
+            allResearchData.sort((a, b) => b.year - a.year); 
+            filteredResearchData = [...allResearchData]; 
             renderResearchTable();
 
-            // Add event listeners for filter inputs to trigger filtering
             document.getElementById('researchSearchInput').addEventListener('input', filterResearchTable);
         });
     </script>
