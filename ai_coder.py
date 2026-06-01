@@ -1,4 +1,4 @@
-import google.generativeai as genai
+import google.generativeai as genai 
 import os
 import re
 import json 
