@@ -117,6 +117,9 @@ prompt = """
 الهيكلة المكتوبة للموقع: بعد كتابة السكربت الصوتي، قم بتلخيص الحلقة في نقاط رئيسية منسقة (Bullet Points) مع استخدام الخط العريض (Bold) للكلمات المفتاحية، ليتم وضعها أسفل المشغل الصوتي في الموقع كـ (Interactive Transcript) يسهل مسحه بصرياً.
 الخاتمة: اختم بنصيحة عملية واحدة وسريعة يمكن للمستمع تطبيقها فوراً.
 ارجاع خانة مجال البحث في قسم مكتبة الابحاث 
+[https://archive.org/download/eleven-labs-2026-06-06-t-12-59-18-roger-laid-back-casual-resonant-pre-sp-100-s-50-sb-75-se-0-b-m-2/eleven_labs_2026-06-06T12_59_18_Roger_laid-back_casual_resonant_pre_sp_100_s_50_sb_75_se_0_b_m2.mp3](https://archive.org/download/eleven-labs-2026-06-06-t-12-59-18-roger-laid-back-casual-resonant-pre-sp-100-s-50-sb-75-se-0-b-m-2/eleven_labs_2026-06-06T12_59_18_Roger_laid-back_casual_resonant_pre_sp_100_s_50_sb_75_se_0_b_m2.mp3) وضع هدا الصوت في بودكاست 
+اضافة مجال البحث الى مكتبة الابحاث 
+وضع قسم البودكاست بعد قسم اخر الاخبار في الموقع 
 """
 
 # حقن الكود بأمان بدون f-string لمنع أخطاء التداخل مع بايثون
