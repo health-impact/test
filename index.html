@@ -238,6 +238,53 @@
         .news-summary-content {
             text-align: justify; /* Ensure summary is justified as well */
         }
+
+        /* Podcast Section Styles */
+        .podcast-card {
+            background: #fff;
+            border-radius: 25px;
+            padding: clamp(20px, 5vw, 50px);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.08);
+            text-align: right;
+        }
+        .podcast-card h3 {
+            color: var(--main-green);
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        .podcast-card audio {
+            width: 100%;
+            max-width: 600px;
+            margin: 25px auto;
+            display: block;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .podcast-transcript {
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 25px;
+        }
+        .podcast-transcript h4 {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .podcast-transcript ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .podcast-transcript ul li {
+            background: #f8fcf8;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+            border-right: 5px solid var(--main-green);
+        }
     </style>
 </head>
 <body>
@@ -254,6 +301,7 @@
                 <a href="#health-news" class="nav-item-link">آخر الأخبار</a>
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
                 <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
+                <a href="#podcast" class="nav-item-link">بودكاست</a>
                 <a href="#store" class="nav-item-link">المتجر</a>
             </nav>
         </div>
@@ -320,7 +368,6 @@
             <div class="news-container">
                 <div id="news-list">
                     <!-- News items will be dynamically loaded here by JavaScript -->
-                    <!-- Removed the "جاري تحميل آخر الأخبار الصحية..." alert as news is rendered directly -->
                 </div>
             </div>
         </div>
@@ -425,6 +472,32 @@
                 </button>
             </div>
             
+        </div>
+    </section>
+
+    <!-- قسم البودكاست الصحي -->
+    <section id="podcast" style="background-color: #fdfdfd;">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-5 text-success">بودكاست أثر صحي</h2>
+            <div class="podcast-card">
+                <h3 class="text-center">استهلاك المضادات الحيوية: لماذا يجب أن نكون حذرين؟</h3>
+                <p class="text-center text-muted lead">حلقة توعوية قصيرة حول مخاطر سوء استخدام المضادات الحيوية.</p>
+                <audio controls preload="none">
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                    متصفحك لا يدعم عنصر الصوت.
+                </audio>
+                <div class="podcast-transcript">
+                    <h4 class="text-center">ملخص الحلقة:</h4>
+                    <ul>
+                        <li>**المقدم:** أهلاً بكم مستمعينا الكرام في حلقة جديدة من بودكاست "أثر صحي". هل سبق لكم أن شعرتم بالمرض، وتوجهتم مباشرة إلى الصيدلية لطلب مضاد حيوي دون استشارة الطبيب؟ هذه عادة منتشرة، لكنها تحمل في طياتها مخاطر صحية جسيمة لا ندركها دائماً.</li>
+                        <li>**المقدم:** دعونا نتحدث بصراحة. **المضادات الحيوية** هي أدوية قوية جداً مصممة لمكافحة العدوى البكتيرية، وليس الفيروسية. هذا يعني أنها لا تفيد في علاج نزلات البرد أو الإنفلونزا، فهذه أمراض فيروسية. تخبرنا **منظمة الصحة العالمية (WHO)** أن **الإفراط في استخدام المضادات الحيوية** أو استخدامها بشكل خاطئ يؤدي إلى ظاهرة خطيرة تُعرف بـ "**مقاومة المضادات الحيوية**".</li>
+                        <li>**المقدم:** ما معنى ذلك؟ ببساطة، البكتيريا تتطور وتصبح أقوى، بحيث لا تعود المضادات الحيوية فعالة ضدها. تخيلوا أن يصاب أحدنا بعدوى بسيطة في المستقبل ولا يوجد دواء قادر على علاجها! هذا ليس سيناريو بعيداً، بل هو واقع نواجهه اليوم. كلما زاد استخدامنا للمضادات الحيوية دون داعٍ، زادت سرعة تطور هذه البكتيريا المقاومة.</li>
+                        <li>**المقدم:** هذه المشكلة لا تؤثر علينا كأفراد فحسب، بل تهدد **الصحة العامة** للمجتمع بأسره. يجب أن نكون جزءاً من الحل لا المشكلة.</li>
+                        <li>**النصيحة العملية:** في المرة القادمة التي تشعر فيها بالمرض، وقبل التفكير في المضادات الحيوية، **استشر طبيباً مؤهلاً**. هو وحده من يستطيع تحديد ما إذا كنت بحاجة للمضاد الحيوي أم لا. تذكروا، صحتكم مسؤوليتكم، والحفاظ على فعالية الأدوية مسؤوليتنا جميعاً.</li>
+                        <li>**المقدم:** إلى هنا نصل لختام حلقتنا، نلقاكم في حلقة قادمة من "أثر صحي". دمتم بخير!</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
 
