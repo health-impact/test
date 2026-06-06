@@ -6,7 +6,7 @@ import time
  
 # 1. إعداد الاتصال بجيمني واختيار الموديل المتاح تلقائياً
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-
+ 
 model_name = 'gemini-1.5-flash'
 try:
     for m in genai.list_models():
