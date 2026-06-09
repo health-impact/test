@@ -116,7 +116,6 @@ def get_new_tips(existing_titles=None, required_categories=None):
         titles_list = "\n".join(f"- {t}" for t in existing_titles[:30])
         prompt += f"\n\nتجنب تمامًا توليد أي نصيحة مشابهة للنصائح التالية الموجودة مسبقًا:\n{titles_list}\n"
 
-
     candidates = [
     "models/gemini-2.5-flash",
     "models/gemini-2.0-flash",
