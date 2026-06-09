@@ -120,7 +120,9 @@ prompt = """
 [https://archive.org/download/eleven-labs-2026-06-06-t-12-59-18-roger-laid-back-casual-resonant-pre-sp-100-s-50-sb-75-se-0-b-m-2/eleven_labs_2026-06-06T12_59_18_Roger_laid-back_casual_resonant_pre_sp_100_s_50_sb_75_se_0_b_m2.mp3](https://archive.org/download/eleven-labs-2026-06-06-t-12-59-18-roger-laid-back-casual-resonant-pre-sp-100-s-50-sb-75-se-0-b-m-2/eleven_labs_2026-06-06T12_59_18_Roger_laid-back_casual_resonant_pre_sp_100_s_50_sb_75_se_0_b_m2.mp3) وضع هدا الصوت في بودكاست 
 اضافة مجال البحث الى مكتبة الابحاث 
 وضع قسم البودكاست بعد قسم اخر الاخبار في الموقع 
-انت كاتب بارع اجعل قسم من نحن يحتوي على خمسة اسطر اقصي حد يعرف بالمنصة 
+انت كاتب بارع اجعل قسم من نحن يحتوي على خمسة اسطر اقصي حد يعرف بالمنصة كل خبر 
+حل مشكلة الصوت في قسم البودكاست 
+حل مشكلة تحديث الاخبار في قسم اخر الاخبار مع التأكيد علي الصور في 
 """
 
 # حقن الكود بأمان بدون f-string لمنع أخطاء التداخل مع بايثون
