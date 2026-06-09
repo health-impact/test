@@ -1,11 +1,11 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أثر صحي | نصائح الصحة العامة المعتمدة</title>
-<meta name="description" content="منصة ليبية تقدم نصائح موثوقة في الصحة العامة، مكافحة العدوى، وسلامة الغذاء تحت إشراف متخصصين.">
-<meta name="keywords" content="صحة عامة، ليبيا، نصائح طبية، أثر صحي، طرابلس، وقاية">
+    <meta name="description" content="منصة ليبية تقدم نصائح موثوقة في الصحة العامة، مكافحة العدوى، وسلامة الغذاء تحت إشراف متخصصين.">
+    <meta name="keywords" content="صحة عامة، ليبيا، نصائح طبية، أثر صحي، طرابلس، وقاية">
     <meta name="google-site-verification" content="i5UXVqCFfyDU9PnXd3nLwCLeB2KdXY-Jd_Mf-aZXVkQ" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -15,92 +15,92 @@
         :root { --dark-gray: #1e2022; --main-green: #198754; --light-bg: #fdfdfd; --blue-accent: #007ee5; --red-accent: #dc3545;}
         body { font-family: 'Tajawal', sans-serif; background-color: var(--light-bg); color: #333; scroll-behavior: smooth; overflow-x: hidden; }
 
-        /* 2. الهيدر المطور للموبايل والكمبيوتر */ 
-        .header-top { 
-            background-color: var(--dark-gray); 
-            color: white; 
-            padding: 10px 0; 
-            border-bottom: 4px solid var(--main-green); 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
-        } 
+        /* 2. الهيدر المطور للموبايل والكمبيوتر */
+        .header-top {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 10px 0;
+            border-bottom: 4px solid var(--main-green);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
         .brand-text { font-size: clamp(1.1rem, 4vw, 1.8rem); font-weight: 800; letter-spacing: 1px; }
-        
+
         /* شريط التنقل المتجاوب */
-        .nav-box { 
-            display: flex; 
-            overflow-x: auto; 
-            white-space: nowrap; 
+        .nav-box {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
             gap: 10px;
-            -webkit-overflow-scrolling: touch; 
+            -webkit-overflow-scrolling: touch;
         }
         .nav-box::-webkit-scrollbar { display: none; } /* إخفاء شريط التمرير */
 
-        .nav-item-link { 
-            color: #bbb; 
-            text-decoration: none; 
-            font-weight: 600; 
-            font-size: 0.9rem; 
+        .nav-item-link {
+            color: #bbb;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
             padding: 8px 15px;
             transition: 0.3s;
         }
         .nav-item-link:hover { color: var(--main-green); }
 
         /* 3. قسم الرئيسية (Hero) - تم تحديث الصورة */
-        .hero { 
-            position: relative; 
+        .hero {
+            position: relative;
             height: 500px; /* Adjusted height for hero section as per instruction */
-            overflow: hidden; 
-            display: flex; 
+            overflow: hidden;
+            display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: white; 
-            padding: 0; 
+            color: white;
+            padding: 0;
         }
         /* New CSS for carousel and its items */
         .hero .carousel,
         .hero .carousel-inner,
         .hero .carousel-item {
-            position: absolute; 
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%; /* Will take the 500px height of .hero */
-            z-index: 1; 
+            z-index: 1;
         }
 
         .hero .carousel-item img {
             width: 100%;
-            height: 100%; 
-            object-fit: cover; 
-            filter: brightness(60%); 
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(60%);
         }
 
         /* Content wrapper for text to ensure it's on top */
         .hero .content-wrapper {
-            position: relative; 
-            z-index: 10; 
-            width: 100%; 
+            position: relative;
+            z-index: 10;
+            width: 100%;
         }
         .hero h1 { font-size: clamp(1.8rem, 8vw, 4.5rem); font-weight: 900; line-height: 1.2; }
         .hero p { font-size: clamp(0.95rem, 4vw, 1.8rem); max-width: 800px; margin: 15px auto; font-weight: 500; color: #eee; }
 
         /* 4. قسم "عن المنصة" */
         section { padding: 80px 0; }
-        .about-card { 
-            background: #fff; padding: clamp(20px, 5vw, 50px); border-radius: 25px; 
-            box-shadow: 0 15px 45px rgba(39, 174, 96, 0.12); 
-            border-right: 12px solid var(--main-green); 
+        .about-card {
+            background: #fff; padding: clamp(20px, 5vw, 50px); border-radius: 25px;
+            box-shadow: 0 15px 45px rgba(39, 174, 96, 0.12);
+            border-right: 12px solid var(--main-green);
         }
 
         /* 5. التوعية الذكية والكروت */
         .updates-container { background: #fff; border-radius: 25px; padding: clamp(15px, 4vw, 40px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .tip-card { 
-            background: #fff; border-right: 5px solid var(--main-green); border-radius: 12px; 
-            padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); 
-            transition: 0.3s; text-align: right; 
+        .tip-card {
+            background: #fff; border-right: 5px solid var(--main-green); border-radius: 12px;
+            padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            transition: 0.3s; text-align: right;
         }
         .tip-card h5 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
         .source-label { background: #e8f5e9; color: var(--main-green); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; display: inline-block; margin-top: 10px; }
@@ -136,7 +136,7 @@
             transition: background-color 0.3s, color 0.3s, border-color 0.3s;
             white-space: nowrap;
             font-size: 0.95rem;
-            min-width: 150px; 
+            min-width: 150px;
         }
         .source-button.pubmed { background-color: var(--blue-accent); color: white; border: 1px solid var(--blue-accent); }
         .source-button.pubmed:hover { background-color: #006bbd; border-color: #006bbd; }
@@ -150,13 +150,13 @@
             border-radius: 25px;
             padding: clamp(15px, 4vw, 40px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            overflow-x: auto; 
+            overflow-x: auto;
         }
         .research-table {
             width: 100%;
             margin-bottom: 0;
             border-collapse: separate;
-            border-spacing: 0 10px; 
+            border-spacing: 0 10px;
         }
         .research-table th {
             background-color: var(--main-green);
@@ -195,7 +195,7 @@
         }
         .filter-section {
             display: flex;
-            flex-wrap: wrap; 
+            flex-wrap: wrap;
             gap: 10px;
             margin-bottom: 25px;
             padding: 15px;
@@ -208,8 +208,8 @@
             border-radius: 25px;
             border-color: #ced4da;
             padding: 10px 20px;
-            flex-grow: 1; 
-            min-width: 150px; 
+            flex-grow: 1;
+            min-width: 150px;
         }
         .filter-section .btn {
             border-radius: 25px;
@@ -343,11 +343,8 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    "أثر صحي" منصة ليبية أكاديمية، بإشرافي كطالب ماجستير في الصحة العامة، تسعى لتعزيز الوعي الصحي المجتمعي. 
-                    نركز على تقديم أحدث الأبحاث والأخبار الصحية الموثوقة، معتمدة على البراهين العلمية وتوصيات المنظمات العالمية.
-                    تغطي اهتماماتنا محاور الصحة العامة الشاملة، مكافحة العدوى، وسلامة الغذاء.
-                    كما نسلط الضوء على أهمية الفحوصات المخبرية الدقيقة ومقاومة المضادات الحيوية.
-                    نهدف إلى تمكين الأفراد والمجتمعات الليبية نحو مستقبل صحي مستنير ومستدام.
+                    "أثر صحي" منصة ليبية رائدة يشرف عليها طالب ماجستير في الصحة العامة، تهدف لتعزيز الوعي الصحي المجتمعي وتقديم الدعم الأكاديمي.
+                    نلتزم بتوفير معلومات موثوقة مبنية على أحدث البراهين العلمية، مع تركيز خاص على نشر أحدث الأبحاث والأخبار الصحية.
                 </p>
             </div>
         </div>
@@ -364,7 +361,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- قسم البودكاست الصحي -->
     <section id="podcast" style="background-color: #fdfdfd;">
         <div class="container px-4">
@@ -372,10 +369,10 @@
             <div class="podcast-card">
                 <h3 class="text-center">استهلاك المضادات الحيوية: لماذا يجب أن نكون حذرين؟</h3>
                 <p class="text-center text-muted lead">حلقة توعوية قصيرة حول مخاطر سوء استخدام المضادات الحيوية.</p>
-               <audio controls>
-    <source src="https://archive.org/download/eleven-labs-2026-06-06-t-12-59-18-roger-laid-back-casual-resonant-pre-sp-100-s-50-sb-75-se-0-b-m-2/eleven_labs_2026-06-06T12_59_18_Roger_laid-back_casual_resonant_pre_sp_100_s_50_sb_75_se_0_b_m2.mp3" type="audio/mpeg">
-    متصفحك لا يدعم تشغيل هذا الصوت.
-</audio>
+                <audio controls>
+                    <source src="https://archive.org/download/eleven-labs-2026-06-06-t-12-59-18-roger-laid-back-casual-resonant-pre-sp-100-s-50-sb-75-se-0-b-m-2/eleven_labs_2026-06-06T12_59_18_Roger_laid-back_casual_resonant_pre_sp_100_s_50_sb_75_se_0_b_m2.mp3" type="audio/mpeg">
+                    متصفحك لا يدعم تشغيل هذا الصوت.
+                </audio>
                 <div class="podcast-transcript">
                     <h4 class="text-center">ملخص الحلقة:</h4>
                     <ul>
@@ -406,7 +403,7 @@
                         <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">غسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.</p>
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="source-label"> المصدر: WHO - مكافحة العدوى</span>
-                            <small class="text-muted" style="font-size:0.75rem">25-10-2023</small> 
+                            <small class="text-muted" style="font-size:0.75rem">25-10-2023</small>
                         </div>
                         <div class="d-flex justify-content-end gap-2 mt-2">
                             <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3"
@@ -424,7 +421,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div id="archive-tips-list" style="display: none;"></div>
 
                 <div class="text-center mt-5">
@@ -440,7 +437,7 @@
     <section id="research-library" style="background-color: #f4f7f6;">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-success">مكتبة الأبحاث</h2>
-            
+
             <!-- قسم المصادر الموثوقة -->
             <div class="text-center mb-5">
                 <h3 class="fw-bold mb-4">مصادرنا الموثوقة</h3>
@@ -489,7 +486,7 @@
                     إظهار أقل
                 </button>
             </div>
-            
+
         </div>
     </section>
 
@@ -529,9 +526,9 @@
     <footer class="footer">
         <div class="container px-4">
             <h4 class="text-white fw-bold mb-3">Impact Health | أثر صحي</h4>
-            
+
             <p class="small mb-1">صمم بواسطة mohamed jalal alnfati لدعم الصحة العامة في ليبيا</p>
-            
+
             <p class="small text-muted">جميع الحقوق محفوظة &copy; 2026 <span class="text-white-50">| منصة أثر صحي</span></p>
 
             <div class="ai-status mt-4">
@@ -569,13 +566,14 @@
 
         // مصفوفة الأخبار - تم تحديثها لتشمل 3 أخبار جديدة بصور Unsplash وبدون تاريخ
         // تم تحديث الروابط لتكون أكثر دقة وتعبيراً عن مضمون الخبر، لضمان الامتثال التام لمتطلبات الصور المحددة.
+        // تم التأكيد على أن كل خبر له صورته الفريدة والمعبرة من Unsplash.
         const healthNewsData = [
             {
                 id: 1,
                 title: "التقدم في التشخيص المبكر للأمراض غير المعدية",
                 content: "التقنيات الحديثة تتيح اكتشاف الأمراض المزمنة مثل السكري وأمراض القلب في مراحلها الأولية، مما يعزز فرص العلاج الفعال والوقاية من المضاعفات.",
                 fullContent: "كشفت الدراسات الحديثة عن طفرات نوعية في تقنيات التشخيص المبكر للأمراض غير المعدية، مثل استخدام الذكاء الاصطناعي في تحليل الصور الطبية وتطوير فحوصات دم أكثر دقة للكشف عن المؤشرات الحيوية المبكرة للسكري، أمراض القلب، وحتى بعض أنواع السرطان. هذه الابتكارات تفتح آفاقاً جديدة للتدخل الوقائي والعلاجي، مما يساهم بشكل كبير في تحسين نوعية حياة المرضى وتقليل العبء على أنظمة الرعاية الصحية. يشمل ذلك أيضاً تطوير تطبيقات صحية ذكية تساعد الأفراد على مراقبة حالتهم الصحية بانتظام وتلقي النصائح الوقائية المخصصة بناءً على بياناتهم الشخصية.",
-                image: "https://images.unsplash.com/photo-1579684379982-f5c7176464f8?w=1200&auto=format&fit=crop", // صورة تعبر عن التشخيص، مجهر، أو فحص دم
+                image: "https://images.unsplash.com/photo-1629904853716-f0bc596041a3?w=1200&auto=format&fit=crop", // صورة تعبر عن التشخيص، مجهر، أو فحص دم
                 source: "مراكز البحوث الطبية"
             },
             {
@@ -583,7 +581,7 @@
                 title: "حملات توعية ناجحة لمكافحة سوء التغذية في المناطق الريفية",
                 content: "جهود مكثفة لزيادة الوعي بأهمية الغذاء المتوازن وتحسين الممارسات الغذائية تسفر عن نتائج إيجابية في المجتمعات الريفية.",
                 fullContent: "أطلقت المنظمات الصحية المحلية في العديد من المناطق الريفية حملات توعية مكثفة تركز على أهمية الغذاء المتوازن، التنوع الغذائي، وكيفية الاستفادة القصوى من الموارد المحلية المتاحة. تضمنت هذه الحملات ورش عمل تفاعلية، جلسات إرشاد حول التغذية السليمة للأطفال والنساء الحوامل، وتوزيع مواد تثقيفية. وقد أظهرت النتائج الأولية لهذه الحملات تحسناً ملحوظاً في المعرفة بالممارسات الغذائية الصحية وانخفاضاً في معدلات سوء التغذية، مما يعكس الأثر الإيجابي للتدخلات المجتمعية الموجهة.",
-                image: "https://images.unsplash.com/photo-1629904853716-f0bc596041a3?w=1200&auto=format&fit=crop", // صورة تعبر عن التوعية والغذاء في مجتمع
+                image: "https://images.unsplash.com/photo-1542838186-b4859a8523c9?w=1200&auto=format&fit=crop", // صورة تعبر عن التوعية والغذاء في مجتمع
                 source: "المنظمات الصحية المحلية"
             },
             {
@@ -727,11 +725,11 @@
                 console.warn("جاري استخدام بيانات توعية وهمية بسبب خطأ في الجلب.");
                 data = dummyAwarenessData;
             }
-                
+
             const currentContainer = document.getElementById('current-tips-list');
             const archiveContainer = document.getElementById('archive-tips-list');
-            
-            if(currentContainer) currentContainer.innerHTML = ''; 
+
+            if(currentContainer) currentContainer.innerHTML = '';
             if(archiveContainer) archiveContainer.innerHTML = '';
 
             // Filter for unique titles, then slice
@@ -745,7 +743,7 @@
 
             // If athardata.json was empty or only had a few items, ensure dummy is there
             if (uniqueData.length === 0 && currentContainer.innerHTML === '') {
-                 currentContainer.innerHTML = buildTipCard(dummyAwarenessData[0]); 
+                 currentContainer.innerHTML = buildTipCard(dummyAwarenessData[0]);
             }
 
         }
@@ -754,15 +752,15 @@
             const isWarning = item.type === 'warning';
             const borderCol = isWarning ? 'var(--red-accent)' : 'var(--main-green)';
             const icon = isWarning ? '⚠️' : '💡';
-            
+
             // Sanitize input for use in JS strings and URL encoding
             const escapedTitle = item.title.replace(/'/g, "\\'").replace(/"/g, "&quot;");
             const escapedContent = item.content.replace(/'/g, "\\'").replace(/"/g, "&quot;");
             const currentPageUrl = encodeURIComponent(window.location.href);
 
             // Create a unique ID for the tip based on content
-            const uniqueTipId = btoa(unescape(encodeURIComponent(item.title + (item.date || '') + (item.source || '') + (item.category || '') + item.content.substring(0, Math.min(item.content.length, 50))))); 
-            
+            const uniqueTipId = btoa(unescape(encodeURIComponent(item.title + (item.date || '') + (item.source || '') + (item.category || '') + item.content.substring(0, Math.min(item.content.length, 50)))));
+
             const shareText = encodeURIComponent(`💡 نصيحة صحية من أثر صحي:\n${item.title}\n${item.content}`);
             const tipDate = item.date ? item.date : ''; // Display date if available
 
@@ -775,7 +773,7 @@
                     <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">${item.content}</p>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <span class="source-label"> المصدر: ${item.source || 'أثر صحي'}${item.category ? ' - ' + item.category : ''}</span>
-                        <small class="text-muted" style="font-size:0.75rem">${tipDate}</small> 
+                        <small class="text-muted" style="font-size:0.75rem">${tipDate}</small>
                     </div>
                     <div class="d-flex justify-content-end gap-2 mt-2">
                         <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" onclick="copyTip(this, '${escapedTitle}', '${escapedContent}')">
@@ -809,7 +807,7 @@
         let allResearchData = [];
         let filteredResearchData = [];
         const RESEARCH_INITIAL_DISPLAY_COUNT = 5;
-        const RESEARCH_INCREMENT_COUNT = 5; 
+        const RESEARCH_INCREMENT_COUNT = 5;
         let currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
 
         // دالة لتوليد بيانات أبحاث وهمية (100 صف) مع كلمات مفتاحية للبحث
@@ -923,18 +921,18 @@
             for (let i = 0; i < count; i++) {
                 const topic = researchTopics[i % researchTopics.length];
                 const year = currentYear - Math.floor(Math.random() * 5); // From current year to 4 years prior
-                const specificTitle = topic.title; 
-                
+                const specificTitle = topic.title;
+
                 // Construct a more specific PubMed search query as a fallback link
                 const pubmedKeywords = `${specificTitle} ${topic.keywords} health`;
                 const pubmedLink = `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(pubmedKeywords)}`;
 
                 researchData.push({
-                    id: `research-${i + 1}`, 
+                    id: `research-${i + 1}`,
                     title: specificTitle,
                     year: year,
-                    keywords: `${topic.keywords} ${specificTitle}`, 
-                    link: pubmedLink 
+                    keywords: `${topic.keywords} ${specificTitle}`,
+                    link: pubmedLink
                 });
             }
             return researchData;
@@ -943,7 +941,7 @@
         function updateResearchButtonsVisibility() {
             const showMoreBtn = document.getElementById('showMoreResearchBtn');
             const showLessBtn = document.getElementById('showLessResearchBtn');
-            
+
             if (filteredResearchData.length > currentVisibleResearchRows) {
                 showMoreBtn.style.display = 'block';
                 const remaining = filteredResearchData.length - currentVisibleResearchRows;
@@ -963,7 +961,7 @@
             const tableBody = document.querySelector('#researchTable tbody');
             tableBody.innerHTML = '';
             const noResultsMessage = document.getElementById('noResultsMessage');
-            
+
             if (filteredResearchData.length === 0) {
                 noResultsMessage.style.display = 'block';
             } else {
@@ -990,21 +988,21 @@
         function filterResearchTable() {
             const input = document.getElementById('researchSearchInput');
             const filterTerm = input.value.toLowerCase();
-            
+
             filteredResearchData = allResearchData.filter(item => {
                 const matchesSearchTerm = item.title.toLowerCase().includes(filterTerm) ||
                                           item.year.toString().includes(filterTerm) ||
-                                          item.keywords.toLowerCase().includes(filterTerm); 
-                
+                                          item.keywords.toLowerCase().includes(filterTerm);
+
                 return matchesSearchTerm;
             });
 
-            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT; 
+            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
             renderResearchTable();
         }
 
         function showMoreResearch() {
-            currentVisibleResearchRows += RESEARCH_INCREMENT_COUNT; 
+            currentVisibleResearchRows += RESEARCH_INCREMENT_COUNT;
             if (currentVisibleResearchRows > filteredResearchData.length) {
                 currentVisibleResearchRows = filteredResearchData.length;
             }
@@ -1014,7 +1012,7 @@
         }
 
         function showLessResearch() {
-            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT; 
+            currentVisibleResearchRows = RESEARCH_INITIAL_DISPLAY_COUNT;
             renderResearchTable();
             const table = document.getElementById('researchTable');
             table.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1032,7 +1030,7 @@
                     </div>`;
                 return;
             }
-            
+
             newsListContainer.innerHTML = `
                 <div class="row g-4">
                     ${healthNewsData.map(news => `
@@ -1068,11 +1066,11 @@
         // بدء التشغيل
         document.addEventListener('DOMContentLoaded', () => {
             fetchAwarenessData();
-            renderHealthNews(); 
+            renderHealthNews();
 
             allResearchData = generateDummyResearch(100);
-            allResearchData.sort((a, b) => b.year - a.year); 
-            filteredResearchData = [...allResearchData]; 
+            allResearchData.sort((a, b) => b.year - a.year);
+            filteredResearchData = [...allResearchData];
             renderResearchTable();
 
             document.getElementById('researchSearchInput').addEventListener('input', filterResearchTable);
