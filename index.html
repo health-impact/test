@@ -343,7 +343,7 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    "أثر صحي" منصة ليبية رائدة، يشرف عليها طالب ماجستير في الصحة العامة. نهدف إلى تعزيز الوعي الصحي المجتمعي من خلال تقديم نصائح موثوقة مبنية على أحدث البراهين العلمية. نركز على نشر أحدث الأبحاث والأخبار في مجالات الصحة العامة، مكافحة العدوى، وسلامة الغذاء، بالإضافة إلى دعم الجانب الأكاديمي للباحثين والمهتمين بالصحة.
+                    "أثر صحي" هي منصة ليبية رائدة، تُشرف عليها كوادر أكاديمية متخصصة في الصحة العامة. نهدف إلى تعزيز الوعي الصحي المجتمعي من خلال تقديم نصائح موثوقة مبنية على أحدث البراهين العلمية، والتركيز على مكافحة العدوى، سلامة الغذاء، ومواجهة تحديات مقاومة المضادات الحيوية. كما تدعم المنصة الجانب الأكاديمي للباحثين والمهتمين بالصحة، بنشر أحدث الأبحاث والدراسات في هذا المجال الحيوي.
                 </p>
             </div>
         </div>
@@ -930,7 +930,7 @@
                     id: `research-${i + 1}`,
                     title: specificTitle,
                     year: year,
-                    keywords: `${topic.keywords} ${specificTitle}`,
+                    keywords: `${topic.keywords} ${specificTitle}`, // For filtering by "مجال البحث"
                     link: pubmedLink
                 });
             }
@@ -991,8 +991,7 @@
             filteredResearchData = allResearchData.filter(item => {
                 const matchesSearchTerm = item.title.toLowerCase().includes(filterTerm) ||
                                           item.year.toString().includes(filterTerm) ||
-                                          item.keywords.toLowerCase().includes(filterTerm);
-
+                                          item.keywords.toLowerCase().includes(filterTerm); // Now `keywords` will be used for "مجال البحث"
                 return matchesSearchTerm;
             });
 
