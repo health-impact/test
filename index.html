@@ -50,7 +50,7 @@
         /* 3. قسم الرئيسية (Hero) - تم تحديث الصورة */
         .hero {
             position: relative;
-            height: 500px; /* Adjusted height for hero section as per instruction */
+            height: 500px;
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -67,7 +67,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%; /* Will take the 500px height of .hero */
+            height: 100%;
             z-index: 1;
         }
 
@@ -343,7 +343,7 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    "أثر صحي" منصة متخصصة، أطلقها محمد جلال النفاتي (طالب ماجستير في الصحة العامة)، تهدف لتعزيز الوعي الصحي المجتمعي في ليبيا. نركز على تقديم نصائح موثوقة في مكافحة العدوى، سلامة الغذاء، ومواجهة مقاومة المضادات الحيوية، مع دعم الباحثين عبر توفير أحدث الأبحاث المعتمدة. نسعى لأن نكون مرجعاً علمياً موثوقاً لنشر الأخبار والتثقيف الصحي للجميع.
+                    منصة "أثر صحي"، أسست بواسطة محمد جلال النفاتي (طالب ماجستير في الصحة العامة)، تلتزم بتعزيز الوعي الصحي المجتمعي في ليبيا. نقدم نصائح موثوقة في مكافحة العدوى، سلامة الغذاء، والتصدي لمقاومة المضادات الحيوية. نسعى لدعم الباحثين بتوفير أحدث الأبحاث العلمية، ولنكون مرجعاً رائداً لنشر التثقيف الصحي والأخبار المعتمدة للجميع.
                 </p>
             </div>
         </div>
@@ -930,7 +930,7 @@
                     id: `research-${i + 1}`,
                     title: specificTitle,
                     year: year,
-                    keywords: `${topic.keywords} ${specificTitle}`, // For filtering by "مجال البحث"
+                    keywords: `${topic.keywords}`, // Now `keywords` will be used for "مجال البحث"
                     link: pubmedLink
                 });
             }
