@@ -343,7 +343,7 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    منصة "أثر صحي"، بإشراف محمد جلال النفاتي (طالب ماجستير في الصحة العامة)، هي مبادرة ليبية تهدف إلى رفع الوعي بالصحة العامة، مكافحة العدوى، وسلامة الأغذية. نركز على فهم مقاومة المضادات الحيوية وأهمية الفحوصات المختبرية الدقيقة، وندعم الباحثين بتوفير أحدث الأبحاث العلمية الموثوقة. نسعى لنكون مرجعاً شاملاً ومعتمداً للتثقيف الصحي في ليبيا، لتعزيز مجتمع صحي وواعٍ.
+                    منصة "أثر صحي"، بإشراف محمد جلال النفاتي (طالب ماجستير في الصحة العامة)، هي مبادرة ليبية رائدة لرفع الوعي بالصحة العامة. نركز على مكافحة العدوى، سلامة الأغذية، فهم مقاومة المضادات الحيوية، وأهمية الفحوصات المخبرية الدقيقة. نسعى لدعم الباحثين بأحدث الأبحاث العلمية الموثوقة وتقديم آخر الأخبار الصحية، لنكون مرجعاً شاملاً وموثوقاً للتثقيف الصحي في ليبيا.
                 </p>
             </div>
         </div>
@@ -455,7 +455,7 @@
 
             <!-- قسم البحث والفلترة -->
             <div class="filter-section align-items-center">
-                <input type="text" id="researchSearchInput" class="form-control flex-grow-1" placeholder="ابحث عن أبحاث (عنوان، كلمة مفتاحية، سنة، مجال بحث)...">
+                <input type="text" id="researchSearchInput" class="form-control flex-grow-1" placeholder="ابحث عن أبحاث (عنوان، سنة، مجال بحث)...">
                 <button class="btn btn-success fw-bold" onclick="filterResearchTable()">
                     <i class="fas fa-search"></i> فلترة
                 </button>
@@ -467,7 +467,8 @@
                     <thead>
                         <tr>
                             <th><i class="fas fa-file-alt me-2"></i> اسم البحث</th>
-                            <th style="width: 120px;"><i class="fas fa-calendar-alt me-2"></i> سنة النشر</th>
+                            <th style="width: 150px;"><i class="fas fa-calendar-alt me-2"></i> سنة النشر</th>
+                            <th style="width: 180px;"><i class="fas fa-bookmark me-2"></i> مجال البحث</th>
                             <th style="width: 120px;"><i class="fas fa-link me-2"></i> رابط القراءة</th>
                         </tr>
                     </thead>
@@ -988,6 +989,7 @@
                     <tr class="research-row">
                         <td>${item.title}</td>
                         <td>${item.year}</td>
+                        <td>${item.keywords}</td> <!-- Display Research Field -->
                         <td class="d-flex gap-2 align-items-center">
                             <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success rounded-pill px-3">قراءة المزيد <i class="fas fa-external-link-alt fa-xs me-1"></i></a>
                         </td>
@@ -1005,7 +1007,7 @@
             filteredResearchData = allResearchData.filter(item => {
                 const matchesSearchTerm = item.title.toLowerCase().includes(filterTerm) ||
                                           item.year.toString().includes(filterTerm) ||
-                                          item.keywords.toLowerCase().includes(filterTerm); // Now covers "مجال البحث"
+                                          item.keywords.toLowerCase().includes(filterTerm);
                 return matchesSearchTerm;
             });
 
