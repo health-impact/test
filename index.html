@@ -597,7 +597,7 @@
                 id: 4,
                 title: "الابتكارات في علاج أمراض القلب والأوعية الدموية",
                 content: "تشهد الأبحاث الطبية تطورات ملحوظة في أساليب علاج أمراض القلب، من الأدوية الجديدة إلى التقنيات الجراحية الأقل توغلاً.",
-                fullContent: "تواصل الأوساط العلمية تحقيق إنجازات كبيرة في مجال أمراض القلب والأوعية الدموية. فقد تم الكشف عن أدوية جديدة تستهدف آليات مرضية محددة، مما يوفر خيارات علاجية أكثر فعالية وأقل آثاراً جانبية. بالإضافة إلى ذلك، تشهد الجراحات القلبية تطوراً نحو الإجراءات الأقل توغلاً التي تقلل من فترة التعافي والمخاطر المرتبطة بالعمليات الكبرى، مثل القسطرة العلاجية والتدخلات عبر الجلد. هذه الت Developments لا تقتصر على العلاج فحسب، بل تمتد لتشمل تحسين أدوات التشخيص والمتابعة، مما يساهم في إدارة أفضل لحالات المرضى المزمنة.",
+                fullContent: "تواصل الأوساط العلمية تحقيق إنجازات كبيرة في مجال أمراض القلب والأوعية الدموية. فقد تم الكشف عن أدوية جديدة تستهدف آليات مرضية محددة، مما يوفر خيارات علاجية أكثر فعالية وأقل آثاراً جانبية. بالإضافة إلى ذلك، تشهد الجراحات القلبية تطوراً نحو الإجراءات الأقل توغلاً التي تقلل من فترة التعافي والمخاطر المرتبطة بالعمليات الكبرى، مثل القسطرة العلاجية والتدخلات عبر الجلد. هذه ال Developments لا تقتصر على العلاج فحسب، بل تمتد لتشمل تحسين أدوات التشخيص والمتابعة، مما يساهم في إدارة أفضل لحالات المرضى المزمنة.",
                 image: "https://images.unsplash.com/photo-1579684385135-67380ba79d1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
                 source: "معهد القلب العالمي"
             },
@@ -747,15 +747,15 @@
             let data = [];
             try {
                 // Try to fetch athardata.json
-                const res = await fetch('athardata.json?v=' + new Date().getTime());
+                const res = await fetch('athar_awareness_data.json?v=' + new Date().getTime()); // Changed filename for clarity
                 if (res.ok) {
                     data = await res.json();
                 } else {
-                    console.warn("فشل جلب athardata.json، جاري استخدام بيانات وهمية.");
+                    console.warn("فشل جلب athar_awareness_data.json، جاري استخدام بيانات وهمية.");
                     data = dummyAwarenessData;
                 }
             } catch (error) {
-                console.error("خطأ في جلب athardata.json:", error);
+                console.error("خطأ في جلب athar_awareness_data.json:", error);
                 console.warn("جاري استخدام بيانات توعية وهمية بسبب خطأ في الجلب.");
                 data = dummyAwarenessData;
             }
@@ -775,7 +775,7 @@
             currentItems.forEach(item => { if(currentContainer) currentContainer.innerHTML += buildTipCard(item); });
             archiveItems.forEach(item => { if(archiveContainer) archiveContainer.innerHTML += buildTipCard(item); });
 
-            // If athardata.json was empty or only had a few items, ensure dummy is there
+            // If athar_awareness_data.json was empty or only had a few items, ensure dummy is there
             if (uniqueData.length === 0 && currentContainer.innerHTML === '') {
                  currentContainer.innerHTML = buildTipCard(dummyAwarenessData[0]);
             }
