@@ -453,6 +453,54 @@
         .newsletter-form button:hover { background: #000; }
         .newsletter-note { font-size: 0.8rem; opacity: 0.85; margin-top: 12px; }
         #newsletterMsg { margin-top: 15px; font-weight: 600; }
+
+        /* Podcast Section Styles */
+        .podcast-container {
+            background: #fff;
+            border-radius: 25px;
+            padding: clamp(15px, 4vw, 40px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .podcast-player {
+            width: 100%;
+            margin-bottom: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .podcast-transcript {
+            text-align: justify;
+            line-height: 1.9;
+            font-size: 1rem;
+            color: #444;
+        }
+        .podcast-transcript h4 {
+            font-weight: 700;
+            color: var(--main-green);
+            margin-bottom: 15px;
+        }
+        .podcast-transcript p { margin-bottom: 1rem; }
+        .podcast-transcript ul {
+            list-style: none;
+            padding-right: 0;
+            margin-top: 20px;
+        }
+        .podcast-transcript ul li {
+            position: relative;
+            padding-right: 25px;
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+        .podcast-transcript ul li::before {
+            content: "\f058"; /* FontAwesome check-circle */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--main-green);
+            position: absolute;
+            right: 0;
+            top: 5px;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -467,6 +515,7 @@
                 <a href="#hero" class="nav-item-link">الرئيسية</a>
                 <a href="#about" class="nav-item-link">عن المنصة</a>
                 <a href="#health-news" class="nav-item-link">آخر الأخبار</a>
+                <a href="#podcast" class="nav-item-link">بودكاست صحي</a>
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
                 <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
                 <a href="#faq" class="nav-item-link">أسئلة شائعة</a>
@@ -533,6 +582,46 @@
             <div class="news-container">
                 <div id="news-list">
                     <!-- News items will be dynamically loaded here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم البودكاست الصحي -->
+    <section id="podcast" class="reveal">
+        <div class="container px-4">
+            <div class="text-center mb-5">
+                <span class="section-eyebrow"><i class="fas fa-podcast"></i> استمع وتوعّى</span><br>
+                <h2 class="fw-bold text-success mb-0">بودكاست صحي: جرعة زائدة</h2>
+            </div>
+            <div class="podcast-container">
+                <h3 class="fw-bold mb-4">جرعة زائدة: لماذا يجب أن نفكر مرتين قبل تناول المضادات الحيوية؟</h3>
+                <audio controls class="podcast-player">
+                    <source src="https://archive.org/download/eleven-labs-2026-06-06-t-12-59-18-roger-laid-back-casual-resonant-pre-sp-100-s-50-sb-75-se-0-b-m-2/eleven_labs_2026-06-06T12_59_18_Roger_laid-back_casual_resonant_pre_sp_100_s_50_sb_75_se_0_b_m2.mp3" type="audio/mpeg">
+                    متصفحك لا يدعم عنصر الصوت.
+                </audio>
+                <div class="podcast-transcript">
+                    <h4>نص الحلقة:</h4>
+                    <p>أهلاً بكم يا أصدقاء الصحة، في حلقة جديدة من بودكاست "أثر صحي"! هل سبق لك أن شعرت بالمرض وركضت للصيدلية لتطلب مضاداً حيوياً دون استشارة الطبيب؟ إذا كانت إجابتك نعم، فأنت لست وحدك، ولكن هذا السلوك يحمل مخاطر كبيرة لا تدركها. تخيلوا معي، البكتيريا ذكية وتتطور بسرعة. عندما نفرط في استخدام المضادات الحيوية أو نستخدمها بشكل خاطئ، فإننا نمنح البكتيريا فرصة لتصبح أقوى وتتغلب على هذه الأدوية. وهذا ما نسميه "مقاومة المضادات الحيوية".</p>
+                    <p>منظمة الصحة العالمية تحذرنا باستمرار: مقاومة المضادات الحيوية هي الآن أحد أكبر التهديدات للصحة العالمية! هذه المقاومة تعني أن العدوى البسيطة التي كنا نعالجها بسهولة قد تصبح خطيرة، وقد تؤدي إلى إقامة أطول في المستشفى، أو حتى الوفاة. الأمر ليس فقط عن صحتك، بل عن صحة المجتمع بأكمله. تخيلوا أننا نصل إلى مرحلة لا تعمل فيها الأدوية الأساسية.</p>
+                    <p>ما الحل إذن؟ ببساطة: لا تتناول المضادات الحيوية إلا بوصفة طبية محددة. التزم بجرعة العلاج كاملة، حتى لو شعرت بالتحسن. ولا تشارك أدويتك مع الآخرين أبداً. كلما كنا أكثر وعياً وحرصاً، كلما حمينا أنفسنا ومجتمعاتنا. تذكروا، المضادات الحيوية ليست حلاً لكل مرض، خاصة نزلات البرد والإنفلونزا التي تسببها الفيروسات ولا تتأثر بالمضادات. فكروا بذكاء، وعيشوا بصحة!</p>
+
+                    <h4>النقاط الرئيسية من الحلقة:</h4>
+                    <ul>
+                        <li>**المقدمة**: سوء استخدام المضادات الحيوية عادة شائعة ومحفوفة بالمخاطر.</li>
+                        <li>**خطر مقاومة المضادات الحيوية**: الإفراط والاستخدام الخاطئ يمنح البكتيريا فرصة للتطور والمقاومة.</li>
+                        <li>**تحذير منظمة الصحة العالمية**: المقاومة تهديد عالمي يجعل العدوى البسيطة خطيرة.</li>
+                        <li>**التأثير المجتمعي**: صحة المجتمع ككل في خطر إذا فقدت الأدوية فعاليتها.</li>
+                        <li>**الحل والوقاية**:
+                            <ul>
+                                <li>تناول المضادات الحيوية **بوصفة طبية فقط**.</li>
+                                <li>**أكمل جرعة العلاج كاملة**.</li>
+                                <li>**لا تشارك** أدويتك مع الآخرين أبداً.</li>
+                                <li>**ليست لكل مرض**: الفيروسات (كالبرد) لا تتأثر بالمضادات.</li>
+                            </ul>
+                        </li>
+                        <li>**نصيحة عملية**: فكر بذكاء قبل استخدام المضادات الحيوية لحماية صحتك وصحة من حولك.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -807,7 +896,7 @@
                 id: 4,
                 title: "الابتكارات في علاج أمراض القلب والأوعية الدموية",
                 content: "تشهد الأبحاث الطبية تطورات ملحوظة في أساليب علاج أمراض القلب، من الأدوية الجديدة إلى التقنيات الجراحية الأقل توغلاً.",
-                fullContent: "تواصل الأوساط العلمية تحقيق إنجازات كبيرة في مجال أمراض القلب والأوعية الدموية. فقد تم الكشف عن أدوية جديدة تستهدف آليات مرضية محددة، مما يوفر خيارات علاجية أكثر فعالية وأقل آثاراً جانبية. بالإضافة إلى ذلك، تشهد الجراحات القلبية تطوراً نحو الإجراءات الأقل توغلاً التي تقلل من فترة التعافي والمخاطر المرتبطة بالعمليات الكبرى، مثل القسطرة العلاجية والتدخلات عبر الجلد. هذه التطورات لا تقتصر على العلاج فحسب، بل تمتد لتشمل تحسين أدوات التشخيص والمتابعة، مما يساهم في إدارة أفضل لحالات المرضى المزمنة.",
+                fullContent: "تواصل الأوساط العلمية تحقيق إنجازات كبيرة في مجال أمراض القلب والأوعية الدموية. فقد تم الكشف عن أدوية جديدة تستهدف آليات مرضية محددة، مما يوفر خيارات علاجية أكثر فعالية وأقل آثاراً جانبية. بالإضافة إلى ذلك، تشهد الجراحات القلبية تطوراً نحو الإجراءات الأقل توغلاً التي تقلل من فترة التعافي والمخاطر المرتبطة بالعمليات الكبرى، مثل القسطرة العلاجية والتدخلات عبر الجلد. هذه الت Developments لا تقتصر على العلاج فحسب، بل تمتد لتشمل تحسين أدوات التشخيص والمتابعة، مما يساهم في إدارة أفضل لحالات المرضى المزمنة.",
                 image: "https://images.unsplash.com/photo-1579684385135-67380ba79d1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
                 source: "معهد القلب العالمي"
             },
