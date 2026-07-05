@@ -285,6 +285,138 @@
             color: #444;
             border-right: 5px solid var(--main-green);
         }
+
+        /* ===== قسم الأسئلة الشائعة (FAQ) ===== */
+        .faq-item {
+            background: #fff;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            overflow: hidden;
+            border: none;
+        }
+        .faq-question {
+            width: 100%;
+            text-align: right;
+            background: #fff;
+            border: none;
+            padding: 18px 22px;
+            font-weight: 700;
+            color: #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.02rem;
+        }
+        .faq-question .faq-icon { color: var(--main-green); transition: transform 0.3s ease; }
+        .faq-question[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+        .faq-answer {
+            padding: 0 22px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+            color: #555;
+            line-height: 1.9;
+            font-size: 0.95rem;
+        }
+        .faq-answer.open { padding: 0 22px 20px; max-height: 500px; }
+
+        /* ===== قسم المؤشرات الصحية العالمية ===== */
+        .stat-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 25px 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            height: 100%;
+        }
+        .stat-card .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--main-green);
+            display: block;
+        }
+        .stat-card .stat-label { color: #555; font-size: 0.9rem; margin-top: 8px; }
+        .stats-chart-wrap {
+            background: #fff;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            max-width: 750px;
+            margin: 30px auto 10px;
+        }
+        .stats-source-note { text-align: center; color: #888; font-size: 0.8rem; margin-top: 10px; }
+
+        /* ===== قسم الاختبار التوعوي (Quiz) ===== */
+        .quiz-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: clamp(20px, 5vw, 40px);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.08);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .quiz-progress { font-size: 0.85rem; color: #888; margin-bottom: 10px; }
+        .quiz-question-text { font-weight: 700; font-size: 1.15rem; color: #222; margin-bottom: 20px; }
+        .quiz-option {
+            display: block;
+            width: 100%;
+            text-align: right;
+            background: #f8fcf8;
+            border: 2px solid #e6f2ea;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #333;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .quiz-option:hover { border-color: var(--main-green); background: #f0f9f3; }
+        .quiz-option.correct { background: #d4edda; border-color: #198754; color: #0f5132; }
+        .quiz-option.wrong { background: #f8d7da; border-color: #dc3545; color: #842029; }
+        .quiz-option:disabled { cursor: default; }
+        .quiz-result { text-align: center; }
+        .quiz-result .quiz-score { font-size: 2.5rem; font-weight: 800; color: var(--main-green); }
+
+        /* ===== قسم النشرة البريدية ===== */
+        .newsletter-box {
+            background: linear-gradient(135deg, var(--main-green), #145c3a);
+            border-radius: 25px;
+            padding: clamp(30px, 6vw, 55px);
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 20px 50px rgba(25,135,84,0.25);
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            max-width: 480px;
+            margin: 25px auto 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .newsletter-form input[type="email"] {
+            flex: 1 1 260px;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 22px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.95rem;
+        }
+        .newsletter-form button {
+            border: none;
+            border-radius: 50px;
+            padding: 14px 28px;
+            font-weight: 700;
+            background: #1e2022;
+            color: #fff;
+            transition: 0.2s;
+        }
+        .newsletter-form button:hover { background: #000; }
+        .newsletter-note { font-size: 0.8rem; opacity: 0.85; margin-top: 12px; }
+        #newsletterMsg { margin-top: 15px; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -302,6 +434,10 @@
                 <a href="#podcast" class="nav-item-link">بودكاست</a>
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
                 <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
+                <a href="#faq" class="nav-item-link">أسئلة شائعة</a>
+                <a href="#global-stats" class="nav-item-link">مؤشرات عالمية</a>
+                <a href="#quiz" class="nav-item-link">اختبر معلوماتك</a>
+                <a href="#newsletter" class="nav-item-link">النشرة البريدية</a>
                 <a href="#store" class="nav-item-link">المتجر</a>
             </nav>
         </div>
@@ -491,6 +627,50 @@
     </section>
 
     <!-- المتجر -->
+    <section id="faq" style="background-color: #fdfdfd;">
+        <div class="container px-4" style="max-width: 850px;">
+            <h2 class="text-center fw-bold mb-2 text-success">الأسئلة الشائعة</h2>
+            <p class="text-center text-muted mb-5">إجابات موثوقة على أكثر الأسئلة تكراراً حول مكافحة العدوى والوقاية</p>
+            <div id="faq-list"></div>
+        </div>
+    </section>
+
+    <section id="global-stats" style="background-color: #f4f7f6;">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-2 text-success">مؤشرات صحية عالمية</h2>
+            <p class="text-center text-muted mb-5">أرقام توضيحية لفهم حجم بعض التحديات الصحية حول العالم</p>
+            <div class="row g-4" id="stats-cards"></div>
+            <div class="stats-chart-wrap">
+                <canvas id="globalStatsChart" height="220"></canvas>
+            </div>
+            <p class="stats-source-note">بيانات تقديرية لأغراض التوعية، مستقاة من تقارير منظمة الصحة العالمية (WHO) والمصادر العلمية العامة.</p>
+        </div>
+    </section>
+
+    <section id="quiz" style="background-color: #fdfdfd;">
+        <div class="container px-4">
+            <h2 class="text-center fw-bold mb-2 text-success">اختبر معلوماتك</h2>
+            <p class="text-center text-muted mb-5">اختبار توعوي قصير من 5 أسئلة عن مكافحة العدوى والصحة العامة</p>
+            <div class="quiz-card" id="quiz-container"></div>
+        </div>
+    </section>
+
+    <section id="newsletter" style="background-color: #f4f7f6;">
+        <div class="container px-4">
+            <div class="newsletter-box">
+                <i class="fas fa-envelope-open-text fa-2x mb-3"></i>
+                <h2 class="fw-bold">اشترك في النصائح اليومية</h2>
+                <p class="mb-0">احصل على أحدث النصائح الصحية والتوعوية في بريدك أول بأول</p>
+                <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletterSubmit(event)">
+                    <input type="email" id="newsletterEmail" placeholder="بريدك الإلكتروني" required>
+                    <button type="submit"><i class="fas fa-paper-plane me-1"></i> اشترك</button>
+                </form>
+                <div id="newsletterMsg"></div>
+                <p class="newsletter-note">لن نشارك بريدك مع أي جهة، ويمكنك إلغاء الاشتراك في أي وقت.</p>
+            </div>
+        </div>
+    </section>
+
     <section id="store">
         <div class="container px-4">
             <h2 class="text-center fw-bold mb-5 text-success">متجر المستلزمات</h2>
@@ -744,7 +924,7 @@
             let data = [];
             try {
                 // Try to fetch athar_awareness_data.json
-                const res = await fetch('athar_awareness_data.json?v=' + new Date().getTime()); // Changed filename for clarity
+                const res = await fetch('athardata.json?v=' + new Date().getTime()); // يقرأ ملف البيانات الحقيقي الذي يحدثه update_tips.py يومياً
                 if (res.ok) {
                     data = await res.json();
                 } else {
@@ -1094,10 +1274,178 @@
         }
 
 
+        // ==================== قسم الأسئلة الشائعة (FAQ) ====================
+        const faqData = [
+            { q: "ما هي أفضل طريقة لغسل اليدين للوقاية من العدوى؟", a: "يُنصح بغسل اليدين بالماء والصابون لمدة لا تقل عن 20 ثانية، مع التركيز على ما بين الأصابع وتحت الأظافر، خصوصاً قبل الأكل وبعد استخدام الحمام والسعال أو العطس." },
+            { q: "هل المطهرات الكحولية بديل كافٍ عن غسل اليدين؟", a: "المطهرات التي تحتوي على 60% كحول فأكثر فعالة جداً في حال عدم توفر الماء والصابون، لكنها لا تزيل الأوساخ المرئية، لذا يبقى الغسل بالماء والصابون هو الخيار الأمثل عند الإمكان." },
+            { q: "لماذا تُعد مقاومة المضادات الحيوية خطراً على الصحة العامة؟", a: "الاستخدام الخاطئ أو المفرط للمضادات الحيوية يجعل البكتيريا تطور مقاومة ضدها، ما يقلل فعالية العلاجات المتاحة ويزيد من صعوبة السيطرة على العدوى مستقبلاً." },
+            { q: "كيف تنتقل العدوى في الأماكن العامة؟", a: "تنتقل العدوى عبر الرذاذ التنفسي (السعال والعطس)، ملامسة الأسطح الملوثة ثم لمس الوجه، أو التلامس المباشر مع شخص مصاب. التهوية الجيدة وارتداء الكمامة عند الحاجة يقللان من الانتقال." },
+            { q: "ما دور اللقاحات في مكافحة العدوى؟", a: "تُدرّب اللقاحات جهاز المناعة على التعرف على مسببات الأمراض ومقاومتها قبل التعرض الفعلي لها، ما يقلل من احتمال الإصابة أو شدة المرض في حال حدوثه، ويحد من انتشار العدوى داخل المجتمع." },
+            { q: "متى يجب عزل الشخص المصاب بعدوى معدية؟", a: "يُنصح بالعزل فور ظهور أعراض عدوى تنفسية أو معوية معدية، وحتى انتهاء الفترة المعدية التي يحددها الطبيب، لتقليل خطر انتقال المرض للمخالطين خصوصاً الفئات الأكثر عرضة للخطر." }
+        ];
+
+        function renderFAQ() {
+            const container = document.getElementById('faq-list');
+            if (!container) return;
+            container.innerHTML = faqData.map((item, i) => `
+                <div class="faq-item">
+                    <button type="button" class="faq-question" aria-expanded="false" onclick="toggleFAQ(this, ${i})">
+                        <span>${item.q}</span>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-${i}">${item.a}</div>
+                </div>
+            `).join('');
+        }
+
+        function toggleFAQ(buttonEl, index) {
+            const answer = document.getElementById(`faq-answer-${index}`);
+            const isOpen = answer.classList.contains('open');
+            answer.classList.toggle('open', !isOpen);
+            buttonEl.setAttribute('aria-expanded', String(!isOpen));
+        }
+
+        // ==================== قسم المؤشرات الصحية العالمية ====================
+        const globalStatsData = {
+            cards: [
+                { number: "40%", label: "من العدوى المرتبطة بالرعاية الصحية يمكن الوقاية منها بالنظافة الأساسية لليدين" },
+                { number: "700 ألف+", label: "وفاة سنوياً حول العالم بسبب مقاومة مضادات الميكروبات" },
+                { number: "20 ثانية", label: "المدة الموصى بها من WHO لغسل اليدين بفعالية" }
+            ],
+            chartLabels: ["غسل اليدين", "التطعيم", "التهوية الجيدة", "التباعد عند المرض", "التعقيم السطحي"],
+            chartValues: [90, 85, 70, 65, 75],
+            chartTitle: "فعالية بعض ممارسات الوقاية في تقليل انتقال العدوى (تقديري %)"
+        };
+
+        function renderGlobalStats() {
+            const cardsContainer = document.getElementById('stats-cards');
+            if (cardsContainer) {
+                cardsContainer.innerHTML = globalStatsData.cards.map(c => `
+                    <div class="col-12 col-md-4">
+                        <div class="stat-card">
+                            <span class="stat-number">${c.number}</span>
+                            <span class="stat-label">${c.label}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const canvas = document.getElementById('globalStatsChart');
+            if (canvas && window.Chart) {
+                new Chart(canvas, {
+                    type: 'bar',
+                    data: {
+                        labels: globalStatsData.chartLabels,
+                        datasets: [{
+                            label: globalStatsData.chartTitle,
+                            data: globalStatsData.chartValues,
+                            backgroundColor: '#198754',
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: { legend: { display: false }, title: { display: true, text: globalStatsData.chartTitle, font: { family: 'Tajawal' } } },
+                        scales: { y: { beginAtZero: true, max: 100 } }
+                    }
+                });
+            }
+        }
+
+        // ==================== قسم الاختبار التوعوي (Quiz) ====================
+        const quizData = [
+            { q: "ما المدة المثلى لغسل اليدين بالماء والصابون؟", options: ["5 ثوانٍ", "20 ثانية", "دقيقتان"], correct: 1 },
+            { q: "أي مما يلي يزيد من خطر مقاومة المضادات الحيوية؟", options: ["إكمال العلاج كاملاً حسب وصفة الطبيب", "التوقف عن العلاج فور تحسن الأعراض", "غسل اليدين بانتظام"], correct: 1 },
+            { q: "ما الهدف الأساسي من اللقاحات؟", options: ["علاج المرض بعد الإصابة به", "تدريب جهاز المناعة قبل التعرض للمرض", "تقليل الحاجة لغسل اليدين"], correct: 1 },
+            { q: "متى يُفضل استخدام المطهر الكحولي بدل الماء والصابون؟", options: ["عند عدم توفر الماء والصابون", "بدلاً عن الغسل دائماً", "فقط في المستشفيات"], correct: 0 },
+            { q: "ما أحد أهم أسباب انتقال العدوى في الأماكن المزدحمة؟", options: ["التهوية الجيدة", "الرذاذ التنفسي من السعال والعطس", "شرب الماء"], correct: 1 }
+        ];
+        let quizIndex = 0;
+        let quizScore = 0;
+
+        function renderQuiz() {
+            quizIndex = 0;
+            quizScore = 0;
+            renderQuizQuestion();
+        }
+
+        function renderQuizQuestion() {
+            const container = document.getElementById('quiz-container');
+            if (!container) return;
+            if (quizIndex >= quizData.length) {
+                container.innerHTML = `
+                    <div class="quiz-result">
+                        <div class="quiz-score">${quizScore} / ${quizData.length}</div>
+                        <p class="mt-2 mb-4">${quizScore >= 4 ? 'ممتاز! معلوماتك في مكافحة العدوى قوية 👏' : quizScore >= 2 ? 'جيد، وهناك مجال للمزيد من التوعية 💡' : 'يستحسن مراجعة قسم التوعية الذكية أعلاه لتعزيز معلوماتك 📚'}</p>
+                        <button class="btn btn-success rounded-pill px-4" onclick="renderQuiz()"><i class="fas fa-redo me-1"></i> إعادة الاختبار</button>
+                    </div>`;
+                return;
+            }
+            const item = quizData[quizIndex];
+            container.innerHTML = `
+                <div class="quiz-progress">السؤال ${quizIndex + 1} من ${quizData.length}</div>
+                <div class="quiz-question-text">${item.q}</div>
+                <div id="quiz-options">
+                    ${item.options.map((opt, i) => `<button type="button" class="quiz-option" onclick="answerQuiz(${i})">${opt}</button>`).join('')}
+                </div>
+            `;
+        }
+
+        function answerQuiz(selectedIndex) {
+            const item = quizData[quizIndex];
+            const buttons = document.querySelectorAll('#quiz-options .quiz-option');
+            buttons.forEach((btn, i) => {
+                btn.disabled = true;
+                if (i === item.correct) btn.classList.add('correct');
+                else if (i === selectedIndex) btn.classList.add('wrong');
+            });
+            if (selectedIndex === item.correct) quizScore++;
+            setTimeout(() => { quizIndex++; renderQuizQuestion(); }, 900);
+        }
+
+        // ==================== قسم النشرة البريدية ====================
+        // ملاحظة: هذا نموذج جاهز من ناحية الواجهة. لتفعيل الإرسال الفعلي للإيميلات
+        // يلزم ربطه بخدمة مثل Formspree أو Mailchimp عبر استبدال FORM_ENDPOINT بعنوان حسابك.
+        const NEWSLETTER_ENDPOINT = ""; // ضع هنا رابط Formspree أو أي خدمة نماذج بريدية
+
+        async function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            const emailInput = document.getElementById('newsletterEmail');
+            const msg = document.getElementById('newsletterMsg');
+            const email = emailInput.value.trim();
+
+            if (!email) return;
+
+            if (!NEWSLETTER_ENDPOINT) {
+                msg.innerHTML = '<span style="color:#fff3cd">تم استلام طلبك محلياً. لتفعيل الإرسال الفعلي، يلزم ربط النموذج بخدمة بريدية (راجع تعليق NEWSLETTER_ENDPOINT في الكود).</span>';
+                emailInput.value = '';
+                return;
+            }
+
+            try {
+                const res = await fetch(NEWSLETTER_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' },
+                    body: new FormData(document.getElementById('newsletterForm'))
+                });
+                if (res.ok) {
+                    msg.innerHTML = '<span style="color:#d4edda">تم الاشتراك بنجاح! شكراً لانضمامك 🎉</span>';
+                    emailInput.value = '';
+                } else {
+                    msg.innerHTML = '<span style="color:#f8d7da">حدث خطأ، حاول مرة أخرى لاحقاً.</span>';
+                }
+            } catch (err) {
+                msg.innerHTML = '<span style="color:#f8d7da">تعذر الاتصال، تحقق من اتصالك بالإنترنت.</span>';
+            }
+        }
+
         // بدء التشغيل
         document.addEventListener('DOMContentLoaded', () => {
             fetchAwarenessData();
             renderHealthNews();
+            renderFAQ();
+            renderGlobalStats();
+            renderQuiz();
 
             allResearchData = generateDummyResearch(100);
             allResearchData.sort((a, b) => b.year - a.year);
@@ -1107,6 +1455,7 @@
             document.getElementById('researchSearchInput').addEventListener('input', filterResearchTable);
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script data-goatcounter="https://athar-health.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
