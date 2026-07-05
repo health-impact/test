@@ -12,8 +12,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         /* 1. التنسيق العام والخطوط */
-        :root { --dark-gray: #1e2022; --main-green: #198754; --light-bg: #fdfdfd; --blue-accent: #007ee5; --red-accent: #dc3545;}
+        :root {
+            --dark-gray: #1e2022; --main-green: #198754; --main-green-dark: #146c43; --light-bg: #fdfdfd;
+            --blue-accent: #007ee5; --red-accent: #dc3545;
+            --shadow-soft: 0 10px 30px rgba(0,0,0,0.06);
+            --shadow-strong: 0 20px 50px rgba(0,0,0,0.12);
+        }
         body { font-family: 'Tajawal', sans-serif; background-color: var(--light-bg); color: #333; scroll-behavior: smooth; overflow-x: hidden; }
+
+        /* عنصر تصميمي موحّد: تسمية صغيرة فوق عنوان كل قسم */
+        .section-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--main-green);
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            background: #e8f5e9;
+            padding: 6px 16px;
+            border-radius: 30px;
+            margin-bottom: 14px;
+        }
+        .section-eyebrow i { font-size: 0.7rem; }
+
+        /* حركة ظهور تدريجي عند التمرير */
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+        }
 
         /* 2. الهيدر المطور للموبايل والكمبيوتر */
         .header-top {
@@ -24,7 +52,9 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            transition: box-shadow 0.3s ease, padding 0.3s ease;
         }
+        .header-top.is-scrolled { box-shadow: 0 8px 25px rgba(0,0,0,0.25); padding: 6px 0; }
         .brand-text { font-size: clamp(1.1rem, 4vw, 1.8rem); font-weight: 800; letter-spacing: 1px; }
 
         /* شريط التنقل المتجاوب */
@@ -46,6 +76,17 @@
             transition: 0.3s;
         }
         .nav-item-link:hover { color: var(--main-green); }
+        .nav-item-link.active { color: var(--main-green); position: relative; }
+        .nav-item-link.active::after {
+            content: "";
+            position: absolute;
+            bottom: 2px;
+            right: 15px;
+            left: 15px;
+            height: 2px;
+            background: var(--main-green);
+            border-radius: 2px;
+        }
 
         /* 3. قسم الرئيسية (Hero) - تم تحديث الصورة */
         .hero {
@@ -86,6 +127,43 @@
         }
         .hero h1 { font-size: clamp(1.8rem, 8vw, 4.5rem); font-weight: 900; line-height: 1.2; }
         .hero p { font-size: clamp(0.95rem, 4vw, 1.8rem); max-width: 800px; margin: 15px auto; font-weight: 500; color: #eee; }
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 120px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0), var(--light-bg));
+            z-index: 5;
+            pointer-events: none;
+        }
+        .hero-eyebrow {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 6px 18px;
+            border-radius: 30px;
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+        }
+        .hero-scroll-cue {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 11;
+            color: #fff;
+            opacity: 0.85;
+            animation: heroBounce 2s infinite;
+            font-size: 1.3rem;
+        }
+        @keyframes heroBounce {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -8px); }
+        }
 
         /* 4. قسم "عن المنصة" */
         section { padding: 80px 0; }
@@ -102,6 +180,7 @@
             padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.04);
             transition: 0.3s; text-align: right;
         }
+        .tip-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
         .tip-card h5 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
         .source-label { background: #e8f5e9; color: var(--main-green); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; display: inline-block; margin-top: 10px; }
 
@@ -239,53 +318,6 @@
             text-align: justify; /* Ensure summary is justified as well */
         }
 
-        /* Podcast Section Styles */
-        .podcast-card {
-            background: #fff;
-            border-radius: 25px;
-            padding: clamp(20px, 5vw, 50px);
-            box-shadow: 0 15px 45px rgba(0,0,0,0.08);
-            text-align: right;
-        }
-        .podcast-card h3 {
-            color: var(--main-green);
-            font-weight: 700;
-            margin-bottom: 25px;
-        }
-        .podcast-card audio {
-            width: 100%;
-            max-width: 600px;
-            margin: 25px auto;
-            display: block;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .podcast-transcript {
-            margin-top: 30px;
-            border-top: 1px solid #eee;
-            padding-top: 25px;
-        }
-        .podcast-transcript h4 {
-            color: #333;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-        .podcast-transcript ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .podcast-transcript ul li {
-            background: #f8fcf8;
-            padding: 12px 20px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #444;
-            border-right: 5px solid var(--main-green);
-        }
-
         /* ===== قسم الأسئلة الشائعة (FAQ) ===== */
         .faq-item {
             background: #fff;
@@ -294,7 +326,9 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.06);
             overflow: hidden;
             border: none;
+            transition: box-shadow 0.3s ease;
         }
+        .faq-item:hover { box-shadow: var(--shadow-strong); }
         .faq-question {
             width: 100%;
             text-align: right;
@@ -330,7 +364,9 @@
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.06);
             height: 100%;
+            transition: transform 0.3s ease;
         }
+        .stat-card:hover { transform: translateY(-6px); }
         .stat-card .stat-number {
             font-size: 2.2rem;
             font-weight: 800;
@@ -431,7 +467,6 @@
                 <a href="#hero" class="nav-item-link">الرئيسية</a>
                 <a href="#about" class="nav-item-link">عن المنصة</a>
                 <a href="#health-news" class="nav-item-link">آخر الأخبار</a>
-                <a href="#podcast" class="nav-item-link">بودكاست</a>
                 <a href="#updates" class="nav-item-link">التوعية الذكية</a>
                 <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
                 <a href="#faq" class="nav-item-link">أسئلة شائعة</a>
@@ -466,29 +501,35 @@
             </button>
         </div>
         <div class="container px-4 content-wrapper">
+            <span class="hero-eyebrow"><i class="fas fa-check-circle me-1"></i> نصائح موثوقة ومحدّثة يومياً بالذكاء الاصطناعي تحت إشراف متخصص</span>
             <h1>أثر صحي | Impact Health</h1>
             <p> نحو مجتمع ليبي واعٍ، مبني على نصائح صحية معتمدة.</p>
         </div>
+        <a href="#about" class="hero-scroll-cue" aria-label="انتقل للأسفل"><i class="fas fa-chevron-down"></i></a>
     </section>
 
-    <section id="about">
+    <section id="about" class="reveal">
         <div class="container px-4">
             <div class="text-center mb-5">
+                <span class="section-eyebrow"><i class="fas fa-user-graduate"></i> تعرّف على المنصة</span><br>
                 <h2 class="fw-bold text-success" style="font-size: 2.5rem;">من نحن؟</h2>
                 <div style="width: 70px; height: 5px; background: var(--main-green); margin: 10px auto; border-radius: 10px;"></div>
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    "أثر صحي" منصة أكاديمية متخصصة، يشرف عليها محمد جلال النفاتي، طالب ماجستير في الصحة العامة. نكرس جهودنا لنشر الوعي الصحي الموثوق والمبني على أسس علمية متينة وأحدث الأبحاث. نركز على محاور حيوية كالصحة العامة، مكافحة العدوى، سلامة الغذاء، والتصدي لمقاومة المضادات الحيوية. كما ندعم الجانب الأكاديمي بتوفير خلاصة الأبحاث المتطورة، ونبرز الدور المحوري للفحوصات المخبرية الدقيقة في التشخيص والوقاية الفعالة.
+                    "أثر صحي" منصة أكاديمية متخصصة تحت إشراف محمد جلال النفاتي، طالب ماجستير في الصحة العامة. نلتزم بنشر الوعي الصحي الموثوق والمستند إلى أحدث الأبحاث العلمية. نركز على مجالات الصحة العامة، مكافحة العدوى، سلامة الغذاء، ومقاومة المضادات الحيوية. ندعم أيضاً الجانب الأكاديمي بتوفير أحدث الأبحاث، ونسلط الضوء على دور الفحوصات المخبرية الدقيقة في التشخيص والوقاية الفعالة.
                 </p>
             </div>
         </div>
     </section>
 
     <!-- قسم آخر الأخبار الصحية المحلية والعالمية -->
-    <section id="health-news" style="background-color: #f4f7f6;">
+    <section id="health-news" class="reveal" style="background-color: #f4f7f6;">
         <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5 text-success">آخر الأخبار الصحية المحلية والعالمية</h2>
+            <div class="text-center mb-5">
+                <span class="section-eyebrow"><i class="fas fa-newspaper"></i> تحديث تلقائي دوري</span><br>
+                <h2 class="fw-bold text-success mb-0">آخر الأخبار الصحية المحلية والعالمية</h2>
+            </div>
             <div class="news-container">
                 <div id="news-list">
                     <!-- News items will be dynamically loaded here by JavaScript -->
@@ -497,35 +538,12 @@
         </div>
     </section>
 
-    <!-- قسم البودكاست الصحي -->
-    <section id="podcast" style="background-color: #fdfdfd;">
+    <section id="updates" class="reveal" style="background-color: #f4f7f6;">
         <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5 text-success">بودكاست أثر صحي</h2>
-            <div class="podcast-card">
-                <h3 class="text-center">استهلاك المضادات الحيوية: لماذا يجب أن نكون حذرين؟</h3>
-                <p class="text-center text-muted lead">حلقة توعوية قصيرة حول مخاطر سوء استخدام المضادات الحيوية.</p>
-                <audio controls>
-                    <source src="https://archive.org/download/eleven-labs-2026-06-06-t-12-59-18-roger-laid-back-casual-resonant-pre-sp-100-s-50-sb-75-se-0-b-m-2/eleven_labs_2026-06-06T12_59_18_Roger_laid-back_casual_resonant_pre_sp_100_s_50_sb_75_se_0_b_m2.mp3" type="audio/mpeg">
-                    متصفحك لا يدعم تشغيل هذا الصوت.
-                </audio>
-                <div class="podcast-transcript">
-                    <h4 class="text-center">ملخص الحلقة:</h4>
-                    <ul>
-                        <li>**المقدم:** أهلاً بكم مستمعينا الكرام في اولى حلقات بودكاست "أثر صحي". هل سبق لكم أن شعرتم بالمرض، وتوجهتم مباشرة إلى الصيدلية لطلب مضاد حيوي دون استشارة الطبيب؟ هذه عادة منتشرة، لكنها تحمل في طياتها مخاطر صحية جسيمة لا ندركها دائماً.</li>
-                        <li>**المقدم:** دعونا نتحدث بصراحة. **المضادات الحيوية** هي أدوية قوية جداً مصممة لمكافحة العدوى البكتيرية، وليس الفيروسية. هذا يعني أنها لا تفيد في علاج نزلات البرد أو الإنفلونزا، فهذه أمراض فيروسية. تخبرنا **منظمة الصحة العالمية** أن **الإفراط في استخدام المضادات الحيوية** أو استخدامها بشكل خاطئ يؤدي إلى ظاهرة خطيرة تُعرف بـ "**مقاومة المضادات الحيوية**".</li>
-                        <li>**المقدم:** ما معنى ذلك؟ ببساطة، البكتيريا تتطور وتصبح أقوى، بحيث لا تعود المضادات الحيوية فعالة ضدها. تخيلوا أن يصاب أحدنا بعدوى بسيطة في المستقبل ولا يوجد دواء قادر على علاجها! هذا ليس سيناريو بعيداً، بل هو واقع نواجهه اليوم. كلما زاد استخدامنا للمضادات الحيوية دون داعٍ، زادت سرعة تطور هذه البكتيريا المقاومة.</li>
-                        <li>**المقدم:** هذه المشكلة لا تؤثر علينا كأفراد فحسب، بل تهدد **الصحة العامة** للمجتمع بأسره. يجب أن نكون جزءاً من الحل لا المشكلة.</li>
-                        <li>**النصيحة العملية:** في المرة القادمة التي تشعر فيها بالمرض، وقبل التفكير في المضادات الحيوية، **استشر طبيباً مؤهلاً**. هو وحده من يستطيع تحديد ما إذا كنت بحاجة للمضاد الحيوي أم لا. تذكروا، صحتكم مسؤوليتكم، والحفاظ على فعالية الأدوية مسؤوليتنا جميعاً.</li>
-                        <li>**المقدم:** إلى هنا نصل لختام حلقتنا، نلقاكم في حلقة قادمة من "أثر صحي". دمتم بخير!</li>
-                    </ul>
-                </div>
+            <div class="text-center mb-5">
+                <span class="section-eyebrow"><i class="fas fa-robot"></i> يُحدَّث يومياً بالذكاء الاصطناعي</span><br>
+                <h2 class="fw-bold mb-0">التوعية الصحية الذكية</h2>
             </div>
-        </div>
-    </section>
-
-    <section id="updates" style="background-color: #f4f7f6;">
-        <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5">التوعية الصحية الذكية</h2>
             <div class="updates-container">
                 <div id="current-tips-list">
                     <!-- Dummy tip if athardata.json is not available, will be replaced by JS if successful -->
@@ -569,9 +587,12 @@
     </section>
 
     <!-- مكتبة الأبحاث -->
-    <section id="research-library" style="background-color: #f4f7f6;">
+    <section id="research-library" class="reveal" style="background-color: #f4f7f6;">
         <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5 text-success">مكتبة الأبحاث</h2>
+            <div class="text-center mb-5">
+                <span class="section-eyebrow"><i class="fas fa-book-medical"></i> مصادر أكاديمية موثوقة</span><br>
+                <h2 class="fw-bold text-success mb-0">مكتبة الأبحاث</h2>
+            </div>
 
             <!-- قسم المصادر الموثوقة -->
             <div class="text-center mb-5">
@@ -626,17 +647,23 @@
         </div>
     </section>
 
-    <!-- الأسئلة الشائعة -->
-    <section id="faq" style="background-color: #fdfdfd;">
+    <!-- المتجر -->
+    <section id="faq" class="reveal" style="background-color: #fdfdfd;">
         <div class="container px-4" style="max-width: 850px;">
+            <div class="text-center mb-2">
+                <span class="section-eyebrow"><i class="fas fa-question-circle"></i> إجابات سريعة</span>
+            </div>
             <h2 class="text-center fw-bold mb-2 text-success">الأسئلة الشائعة</h2>
             <p class="text-center text-muted mb-5">إجابات موثوقة على أكثر الأسئلة تكراراً حول مكافحة العدوى والوقاية</p>
             <div id="faq-list"></div>
         </div>
     </section>
 
-    <section id="global-stats" style="background-color: #f4f7f6;">
+    <section id="global-stats" class="reveal" style="background-color: #f4f7f6;">
         <div class="container px-4">
+            <div class="text-center mb-2">
+                <span class="section-eyebrow"><i class="fas fa-chart-column"></i> بالأرقام</span>
+            </div>
             <h2 class="text-center fw-bold mb-2 text-success">مؤشرات صحية عالمية</h2>
             <p class="text-center text-muted mb-5">أرقام توضيحية لفهم حجم بعض التحديات الصحية حول العالم</p>
             <div class="row g-4" id="stats-cards"></div>
@@ -647,15 +674,18 @@
         </div>
     </section>
 
-    <section id="quiz" style="background-color: #fdfdfd;">
+    <section id="quiz" class="reveal" style="background-color: #fdfdfd;">
         <div class="container px-4">
+            <div class="text-center mb-2">
+                <span class="section-eyebrow"><i class="fas fa-graduation-cap"></i> اختبار تفاعلي</span>
+            </div>
             <h2 class="text-center fw-bold mb-2 text-success">اختبر معلوماتك</h2>
             <p class="text-center text-muted mb-5">اختبار توعوي قصير من 5 أسئلة عن مكافحة العدوى والصحة العامة</p>
             <div class="quiz-card" id="quiz-container"></div>
         </div>
     </section>
 
-    <section id="newsletter" style="background-color: #f4f7f6;">
+    <section id="newsletter" class="reveal" style="background-color: #f4f7f6;">
         <div class="container px-4">
             <div class="newsletter-box">
                 <i class="fas fa-envelope-open-text fa-2x mb-3"></i>
@@ -671,9 +701,12 @@
         </div>
     </section>
 
-    <section id="store">
+    <section id="store" class="reveal">
         <div class="container px-4">
-            <h2 class="text-center fw-bold mb-5 text-success">متجر المستلزمات</h2>
+            <div class="text-center mb-5">
+                <span class="section-eyebrow"><i class="fas fa-shopping-bag"></i> قريباً</span><br>
+                <h2 class="fw-bold text-success mb-0">متجر المستلزمات</h2>
+            </div>
             <div class="row g-4">
                 <div class="col-12 col-md-4">
                     <div class="store-card">
@@ -774,7 +807,7 @@
                 id: 4,
                 title: "الابتكارات في علاج أمراض القلب والأوعية الدموية",
                 content: "تشهد الأبحاث الطبية تطورات ملحوظة في أساليب علاج أمراض القلب، من الأدوية الجديدة إلى التقنيات الجراحية الأقل توغلاً.",
-                fullContent: "تواصل الأوساط العلمية تحقيق إنجازات كبيرة في مجال أمراض القلب والأوعية الدموية. فقد تم الكشف عن أدوية جديدة تستهدف آليات مرضية محددة، مما يوفر خيارات علاجية أكثر فعالية وأقل آثاراً جانبية. بالإضافة إلى ذلك، تشهد الجراحات القلبية تطوراً نحو الإجراءات الأقل توغلاً التي تقلل من فترة التعافي والمخاطر المرتبطة بالعمليات الكبرى، مثل القسطرة العلاجية والتدخلات عبر الجلد. هذه ال Developments لا تقتصر على العلاج فحسب، بل تمتد لتشمل تحسين أدوات التشخيص والمتابعة، مما يساهم في إدارة أفضل لحالات المرضى المزمنة.",
+                fullContent: "تواصل الأوساط العلمية تحقيق إنجازات كبيرة في مجال أمراض القلب والأوعية الدموية. فقد تم الكشف عن أدوية جديدة تستهدف آليات مرضية محددة، مما يوفر خيارات علاجية أكثر فعالية وأقل آثاراً جانبية. بالإضافة إلى ذلك، تشهد الجراحات القلبية تطوراً نحو الإجراءات الأقل توغلاً التي تقلل من فترة التعافي والمخاطر المرتبطة بالعمليات الكبرى، مثل القسطرة العلاجية والتدخلات عبر الجلد. هذه التطورات لا تقتصر على العلاج فحسب، بل تمتد لتشمل تحسين أدوات التشخيص والمتابعة، مما يساهم في إدارة أفضل لحالات المرضى المزمنة.",
                 image: "https://images.unsplash.com/photo-1579684385135-67380ba79d1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
                 source: "معهد القلب العالمي"
             },
@@ -1247,7 +1280,7 @@
                     ${healthNewsData.map(news => `
                         <div class="col-12 col-md-4">
                             <div class="card h-100 border-0 shadow-sm" style="border-radius: 20px; overflow: hidden;">
-                                <img src="${news.image}" class="card-img-top" alt="${news.title}" style="height: 200px; object-fit: cover;">
+                                <img src="${news.image}" class="card-img-top" alt="${news.title}" loading="lazy" style="height: 200px; object-fit: cover; background:#eef3f1;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&auto=format&fit=crop&q=80';">
                                 <div class="card-body text-end d-flex flex-column justify-content-between">
                                     <div>
                                         <h5 class="card-title fw-bold text-dark">${news.title}</h5>
@@ -1439,6 +1472,49 @@
             }
         }
 
+        // ==================== تحسينات بصرية: ظل الهيدر، تفعيل عنصر التنقل، وظهور تدريجي للأقسام ====================
+        function initScrollEnhancements() {
+            const header = document.querySelector('.header-top');
+            const onScroll = () => {
+                if (header) header.classList.toggle('is-scrolled', window.scrollY > 30);
+            };
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+
+            // إظهار تدريجي للأقسام عند الوصول إليها
+            const revealEls = document.querySelectorAll('.reveal');
+            if ('IntersectionObserver' in window && revealEls.length) {
+                const revealObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            revealObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                revealEls.forEach(el => revealObserver.observe(el));
+            } else {
+                revealEls.forEach(el => el.classList.add('is-visible'));
+            }
+
+            // تفعيل رابط القسم الحالي في القائمة العلوية أثناء التمرير
+            const navLinks = document.querySelectorAll('.nav-item-link');
+            const sections = Array.from(navLinks)
+                .map(link => document.querySelector(link.getAttribute('href')))
+                .filter(Boolean);
+            if ('IntersectionObserver' in window && sections.length) {
+                const navObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = '#' + entry.target.id;
+                            navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === id));
+                        }
+                    });
+                }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+                sections.forEach(sec => navObserver.observe(sec));
+            }
+        }
+
         // بدء التشغيل
         document.addEventListener('DOMContentLoaded', () => {
             fetchAwarenessData();
@@ -1446,6 +1522,7 @@
             renderFAQ();
             renderGlobalStats();
             renderQuiz();
+            initScrollEnhancements();
 
             allResearchData = generateDummyResearch(100);
             allResearchData.sort((a, b) => b.year - a.year);
