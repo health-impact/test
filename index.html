@@ -7,6 +7,10 @@
     <meta name="description" content="منصة ليبية تقدم نصائح موثوقة في الصحة العامة، مكافحة العدوى، وسلامة الغذاء تحت إشراف متخصصين.">
     <meta name="keywords" content="صحة عامة، ليبيا، نصائح طبية، أثر صحي، طرابلس، وقاية">
     <meta name="google-site-verification" content="i5UXVqCFfyDU9PnXd3nLwCLeB2KdXY-Jd_Mf-aZXVkQ" />
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#198754">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -17,8 +21,79 @@
             --blue-accent: #007ee5; --red-accent: #dc3545;
             --shadow-soft: 0 10px 30px rgba(0,0,0,0.06);
             --shadow-strong: 0 20px 50px rgba(0,0,0,0.12);
+            /* متغيرات دلالية تدعم الوضع الليلي */
+            --card-bg: #ffffff;
+            --section-alt-bg: #f4f7f6;
+            --section-white-bg: #fdfdfd;
+            --text-main: #333333;
+            --text-strong: #222222;
+            --text-muted-c: #6c757d;
+            --border-soft: #eeeeee;
+            --eyebrow-bg: #e8f5e9;
         }
-        body { font-family: 'Tajawal', sans-serif; background-color: var(--light-bg); color: #333; scroll-behavior: smooth; overflow-x: hidden; }
+        [data-theme="dark"] {
+            --light-bg: #101513;
+            --card-bg: #1b2321;
+            --section-alt-bg: #141a18;
+            --section-white-bg: #171f1c;
+            --text-main: #e6e8e7;
+            --text-strong: #f5f5f5;
+            --text-muted-c: #a3aeab;
+            --border-soft: #2a3330;
+            --eyebrow-bg: rgba(25,135,84,0.15);
+            --shadow-soft: 0 10px 30px rgba(0,0,0,0.35);
+            --shadow-strong: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        body { font-family: 'Tajawal', sans-serif; background-color: var(--light-bg); color: var(--text-main); scroll-behavior: smooth; overflow-x: hidden; transition: background-color 0.3s ease, color 0.3s ease; }
+        [data-theme="dark"] .text-muted { color: var(--text-muted-c) !important; }
+        [data-theme="dark"] .form-control,
+        [data-theme="dark"] .form-select { background-color: var(--card-bg); color: var(--text-main); border-color: var(--border-soft); }
+        [data-theme="dark"] .form-control::placeholder { color: var(--text-muted-c); }
+        [data-theme="dark"] .text-dark { color: var(--text-strong) !important; }
+        [data-theme="dark"] .bg-white { background-color: var(--card-bg) !important; }
+        [data-theme="dark"] .card { background-color: var(--card-bg); color: var(--text-main); }
+        [data-theme="dark"] .table { color: var(--text-main); }
+
+        /* غلاف صورة الخبر: يعرض بديلاً مرتبطاً بموضوع الخبر (أيقونة + تصنيف) عند تعذر تحميل الصورة الأصلية */
+        .news-img-wrap {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--main-green), var(--main-green-dark));
+        }
+        .news-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .news-img-fallback {
+            position: absolute; inset: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+        .news-img-fallback i { font-size: 2.4rem; opacity: 0.95; }
+        .news-img-fallback span { font-size: 0.9rem; font-weight: 700; }
+        .news-img-wrap.img-failed img { display: none; }
+        .news-img-wrap.img-failed .news-img-fallback { display: flex; }
+
+        /* زر تبديل الوضع الليلي */
+        .theme-toggle-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: #fff;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.25s;
+            flex-shrink: 0;
+        }
+        .theme-toggle-btn:hover { background: var(--main-green); border-color: var(--main-green); }
 
         /* عنصر تصميمي موحّد: تسمية صغيرة فوق عنوان كل قسم */
         .section-eyebrow {
@@ -29,7 +104,7 @@
             font-weight: 700;
             font-size: 0.8rem;
             letter-spacing: 0.5px;
-            background: #e8f5e9;
+            background: var(--eyebrow-bg);
             padding: 6px 16px;
             border-radius: 30px;
             margin-bottom: 14px;
@@ -42,6 +117,7 @@
         @media (prefers-reduced-motion: reduce) {
             .reveal { opacity: 1; transform: none; transition: none; }
         }
+
 
         /* 2. الهيدر المطور للموبايل والكمبيوتر */
         .header-top {
@@ -168,15 +244,15 @@
         /* 4. قسم "عن المنصة" */
         section { padding: 80px 0; }
         .about-card {
-            background: #fff; padding: clamp(20px, 5vw, 50px); border-radius: 25px;
+            background: var(--card-bg); padding: clamp(20px, 5vw, 50px); border-radius: 25px;
             box-shadow: 0 15px 45px rgba(39, 174, 96, 0.12);
             border-right: 12px solid var(--main-green);
         }
 
         /* 5. التوعية الذكية والكروت */
-        .updates-container { background: #fff; border-radius: 25px; padding: clamp(15px, 4vw, 40px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .updates-container { background: var(--card-bg); border-radius: 25px; padding: clamp(15px, 4vw, 40px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .tip-card {
-            background: #fff; border-right: 5px solid var(--main-green); border-radius: 12px;
+            background: var(--card-bg); border-right: 5px solid var(--main-green); border-radius: 12px;
             padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.04);
             transition: 0.3s; text-align: right;
         }
@@ -185,7 +261,7 @@
         .source-label { background: #e8f5e9; color: var(--main-green); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; display: inline-block; margin-top: 10px; }
 
         /* 6. المتجر */
-        .store-card { border-radius: 20px; background: white; padding: 35px; text-align: center; box-shadow: 0 8px 25px rgba(0,0,0,0.05); height: 100%; border: 1px solid #f0f0f0; transition: 0.4s; }
+        .store-card { border-radius: 20px; background: var(--card-bg); padding: 35px; text-align: center; box-shadow: 0 8px 25px rgba(0,0,0,0.05); height: 100%; border: 1px solid var(--border-soft); transition: 0.4s; }
         .store-card:hover { transform: translateY(-10px); border-color: var(--main-green); }
         .icon-box i { font-size: 4rem; color: var(--main-green); margin-bottom: 20px; }
 
@@ -225,7 +301,7 @@
         .source-button.cdc:hover { background-color: #335973; border-color: #335973; }
 
         .research-table-container {
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 25px;
             padding: clamp(15px, 4vw, 40px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
@@ -250,8 +326,8 @@
         .research-table td {
             padding: 15px;
             vertical-align: middle;
-            border-bottom: 1px solid #eee;
-            background-color: #fdfdfd;
+            border-bottom: 1px solid var(--border-soft);
+            background-color: var(--card-bg);
             text-align: right;
         }
         .research-table tbody tr {
@@ -280,12 +356,12 @@
             padding: 15px;
             background-color: #f8fcf8;
             border-radius: 15px;
-            border: 1px solid #e9ecef;
+            border: 1px solid var(--border-soft);
         }
         .filter-section .form-control,
         .filter-section .form-select {
             border-radius: 25px;
-            border-color: #ced4da;
+            border-color: var(--border-soft);
             padding: 10px 20px;
             flex-grow: 1;
             min-width: 150px;
@@ -297,7 +373,7 @@
 
         /* News Section Styles */
         .news-container {
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 25px;
             padding: clamp(15px, 4vw, 40px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
@@ -307,10 +383,10 @@
         .news-full-content {
             display: none; /* Hidden by default */
             margin-top: 15px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--border-soft);
             padding-top: 15px;
             font-size: 0.95rem;
-            color: #555;
+            color: var(--text-muted-c);
             line-height: 1.8;
             text-align: justify;
         }
@@ -320,7 +396,7 @@
 
         /* ===== قسم الأسئلة الشائعة (FAQ) ===== */
         .faq-item {
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 15px;
             margin-bottom: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.06);
@@ -332,11 +408,11 @@
         .faq-question {
             width: 100%;
             text-align: right;
-            background: #fff;
+            background: var(--card-bg);
             border: none;
             padding: 18px 22px;
             font-weight: 700;
-            color: #222;
+            color: var(--text-strong);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -350,15 +426,15 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.35s ease, padding 0.35s ease;
-            color: #555;
+            color: var(--text-muted-c);
             line-height: 1.9;
             font-size: 0.95rem;
         }
-        .faq-answer.open { padding: 0 22px 20px; max-height: 500px; /* Adjust as needed */ }
+        .faq-answer.open { padding: 0 22px 20px; max-height: 500px; }
 
         /* ===== قسم المؤشرات الصحية العالمية ===== */
         .stat-card {
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 20px;
             padding: 25px 15px;
             text-align: center;
@@ -373,9 +449,9 @@
             color: var(--main-green);
             display: block;
         }
-        .stat-card .stat-label { color: #555; font-size: 0.9rem; margin-top: 8px; }
+        .stat-card .stat-label { color: var(--text-muted-c); font-size: 0.9rem; margin-top: 8px; }
         .stats-chart-wrap {
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 20px;
             padding: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.06);
@@ -386,7 +462,7 @@
 
         /* ===== قسم الاختبار التوعوي (Quiz) ===== */
         .quiz-card {
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 20px;
             padding: clamp(20px, 5vw, 40px);
             box-shadow: 0 15px 45px rgba(0,0,0,0.08);
@@ -394,7 +470,7 @@
             margin: 0 auto;
         }
         .quiz-progress { font-size: 0.85rem; color: #888; margin-bottom: 10px; }
-        .quiz-question-text { font-weight: 700; font-size: 1.15rem; color: #222; margin-bottom: 20px; }
+        .quiz-question-text { font-weight: 700; font-size: 1.15rem; color: var(--text-strong); margin-bottom: 20px; }
         .quiz-option {
             display: block;
             width: 100%;
@@ -405,7 +481,7 @@
             padding: 14px 18px;
             margin-bottom: 12px;
             font-weight: 600;
-            color: #333;
+            color: var(--text-main);
             transition: 0.2s;
             cursor: pointer;
         }
@@ -454,54 +530,201 @@
         .newsletter-note { font-size: 0.8rem; opacity: 0.85; margin-top: 12px; }
         #newsletterMsg { margin-top: 15px; font-weight: 600; }
 
-        /* Podcast Section Styles */
-        .podcast-container {
-            background: #fff;
-            border-radius: 25px;
-            padding: clamp(15px, 4vw, 40px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            text-align: center;
+        /* ==================== أيقونات الأدوات في الهيدر ==================== */
+        .utility-icons { flex-shrink: 0; }
+        #langToggleBtn { font-size: 0.75rem; font-weight: 800; border-radius: 50%; }
+
+        /* ==================== لوحة البحث الفوري / المفضلة ==================== */
+        .search-panel {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.55);
+            z-index: 2000;
+            display: none;
+            padding-top: 8vh;
         }
-        .podcast-player {
-            width: 100%;
-            margin-bottom: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        .search-panel.open { display: block; }
+        .search-panel-inner {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+            max-height: 78vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-strong);
         }
-        .podcast-transcript {
-            text-align: justify;
-            line-height: 1.9;
-            font-size: 1rem;
-            color: #444;
-        }
-        .podcast-transcript h4 {
-            font-weight: 700;
-            color: var(--main-green);
+        .search-input-wrap {
+            display: flex; align-items: center; gap: 10px;
+            background: var(--section-alt-bg);
+            border-radius: 50px;
+            padding: 10px 18px;
             margin-bottom: 15px;
         }
-        .podcast-transcript p { margin-bottom: 1rem; }
-        .podcast-transcript ul {
-            list-style: none;
-            padding-right: 0;
-            margin-top: 20px;
+        .search-input-wrap i { color: var(--main-green); }
+        .search-input-wrap input {
+            flex: 1; border: none; background: transparent; outline: none;
+            font-family: 'Tajawal', sans-serif; font-size: 1rem; color: var(--text-main);
         }
-        .podcast-transcript ul li {
-            position: relative;
-            padding-right: 25px;
-            margin-bottom: 10px;
-            line-height: 1.7;
+        .search-close-btn { background: none; border: none; color: var(--text-muted-c); font-size: 1.1rem; cursor: pointer; }
+        .search-result-item {
+            display: block; padding: 12px 15px; border-radius: 12px; margin-bottom: 8px;
+            background: var(--section-alt-bg); text-decoration: none; color: var(--text-main); cursor: pointer;
+            transition: 0.2s; border-right: 4px solid var(--main-green);
         }
-        .podcast-transcript ul li::before {
-            content: "\f058"; /* FontAwesome check-circle */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            color: var(--main-green);
-            position: absolute;
-            right: 0;
-            top: 5px;
-            font-size: 0.9rem;
+        .search-result-item:hover { background: var(--eyebrow-bg); }
+        .search-result-item .sr-tag { font-size: 0.75rem; color: var(--main-green); font-weight: 700; }
+        .search-result-item .sr-title { font-weight: 700; display: block; margin: 3px 0; }
+        .search-result-item .sr-snippet { font-size: 0.85rem; color: var(--text-muted-c); }
+        .search-empty-state { text-align: center; color: var(--text-muted-c); padding: 30px 10px; }
+
+        /* ==================== زر المفضلة على الكروت ==================== */
+        .fav-btn {
+            background: rgba(255,255,255,0.85);
+            border: none; width: 34px; height: 34px; border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center;
+            color: #bbb; cursor: pointer; transition: 0.2s;
+            position: absolute; top: 10px; left: 10px; z-index: 3;
         }
+        .fav-btn.active, .fav-btn:hover { color: var(--red-accent); }
+        .tts-btn {
+            background: var(--eyebrow-bg); border: none; color: var(--main-green);
+            border-radius: 30px; padding: 5px 14px; font-size: 0.8rem; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 6px; cursor: pointer; transition: 0.2s;
+        }
+        .tts-btn:hover { background: var(--main-green); color: #fff; }
+        .tts-btn.speaking { background: var(--main-green); color: #fff; }
+        .pdf-btn {
+            background: transparent; border: 1px solid var(--border-soft); color: var(--text-muted-c);
+            border-radius: 30px; padding: 5px 14px; font-size: 0.8rem; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 6px; cursor: pointer; transition: 0.2s;
+        }
+        .pdf-btn:hover { border-color: var(--main-green); color: var(--main-green); }
+        .card-actions-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+
+        /* ==================== لوحة إتاحة الوصول ==================== */
+        .a11y-panel {
+            position: fixed; bottom: 20px; left: 20px; z-index: 2000;
+            background: var(--card-bg); border-radius: 18px; box-shadow: var(--shadow-strong);
+            padding: 18px; width: 260px; display: none;
+        }
+        .a11y-panel.open { display: block; }
+        .a11y-panel-inner { color: var(--text-main); }
+        .a11y-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-top: 1px solid var(--border-soft); }
+        .a11y-btn-group button {
+            width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--border-soft);
+            background: var(--section-alt-bg); color: var(--text-main); font-weight: 700; cursor: pointer; margin-inline-start: 4px;
+        }
+        .a11y-btn-group button:hover { border-color: var(--main-green); color: var(--main-green); }
+        .a11y-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .a11y-switch input { opacity: 0; width: 0; height: 0; }
+        .a11y-slider { position: absolute; cursor: pointer; inset: 0; background-color: #ccc; border-radius: 24px; transition: 0.3s; }
+        .a11y-slider::before { content: ""; position: absolute; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; border-radius: 50%; transition: 0.3s; }
+        .a11y-switch input:checked + .a11y-slider { background-color: var(--main-green); }
+        .a11y-switch input:checked + .a11y-slider::before { transform: translateX(-20px); }
+
+        /* تكبير الخط العام */
+        html[data-font-size="1"] body { font-size: 1.08em; }
+        html[data-font-size="2"] body { font-size: 1.18em; }
+
+        /* وضع التباين العالي */
+        html.high-contrast body { background: #000 !important; color: #fff !important; }
+        html.high-contrast .header-top { background: #000; border-bottom-color: #ffeb3b; }
+        html.high-contrast section { background: #000 !important; }
+        html.high-contrast .card, html.high-contrast .tip-card, html.high-contrast .faq-item,
+        html.high-contrast .stat-card, html.high-contrast .quiz-card, html.high-contrast .updates-container,
+        html.high-contrast .search-panel-inner, html.high-contrast .a11y-panel, html.high-contrast .infographic-card {
+            background: #000 !important; border: 2px solid #ffeb3b !important; color: #fff !important;
+        }
+        html.high-contrast a, html.high-contrast .section-eyebrow, html.high-contrast .text-success { color: #ffeb3b !important; }
+        html.high-contrast .text-muted { color: #ddd !important; }
+
+        /* ==================== قسم التوتر والمناعة ==================== */
+        .stress-card {
+            background: var(--card-bg); border-radius: 20px; padding: clamp(20px, 4vw, 40px);
+            box-shadow: var(--shadow-soft);
+        }
+        .stress-card h5 { color: var(--main-green); font-weight: 700; }
+        .breathing-box {
+            text-align: center; padding: 20px;
+            background: var(--section-alt-bg); border-radius: 20px;
+        }
+        .breathing-circle {
+            width: 130px; height: 130px; margin: 20px auto;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--main-green), var(--main-green-dark));
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-weight: 700; font-size: 1rem;
+            transition: transform 4s ease-in-out;
+        }
+        .breathing-circle.inhale { transform: scale(1.35); }
+        .breathing-circle.exhale { transform: scale(0.85); }
+        .stress-disclaimer {
+            font-size: 0.8rem; color: var(--text-muted-c); border-top: 1px solid var(--border-soft);
+            margin-top: 20px; padding-top: 12px;
+        }
+
+        /* ==================== قسم معرض الإنفوجرافيك ==================== */
+        .infographic-card {
+            background: var(--card-bg); border-radius: 18px; overflow: hidden;
+            box-shadow: var(--shadow-soft); transition: 0.3s;
+        }
+        .infographic-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-strong); }
+        .infographic-poster {
+            aspect-ratio: 4/5; padding: 25px; display: flex; flex-direction: column;
+            justify-content: space-between; color: #fff; text-align: center;
+        }
+        .infographic-poster i { font-size: 2.5rem; }
+        .infographic-poster h4 { font-weight: 800; font-size: 1.2rem; margin: 10px 0; }
+        .infographic-poster p { font-size: 0.85rem; opacity: 0.95; }
+        .infographic-poster .infographic-brand { font-size: 0.75rem; opacity: 0.85; font-weight: 700; }
+        .infographic-actions { display: flex; gap: 8px; padding: 12px; }
+        .infographic-actions button {
+            flex: 1; border: none; border-radius: 10px; padding: 8px; font-size: 0.8rem; font-weight: 700;
+            background: var(--section-alt-bg); color: var(--text-main); cursor: pointer; transition: 0.2s;
+        }
+        .infographic-actions button:hover { background: var(--main-green); color: #fff; }
+
+        /* ==================== شارة اللغة الإنجليزية (i18n جزئي) ==================== */
+        .lang-note {
+            font-size: 0.8rem; background: #fff3cd; color: #664d03; border-radius: 10px;
+            padding: 8px 14px; display: none; text-align: center; margin-bottom: 15px;
+        }
+        html[lang="en"] .lang-note { display: block; }
     </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "أثر صحي | Impact Health",
+        "url": "https://athar-health.example.org/",
+        "description": "منصة ليبية تقدم نصائح موثوقة في الصحة العامة، مكافحة العدوى، وسلامة الغذاء تحت إشراف متخصصين.",
+        "inLanguage": "ar"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "أثر صحي | Impact Health",
+        "url": "https://athar-health.example.org/",
+        "logo": "https://athar-health.example.org/assets/icons/icon-512.png",
+        "sameAs": []
+    }
+    </script>
+    <script type="application/ld+json" id="faqSchema">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            { "@type": "Question", "name": "ما هي أفضل طريقة لغسل اليدين للوقاية من العدوى؟", "acceptedAnswer": { "@type": "Answer", "text": "يُنصح بغسل اليدين بالماء والصابون لمدة لا تقل عن 20 ثانية، مع التركيز على ما بين الأصابع وتحت الأظافر." } },
+            { "@type": "Question", "name": "هل المطهرات الكحولية بديل كافٍ عن غسل اليدين؟", "acceptedAnswer": { "@type": "Answer", "text": "المطهرات التي تحتوي على 60% كحول فأكثر فعالة عند عدم توفر الماء والصابون، لكنها لا تزيل الأوساخ المرئية." } },
+            { "@type": "Question", "name": "لماذا تُعد مقاومة المضادات الحيوية خطراً على الصحة العامة؟", "acceptedAnswer": { "@type": "Answer", "text": "الاستخدام الخاطئ للمضادات الحيوية يجعل البكتيريا تطور مقاومة ضدها، ما يقلل فعالية العلاجات المتاحة مستقبلاً." } },
+            { "@type": "Question", "name": "كيف تنتقل العدوى في الأماكن العامة؟", "acceptedAnswer": { "@type": "Answer", "text": "تنتقل عبر الرذاذ التنفسي، ملامسة الأسطح الملوثة، أو التلامس المباشر مع شخص مصاب." } },
+            { "@type": "Question", "name": "ما دور اللقاحات في مكافحة العدوى؟", "acceptedAnswer": { "@type": "Answer", "text": "تُدرّب اللقاحات جهاز المناعة على التعرف على مسببات الأمراض ومقاومتها قبل التعرض الفعلي لها." } },
+            { "@type": "Question", "name": "متى يجب عزل الشخص المصاب بعدوى معدية؟", "acceptedAnswer": { "@type": "Answer", "text": "يُنصح بالعزل فور ظهور أعراض عدوى معدية وحتى انتهاء الفترة المعدية التي يحددها الطبيب." } }
+        ]
+    }
+    </script>
 </head>
 <body>
 
@@ -512,20 +735,80 @@
                 <span class="brand-text">IMPACT HEALTH</span>
             </div>
             <nav class="nav-box">
-                <a href="#hero" class="nav-item-link">الرئيسية</a>
-                <a href="#about" class="nav-item-link">عن المنصة</a>
-                <a href="#health-news" class="nav-item-link">آخر الأخبار</a>
-                <a href="#podcast" class="nav-item-link">بودكاست صحي</a>
-                <a href="#updates" class="nav-item-link">التوعية الذكية</a>
-                <a href="#research-library" class="nav-item-link">مكتبة الأبحاث</a>
-                <a href="#faq" class="nav-item-link">أسئلة شائعة</a>
-                <a href="#global-stats" class="nav-item-link">مؤشرات عالمية</a>
-                <a href="#quiz" class="nav-item-link">اختبر معلوماتك</a>
-                <a href="#newsletter" class="nav-item-link">النشرة البريدية</a>
-                <a href="#store" class="nav-item-link">المتجر</a>
+                <a href="#hero" class="nav-item-link" data-i18n="nav.home">الرئيسية</a>
+                <a href="#about" class="nav-item-link" data-i18n="nav.about">عن المنصة</a>
+                <a href="#health-news" class="nav-item-link" data-i18n="nav.news">آخر الأخبار</a>
+                <a href="#updates" class="nav-item-link" data-i18n="nav.updates">التوعية الذكية</a>
+                <a href="#research-library" class="nav-item-link" data-i18n="nav.research">مكتبة الأبحاث</a>
+                <a href="#faq" class="nav-item-link" data-i18n="nav.faq">أسئلة شائعة</a>
+                <a href="#global-stats" class="nav-item-link" data-i18n="nav.stats">مؤشرات عالمية</a>
+                <a href="#quiz" class="nav-item-link" data-i18n="nav.quiz">اختبر معلوماتك</a>
+                <a href="#stress-immunity" class="nav-item-link" data-i18n="nav.stress">التوتر والمناعة</a>
+                <a href="#infographics" class="nav-item-link" data-i18n="nav.infographics">إنفوجرافيك</a>
+                <a href="#newsletter" class="nav-item-link" data-i18n="nav.newsletter">النشرة البريدية</a>
+                <a href="#store" class="nav-item-link" data-i18n="nav.store">المتجر</a>
             </nav>
+            <div class="utility-icons d-flex align-items-center gap-2">
+                <button type="button" class="theme-toggle-btn" id="searchToggleBtn" onclick="toggleSearchPanel()" aria-label="بحث" title="بحث"><i class="fas fa-search"></i></button>
+                <button type="button" class="theme-toggle-btn" id="favToggleBtn" onclick="toggleFavoritesPanel()" aria-label="المفضلة" title="المفضلة"><i class="fas fa-heart"></i></button>
+                <button type="button" class="theme-toggle-btn" id="a11yToggleBtn" onclick="toggleA11yPanel()" aria-label="إتاحة" title="إعدادات الإتاحة"><i class="fas fa-universal-access"></i></button>
+                <button type="button" class="theme-toggle-btn" id="langToggleBtn" onclick="toggleLanguage()" aria-label="English" title="English">EN</button>
+                <button type="button" class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="الوضع الليلي" title="الوضع الليلي"><i class="fas fa-moon"></i></button>
+            </div>
         </div>
     </header>
+
+    <!-- لوحة البحث الفوري -->
+    <div class="search-panel" id="searchPanel">
+        <div class="container px-4">
+            <div class="search-panel-inner">
+                <div class="search-input-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="siteSearchInput" placeholder="ابحث في النصائح، الأخبار، الأسئلة الشائعة..." oninput="performSiteSearch(this.value)">
+                    <button type="button" class="search-close-btn" onclick="toggleSearchPanel()" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+                </div>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- لوحة المفضلة -->
+    <div class="search-panel" id="favoritesPanel">
+        <div class="container px-4">
+            <div class="search-panel-inner">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0"><i class="fas fa-heart text-danger me-2"></i>عناصري المحفوظة</h5>
+                    <button type="button" class="search-close-btn" onclick="toggleFavoritesPanel()" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+                </div>
+                <div id="favoritesList" class="search-results"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- لوحة إعدادات الإتاحة -->
+    <div class="a11y-panel" id="a11yPanel">
+        <div class="a11y-panel-inner">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-bold mb-0"><i class="fas fa-universal-access me-2"></i>إعدادات الإتاحة</h6>
+                <button type="button" class="search-close-btn" onclick="toggleA11yPanel()" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="a11y-row">
+                <span>حجم الخط</span>
+                <div class="a11y-btn-group">
+                    <button type="button" onclick="adjustFontSize(-1)" aria-label="تصغير الخط">A-</button>
+                    <button type="button" onclick="adjustFontSize(0)" aria-label="الحجم الافتراضي">A</button>
+                    <button type="button" onclick="adjustFontSize(1)" aria-label="تكبير الخط">A+</button>
+                </div>
+            </div>
+            <div class="a11y-row">
+                <span>تباين عالٍ</span>
+                <label class="a11y-switch">
+                    <input type="checkbox" id="highContrastToggle" onchange="toggleHighContrast(this.checked)">
+                    <span class="a11y-slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
 
     <section id="hero" class="hero">
         <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
@@ -550,9 +833,10 @@
             </button>
         </div>
         <div class="container px-4 content-wrapper">
-            <span class="hero-eyebrow"><i class="fas fa-check-circle me-1"></i> نصائح موثوقة ومحدّثة يومياً بالذكاء الاصطناعي تحت إشراف متخصص</span>
-            <h1>أثر صحي | Impact Health</h1>
-            <p> نحو مجتمع ليبي واعٍ، مبني على نصائح صحية معتمدة.</p>
+            <span class="hero-eyebrow" data-i18n="hero.eyebrow"><i class="fas fa-check-circle me-1"></i> نصائح موثوقة ومحدّثة يومياً بالذكاء الاصطناعي تحت إشراف متخصص</span>
+            <h1 data-i18n="hero.title">أثر صحي | Impact Health</h1>
+            <p data-i18n="hero.subtitle"> نحو مجتمع ليبي واعٍ، مبني على نصائح صحية معتمدة.</p>
+            <p class="lang-note" style="max-width:520px; margin:15px auto 0;"><i class="fas fa-circle-info me-1"></i> Interface labels are shown in English. Health tips & news are AI-generated in Arabic and remain untranslated.</p>
         </div>
         <a href="#about" class="hero-scroll-cue" aria-label="انتقل للأسفل"><i class="fas fa-chevron-down"></i></a>
     </section>
@@ -561,23 +845,23 @@
         <div class="container px-4">
             <div class="text-center mb-5">
                 <span class="section-eyebrow"><i class="fas fa-user-graduate"></i> تعرّف على المنصة</span><br>
-                <h2 class="fw-bold text-success" style="font-size: 2.5rem;">من نحن؟</h2>
+                <h2 class="fw-bold text-success" style="font-size: 2.5rem;" data-i18n="about.title">من نحن؟</h2>
                 <div style="width: 70px; height: 5px; background: var(--main-green); margin: 10px auto; border-radius: 10px;"></div>
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    "أثر صحي" هي منصة أكاديمية متخصصة يشرف عليها محمد جلال النفاتي، طالب ماجستير في الصحة العامة. نلتزم بنشر الوعي الصحي الموثوق والمبني على أحدث الأبحاث العلمية، مع التركيز على مجالات الصحة العامة، مكافحة العدوى، سلامة الأغذية، ومقاومة البكتيريا للمضادات الحيوية. كما نقدم دعماً أكاديمياً بتوفير أحدث الأبحاث، ونبرز الدور المحوري للفحوصات المخبرية الدقيقة في التشخيص والوقاية الفعالة. هدفنا تمكين المجتمع الليبي بمعلومات صحية معتمدة.
+                    "أثر صحي" منصة أكاديمية متخصصة تحت إشراف محمد جلال النفاتي، طالب ماجستير في الصحة العامة. نلتزم بنشر الوعي الصحي الموثوق والمستند إلى أحدث الأبحاث العلمية. نركز على مجالات الصحة العامة، مكافحة العدوى، سلامة الغذاء، ومقاومة المضادات الحيوية. ندعم أيضاً الجانب الأكاديمي بتوفير أحدث الأبحاث، ونسلط الضوء على دور الفحوصات المخبرية الدقيقة في التشخيص والوقاية الفعالة.
                 </p>
             </div>
         </div>
     </section>
 
     <!-- قسم آخر الأخبار الصحية المحلية والعالمية -->
-    <section id="health-news" class="reveal" style="background-color: #f4f7f6;">
+    <section id="health-news" class="reveal" style="background-color: var(--section-alt-bg);">
         <div class="container px-4">
             <div class="text-center mb-5">
                 <span class="section-eyebrow"><i class="fas fa-newspaper"></i> تحديث تلقائي دوري</span><br>
-                <h2 class="fw-bold text-success mb-0">آخر الأخبار الصحية المحلية والعالمية</h2>
+                <h2 class="fw-bold text-success mb-0" data-i18n="news.title">آخر الأخبار الصحية المحلية والعالمية</h2>
             </div>
             <div class="news-container">
                 <div id="news-list">
@@ -587,51 +871,11 @@
         </div>
     </section>
 
-    <!-- قسم البودكاست الصحي -->
-    <section id="podcast" class="reveal">
-        <div class="container px-4">
-            <div class="text-center mb-5">
-                <span class="section-eyebrow"><i class="fas fa-podcast"></i> استمع وتوعّى</span><br>
-                <h2 class="fw-bold text-success mb-0">بودكاست صحي: جرعة زائدة</h2>
-            </div>
-            <div class="podcast-container">
-                <h3 class="fw-bold mb-4">جرعة زائدة: لماذا يجب أن نفكر مرتين قبل تناول المضادات الحيوية؟</h3>
-                <audio controls class="podcast-player">
-                    <source src="https://archive.org/download/eleven-labs-2026-06-06-t-12-59-18-roger-laid-back-casual-resonant-pre-sp-100-s-50-sb-75-se-0-b-m-2/eleven_labs_2026-06-06T12_59_18_Roger_laid-back_casual_resonant_pre_sp_100_s_50_sb_75_se_0_b_m2.mp3" type="audio/mpeg">
-                    متصفحك لا يدعم عنصر الصوت.
-                </audio>
-                <div class="podcast-transcript">
-                    <h4>نص الحلقة:</h4>
-                    <p>أهلاً بكم يا أصدقاء الصحة، في حلقة جديدة من بودكاست "أثر صحي"! هل سبق لك أن شعرت بالمرض وركضت للصيدلية لتطلب مضاداً حيوياً دون استشارة الطبيب؟ إذا كانت إجابتك نعم، فأنت لست وحدك، ولكن هذا السلوك يحمل مخاطر كبيرة لا تدركها. تخيلوا معي، البكتيريا ذكية وتتطور بسرعة. عندما نفرط في استخدام المضادات الحيوية أو نستخدمها بشكل خاطئ، فإننا نمنح البكتيريا فرصة لتصبح أقوى وتتغلب على هذه الأدوية. وهذا ما نسميه "مقاومة المضادات الحيوية".</p>
-                    <p>منظمة الصحة العالمية تحذرنا باستمرار: مقاومة المضادات الحيوية هي الآن أحد أكبر التهديدات للصحة العالمية! هذه المقاومة تعني أن العدوى البسيطة التي كنا نعالجها بسهولة قد تصبح خطيرة، وقد تؤدي إلى إقامة أطول في المستشفى، أو حتى الوفاة. الأمر ليس فقط عن صحتك، بل عن صحة المجتمع بأكمله. تخيلوا أننا نصل إلى مرحلة لا تعمل فيها الأدوية الأساسية.</p>
-                    <p>ما الحل إذن؟ ببساطة: لا تتناول المضادات الحيوية إلا بوصفة طبية محددة. التزم بجرعة العلاج كاملة، حتى لو شعرت بالتحسن. ولا تشارك أدويتك مع الآخرين أبداً. كلما كنا أكثر وعياً وحرصاً، كلما حمينا أنفسنا ومجتمعاتنا. تذكروا، المضادات الحيوية ليست حلاً لكل مرض، خاصة نزلات البرد والإنفلونزا التي تسببها الفيروسات ولا تتأثر بالمضادات. فكروا بذكاء، وعيشوا بصحة!</p>
-
-                    <h4>النقاط الرئيسية من الحلقة:</h4>
-                    <ul>
-                        <li>**المقدمة**: سوء استخدام المضادات الحيوية عادة شائعة ومحفوفة بالمخاطر.</li>
-                        <li>**خطر مقاومة المضادات الحيوية**: الإفراط والاستخدام الخاطئ يمنح البكتيريا فرصة للتطور والمقاومة.</li>
-                        <li>**تحذير منظمة الصحة العالمية**: المقاومة تهديد عالمي يجعل العدوى البسيطة خطيرة.</li>
-                        <li>**التأثير المجتمعي**: صحة المجتمع ككل في خطر إذا فقدت الأدوية فعاليتها.</li>
-                        <li>**الحل والوقاية**:
-                            <ul>
-                                <li>تناول المضادات الحيوية **بوصفة طبية فقط**.</li>
-                                <li>**أكمل جرعة العلاج كاملة**.</li>
-                                <li>**لا تشارك** أدويتك مع الآخرين أبداً.</li>
-                                <li>**ليست لكل مرض**: الفيروسات (كالبرد) لا تتأثر بالمضادات.</li>
-                            </ul>
-                        </li>
-                        <li>**نصيحة عملية**: فكر بذكاء قبل استخدام المضادات الحيوية لحماية صحتك وصحة من حولك.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="updates" class="reveal" style="background-color: #f4f7f6;">
+    <section id="updates" class="reveal" style="background-color: var(--section-alt-bg);">
         <div class="container px-4">
             <div class="text-center mb-5">
                 <span class="section-eyebrow"><i class="fas fa-robot"></i> يُحدَّث يومياً بالذكاء الاصطناعي</span><br>
-                <h2 class="fw-bold mb-0">التوعية الصحية الذكية</h2>
+                <h2 class="fw-bold mb-0" data-i18n="updates.title">التوعية الصحية الذكية</h2>
             </div>
             <div class="updates-container">
                 <div id="current-tips-list">
@@ -639,7 +883,7 @@
                     <p class="text-center text-muted">جاري تحميل أحدث التحديثات العلمية...</p>
                     <div class="tip-card" data-tip-id="dummy-tip-1" style="border-right-color: #198754">
                         <div class="d-flex justify-content-between align-items-start">
-                            <h5 class="fw-bold" style="color:#222">أهمية غسل اليدين للوقاية من العدوى</h5>
+                            <h5 class="fw-bold" style="color:var(--text-strong)">أهمية غسل اليدين للوقاية من العدوى</h5>
                             <span style="font-size:1.5rem">💡</span>
                         </div>
                         <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">غسل اليدين بالماء والصابون لمدة 20 ثانية يقتل الجراثيم ويمنع انتشار الأمراض.</p>
@@ -676,11 +920,11 @@
     </section>
 
     <!-- مكتبة الأبحاث -->
-    <section id="research-library" class="reveal" style="background-color: #f4f7f6;">
+    <section id="research-library" class="reveal" style="background-color: var(--section-alt-bg);">
         <div class="container px-4">
             <div class="text-center mb-5">
                 <span class="section-eyebrow"><i class="fas fa-book-medical"></i> مصادر أكاديمية موثوقة</span><br>
-                <h2 class="fw-bold text-success mb-0">مكتبة الأبحاث</h2>
+                <h2 class="fw-bold text-success mb-0" data-i18n="research.title">مكتبة الأبحاث</h2>
             </div>
 
             <!-- قسم المصادر الموثوقة -->
@@ -737,23 +981,23 @@
     </section>
 
     <!-- المتجر -->
-    <section id="faq" class="reveal" style="background-color: #fdfdfd;">
+    <section id="faq" class="reveal" style="background-color: var(--section-white-bg);">
         <div class="container px-4" style="max-width: 850px;">
             <div class="text-center mb-2">
                 <span class="section-eyebrow"><i class="fas fa-question-circle"></i> إجابات سريعة</span>
             </div>
-            <h2 class="text-center fw-bold mb-2 text-success">الأسئلة الشائعة</h2>
+            <h2 class="text-center fw-bold mb-2 text-success" data-i18n="faq.title">الأسئلة الشائعة</h2>
             <p class="text-center text-muted mb-5">إجابات موثوقة على أكثر الأسئلة تكراراً حول مكافحة العدوى والوقاية</p>
             <div id="faq-list"></div>
         </div>
     </section>
 
-    <section id="global-stats" class="reveal" style="background-color: #f4f7f6;">
+    <section id="global-stats" class="reveal" style="background-color: var(--section-alt-bg);">
         <div class="container px-4">
             <div class="text-center mb-2">
                 <span class="section-eyebrow"><i class="fas fa-chart-column"></i> بالأرقام</span>
             </div>
-            <h2 class="text-center fw-bold mb-2 text-success">مؤشرات صحية عالمية</h2>
+            <h2 class="text-center fw-bold mb-2 text-success" data-i18n="stats.title">مؤشرات صحية عالمية</h2>
             <p class="text-center text-muted mb-5">أرقام توضيحية لفهم حجم بعض التحديات الصحية حول العالم</p>
             <div class="row g-4" id="stats-cards"></div>
             <div class="stats-chart-wrap">
@@ -763,22 +1007,70 @@
         </div>
     </section>
 
-    <section id="quiz" class="reveal" style="background-color: #fdfdfd;">
+    <section id="quiz" class="reveal" style="background-color: var(--section-white-bg);">
         <div class="container px-4">
             <div class="text-center mb-2">
                 <span class="section-eyebrow"><i class="fas fa-graduation-cap"></i> اختبار تفاعلي</span>
             </div>
-            <h2 class="text-center fw-bold mb-2 text-success">اختبر معلوماتك</h2>
+            <h2 class="text-center fw-bold mb-2 text-success" data-i18n="quiz.title">اختبر معلوماتك</h2>
             <p class="text-center text-muted mb-5">اختبار توعوي قصير من 5 أسئلة عن مكافحة العدوى والصحة العامة</p>
             <div class="quiz-card" id="quiz-container"></div>
         </div>
     </section>
 
-    <section id="newsletter" class="reveal" style="background-color: #f4f7f6;">
+    <section id="stress-immunity" class="reveal" style="background-color: var(--section-alt-bg);">
+        <div class="container px-4">
+            <div class="text-center mb-2">
+                <span class="section-eyebrow"><i class="fas fa-brain"></i> صحة نفسية وجسدية</span>
+            </div>
+            <h2 class="text-center fw-bold mb-2 text-success" data-i18n="stress.title">التوتر وتأثيره على المناعة</h2>
+            <p class="text-center text-muted mb-5">فهم العلاقة العلمية بين الحالة النفسية وقدرة الجسم على المقاومة</p>
+            <div class="row g-4 align-items-stretch">
+                <div class="col-lg-7">
+                    <div class="stress-card h-100">
+                        <h5><i class="fas fa-flask me-2"></i>ماذا يحدث علمياً؟</h5>
+                        <p class="text-muted" style="line-height: 1.9;">
+                            عند التعرض للتوتر المستمر، يفرز الجسم هرمون الكورتيزول بمعدلات مرتفعة لفترات طويلة، وهو ما يُضعف تدريجياً استجابة الجهاز المناعي ويقلل من كفاءة خلايا الدفاع الطبيعية في مقاومة العدوى. كما يرتبط التوتر المزمن بزيادة الالتهابات الداخلية، وبطء التعافي من الأمراض، واضطراب أنماط النوم التي تُعد بدورها ضرورية لتجديد الجهاز المناعي.
+                        </p>
+                        <p class="text-muted" style="line-height: 1.9;">
+                            الخبر الجيد أن هذا التأثير قابل للعكس جزئياً من خلال ممارسات بسيطة ومنتظمة: النوم الكافي، النشاط البدني المعتدل، التواصل الاجتماعي الداعم، وتقنيات الاسترخاء مثل التنفس العميق.
+                        </p>
+                        <div class="stress-disclaimer">
+                            <i class="fas fa-circle-info me-1"></i> هذا المحتوى تثقيفي عام وليس بديلاً عن استشارة مختص نفسي أو طبي. إذا شعرت أن التوتر يؤثر بشكل كبير على حياتك اليومية، يُنصح بالتحدث مع مختص مؤهل.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="breathing-box h-100 d-flex flex-column justify-content-center">
+                        <h6 class="fw-bold mb-1">جرّب تمرين تنفس قصير</h6>
+                        <p class="text-muted small mb-0">تقنية 4-4-4 لتهدئة الجهاز العصبي</p>
+                        <div class="breathing-circle" id="breathingCircle">ابدأ</div>
+                        <p class="fw-bold" id="breathingLabel" style="min-height: 24px;">اضغط زر البدء</p>
+                        <button type="button" class="btn btn-success rounded-pill px-4 mx-auto" style="width: fit-content;" onclick="toggleBreathingExercise()" id="breathingBtn">
+                            <i class="fas fa-play me-1"></i> ابدأ التمرين
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="infographics" class="reveal" style="background-color: var(--section-white-bg);">
+        <div class="container px-4">
+            <div class="text-center mb-2">
+                <span class="section-eyebrow"><i class="fas fa-images"></i> جاهزة للمشاركة</span>
+            </div>
+            <h2 class="text-center fw-bold mb-2 text-success" data-i18n="infographics.title">معرض الإنفوجرافيك التوعوي</h2>
+            <p class="text-center text-muted mb-5">صمّم لتنزيلها ومشاركتها على وسائل التواصل الاجتماعي مجاناً</p>
+            <div class="row g-4" id="infographics-gallery"></div>
+        </div>
+    </section>
+
+    <section id="newsletter" class="reveal" style="background-color: var(--section-alt-bg);">
         <div class="container px-4">
             <div class="newsletter-box">
                 <i class="fas fa-envelope-open-text fa-2x mb-3"></i>
-                <h2 class="fw-bold">اشترك في النصائح اليومية</h2>
+                <h2 class="fw-bold" data-i18n="newsletter.title">اشترك في النصائح اليومية</h2>
                 <p class="mb-0">احصل على أحدث النصائح الصحية والتوعوية في بريدك أول بأول</p>
                 <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletterSubmit(event)">
                     <input type="email" id="newsletterEmail" placeholder="بريدك الإلكتروني" required>
@@ -794,7 +1086,7 @@
         <div class="container px-4">
             <div class="text-center mb-5">
                 <span class="section-eyebrow"><i class="fas fa-shopping-bag"></i> قريباً</span><br>
-                <h2 class="fw-bold text-success mb-0">متجر المستلزمات</h2>
+                <h2 class="fw-bold text-success mb-0" data-i18n="store.title">متجر المستلزمات</h2>
             </div>
             <div class="row g-4">
                 <div class="col-12 col-md-4">
@@ -874,6 +1166,7 @@
                 content: "التقنيات الحديثة تتيح اكتشاف الأمراض المزمنة مثل السكري وأمراض القلب في مراحلها الأولية، مما يعزز فرص العلاج الفعال والوقاية من المضاعفات.",
                 fullContent: "كشفت الدراسات الحديثة عن طفرات نوعية في تقنيات التشخيص المبكر للأمراض غير المعدية، مثل استخدام الذكاء الاصطناعي في تحليل الصور الطبية وتطوير فحوصات دم أكثر دقة للكشف عن المؤشرات الحيوية المبكرة للسكري، أمراض القلب، وحتى بعض أنواع السرطان. هذه الابتكارات تفتح آفاقاً جديدة للتدخل الوقائي والعلاجي، مما يساهم بشكل كبير في تحسين نوعية حياة المرضى وتقليل العبء على أنظمة الرعاية الصحية. يشمل ذلك أيضاً تطوير تطبيقات صحية ذكية تساعد الأفراد على مراقبة حالتهم الصحية بانتظام وتلقي النصائح الوقائية المخصصة بناءً على بياناتهم الشخصية.",
                 image: "https://images.unsplash.com/photo-1629904853716-f0bc596041a3?w=1200&auto=format&fit=crop&q=80", // صورة تعبر عن التشخيص، مجهر، أو فحص دم
+                category: "تشخيص مبكر", icon: "fa-microscope",
                 source: "مراكز البحوث الطبية"
             },
             {
@@ -882,6 +1175,7 @@
                 content: "جهود مكثفة لزيادة الوعي بأهمية الغذاء المتوازن وتحسين الممارسات الغذائية تسفر عن نتائج إيجابية في المجتمعات الريفية.",
                 fullContent: "أطلقت المنظمات الصحية المحلية في العديد من المناطق الريفية حملات توعية مكثفة تركز على أهمية الغذاء المتوازن، التنوع الغذائي، وكيفية الاستفادة القصوى من الموارد المحلية المتاحة. تضمنت هذه الحملات ورش عمل تفاعلية، جلسات إرشاد حول التغذية السليمة للأطفال والنساء الحوامل، وتوزيع مواد تثقيفية. وقد أظهرت النتائج الأولية لهذه الحملات تحسناً ملحوظاً في المعرفة بالممارسات الغذائية الصحية وانخفاضاً في معدلات سوء التغذية، مما يعكس الأثر الإيجابي للتدخلات المجتمعية الموجهة.",
                 image: "https://images.unsplash.com/photo-1542838186-b4859a8523c9?w=1200&auto=format&fit=crop&q=80", // صورة تعبر عن التوعية والغذاء في مجتمع
+                category: "تغذية وتوعية", icon: "fa-apple-whole",
                 source: "المنظمات الصحية المحلية"
             },
             {
@@ -890,14 +1184,16 @@
                 content: "الدروس المستفادة من الجوائح السابقة تسلط الضوء على ضرورة بناء أنظمة صحية مرنة وقادرة على الاستجابة السريعة لأي تهديدات وبائية مستقبلية.",
                 fullContent: "في ضوء الخبرات المكتسبة من الجوائح العالمية، بات من الضروري تعزيز استراتيجيات التأهب للأوبئة المستقبلية. يشمل ذلك تطوير أنظمة رصد وبائي متقدمة، تعزيز القدرات المخبرية للكشف السريع عن مسببات الأمراض، وتأمين سلاسل إمداد مستدامة للمعدات الطبية واللقاحات. كما تتطلب هذه الاستراتيجيات بناء كوادر صحية مدربة ومؤهلة، وتفعيل برامج توعية مجتمعية لضمان استجابة سريعة وفعالة في حال ظهور أي تهديدات صحية جديدة، مع التركيز على التعاون الدولي وتبادل الخبرات.",
                 image: "https://images.unsplash.com/photo-1584036561580-f00e6205cf39?w=1200&auto=format&fit=crop&q=80", // صورة تعبر عن الوباء والوقاية والاستعداد
+                category: "تأهب وبائي", icon: "fa-shield-virus",
                 source: "خبراء الصحة العامة"
             },
             {
                 id: 4,
                 title: "الابتكارات في علاج أمراض القلب والأوعية الدموية",
                 content: "تشهد الأبحاث الطبية تطورات ملحوظة في أساليب علاج أمراض القلب، من الأدوية الجديدة إلى التقنيات الجراحية الأقل توغلاً.",
-                fullContent: "تواصل الأوساط العلمية تحقيق إنجازات كبيرة في مجال أمراض القلب والأوعية الدموية. فقد تم الكشف عن أدوية جديدة تستهدف آليات مرضية محددة، مما يوفر خيارات علاجية أكثر فعالية وأقل آثاراً جانبية. بالإضافة إلى ذلك، تشهد الجراحات القلبية تطوراً نحو الإجراءات الأقل توغلاً التي تقلل من فترة التعافي والمخاطر المرتبطة بالعمليات الكبرى، مثل القسطرة العلاجية والتدخلات عبر الجلد. هذه الت Developments لا تقتصر على العلاج فحسب، بل تمتد لتشمل تحسين أدوات التشخيص والمتابعة، مما يساهم في إدارة أفضل لحالات المرضى المزمنة.",
+                fullContent: "تواصل الأوساط العلمية تحقيق إنجازات كبيرة في مجال أمراض القلب والأوعية الدموية. فقد تم الكشف عن أدوية جديدة تستهدف آليات مرضية محددة، مما يوفر خيارات علاجية أكثر فعالية وأقل آثاراً جانبية. بالإضافة إلى ذلك، تشهد الجراحات القلبية تطوراً نحو الإجراءات الأقل توغلاً التي تقلل من فترة التعافي والمخاطر المرتبطة بالعمليات الكبرى، مثل القسطرة العلاجية والتدخلات عبر الجلد. هذه التطورات لا تقتصر على العلاج فحسب، بل تمتد لتشمل تحسين أدوات التشخيص والمتابعة، مما يساهم في إدارة أفضل لحالات المرضى المزمنة.",
                 image: "https://images.unsplash.com/photo-1579684385135-67380ba79d1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
+                category: "صحة القلب", icon: "fa-heart-pulse",
                 source: "معهد القلب العالمي"
             },
             {
@@ -906,6 +1202,7 @@
                 content: "دراسات حديثة تبحث العلاقة بين الاستخدام المفرط للأجهزة الرقمية وتأثيراته على الصحة النفسية والعقلية للمراهقين.",
                 fullContent: "باتت العلاقة بين الاستخدام المتزايد للتكنولوجيا والصحة النفسية للمراهقين موضوعاً محورياً للبحث العلمي. تُظهر الدراسات الحديثة أن الاستخدام المفرط للأجهزة الرقمية، وخاصة وسائل التواصل الاجتماعي، يمكن أن يؤثر على جودة النوم، يزيد من مستويات القلق والاكتئاب، ويؤثر على تقدير الذات. ومع ذلك, تشير بعض الأبحاث إلى أن التكنولوجيا يمكن أن تكون أداة إيجابية للدعم الاجتماعي والتواصل إذا تم استخدامها باعتدال وبطرق بناءة. ينصح الخبراء بوضع إرشادات واضحة لاستخدام الشاشات وتشجيع الأنشطة غير الرقمية لتحقيق توازن صحي.",
                 image: "https://images.unsplash.com/photo-1520696956272-d599540c11d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
+                category: "صحة نفسية", icon: "fa-brain",
                 source: "المعهد الوطني للصحة النفسية"
             },
              {
@@ -914,6 +1211,7 @@
                 content: "التلقيح يظل من أنجع الطرق وأكثرها فعالية للوقاية من مجموعة واسعة من الأمراض المعدية وحماية صحة الفرد والمجتمع.",
                 fullContent: "التلقيح يمثل حجر الزاوية في استراتيجيات الصحة العامة العالمية، وقد أثبت فعاليته في القضاء على أمراض كانت تهدد الحياة سابقًا أو الحد من انتشارها بشكل كبير. فكل لقاح يعمل على تدريب الجهاز المناعي للجسم للتعرف على مسببات الأمراض ومكافحتها، مما يقلل من خطر الإصابة بالمرض أو يقلل من شدته في حال الإصابة. تشجع منظمة الصحة العالمية والعديد من الجهات الصحية العالمية على الالتزام ببرامج التلقيح الوطنية لضمان حماية شاملة للمجتمعات، خاصة الفئات الأكثر عرضة للخطر مثل الأطفال وكبار السن.",
                 image: "https://images.unsplash.com/photo-1584820980695-a2262a637508?w=1200&auto=format&fit=crop&q=80", // صورة عن التطعيم/اللقاحات
+                category: "تحصين ولقاحات", icon: "fa-syringe",
                 source: "منظمة الصحة العالمية"
             },
             {
@@ -922,6 +1220,7 @@
                 content: "دراسات حديثة تربط بين ارتفاع مستويات تلوث الهواء وزيادة أمراض الجهاز التنفسي مثل الربو والتهاب الشعب الهوائية المزمن.",
                 fullContent: "يتزايد القلق العالمي حول تأثير التلوث البيئي، وخاصة تلوث الهواء، على صحة الجهاز التنفسي. فقد أظهرت الأبحاث أن التعرض المستمر للملوثات الدقيقة، مثل الجسيمات العالقة وأكاسيد النيتروجين، يمكن أن يؤدي إلى تفاقم أمراض الجهاز التنفسي المزمنة مثل الربو ومرض الانسداد الرئوي المزمن (COPD)، وقد يزيد أيضًا من خطر الإصابة بالالتهابات الرئوية. تدعو المنظمات البيئية والصحية إلى تبني سياسات أكثر صرامة للحد من الانبعاثات الصناعية والمرورية وتحسين جودة الهواء في المناطق الحضرية لحماية صحة السكان.",
                 image: "https://images.unsplash.com/photo-1554907973-c15c328f4207?w=1200&auto=format&fit=crop&q=80", // صورة عن تلوث الهواء والتنفس
+                category: "صحة بيئية", icon: "fa-lungs",
                 source: "وكالة حماية البيئة"
             }
         ];
@@ -1074,6 +1373,8 @@
             currentItems.forEach(item => { if(currentContainer) currentContainer.innerHTML += buildTipCard(item); });
             archiveItems.forEach(item => { if(archiveContainer) archiveContainer.innerHTML += buildTipCard(item); });
 
+            window.siteAllTipsData = uniqueData; // متاحة للبحث الفوري وميزة المفضلة
+
             // If athar_awareness_data.json was empty or only had a few items, ensure dummy is there
             if (uniqueData.length === 0 && currentContainer.innerHTML === '') {
                  currentContainer.innerHTML = buildTipCard(dummyAwarenessData[0]);
@@ -1098,15 +1399,22 @@
             const tipDate = item.date ? item.date : ''; // Display date if available
 
             return `
-                <div class="tip-card" data-tip-id="${uniqueTipId}" style="border-right-color: ${borderCol}">
+                <div class="tip-card" data-tip-id="${uniqueTipId}" style="border-right-color: ${borderCol}; position: relative;">
+                    <button type="button" class="fav-btn" data-fav-id="${uniqueTipId}" onclick="toggleFavorite(this, 'tip', '${uniqueTipId}', '${escapedTitle}', '${escapedContent}')" aria-label="حفظ في المفضلة">
+                        <i class="fas fa-heart"></i>
+                    </button>
                     <div class="d-flex justify-content-between align-items-start">
-                        <h5 class="fw-bold" style="color:#222">${item.title}</h5>
+                        <h5 class="fw-bold" style="color:var(--text-strong)">${item.title}</h5>
                         <span style="font-size:1.5rem">${icon}</span>
                     </div>
                     <p class="text-muted mb-3" style="font-size:0.95rem; line-height:1.4;">${item.content}</p>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <span class="source-label"> المصدر: ${item.source || 'أثر صحي'}${item.category ? ' - ' + item.category : ''}</span>
                         <small class="text-muted" style="font-size:0.75rem">${tipDate}</small>
+                    </div>
+                    <div class="card-actions-row">
+                        <button type="button" class="tts-btn" onclick="speakText(this, '${escapedTitle}. ${escapedContent}')"><i class="fas fa-volume-high"></i> استماع</button>
+                        <button type="button" class="pdf-btn" onclick="exportToPDF('${escapedTitle}', '${escapedContent}', '${item.source || 'أثر صحي'}')"><i class="fas fa-file-pdf"></i> PDF</button>
                     </div>
                     <div class="d-flex justify-content-end gap-2 mt-2">
                         <button type="button" class="btn btn-secondary btn-sm rounded-pill px-3" onclick="copyTip(this, '${escapedTitle}', '${escapedContent}')">
@@ -1368,8 +1676,17 @@
                 <div class="row g-4">
                     ${healthNewsData.map(news => `
                         <div class="col-12 col-md-4">
-                            <div class="card h-100 border-0 shadow-sm" style="border-radius: 20px; overflow: hidden;">
-                                <img src="${news.image}" class="card-img-top" alt="${news.title}" loading="lazy" style="height: 200px; object-fit: cover; background:#eef3f1;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&auto=format&fit=crop&q=80';">
+                            <div class="card h-100 border-0 shadow-sm" style="border-radius: 20px; overflow: hidden; position: relative;">
+                                <button type="button" class="fav-btn" data-fav-id="news-${news.id}" onclick="toggleFavorite(this, 'news', 'news-${news.id}', '${news.title.replace(/'/g, "\\'")}', '${news.content.replace(/'/g, "\\'")}')" aria-label="حفظ في المفضلة">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <div class="news-img-wrap">
+                                    <img src="${news.image}" alt="${news.title}" loading="lazy" onerror="this.closest('.news-img-wrap').classList.add('img-failed')">
+                                    <div class="news-img-fallback">
+                                        <i class="fas ${news.icon || 'fa-notes-medical'}"></i>
+                                        <span>${news.category || 'أخبار صحية'}</span>
+                                    </div>
+                                </div>
                                 <div class="card-body text-end d-flex flex-column justify-content-between">
                                     <div>
                                         <h5 class="card-title fw-bold text-dark">${news.title}</h5>
@@ -1377,6 +1694,7 @@
                                         <div class="news-full-content text-muted small" data-news-id="${news.id}" style="display: none;">
                                             <p>${news.fullContent}</p>
                                         </div>
+                                        <button type="button" class="tts-btn mt-2" onclick="speakText(this, '${news.title.replace(/'/g, "\\'")}. ${news.content.replace(/'/g, "\\'")}')"><i class="fas fa-volume-high"></i> استماع</button>
                                     </div>
                                     <div class="mt-3">
                                         <hr class="text-muted opacity-25">
@@ -1561,6 +1879,306 @@
             }
         }
 
+        // ==================== الوضع الليلي ====================
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            const btn = document.getElementById('themeToggleBtn');
+            if (btn) btn.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            localStorage.setItem('ih-theme', theme);
+        }
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+            applyTheme(current === 'dark' ? 'light' : 'dark');
+        }
+        function initTheme() {
+            const saved = localStorage.getItem('ih-theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(saved || (prefersDark ? 'dark' : 'light'));
+        }
+
+        // ==================== البحث الفوري ====================
+        function toggleSearchPanel() {
+            const panel = document.getElementById('searchPanel');
+            panel.classList.toggle('open');
+            if (panel.classList.contains('open')) {
+                document.getElementById('favoritesPanel').classList.remove('open');
+                setTimeout(() => document.getElementById('siteSearchInput').focus(), 100);
+            }
+        }
+        function buildSearchIndex() {
+            const index = [];
+            (window.siteAllTipsData || []).forEach(t => index.push({ type: 'نصيحة', icon: 'fa-lightbulb', title: t.title, snippet: t.content, anchor: '#updates' }));
+            (typeof healthNewsData !== 'undefined' ? healthNewsData : []).forEach(n => index.push({ type: 'خبر', icon: 'fa-newspaper', title: n.title, snippet: n.content, anchor: '#health-news' }));
+            (typeof faqData !== 'undefined' ? faqData : []).forEach(f => index.push({ type: 'سؤال شائع', icon: 'fa-question-circle', title: f.q, snippet: f.a, anchor: '#faq' }));
+            return index;
+        }
+        function performSiteSearch(query) {
+            const resultsEl = document.getElementById('searchResults');
+            const q = query.trim().toLowerCase();
+            if (q.length < 2) {
+                resultsEl.innerHTML = '<div class="search-empty-state">اكتب حرفين على الأقل للبحث...</div>';
+                return;
+            }
+            const index = buildSearchIndex();
+            const matches = index.filter(item => item.title.toLowerCase().includes(q) || item.snippet.toLowerCase().includes(q)).slice(0, 20);
+            if (matches.length === 0) {
+                resultsEl.innerHTML = '<div class="search-empty-state"><i class="fas fa-search fa-lg mb-2 d-block"></i> لا توجد نتائج مطابقة</div>';
+                return;
+            }
+            resultsEl.innerHTML = matches.map(m => `
+                <a class="search-result-item" onclick="toggleSearchPanel(); document.querySelector('${m.anchor}').scrollIntoView({behavior:'smooth'});">
+                    <span class="sr-tag"><i class="fas ${m.icon} me-1"></i>${m.type}</span>
+                    <span class="sr-title">${m.title}</span>
+                    <span class="sr-snippet">${m.snippet.substring(0, 90)}...</span>
+                </a>
+            `).join('');
+        }
+
+        // ==================== المفضلة ====================
+        function getFavorites() {
+            try { return JSON.parse(localStorage.getItem('ih-favorites') || '[]'); } catch (e) { return []; }
+        }
+        function saveFavorites(list) { localStorage.setItem('ih-favorites', JSON.stringify(list)); }
+        function toggleFavorite(btnEl, type, id, title, content) {
+            let list = getFavorites();
+            const exists = list.find(f => f.id === id);
+            if (exists) {
+                list = list.filter(f => f.id !== id);
+                btnEl.classList.remove('active');
+            } else {
+                list.push({ id, type, title, content, savedAt: new Date().toISOString() });
+                btnEl.classList.add('active');
+            }
+            saveFavorites(list);
+            markFavoriteButtons();
+        }
+        function markFavoriteButtons() {
+            const list = getFavorites();
+            document.querySelectorAll('.fav-btn').forEach(btn => {
+                const id = btn.getAttribute('data-fav-id');
+                btn.classList.toggle('active', list.some(f => f.id === id));
+            });
+        }
+        function toggleFavoritesPanel() {
+            const panel = document.getElementById('favoritesPanel');
+            panel.classList.toggle('open');
+            if (panel.classList.contains('open')) {
+                document.getElementById('searchPanel').classList.remove('open');
+                renderFavoritesList();
+            }
+        }
+        function renderFavoritesList() {
+            const list = getFavorites();
+            const el = document.getElementById('favoritesList');
+            if (list.length === 0) {
+                el.innerHTML = '<div class="search-empty-state"><i class="fas fa-heart-crack fa-lg mb-2 d-block"></i>لا توجد عناصر محفوظة بعد. اضغط أيقونة القلب على أي نصيحة أو خبر لحفظها.</div>';
+                return;
+            }
+            el.innerHTML = list.map(f => `
+                <div class="search-result-item" style="cursor: default;">
+                    <span class="sr-tag">${f.type === 'tip' ? 'نصيحة محفوظة' : 'خبر محفوظ'}</span>
+                    <span class="sr-title">${f.title}</span>
+                    <span class="sr-snippet">${f.content.substring(0, 90)}...</span>
+                    <div class="card-actions-row mt-2">
+                        <button type="button" class="pdf-btn" onclick="exportToPDF('${f.title.replace(/'/g, "\\'")}', '${f.content.replace(/'/g, "\\'")}', 'أثر صحي')"><i class="fas fa-file-pdf"></i> PDF</button>
+                        <button type="button" class="pdf-btn" onclick="removeFavorite('${f.id}')"><i class="fas fa-trash"></i> إزالة</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        function removeFavorite(id) {
+            saveFavorites(getFavorites().filter(f => f.id !== id));
+            renderFavoritesList();
+            markFavoriteButtons();
+        }
+
+        // ==================== القراءة الصوتية (Text-to-Speech) ====================
+        let currentUtterance = null;
+        function speakText(btnEl, text) {
+            if (!('speechSynthesis' in window)) { alert('متصفحك لا يدعم القراءة الصوتية.'); return; }
+            if (currentUtterance && speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+                document.querySelectorAll('.tts-btn.speaking').forEach(b => { b.classList.remove('speaking'); b.innerHTML = '<i class="fas fa-volume-high"></i> استماع'; });
+                if (currentUtterance.__btn === btnEl) { currentUtterance = null; return; }
+            }
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'ar-SA';
+            utter.rate = 0.95;
+            utter.__btn = btnEl;
+            utter.onstart = () => { btnEl.classList.add('speaking'); btnEl.innerHTML = '<i class="fas fa-stop"></i> إيقاف'; };
+            utter.onend = () => { btnEl.classList.remove('speaking'); btnEl.innerHTML = '<i class="fas fa-volume-high"></i> استماع'; currentUtterance = null; };
+            currentUtterance = utter;
+            speechSynthesis.speak(utter);
+        }
+
+        // ==================== تصدير PDF ====================
+        function exportToPDF(title, content, source) {
+            if (!window.jspdf) { alert('تعذر تحميل أداة تصدير PDF، تحقق من الاتصال بالإنترنت.'); return; }
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(14);
+            doc.text('Impact Health - Athar Sehy', 105, 15, { align: 'center' });
+            doc.setDrawColor(25, 135, 84);
+            doc.line(20, 20, 190, 20);
+            doc.setFontSize(12);
+            const splitTitle = doc.splitTextToSize(title, 170);
+            doc.text(splitTitle, 190, 35, { align: 'right' });
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            const splitContent = doc.splitTextToSize(content, 170);
+            doc.text(splitContent, 190, 50, { align: 'right' });
+            doc.setFontSize(9);
+            doc.setTextColor(120);
+            doc.text('Source: ' + source, 190, 280, { align: 'right' });
+            doc.save('impact-health-tip.pdf');
+        }
+
+        // ==================== إعدادات الإتاحة ====================
+        function toggleA11yPanel() { document.getElementById('a11yPanel').classList.toggle('open'); }
+        function adjustFontSize(step) {
+            let level = parseInt(localStorage.getItem('ih-font-level') || '0');
+            level = step === 0 ? 0 : Math.max(0, Math.min(2, level + step));
+            document.documentElement.setAttribute('data-font-size', level);
+            localStorage.setItem('ih-font-level', level);
+        }
+        function toggleHighContrast(checked) {
+            document.documentElement.classList.toggle('high-contrast', checked);
+            localStorage.setItem('ih-high-contrast', checked ? '1' : '0');
+        }
+        function initA11y() {
+            const level = localStorage.getItem('ih-font-level');
+            if (level) document.documentElement.setAttribute('data-font-size', level);
+            const hc = localStorage.getItem('ih-high-contrast') === '1';
+            document.getElementById('highContrastToggle').checked = hc;
+            document.documentElement.classList.toggle('high-contrast', hc);
+        }
+
+        // ==================== تبديل اللغة (واجهة فقط، المحتوى المولّد بالذكاء الاصطناعي يبقى عربياً) ====================
+        const i18nDict = {
+            en: {
+                'nav.home': 'Home', 'nav.about': 'About', 'nav.news': 'News', 'nav.updates': 'Smart Tips',
+                'nav.research': 'Research', 'nav.faq': 'FAQ', 'nav.stats': 'Stats', 'nav.quiz': 'Quiz',
+                'nav.stress': 'Stress & Immunity', 'nav.infographics': 'Infographics', 'nav.newsletter': 'Newsletter', 'nav.store': 'Store',
+                'hero.eyebrow': 'Trusted advice, updated daily by AI under expert supervision',
+                'hero.title': 'Impact Health | أثر صحي', 'hero.subtitle': 'Toward a health-aware Libyan community.',
+                'about.title': 'About Us', 'news.title': 'Latest Local & Global Health News', 'updates.title': 'Smart Health Awareness',
+                'research.title': 'Research Library', 'faq.title': 'Frequently Asked Questions', 'stats.title': 'Global Health Indicators',
+                'quiz.title': 'Test Your Knowledge', 'stress.title': 'Stress and Its Effect on Immunity', 'infographics.title': 'Shareable Infographics',
+                'newsletter.title': 'Subscribe to Daily Tips', 'store.title': 'Supplies Store'
+            },
+            ar: {}
+        };
+        function toggleLanguage() {
+            const isEn = document.documentElement.getAttribute('lang') === 'en';
+            applyLanguage(isEn ? 'ar' : 'en');
+        }
+        function applyLanguage(lang) {
+            document.documentElement.setAttribute('lang', lang);
+            document.getElementById('langToggleBtn').textContent = lang === 'en' ? 'ع' : 'EN';
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (lang === 'en' && i18nDict.en[key]) {
+                    if (!el.dataset.origAr) el.dataset.origAr = el.textContent;
+                    // احتفظ بالأيقونة الداخلية إن وجدت
+                    const icon = el.querySelector('i');
+                    el.textContent = i18nDict.en[key];
+                    if (icon) el.prepend(icon);
+                } else if (el.dataset.origAr) {
+                    const icon = el.querySelector('i');
+                    el.textContent = el.dataset.origAr;
+                    if (icon) el.prepend(icon);
+                }
+            });
+            localStorage.setItem('ih-lang', lang);
+        }
+        function initLanguage() {
+            applyLanguage(localStorage.getItem('ih-lang') || 'ar');
+        }
+
+        // ==================== معرض الإنفوجرافيك ====================
+        const infographicsData = [
+            { icon: 'fa-hands-bubbles', title: '20 ثانية تكفي', text: 'اغسل يديك بالماء والصابون لمدة 20 ثانية على الأقل لقتل الجراثيم المسببة للعدوى.', color: '#198754' },
+            { icon: 'fa-syringe', title: 'التطعيم يحمي الجميع', text: 'اللقاحات لا تحميك أنت فقط، بل تحمي من حولك عبر مناعة القطيع.', color: '#146c43' },
+            { icon: 'fa-pills', title: 'لا للمضاد الحيوي العشوائي', text: 'استخدام المضادات الحيوية بدون استشارة طبية يُسرّع ظهور بكتيريا مقاومة.', color: '#0d6efd' },
+            { icon: 'fa-bed', title: 'النوم مناعة إضافية', text: '7-9 ساعات نوم يومياً تعزز قدرة جسمك على مقاومة العدوى.', color: '#6f42c1' },
+            { icon: 'fa-wind', title: 'هواء نظيف، رئة سليمة', text: 'تهوية المساحات المغلقة تقلل تركيز الملوثات ومسببات الأمراض التنفسية.', color: '#20c997' },
+            { icon: 'fa-utensils', title: 'سلامة الغذاء أولاً', text: 'اطهُ الطعام جيداً وتجنب التلوث المتقاطع بين الأطعمة النيئة والمطبوخة.', color: '#dc3545' }
+        ];
+        function renderInfographics() {
+            const gallery = document.getElementById('infographics-gallery');
+            if (!gallery) return;
+            gallery.innerHTML = infographicsData.map((info, i) => `
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="infographic-card">
+                        <div class="infographic-poster" id="infographic-${i}" style="background: linear-gradient(150deg, ${info.color}, #145c3a);">
+                            <span class="infographic-brand"><i class="fas fa-heartbeat"></i> أثر صحي | IMPACT HEALTH</span>
+                            <div>
+                                <i class="fas ${info.icon}"></i>
+                                <h4>${info.title}</h4>
+                                <p>${info.text}</p>
+                            </div>
+                            <span class="infographic-brand">athar-health.org</span>
+                        </div>
+                        <div class="infographic-actions">
+                            <button type="button" onclick="downloadInfographic(${i}, '${info.title.replace(/'/g, "\\'")}')"><i class="fas fa-download"></i> تحميل</button>
+                            <button type="button" onclick="shareInfographic('${info.title.replace(/'/g, "\\'")}', '${info.text.replace(/'/g, "\\'")}')"><i class="fas fa-share-nodes"></i> مشاركة</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        function downloadInfographic(index, title) {
+            const node = document.getElementById('infographic-' + index);
+            if (!window.html2canvas) { alert('تعذر تحميل أداة تصدير الصور، تحقق من الاتصال بالإنترنت.'); return; }
+            html2canvas(node, { scale: 2 }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'athar-sehy-' + title.replace(/\s+/g, '-') + '.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+        function shareInfographic(title, text) {
+            if (navigator.share) {
+                navigator.share({ title: title, text: text + '\n\nمن موقع أثر صحي', url: window.location.href }).catch(() => {});
+            } else {
+                const shareText = encodeURIComponent(text + '\n\nمن موقع أثر صحي: ' + window.location.href);
+                window.open('https://wa.me/?text=' + shareText, '_blank');
+            }
+        }
+
+        // ==================== تمرين التنفس ====================
+        let breathingInterval = null;
+        function toggleBreathingExercise() {
+            const btn = document.getElementById('breathingBtn');
+            const circle = document.getElementById('breathingCircle');
+            const label = document.getElementById('breathingLabel');
+            if (breathingInterval) {
+                clearInterval(breathingInterval);
+                breathingInterval = null;
+                circle.className = 'breathing-circle';
+                circle.textContent = 'ابدأ';
+                label.textContent = 'اضغط زر البدء';
+                btn.innerHTML = '<i class="fas fa-play me-1"></i> ابدأ التمرين';
+                return;
+            }
+            btn.innerHTML = '<i class="fas fa-stop me-1"></i> إيقاف التمرين';
+            const steps = [
+                { cls: 'inhale', text: 'شهيق...', label: 'استنشق ببطء من الأنف' },
+                { cls: '', text: 'احبس', label: 'احبس نفسك للحظات' },
+                { cls: 'exhale', text: 'زفير...', label: 'أخرج الهواء ببطء من الفم' }
+            ];
+            let i = 0;
+            const runStep = () => {
+                circle.className = 'breathing-circle ' + steps[i].cls;
+                circle.textContent = steps[i].text;
+                label.textContent = steps[i].label;
+                i = (i + 1) % steps.length;
+            };
+            runStep();
+            breathingInterval = setInterval(runStep, 4000);
+        }
+
         // ==================== تحسينات بصرية: ظل الهيدر، تفعيل عنصر التنقل، وظهور تدريجي للأقسام ====================
         function initScrollEnhancements() {
             const header = document.querySelector('.header-top');
@@ -1606,12 +2224,17 @@
 
         // بدء التشغيل
         document.addEventListener('DOMContentLoaded', () => {
-            fetchAwarenessData();
+            initTheme();
+            initA11y();
+            initLanguage();
+            fetchAwarenessData().then(() => markFavoriteButtons());
             renderHealthNews();
             renderFAQ();
             renderGlobalStats();
             renderQuiz();
+            renderInfographics();
             initScrollEnhancements();
+            markFavoriteButtons();
 
             allResearchData = generateDummyResearch(100);
             allResearchData.sort((a, b) => b.year - a.year);
@@ -1622,6 +2245,15 @@
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch(() => {});
+            });
+        }
+    </script>
 <script data-goatcounter="https://athar-health.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
