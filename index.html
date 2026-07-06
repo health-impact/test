@@ -702,6 +702,36 @@
             padding: 8px 14px; display: none; text-align: center; margin-bottom: 15px;
         }
         html[lang="en"] .lang-note { display: block; }
+        
+        /* Podcast Section Styles */
+        .podcast-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: clamp(20px, 5vw, 40px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .podcast-card audio {
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        .podcast-transcript ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            text-align: right;
+            line-height: 1.9;
+        }
+        .podcast-transcript ul li {
+            background: var(--section-alt-bg);
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
     </style>
     <script type="application/ld+json">
     {
@@ -750,6 +780,7 @@
                 <a href="#hero" class="nav-item-link" data-i18n="nav.home">الرئيسية</a>
                 <a href="#about" class="nav-item-link" data-i18n="nav.about">عن المنصة</a>
                 <a href="#health-news" class="nav-item-link" data-i18n="nav.news">آخر الأخبار</a>
+                <a href="#podcast" class="nav-item-link" data-i18n="nav.podcast">البودكاست</a>
                 <a href="#updates" class="nav-item-link" data-i18n="nav.updates">التوعية الذكية</a>
                 <a href="#research-library" class="nav-item-link" data-i18n="nav.research">مكتبة الأبحاث</a>
                 <a href="#faq" class="nav-item-link" data-i18n="nav.faq">أسئلة شائعة</a>
@@ -862,7 +893,7 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    "أثر صحي" منصة أكاديمية متخصصة تحت إشراف محمد جلال النفاتي، طالب ماجستير في الصحة العامة. نلتزم بنشر الوعي الصحي الموثوق والمستند إلى أحدث الأبحاث العلمية. نركز على مجالات الصحة العامة، مكافحة العدوى، سلامة الغذاء، ومقاومة المضادات الحيوية. ندعم أيضاً الجانب الأكاديمي بتوفير أحدث الأبحاث، ونسلط الضوء على دور الفحوصات المخبرية الدقيقة في التشخيص والوقاية الفعالة.
+                    "أثر صحي" منصة أكاديمية تحت إشراف محمد جلال النفاتي، طالب ماجستير في الصحة العامة. نلتزم بنشر الوعي الصحي الموثوق والمستند إلى أحدث الأبحاث العلمية. نركز على الصحة العامة، مكافحة العدوى، سلامة الغذاء، ومقاومة المضادات الحيوية، مع دعم أكاديمي لأحدث الأبحاث. نسلط الضوء أيضاً على دور الفحوصات المخبرية الدقيقة في التشخيص والوقاية الفعالة لبناء مجتمع صحي واعٍ.
                 </p>
             </div>
         </div>
@@ -878,6 +909,36 @@
             <div class="news-container">
                 <div id="news-list">
                     <!-- News items will be dynamically loaded here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم البودكاست الصحي -->
+    <section id="podcast" class="reveal" style="background-color: var(--section-white-bg);">
+        <div class="container px-4">
+            <div class="text-center mb-2">
+                <span class="section-eyebrow"><i class="fas fa-microphone-alt"></i> استمع وتوعّى</span>
+            </div>
+            <h2 class="text-center fw-bold mb-2 text-success" data-i18n="podcast.title">بودكاست أثر صحي: المضادات الحيوية والاستخدام الآمن</h2>
+            <p class="text-center text-muted mb-5">حلقة قصيرة لفهم خطورة الإفراط في تناول المضادات الحيوية</p>
+            <div class="podcast-card">
+                <audio controls src="https://archive.org/download/eleven-labs-2026-06-06-t-12-59-18-roger-laid-back-casual-resonant-pre-sp-100-s-50-sb-75-se-0-b-m-2/eleven_labs_2026-06-06T12_59_18_Roger_laid-back_casual_resonant_pre_sp_100_s_50_sb_75_se_0_b_m2.mp3" type="audio/mpeg">
+                    متصفحك لا يدعم عنصر الصوت.
+                </audio>
+                <div class="podcast-transcript">
+                    <h5 class="mt-4 fw-bold">ملخص الحلقة:</h5>
+                    <p class="text-muted" style="line-height: 1.8; text-align: justify;">
+                        أهلاً بكم مستمعينا الكرام في "بودكاست أثر صحي". هل فكرت يوماً في حبة مضاد حيوي بسيطة قد تأخذها دون استشارة؟ لنتعمق في تأثيرها.
+                        وفقاً لمنظمة الصحة العالمية (WHO)، تُعد مقاومة المضادات الحيوية أحد أكبر التهديدات العالمية للصحة. عند الإفراط في استخدامها أو استخدامها بشكل خاطئ، تتكيف البكتيريا وتصبح أقوى، ما يعني أن المضادات الحالية قد لا تعمل في المستقبل لعلاج عدوى بسيطة. هذا لا يؤثر عليك فحسب، بل على المجتمع بأكمله، حيث تصبح العدوى العادية مستعصية على العلاج.
+                        لذا، نصيحتنا اليوم بسيطة ومباشرة: لا تتناول المضادات الحيوية إلا بوصفة طبية، وأكمل الجرعة كاملة حتى لو شعرت بالتحسن. صحتك أمانة، ومستقبل العلاجات بين أيدينا.
+                    </p>
+                    <ul>
+                        <li><i class="fas fa-check-circle me-2 text-success"></i> <strong>مقاومة المضادات الحيوية:</strong> خطر عالمي يهدد الصحة العامة.</li>
+                        <li><i class="fas fa-check-circle me-2 text-success"></i> <strong>الاستخدام الخاطئ:</strong> يزيد من قوة البكتيريا ومقاومتها للأدوية.</li>
+                        <li><i class="fas fa-check-circle me-2 text-success"></i> <strong>العواقب:</strong> صعوبة علاج العدوى مستقبلاً، وتأثير على المجتمع.</li>
+                        <li><i class="fas fa-lightbulb me-2 text-success"></i> <strong>نصيحة عملية:</strong> لا تتناول المضادات الحيوية إلا بوصفة طبية وأكمل الجرعة كاملة.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -1213,7 +1274,7 @@
                 fullContent: "كشفت الدراسات الحديثة عن طفرات نوعية في تقنيات التشخيص المبكر للأمراض غير المعدية، مثل استخدام الذكاء الاصطناعي في تحليل الصور الطبية وتطوير فحوصات دم أكثر دقة للكشف عن المؤشرات الحيوية المبكرة للسكري، أمراض القلب، وحتى بعض أنواع السرطان. هذه الابتكارات تفتح آفاقاً جديدة للتدخل الوقائي والعلاجي، مما يساهم بشكل كبير في تحسين نوعية حياة المرضى وتقليل العبء على أنظمة الرعاية الصحية. يشمل ذلك أيضاً تطوير تطبيقات صحية ذكية تساعد الأفراد على مراقبة حالتهم الصحية بانتظام وتلقي النصائح الوقائية المخصصة بناءً على بياناتهم الشخصية.",
                 image: "https://images.unsplash.com/photo-1629904853716-f0bc596041a3?w=1200&auto=format&fit=crop&q=80", // صورة تعبر عن التشخيص، مجهر، أو فحص دم
                 category: "تشخيص مبكر", icon: "fa-microscope",
-                source: "مراكز البحوث الطبية"
+                source: "مراكز البحوث الطurl/photo-1629904853716-f0bc596041a3?w=1200&auto=format&fit=crop&q=80"
             },
             {
                 id: 2,
@@ -1718,8 +1779,9 @@
                 return;
             }
 
-            const todaysNews = dailyPick(healthNewsData, healthNewsData.length, 0);
-            window.healthNewsToday = todaysNews;
+            // Using dailyPick to shuffle and select news items
+            const todaysNews = dailyPick(healthNewsData, healthNewsData.length, 0); // Display all available news items for now
+            window.healthNewsToday = todaysNews; // Make available for search
 
             newsListContainer.innerHTML = `
                 <div class="row g-4">
@@ -1743,7 +1805,7 @@
                                         <div class="news-full-content text-muted small" data-news-id="${news.id}" style="display: none;">
                                             <p>${news.fullContent}</p>
                                         </div>
-                                        <button type="button" class="tts-btn mt-2" onclick="speakText(this, '${news.title.replace(/'/g, "\\'")}. ${news.content.replace(/'/g, "\\'")}')"><i class="fas fa-volume-high"></i> استماع</button>
+                                        <button type="button" class="tts-btn mt-2" onclick="speakText(this, '${news.title.replace(/'/g, "\\'")}. ${news.fullContent.replace(/'/g, "\\'")}')"><i class="fas fa-volume-high"></i> استماع</button>
                                     </div>
                                     <div class="mt-3">
                                         <hr class="text-muted opacity-25">
@@ -2147,12 +2209,12 @@
         // ==================== تبديل اللغة (واجهة فقط، المحتوى المولّد بالذكاء الاصطناعي يبقى عربياً) ====================
         const i18nDict = {
             en: {
-                'nav.home': 'Home', 'nav.about': 'About', 'nav.news': 'News', 'nav.updates': 'Smart Tips',
+                'nav.home': 'Home', 'nav.about': 'About', 'nav.news': 'News', 'nav.podcast': 'Podcast', 'nav.updates': 'Smart Tips',
                 'nav.research': 'Research', 'nav.faq': 'FAQ', 'nav.stats': 'Stats', 'nav.quiz': 'Quiz',
                 'nav.stress': 'Stress & Immunity', 'nav.infographics': 'Infographics', 'nav.newsletter': 'Newsletter', 'nav.store': 'Store',
                 'hero.eyebrow': 'Trusted advice, updated daily by AI under expert supervision',
                 'hero.title': 'Impact Health | أثر صحي', 'hero.subtitle': 'Toward a health-aware Libyan community.',
-                'about.title': 'About Us', 'news.title': 'Latest Local & Global Health News', 'updates.title': 'Smart Health Awareness',
+                'about.title': 'About Us', 'news.title': 'Latest Local & Global Health News', 'podcast.title': 'Impact Health Podcast: Antibiotics & Safe Use', 'updates.title': 'Smart Health Awareness',
                 'research.title': 'Research Library', 'faq.title': 'Frequently Asked Questions', 'stats.title': 'Global Health Indicators',
                 'quiz.title': 'Test Your Knowledge', 'stress.title': 'Stress and Its Effect on Immunity', 'infographics.title': 'Shareable Infographics',
                 'newsletter.title': 'Subscribe to Daily Tips', 'store.title': 'Supplies Store'
