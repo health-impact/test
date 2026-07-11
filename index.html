@@ -788,7 +788,6 @@
                 <a href="#quiz" class="nav-item-link" data-i18n="nav.quiz">اختبر معلوماتك</a>
                 <a href="#stress-immunity" class="nav-item-link" data-i18n="nav.stress">التوتر والمناعة</a>
                 <a href="#infographics" class="nav-item-link" data-i18n="nav.infographics">إنفوجرافيك</a>
-                <a href="#newsletter" class="nav-item-link" data-i18n="nav.newsletter">النشرة البريدية</a>
                 <a href="#store" class="nav-item-link" data-i18n="nav.store">المتجر</a>
             </nav>
             <div class="utility-icons d-flex align-items-center gap-2">
@@ -1140,22 +1139,6 @@
             <h2 class="text-center fw-bold mb-2 text-success" data-i18n="infographics.title">معرض الإنفوجرافيك التوعوي</h2>
             <p class="text-center text-muted mb-5">صمّم لتنزيلها ومشاركتها على وسائل التواصل الاجتماعي مجاناً</p>
             <div class="row g-4" id="infographics-gallery"></div>
-        </div>
-    </section>
-
-    <section id="newsletter" class="reveal" style="background-color: var(--section-alt-bg);">
-        <div class="container px-4">
-            <div class="newsletter-box">
-                <i class="fas fa-envelope-open-text fa-2x mb-3"></i>
-                <h2 class="fw-bold" data-i18n="newsletter.title">اشترك في النصائح اليومية</h2>
-                <p class="mb-0">احصل على أحدث النصائح الصحية والتوعوية في بريدك أول بأول</p>
-                <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletterSubmit(event)">
-                    <input type="email" id="newsletterEmail" placeholder="بريدك الإلكتروني" required>
-                    <button type="submit"><i class="fas fa-paper-plane me-1"></i> اشترك</button>
-                </form>
-                <div id="newsletterMsg"></div>
-                <p class="newsletter-note">لن نشارك بريدك مع أي جهة، ويمكنك إلغاء الاشتراك في أي وقت.</p>
-            </div>
         </div>
     </section>
 
@@ -1980,7 +1963,7 @@
             setTimeout(() => { quizIndex++; renderQuizQuestion(); }, 900);
         }
 
-        // ==================== قسم النشرة البريدية ====================
+        // ==================== النشرة البريدية (تمت إزالتها بناءً على طلب المستخدم) ====================
         // ملاحظة: النموذج يكمل الإجراء ويعرض رسالة نجاح للمستخدم دائماً.
         // بما أن الموقع Static (بدون سيرفر)، يتم حفظ البريد مؤقتاً في localStorage الخاص بمتصفح الزائر.
         // لجمع اشتراكات فعلية من كل الزوار على خادم مركزي، يلزم لاحقاً ربط NEWSLETTER_ENDPOINT بخدمة مثل Formspree.
@@ -2210,13 +2193,13 @@
             en: {
                 'nav.home': 'Home', 'nav.about': 'About', 'nav.news': 'News', 'nav.podcast': 'Podcast', 'nav.updates': 'Smart Tips',
                 'nav.research': 'Research', 'nav.faq': 'FAQ', 'nav.stats': 'Stats', 'nav.quiz': 'Quiz',
-                'nav.stress': 'Stress & Immunity', 'nav.infographics': 'Infographics', 'nav.newsletter': 'Newsletter', 'nav.store': 'Store',
+                'nav.stress': 'Stress & Immunity', 'nav.infographics': 'Infographics', 'nav.store': 'Store',
                 'hero.eyebrow': 'Trusted advice, updated daily by AI under expert supervision',
                 'hero.title': 'Impact Health | Athar Sehy', 'hero.subtitle': 'Toward a health-aware Libyan community.',
                 'about.title': 'About Us', 'news.title': 'Latest Local & Global Health News', 'podcast.title': 'Impact Health Podcast: Antibiotics & Safe Use', 'updates.title': 'Smart Health Awareness',
                 'research.title': 'Research Library', 'faq.title': 'Frequently Asked Questions', 'stats.title': 'Global Health Indicators',
                 'quiz.title': 'Test Your Knowledge', 'stress.title': 'Stress and Its Effect on Immunity', 'infographics.title': 'Shareable Infographics',
-                'newsletter.title': 'Subscribe to Daily Tips', 'store.title': 'Supplies Store'
+                'store.title': 'Supplies Store'
             },
             ar: {}
         };
