@@ -892,7 +892,7 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    "أثر صحي" منصة ليبية رائدة، بإشراف محمد جلال النفاتي (طالب ماجستير في الصحة العامة)، تلتزم بنشر الوعي الصحي المستنير. نركز على تقديم محتوى أكاديمي موثوق في مجالات الصحة العامة، مكافحة العدوى، وسلامة الأغذية. نسلط الضوء على خطورة مقاومة المضادات الحيوية وأهمية الفحوصات المخبرية الدقيقة. هدفنا دعم المجتمع الليبي بالمعلومات الموثوقة وأحدث الأبحاث لبناء مستقبل صحي وآمن.
+                    "أثر صحي" منصة ليبية رائدة، بإشراف محمد جلال النفاتي (طالب ماجستير في الصحة العامة)، تلتزم بنشر الوعي الصحي المستنير. نركز على تقديم محتوى أكاديمي موثوق في مجالات الصحة العامة، مكافحة العدوى، وسلامة الأغذية، ونسلط الضوء على خطورة مقاومة المضادات الحيوية وأهمية الفحوصات المخبرية الدقيقة. هدفنا دعم المجتمع الليبي بأحدث الأبحاث والمعلومات الموثوقة لبناء مستقبل صحي وآمن، والمساهمة في تطوير الوعي المجتمعي نحو ممارسات وقائية أفضل.
                 </p>
             </div>
         </div>
@@ -1845,59 +1845,6 @@
         let breathingTimes = [4000, 4000, 6000, 2000]; // Inhale 4s, Hold 4s, Exhale 6s, Hold 2s
         let currentBreathingStep = 0;
 
-        function toggleBreathingExercise() {
-            const circle = document.getElementById('breathingCircle');
-            const label = document.getElementById('breathingLabel');
-            const button = document.getElementById('breathingBtn');
-
-            if (isBreathingExerciseRunning) {
-                clearInterval(breathingInterval);
-                circle.style.transform = 'scale(1)'; // Reset size
-                circle.classList.remove('inhale', 'exhale');
-                label.textContent = 'اضغط زر البدء';
-                button.innerHTML = '<i class="fas fa-play me-1"></i> ابدأ التمرين';
-            } else {
-                button.innerHTML = '<i class="fas fa-stop me-1"></i> إيقاف التمرين';
-                runBreathingCycle(); // Start the first cycle immediately
-            }
-            isBreathingExerciseRunning = !isBreathingExerciseRunning;
-        }
-
-        function runBreathingCycle() {
-            const circle = document.getElementById('breathingCircle');
-            const label = document.getElementById('breathingLabel');
-
-            breathingInterval = setInterval(() => {
-                const step = breathingSteps[currentBreathingStep];
-                const time = breathingTimes[currentBreathingStep];
-                
-                label.textContent = `${step} (${time / 1000} ثوانٍ)`;
-                circle.classList.remove('inhale', 'exhale');
-
-                if (step === "شهيق") {
-                    circle.classList.add('inhale');
-                } else if (step === "زفير") {
-                    circle.classList.add('exhale');
-                } else {
-                    // Hold state, maintain current size
-                }
-
-                currentBreathingStep = (currentBreathingStep + 1) % breathingSteps.length;
-            }, breathingTimes[currentBreathingStep -1 < 0 ? breathingSteps.length -1 : currentBreathingStep-1]); // Use previous step's duration
-
-             // Initial call for the first step
-            const initialStep = breathingSteps[currentBreathingStep];
-            const initialTime = breathingTimes[currentBreathingStep];
-            label.textContent = `${initialStep} (${initialTime / 1000} ثوانٍ)`;
-            if (initialStep === "شهيق") {
-                circle.classList.add('inhale');
-            } else if (initialStep === "زفير") {
-                circle.classList.add('exhale');
-            }
-            currentBreathingStep = (currentBreathingStep + 1) % breathingSteps.length;
-        }
-        
-        // Fix for the breathing cycle logic to run correctly
         function startBreathingCycle() {
             const circle = document.getElementById('breathingCircle');
             const label = document.getElementById('breathingLabel');
@@ -1922,7 +1869,10 @@
                 if (isBreathingExerciseRunning) { // Ensure it continues only if running
                     setTimeout(executeStep, duration);
                 } else {
-                    clearInterval(breathingInterval); // Clear in case of stop during timeout
+                    // Cleanup if stopped externally
+                    circle.style.transform = 'scale(1)';
+                    circle.classList.remove('inhale', 'exhale');
+                    label.textContent = 'اضغط زر البدء';
                 }
             }
 
@@ -2172,6 +2122,7 @@
         function adjustFontSize(direction) {
             currentFontSizeLevel = Math.max(0, Math.min(2, currentFontSizeLevel + direction));
             document.documentElement.setAttribute('data-font-size', currentFontSizeLevel);
+            localStorage.setItem('fontSizeLevel', currentFontSizeLevel);
         }
 
         function toggleHighContrast(isChecked) {
@@ -2199,88 +2150,89 @@
         }
         
         // ==================== تبديل اللغة (i18n Placeholder) ====================
-        function toggleLanguage() {
+        function setLanguage(lang) {
             const html = document.documentElement;
-            const currentLang = html.getAttribute('lang');
-            const newLang = currentLang === 'ar' ? 'en' : 'ar';
-            html.setAttribute('lang', newLang);
+            html.setAttribute('lang', lang);
+            html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
 
             const brandText = document.querySelector('.brand-text');
-            if (newLang === 'en') {
-                brandText.textContent = 'IMPACT HEALTH';
-                // Update other visible texts using data-i18n attributes
-                document.querySelectorAll('[data-i18n]').forEach(el => {
-                    const key = el.dataset.i18n;
-                    const translations = {
-                        "nav.home": "Home", "nav.about": "About", "nav.news": "Latest News",
-                        "nav.podcast": "Podcast", "nav.updates": "Smart Awareness", "nav.research": "Research Library",
-                        "nav.faq": "FAQ", "nav.stats": "Global Stats", "nav.quiz": "Quiz",
-                        "nav.stress": "Stress & Immunity", "nav.infographics": "Infographics", "nav.store": "Store",
-                        "hero.eyebrow": "<i class=\"fas fa-check-circle me-1\"></i> Daily AI-powered reliable tips under specialist supervision",
-                        "hero.title": "Impact Health",
-                        "hero.subtitle": "Towards an informed Libyan community, built on approved health advice.",
-                        "about.title": "Who Are We?",
-                        "news.title": "Latest Local & Global Health News",
-                        "podcast.title": "Impact Health Podcast: Antibiotics & Safe Use",
-                        "updates.title": "Smart Health Awareness",
-                        "research.title": "Research Library",
-                        "faq.title": "Frequently Asked Questions",
-                        "stats.title": "Global Health Indicators",
-                        "quiz.title": "Test Your Knowledge",
-                        "stress.title": "Stress & Immunity Impact",
-                        "infographics.title": "Awareness Infographics Gallery",
-                        "store.title": "Supplies Store"
-                    };
-                    if (translations[key]) {
-                        el.innerHTML = translations[key];
-                    }
-                });
-                document.getElementById('langToggleBtn').textContent = 'AR';
-                document.getElementById('langToggleBtn').setAttribute('aria-label', 'العربية');
-                document.getElementById('langToggleBtn').setAttribute('title', 'العربية');
+            const langToggleBtn = document.getElementById('langToggleBtn');
+
+            const translations = {
+                "ar": {
+                    "nav.home": "الرئيسية", "nav.about": "عن المنصة", "nav.news": "آخر الأخبار",
+                    "nav.podcast": "البودكاست", "nav.updates": "التوعية الذكية", "nav.research": "مكتبة الأبحاث",
+                    "nav.faq": "أسئلة شائعة", "nav.stats": "مؤشرات عالمية", "nav.quiz": "اختبر معلوماتك",
+                    "nav.stress": "التوتر والمناعة", "nav.infographics": "إنفوجرافيك", "nav.store": "المتجر",
+                    "hero.eyebrow": "<i class=\"fas fa-check-circle me-1\"></i> نصائح موثوقة ومحدّثة يومياً بالذكاء الاصطناعي تحت إشراف متخصص",
+                    "hero.title": "أثر صحي | Impact Health",
+                    "hero.subtitle": " نحو مجتمع ليبي واعٍ، مبني على نصائح صحية معتمدة.",
+                    "about.title": "من نحن؟",
+                    "news.title": "آخر الأخبار الصحية المحلية والعالمية",
+                    "podcast.title": "بودكاست أثر صحي: المضادات الحيوية والاستخدام الآمن",
+                    "updates.title": "التوعية الصحية الذكية",
+                    "research.title": "مكتبة الأبحاث",
+                    "faq.title": "الأسئلة الشائعة",
+                    "stats.title": "مؤشرات صحية عالمية",
+                    "quiz.title": "اختبر معلوماتك",
+                    "stress.title": "التوتر وتأثيره على المناعة",
+                    "infographics.title": "معرض الإنفوجرافيك التوعوي",
+                    "store.title": "متجر المستلزمات"
+                },
+                "en": {
+                    "nav.home": "Home", "nav.about": "About", "nav.news": "Latest News",
+                    "nav.podcast": "Podcast", "nav.updates": "Smart Awareness", "nav.research": "Research Library",
+                    "nav.faq": "FAQ", "nav.stats": "Global Stats", "nav.quiz": "Quiz",
+                    "nav.stress": "Stress & Immunity", "nav.infographics": "Infographics", "nav.store": "Store",
+                    "hero.eyebrow": "<i class=\"fas fa-check-circle me-1\"></i> Daily AI-powered reliable tips under specialist supervision",
+                    "hero.title": "Impact Health",
+                    "hero.subtitle": "Towards an informed Libyan community, built on approved health advice.",
+                    "about.title": "Who Are We?",
+                    "news.title": "Latest Local & Global Health News",
+                    "podcast.title": "Impact Health Podcast: Antibiotics & Safe Use",
+                    "updates.title": "Smart Health Awareness",
+                    "research.title": "Research Library",
+                    "faq.title": "Frequently Asked Questions",
+                    "stats.title": "Global Health Indicators",
+                    "quiz.title": "Test Your Knowledge",
+                    "stress.title": "Stress & Immunity Impact",
+                    "infographics.title": "Awareness Infographics Gallery",
+                    "store.title": "Supplies Store"
+                }
+            };
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Brand text remains English as requested
+            brandText.textContent = 'IMPACT HEALTH';
+
+            if (lang === 'en') {
+                langToggleBtn.textContent = 'AR';
+                langToggleBtn.setAttribute('aria-label', 'العربية');
+                langToggleBtn.setAttribute('title', 'العربية');
             } else {
-                brandText.textContent = 'IMPACT HEALTH'; // Stays English for brand, as per initial code
-                document.querySelectorAll('[data-i18n]').forEach(el => {
-                    const key = el.dataset.i18n;
-                    const translations = {
-                        "nav.home": "الرئيسية", "nav.about": "عن المنصة", "nav.news": "آخر الأخبار",
-                        "nav.podcast": "البودكاست", "nav.updates": "التوعية الذكية", "nav.research": "مكتبة الأبحاث",
-                        "nav.faq": "أسئلة شائعة", "nav.stats": "مؤشرات عالمية", "nav.quiz": "اختبر معلوماتك",
-                        "nav.stress": "التوتر والمناعة", "nav.infographics": "إنفوجرافيك", "nav.store": "المتجر",
-                        "hero.eyebrow": "<i class=\"fas fa-check-circle me-1\"></i> نصائح موثوقة ومحدّثة يومياً بالذكاء الاصطناعي تحت إشراف متخصص",
-                        "hero.title": "أثر صحي | Impact Health",
-                        "hero.subtitle": " نحو مجتمع ليبي واعٍ، مبني على نصائح صحية معتمدة.",
-                        "about.title": "من نحن؟",
-                        "news.title": "آخر الأخبار الصحية المحلية والعالمية",
-                        "podcast.title": "بودكاست أثر صحي: المضادات الحيوية والاستخدام الآمن",
-                        "updates.title": "التوعية الصحية الذكية",
-                        "research.title": "مكتبة الأبحاث",
-                        "faq.title": "الأسئلة الشائعة",
-                        "stats.title": "مؤشرات صحية عالمية",
-                        "quiz.title": "اختبر معلوماتك",
-                        "stress.title": "التوتر وتأثيره على المناعة",
-                        "infographics.title": "معرض الإنفوجرافيك التوعوي",
-                        "store.title": "متجر المستلزمات"
-                    };
-                    if (translations[key]) {
-                        el.innerHTML = translations[key];
-                    }
-                });
-                document.getElementById('langToggleBtn').textContent = 'EN';
-                document.getElementById('langToggleBtn').setAttribute('aria-label', 'English');
-                document.getElementById('langToggleBtn').setAttribute('title', 'English');
+                langToggleBtn.textContent = 'EN';
+                langToggleBtn.setAttribute('aria-label', 'English');
+                langToggleBtn.setAttribute('title', 'English');
             }
+        }
+
+        function toggleLanguage() {
+            const currentLang = document.documentElement.getAttribute('lang');
+            const newLang = currentLang === 'ar' ? 'en' : 'ar';
+            setLanguage(newLang);
             localStorage.setItem('currentLang', newLang);
         }
 
         // Apply language settings on load
         function applyLanguageSettings() {
-            const savedLang = localStorage.getItem('currentLang');
-            if (savedLang && savedLang !== 'ar') { // Only change if not default Arabic
-                document.documentElement.setAttribute('lang', savedLang);
-                toggleLanguage(); // Call to apply translations, then it will toggle back to current setting if needed.
-                // A better approach would be to have a dedicated function for applying based on a given language.
-            }
+            const savedLang = localStorage.getItem('currentLang') || 'ar'; // Default to Arabic
+            setLanguage(savedLang);
         }
 
 
