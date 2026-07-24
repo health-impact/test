@@ -892,7 +892,10 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    "أثر صحي" منصة ليبية أكاديمية بإشرافي، محمد جلال النفاتي، طالب ماجستير في الصحة العامة. نلتزم بتقديم محتوى موثوق في الصحة العامة، مكافحة العدوى، وسلامة الغذاء. نركز على أهمية الفحوصات المخبرية الدقيقة ومواجهة مقاومة المضادات الحيوية، بهدف دعم الوعي المجتمعي الليبي بأحدث الأبحاث والمعلومات الوقائية.
+                    "أثر صحي" منصة ليبية أكاديمية بإشرافي، محمد جلال النفاتي، طالب ماجستير في الصحة العامة.
+                    نلتزم بتقديم محتوى موثوق في الصحة العامة، مكافحة العدوى، وسلامة الغذاء.
+                    نركز على أهمية الفحوصات المخبرية الدقيقة ومواجهة مقاومة المضادات الحيوية،
+                    بهدف دعم الوعي المجتمعي الليبي بأحدث الأبحاث والمعلومات الوقائية.
                 </p>
             </div>
         </div>
@@ -1851,6 +1854,13 @@
             let totalDuration = 0;
 
             function executeStep() {
+                if (!isBreathingExerciseRunning) { // Check if stopped externally
+                    circle.style.transform = 'scale(1)';
+                    circle.classList.remove('inhale', 'exhale');
+                    label.textContent = 'اضغط زر البدء';
+                    return;
+                }
+
                 const step = breathingSteps[currentBreathingStep];
                 const duration = breathingTimes[currentBreathingStep];
 
@@ -1866,14 +1876,7 @@
                 currentBreathingStep = (currentBreathingStep + 1) % breathingSteps.length;
                 totalDuration += duration;
 
-                if (isBreathingExerciseRunning) { // Ensure it continues only if running
-                    setTimeout(executeStep, duration);
-                } else {
-                    // Cleanup if stopped externally
-                    circle.style.transform = 'scale(1)';
-                    circle.classList.remove('inhale', 'exhale');
-                    label.textContent = 'اضغط زر البدء';
-                }
+                setTimeout(executeStep, duration);
             }
 
             if (!isBreathingExerciseRunning) {
