@@ -892,10 +892,10 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    "أثر صحي" منصة ليبية أكاديمية بإشرافي، محمد جلال النفاتي، طالب ماجستير في الصحة العامة.
-                    نلتزم بتقديم محتوى موثوق في الصحة العامة، مكافحة العدوى، وسلامة الغذاء.
-                    نركز على أهمية الفحوصات المخبرية الدقيقة ومواجهة مقاومة المضادات الحيوية،
-                    بهدف دعم الوعي المجتمعي الليبي بأحدث الأبحاث والمعلومات الوقائية.
+                    "أثر صحي" منصة ليبية أكاديمية تحت إشرافي، محمد جلال النفاتي، طالب ماجستير في الصحة العامة.
+                    تتخصص المنصة في تعزيز الوعي المجتمعي بمبادئ الصحة العامة، مكافحة العدوى، وسلامة الغذاء.
+                    نلتزم بتقديم أحدث الأبحاث والمعلومات الموثوقة حول مقاومة المضادات الحيوية وأهمية الفحوصات المخبرية الدقيقة.
+                    هدفنا هو دعم اتخاذ القرارات الصحية المستنيرة وتنمية ثقافة وقائية شاملة للمجتمع الليبي.
                 </p>
             </div>
         </div>
@@ -1116,7 +1116,7 @@
                     <div class="stress-card h-100">
                         <h5><i class="fas fa-flask me-2"></i>ماذا يحدث علمياً؟</h5>
                         <p class="text-muted" style="line-height: 1.9;">
-                            عند التعرض للتوتر المستمر، يفرز الجسم هرمون الكورتيزول بمعدلات مرتفعة لفترات طويلة، وهو ما يُضعف تدريجياً استجابة الجهاز المناعي ويقلل من كفاءة خلايا الدفاع الطبيعية في مقاومة العدوى. كما يرتبط التوتر المزمن بزيادة الالتهابات الداخلية، وبطء التعافي من الأمراض، واضطراب أنماط النوم التي تُعد بدورها ضرورية لتجديد الجهاز المناعي.
+                            عند التعرض للتوتر المستمر، يفرز الجسم هرمون الكورتيزول بمعدلات مرتفعة لفترات طويلة، وهو ما يُضعف تدريجياً استجابة الجهاز المناعي ويقلل من كفاءة خلايا الدفاع الطبيعية في مقاومة العدوى. كما يرتبط التوتر المزمن بزيادة الالتهابات الداخلية، وبطء التعافي من الأمراض، واضطراب أنماط النوم التي تُعد بدورها ضرورية لتجديد الجهاز المناعة.
                         </p>
                         <p class="text-muted" style="line-height: 1.9;">
                             الخبر الجيد أن هذا التأثير قابل للعكس جزئياً من خلال ممارسات بسيطة ومنتظمة: النوم الكافي، النشاط البدني المعتدل، التواصل الاجتماعي الداعم، وتقنيات الاسترخاء مثل التنفس العميق.
@@ -1851,15 +1851,24 @@
         function startBreathingCycle() {
             const circle = document.getElementById('breathingCircle');
             const label = document.getElementById('breathingLabel');
-            let totalDuration = 0;
+            const button = document.getElementById('breathingBtn');
+            
+            if (isBreathingExerciseRunning) {
+                isBreathingExerciseRunning = false;
+                if (breathingInterval) clearTimeout(breathingInterval);
+                button.innerHTML = '<i class="fas fa-play me-1"></i> ابدأ التمرين';
+                circle.style.transform = 'scale(1)';
+                circle.classList.remove('inhale', 'exhale');
+                label.textContent = 'اضغط زر البدء';
+                return;
+            }
+
+            isBreathingExerciseRunning = true;
+            currentBreathingStep = 0;
+            button.innerHTML = '<i class="fas fa-stop me-1"></i> إيقاف التمرين';
 
             function executeStep() {
-                if (!isBreathingExerciseRunning) { // Check if stopped externally
-                    circle.style.transform = 'scale(1)';
-                    circle.classList.remove('inhale', 'exhale');
-                    label.textContent = 'اضغط زر البدء';
-                    return;
-                }
+                if (!isBreathingExerciseRunning) return; // Stop if the flag is false
 
                 const step = breathingSteps[currentBreathingStep];
                 const duration = breathingTimes[currentBreathingStep];
@@ -1874,26 +1883,11 @@
                 }
                 
                 currentBreathingStep = (currentBreathingStep + 1) % breathingSteps.length;
-                totalDuration += duration;
-
-                setTimeout(executeStep, duration);
+                breathingInterval = setTimeout(executeStep, duration);
             }
-
-            if (!isBreathingExerciseRunning) {
-                isBreathingExerciseRunning = true;
-                currentBreathingStep = 0; // Reset for a fresh start
-                document.getElementById('breathingBtn').innerHTML = '<i class="fas fa-stop me-1"></i> إيقاف التمرين';
-                executeStep();
-            } else {
-                isBreathingExerciseRunning = false;
-                document.getElementById('breathingBtn').innerHTML = '<i class="fas fa-play me-1"></i> ابدأ التمرين';
-                circle.style.transform = 'scale(1)';
-                circle.classList.remove('inhale', 'exhale');
-                label.textContent = 'اضغط زر البدء';
-            }
+            executeStep();
         }
 
-        // Renaming toggleBreathingExercise to use the new logic
         function toggleBreathingExercise() {
             startBreathingCycle();
         }
