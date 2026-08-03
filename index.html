@@ -892,9 +892,9 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    "أثر صحي" هي منصة أكاديمية ليبية، يشرف عليها طالب ماجستير في الصحة العامة.
-                    تهدف المنصة إلى تعزيز الوعي المجتمعي بمبادئ الصحة العامة، مكافحة العدوى، وسلامة الغذاء.
-                    نلتزم بتقديم أحدث الأبحاث والمعلومات الموثوقة حول مقاومة المضادات الحيوية وأهمية الفحوصات المخبرية الدقيقة، لدعم اتخاذ القرارات الصحية المستنيرة للمجتمع الليبي.
+                    "أثر صحي" هي منصة أكاديمية ليبية متخصصة، يشرف عليها طالب ماجستير في الصحة العامة.
+                    تلتزم المنصة بتعزيز الوعي المجتمعي بمبادئ الصحة العامة، مكافحة العدوى، وسلامة الغذاء.
+                    نقدم أحدث الأبحاث والمعلومات الموثوقة حول مقاومة المضادات الحيوية وأهمية الفحوصات المخبرية الدقيقة، لدعم اتخاذ قرارات صحية مستنيرة للمجتمع الليبي.
                 </p>
             </div>
         </div>
@@ -1343,8 +1343,7 @@
                 const newsItemCol = document.createElement('div');
                 newsItemCol.className = 'col-md-6 col-lg-4 d-flex align-items-stretch';
                 
-                // Fallback image handling: if image fails, show icon+category
-                const imageUrl = news.image || 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=1200'; // General public health fallback
+                const imageUrl = news.image; // Use the specific image from the data
 
                 newsItemCol.innerHTML = `
                     <div class="card news-item h-100 border-0 shadow-sm rounded-4 text-end position-relative">
