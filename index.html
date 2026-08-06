@@ -1458,4 +1458,877 @@
             const archiveTipsContainer = document.getElementById('archive-tips-list');
             const archiveBtn = document.getElementById('archive-btn');
 
-            if
+            if (archiveMode) {
+                currentTipsContainer.style.display = 'none';
+                archiveTipsContainer.style.display = 'block';
+                archiveBtn.textContent = 'إخفاء الأرشيف والعودة للنصائح اليومية';
+            } else {
+                currentTipsContainer.style.display = 'block';
+                archiveTipsContainer.style.display = 'none';
+                archiveBtn.textContent = 'تصفح أرشيف المعلومات الكامل';
+            }
+        }
+
+        // ==================== وظائف مكتبة الأبحاث ====================
+        const researchData = [
+            { id: 1, title: "دراسة حول فعالية اللقاحات الجديدة ضد الإنفلونزا الموسمية", year: 2022, area: "مكافحة العدوى", link: "https://pubmed.ncbi.nlm.nih.gov/34567890/" },
+            { id: 2, title: "تأثير التلوث البيئي على صحة الجهاز التنفسي في المدن الكبرى", year: 2021, area: "الصحة العامة", link: "https://www.who.int/publications/i/item/9789240033620" },
+            { id: 3, title: "استراتيجيات الحد من مقاومة المضادات الحيوية في المستشفيات", year: 2023, area: "مقاومة المضادات الحيوية", link: "https://www.cdc.gov/drugresistance/index.html" },
+            { id: 4, title: "تحليل المخاطر البكتيرية في سلسلة توريد الأغذية الطازجة", year: 2022, area: "سلامة الغذاء", link: "https://www.fda.gov/food/food-safety-modernization-act-fsma/fsma-final-rule-produce-safety" },
+            { id: 5, title: "الوعي المجتمعي بأهمية الفحوصات الدورية للوقاية من السكري", year: 2020, area: "الأمراض المزمنة", link: "https://www.cdc.gov/diabetes/basics/prevention.html" },
+            { id: 6, title: "برامج التوعية الصحية للأمهات الجدد وتأثيرها على صحة الطفل", year: 2023, area: "صحة الطفل", link: "https://www.unicef.org/health/maternal-and-child-health" },
+            { id: 7, title: "دور الذكاء الاصطناعي في تسريع تشخيص الأمراض المعدية", year: 2024, area: "مكافحة العدوى", link: "https://pubmed.ncbi.nlm.nih.gov/38351543/" },
+            { id: 8, title: "دراسة شاملة حول تأثير اللحوم المصنعة على صحة القلب", year: 2021, area: "سلامة الغذاء", link: "https://www.who.int/news-room/fact-sheets/detail/healthy-diet" },
+            { id: 9, title: "تقييم برامج التغذية المدرسية ودورها في الحد من فقر الدم", year: 2022, area: "صحة الطفل", link: "https://www.who.int/initiatives/school-health-and-nutrition" },
+            { id: 10, title: "تطوير بروتوكولات جديدة للتعامل مع النفايات الطبية الخطرة", year: 2023, area: "الصحة العامة", link: "https://www.who.int/news-room/fact-sheets/detail/health-care-waste" }
+        ];
+
+        const researchesPerPage = 5;
+        let displayedResearches = researchesPerPage;
+
+        function loadResearchTable(data) {
+            const tbody = document.getElementById('researchTable').querySelector('tbody');
+            tbody.innerHTML = '';
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            const showMoreBtn = document.getElementById('showMoreResearchBtn');
+            const showLessBtn = document.getElementById('showLessResearchBtn');
+
+            if (!data || data.length === 0) {
+                noResultsMessage.style.display = 'block';
+                showMoreBtn.style.display = 'none';
+                showLessBtn.style.display = 'none';
+                return;
+            }
+
+            noResultsMessage.style.display = 'none';
+
+            const slicedData = data.slice(0, displayedResearches);
+            slicedData.forEach(research => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${research.title}</td>
+                    <td>${research.year}</td>
+                    <td>${research.area}</td>
+                    <td><a href="${research.link}" target="_blank" rel="noopener noreferrer" title="قراءة البحث"><i class="fas fa-external-link-alt"></i></a></td>
+                `;
+            });
+
+            if (data.length > displayedResearches) {
+                showMoreBtn.style.display = 'inline-block';
+            } else {
+                showMoreBtn.style.display = 'none';
+            }
+
+            if (displayedResearches > researchesPerPage) {
+                showLessBtn.style.display = 'inline-block';
+            } else {
+                showLessBtn.style.display = 'none';
+            }
+        }
+
+        function filterResearchTable() {
+            const searchTerm = document.getElementById('researchSearchInput').value.toLowerCase();
+            const areaFilter = document.getElementById('researchAreaFilter').value;
+
+            const filteredData = researchData.filter(research => {
+                const matchesSearch = (
+                    research.title.toLowerCase().includes(searchTerm) ||
+                    research.year.toString().includes(searchTerm) ||
+                    research.area.toLowerCase().includes(searchTerm)
+                );
+                const matchesArea = areaFilter === "" || research.area === areaFilter;
+                return matchesSearch && matchesArea;
+            });
+            displayedResearches = researchesPerPage; // Reset displayed count on filter
+            loadResearchTable(filteredData);
+        }
+
+        function showMoreResearch() {
+            displayedResearches += researchesPerPage;
+            filterResearchTable(); // Re-apply filter and load more
+        }
+
+        function showLessResearch() {
+            displayedResearches = researchesPerPage;
+            filterResearchTable(); // Re-apply filter and load less
+        }
+
+        // ==================== وظائف الأسئلة الشائعة ====================
+        const faqData = [
+            { id: 1, question: "ما هي أفضل طريقة لغسل اليدين للوقاية من العدوى؟", answer: "يُنصح بغسل اليدين بالماء والصابون لمدة لا تقل عن 20 ثانية، مع التركيز على ما بين الأصابع وتحت الأظافر، خاصة بعد السعال أو العطس، وقبل وبعد إعداد الطعام وتناوله، وبعد استخدام دورة المياه." },
+            { id: 2, question: "هل المطهرات الكحولية بديل كافٍ عن غسل اليدين؟", answer: "المطهرات التي تحتوي على 60% كحول فأكثر فعالة في قتل العديد من الجراثيم عند عدم توفر الماء والصابون، لكنها لا تزيل الأوساخ المرئية أو الجراثيم المسببة لبعض الأمراض مثل الكلوستريديوم ديفيسيل (C. difficile) والنوروفيروس. غسل اليدين بالماء والصابون يبقى هو الخيار الأفضل." },
+            { id: 3, question: "لماذا تُعد مقاومة المضادات الحيوية خطراً على الصحة العامة؟", answer: "الاستخدام الخاطئ والمفرط للمضادات الحيوية يجعل البكتيريا تتطور وتصبح مقاومة لها، مما يعني أن العدوى التي كانت تُعالج بسهولة قد تصبح مستعصية على العلاج. هذا يهدد قدرتنا على علاج الأمراض البكتيرية الشائعة ويجعل العمليات الجراحية والعلاجات الكيميائية أكثر خطورة." },
+            { id: 4, question: "كيف تنتقل العدوى في الأماكن العامة؟", answer: "تنتقل العدوى بعدة طرق في الأماكن العامة: عبر الرذاذ التنفسي الصادر عن السعال أو العطس، ملامسة الأسطح الملوثة ثم لمس الوجه (العينين، الأنف، الفم)، أو التلامس المباشر مع شخص مصاب أو حيوان مصاب. التباعد الجسدي الجيد والنظافة الشخصية ضروريان." },
+            { id: 5, question: "ما دور اللقاحات في مكافحة العدوى؟", answer: "اللقاحات تُدرّب جهاز المناعة على التعرف على مسببات الأمراض (مثل الفيروسات والبكتيريا) ومقاومتها بفعالية قبل التعرض الفعلي لها. هذا لا يحمي الفرد الملقّح فقط، بل يساهم أيضاً في حماية المجتمع ككل من خلال تحقيق 'مناعة القطيع' وتقليل انتشار الأمراض." },
+            { id: 6, question: "متى يجب عزل الشخص المصاب بعدوى معدية؟", answer: "يُنصح بالعزل فور ظهور أعراض عدوى معدية لمنع انتشارها، ويستمر العزل حتى انتهاء الفترة المعدية التي يحددها الطبيب أو السلطات الصحية بناءً على نوع العدوى وشدتها. قد يتطلب الأمر أيضاً عزل المخالطين في بعض الحالات." },
+            { id: 7, question: "ما هي أهمية سلامة الغذاء؟", answer: "سلامة الغذاء تضمن أن الأطعمة التي نتناولها خالية من الملوثات الضارة (بكتيريا، فيروسات، سموم) التي يمكن أن تسبب الأمراض المنقولة بالغذاء. الالتزام بممارسات السلامة الغذائية يقلل من مخاطر التسمم الغذائي ويحمي الصحة العامة." },
+            { id: 8, question: "كيف يمكن تقوية الجهاز المناعي بشكل طبيعي؟", answer: "يمكن تقوية الجهاز المناعي من خلال نمط حياة صحي يشمل: نظام غذائي متوازن غني بالخضروات والفواكه، ممارسة النشاط البدني بانتظام، الحصول على قسط كافٍ من النوم (7-8 ساعات)، تقليل التوتر، وتجنب التدخين والإفراط في الكحول." }
+        ];
+
+        function loadFaq() {
+            const faqListContainer = document.getElementById('faq-list');
+            faqListContainer.innerHTML = ''; // Clear existing content
+
+            const faqsToDisplay = dailyPick(faqData, 5, 3); // 5 unique FAQs daily, offset 3
+
+            faqsToDisplay.forEach(faq => {
+                const faqItem = document.createElement('div');
+                faqItem.className = 'faq-item reveal';
+                faqItem.innerHTML = `
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-${faq.id}" data-target="#faq-answer-${faq.id}">
+                        ${faq.question}
+                        <i class="fas fa-plus faq-icon"></i>
+                    </button>
+                    <div id="faq-answer-${faq.id}" class="faq-answer">
+                        <p>${faq.answer}</p>
+                    </div>
+                `;
+                faqListContainer.appendChild(faqItem);
+            });
+
+            // Add event listeners for accordion functionality
+            faqListContainer.querySelectorAll('.faq-question').forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-target');
+                    const targetAnswer = document.querySelector(targetId);
+                    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+                    // Close all other open answers
+                    faqListContainer.querySelectorAll('.faq-question[aria-expanded="true"]').forEach(otherButton => {
+                        if (otherButton !== button) {
+                            otherButton.setAttribute('aria-expanded', 'false');
+                            const otherTargetId = otherButton.getAttribute('data-target');
+                            document.querySelector(otherTargetId).classList.remove('open');
+                            document.querySelector(otherTargetId).style.maxHeight = '0';
+                        }
+                    });
+
+                    // Toggle current answer
+                    button.setAttribute('aria-expanded', String(!isExpanded));
+                    if (!isExpanded) {
+                        targetAnswer.classList.add('open');
+                        targetAnswer.style.maxHeight = targetAnswer.scrollHeight + 'px'; // Adjust max-height dynamically
+                    } else {
+                        targetAnswer.classList.remove('open');
+                        targetAnswer.style.maxHeight = '0';
+                    }
+                });
+            });
+        }
+
+
+        // ==================== المؤشرات الصحية العالمية ====================
+        const globalStatsData = [
+            { id: 1, label: "وفيات بسبب الأمراض غير المعدية سنوياً", number: "41 مليون", change: "+1.2%", emoji: "💔" },
+            { id: 2, label: "أشخاص لا يحصلون على مياه شرب آمنة", number: "2.2 مليار", change: "-0.5%", emoji: "💧" },
+            { id: 3, label: "أشخاص يعانون من نقص التغذية المزمن", number: "735 مليون", change: "+2.1%", emoji: "🍎" },
+            { id: 4, label: "وفيات بسبب التلوث البيئي سنوياً", number: "9 مليون", change: "+0.8%", emoji: "💨" },
+            { id: 5, label: "أشخاص بحاجة لمكافحة أمراض مدارية مهملة", number: "1.7 مليار", change: "-1.1%", emoji: "🐛" },
+            { id: 6, label: "زيادة متوقعة في الإنفاق الصحي العالمي بحلول 2030", number: "10 تريليون $", change: "+5%", emoji: "💸" }
+        ];
+
+        let globalStatsChartInstance = null; // To hold the chart instance
+
+        function loadGlobalStats() {
+            const statsCardsContainer = document.getElementById('stats-cards');
+            statsCardsContainer.innerHTML = ''; // Clear existing cards
+
+            const statsToDisplay = dailyPick(globalStatsData, 4, 4); // 4 unique stats daily, offset 4
+
+            statsToDisplay.forEach(stat => {
+                const statCardCol = document.createElement('div');
+                statCardCol.className = 'col-md-6 col-lg-3';
+                statCardCol.innerHTML = `
+                    <div class="stat-card reveal">
+                        <span class="stat-number">${stat.number}</span>
+                        <p class="stat-label">${stat.label}</p>
+                    </div>
+                `;
+                statsCardsContainer.appendChild(statCardCol);
+            });
+
+            // Chart Data - Using the picked stats for the chart as well
+            const chartLabels = statsToDisplay.map(stat => stat.label.split(' ')[0]); // e.g., "وفيات", "أشخاص"
+            const chartDataValues = statsToDisplay.map(stat => parseFloat(stat.number));
+            const chartColors = [
+                'rgba(25, 135, 84, 0.7)', 'rgba(0, 123, 255, 0.7)', 'rgba(255, 193, 7, 0.7)',
+                'rgba(220, 53, 69, 0.7)', 'rgba(108, 117, 125, 0.7)', 'rgba(23, 162, 184, 0.7)'
+            ];
+
+            const ctx = document.getElementById('globalStatsChart').getContext('2d');
+
+            if (globalStatsChartInstance) {
+                globalStatsChartInstance.destroy(); // Destroy previous chart instance if it exists
+            }
+
+            globalStatsChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{
+                        label: 'المؤشر',
+                        data: chartDataValues,
+                        backgroundColor: chartColors.slice(0, chartLabels.length),
+                        borderColor: chartColors.slice(0, chartLabels.length).map(color => color.replace('0.7', '1')),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Horizontal bars
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        label += statsToDisplay[context.dataIndex].number;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-muted-c')
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: getComputedStyle(document.documentElement).getPropertyValue('--border-soft')
+                            },
+                            ticks: {
+                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-main')
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Apply dark theme colors to chart
+        document.addEventListener('themeChanged', () => {
+            if (globalStatsChartInstance) {
+                globalStatsChartInstance.options.scales.x.ticks.color = getComputedStyle(document.documentElement).getPropertyValue('--text-muted-c');
+                globalStatsChartInstance.options.scales.y.grid.color = getComputedStyle(document.documentElement).getPropertyValue('--border-soft');
+                globalStatsChartInstance.options.scales.y.ticks.color = getComputedStyle(document.documentElement).getPropertyValue('--text-main');
+                globalStatsChartInstance.update();
+            }
+        });
+
+
+        // ==================== الاختبار التوعوي (Quiz) ====================
+        const quizQuestions = [
+            {
+                id: 1,
+                question: "ما المدة الموصى بها لغسل اليدين بالماء والصابون بشكل فعال؟",
+                options: ["5 ثوانٍ", "10 ثوانٍ", "20 ثانية", "30 ثانية"],
+                answer: "20 ثانية"
+            },
+            {
+                id: 2,
+                question: "ما هو الخطر الرئيسي للاستخدام المفرط للمضادات الحيوية دون وصفة طبية؟",
+                options: ["الإصابة بنزلة برد", "مقاومة البكتيريا للمضادات الحيوية", "زيادة الوزن", "تساقط الشعر"],
+                answer: "مقاومة البكتيريا للمضادات الحيوية"
+            },
+            {
+                id: 3,
+                question: "أي من هذه الممارسات لا تساعد في سلامة الغذاء؟",
+                options: ["غسل اليدين قبل إعداد الطعام", "فصل اللحوم النيئة عن المطبوخة", "ترك الطعام المطبوخ في درجة حرارة الغرفة لساعات", "طهي الطعام لدرجة حرارة آمنة"],
+                answer: "ترك الطعام المطبوخ في درجة حرارة الغرفة لساعات"
+            },
+            {
+                id: 4,
+                question: "كم ساعة نوم يوصى بها للبالغين يومياً لدعم الصحة العامة؟",
+                options: ["4-5 ساعات", "6-7 ساعات", "7-9 ساعات", "10 ساعات فأكثر"],
+                answer: "7-9 ساعات"
+            },
+            {
+                id: 5,
+                question: "ما هو المصطلح الذي يصف حماية المجتمع من الأمراض المعدية عندما يتم تطعيم نسبة كبيرة من السكان؟",
+                options: ["مناعة فردية", "مناعة القطيع", "مناعة طبيعية", "مناعة مكتسبة"],
+                answer: "مناعة القطيع"
+            },
+            {
+                id: 6,
+                question: "ما هو أفضل وقت لممارسة النشاط البدني لتعزيز المناعة؟",
+                options: ["صباحًا باكرًا", "في أي وقت من اليوم", "بعد الأكل مباشرة", "قبل النوم مباشرة"],
+                answer: "في أي وقت من اليوم"
+            },
+            {
+                id: 7,
+                question: "ما هو أحد الهرمونات التي يفرزها الجسم بكميات كبيرة عند التوتر المزمن وتضعف المناعة؟",
+                options: ["الأنسولين", "الإستروجين", "الكورتيزول", "الأدرينالين"],
+                answer: "الكورتيزول"
+            }
+        ];
+
+        let currentQuizQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function loadQuiz() {
+            currentQuizQuestions = dailyPick(quizQuestions, 5, 5); // 5 unique questions daily, offset 5
+            currentQuestionIndex = 0;
+            score = 0;
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const quizContainer = document.getElementById('quiz-container');
+            if (currentQuestionIndex >= currentQuizQuestions.length) {
+                showQuizResult();
+                return;
+            }
+
+            const question = currentQuizQuestions[currentQuestionIndex];
+            quizContainer.innerHTML = `
+                <div class="quiz-progress text-start mb-3">السؤال ${currentQuestionIndex + 1} من ${currentQuizQuestions.length}</div>
+                <h5 class="quiz-question-text text-start">${question.question}</h5>
+                <div class="quiz-options d-grid gap-2" id="quiz-options-container">
+                    ${question.options.map(option => `<button type="button" class="quiz-option" onclick="selectOption(this, '${option}')">${option}</button>`).join('')}
+                </div>
+                <button type="button" class="btn btn-success mt-4 d-block mx-auto rounded-pill px-5" style="width: fit-content; display: none !important;" id="next-question-btn" onclick="nextQuestion()">السؤال التالي</button>
+            `;
+        }
+
+        function selectOption(selectedButton, selectedAnswer) {
+            const currentQuestion = currentQuizQuestions[currentQuestionIndex];
+            const optionsContainer = document.getElementById('quiz-options-container');
+            const nextButton = document.getElementById('next-question-btn');
+
+            // Disable all options
+            optionsContainer.querySelectorAll('.quiz-option').forEach(btn => btn.disabled = true);
+
+            if (selectedAnswer === currentQuestion.answer) {
+                selectedButton.classList.add('correct');
+                score++;
+            } else {
+                selectedButton.classList.add('wrong');
+                // Highlight correct answer
+                optionsContainer.querySelectorAll('.quiz-option').forEach(btn => {
+                    if (btn.textContent === currentQuestion.answer) {
+                        btn.classList.add('correct');
+                    }
+                });
+            }
+            nextButton.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            displayQuestion();
+        }
+
+        function showQuizResult() {
+            const quizContainer = document.getElementById('quiz-container');
+            quizContainer.innerHTML = `
+                <div class="quiz-result">
+                    <h4 class="fw-bold mb-3">لقد أكملت الاختبار!</h4>
+                    <p class="quiz-score mb-4">أحرزت ${score} من ${currentQuizQuestions.length} نقاط</p>
+                    <p class="text-muted mb-4">استمر في التعلم وتطوير معلوماتك الصحية.</p>
+                    <button type="button" class="btn btn-success rounded-pill px-5 py-3 fw-bold" onclick="loadQuiz()">أعد الاختبار</button>
+                </div>
+            `;
+        }
+
+        // ==================== التوتر والمناعة (Breathing Exercise) ====================
+        let breathingInterval;
+        let breathingPhase = 0; // 0: start, 1: inhale, 2: hold, 3: exhale, 4: hold
+        let breathingCounter = 0;
+        let breathingDuration = 4000; // 4 seconds for each phase
+
+        function toggleBreathingExercise() {
+            const circle = document.getElementById('breathingCircle');
+            const label = document.getElementById('breathingLabel');
+            const btn = document.getElementById('breathingBtn');
+
+            if (breathingInterval) {
+                // Stop exercise
+                clearInterval(breathingInterval);
+                breathingInterval = null;
+                breathingPhase = 0;
+                breathingCounter = 0;
+                circle.className = 'breathing-circle';
+                circle.textContent = 'ابدأ';
+                label.textContent = 'اضغط زر البدء';
+                btn.innerHTML = '<i class="fas fa-play me-1"></i> ابدأ التمرين';
+                btn.classList.remove('btn-danger');
+                btn.classList.add('btn-success');
+            } else {
+                // Start exercise
+                btn.innerHTML = '<i class="fas fa-stop me-1"></i> إيقاف التمرين';
+                btn.classList.remove('btn-success');
+                btn.classList.add('btn-danger');
+                startBreathingCycle();
+            }
+        }
+
+        function startBreathingCycle() {
+            const circle = document.getElementById('breathingCircle');
+            const label = document.getElementById('breathingLabel');
+
+            breathingPhase = 1; // Start with inhale
+            updateBreathingInstruction();
+
+            breathingInterval = setInterval(() => {
+                breathingCounter++;
+                if (breathingCounter % 4 === 1) { // Inhale phase (1st second of 4)
+                    circle.classList.remove('exhale');
+                    circle.classList.add('inhale');
+                    label.textContent = 'شهيق (4)';
+                    setTimeout(() => { label.textContent = 'شهيق (3)'; }, 1000);
+                    setTimeout(() => { label.textContent = 'شهيق (2)'; }, 2000);
+                    setTimeout(() => { label.textContent = 'شهيق (1)'; }, 3000);
+                } else if (breathingCounter % 4 === 2) { // Hold phase
+                    circle.classList.remove('inhale', 'exhale');
+                    label.textContent = 'إمساك (4)';
+                    setTimeout(() => { label.textContent = 'إمساك (3)'; }, 1000);
+                    setTimeout(() => { label.textContent = 'إمساك (2)'; }, 2000);
+                    setTimeout(() => { label.textContent = 'إمساك (1)'; }, 3000);
+                } else if (breathingCounter % 4 === 3) { // Exhale phase
+                    circle.classList.remove('inhale');
+                    circle.classList.add('exhale');
+                    label.textContent = 'زفير (4)';
+                    setTimeout(() => { label.textContent = 'زفير (3)'; }, 1000);
+                    setTimeout(() => { label.textContent = 'زفير (2)'; }, 2000);
+                    setTimeout(() => { label.textContent = 'زفير (1)'; }, 3000);
+                } else if (breathingCounter % 4 === 0) { // Hold phase (end of cycle)
+                    circle.classList.remove('inhale', 'exhale');
+                    label.textContent = 'إمساك (4)';
+                    setTimeout(() => { label.textContent = 'إمساك (3)'; }, 1000);
+                    setTimeout(() => { label.textContent = 'إمساك (2)'; }, 2000);
+                    setTimeout(() => { label.textContent = 'إمساك (1)'; }, 3000);
+                }
+            }, breathingDuration); // Repeat every 4 seconds (duration of one phase)
+        }
+
+        function updateBreathingInstruction() {
+            const label = document.getElementById('breathingLabel');
+            switch (breathingPhase) {
+                case 1: label.textContent = 'شهيق (4)'; break;
+                case 2: label.textContent = 'إمساك (4)'; break;
+                case 3: label.textContent = 'زفير (4)'; break;
+                case 4: label.textContent = 'إمساك (4)'; break;
+                default: label.textContent = 'اضغط زر البدء'; break;
+            }
+        }
+
+        const dailyStressTips = [
+            { id: 1, text: "خذ قسطاً كافياً من النوم، فهو مفتاح تجديد طاقتك ومناعتك.", icon: "fas fa-bed" },
+            { id: 2, text: "خصص 30 دقيقة للمشي الخفيف يومياً لتحسين مزاجك وتقليل التوتر.", icon: "fas fa-walking" },
+            { id: 3, text: "تواصل مع الأصدقاء والعائلة، فالدعم الاجتماعي يخفف الضغوط النفسية.", icon: "fas fa-people-group" },
+            { id: 4, text: "جرب ممارسة التأمل أو اليوجا لبضع دقائق يومياً لتهدئة ذهنك.", icon: "fas fa-spa" },
+            { id: 5, text: "تناول وجبات صحية ومتوازنة تدعم جسمك في مواجهة التوتر.", icon: "fas fa-carrot" }
+        ];
+
+        function loadDailyStressTip() {
+            const tipContainer = document.getElementById('dailyStressTip');
+            const tip = dailyPick(dailyStressTips, 1, 6)[0]; // Pick one tip daily, offset 6
+
+            if (tip) {
+                tipContainer.innerHTML = `
+                    <div class="daily-tip-box mt-4">
+                        <i class="${tip.icon}"></i>
+                        <div>
+                            <span class="daily-tip-label">نصيحة يومية لمواجهة التوتر</span>
+                            <p class="mb-0" style="font-size: 0.9rem; color: var(--text-main);">${tip.text}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // ==================== معرض الإنفوجرافيك التوعوي ====================
+        const infographicsData = [
+            { id: 1, title: "كيف تغسل يديك بفاعلية", description: "خطوات بسيطة لحماية نفسك من الجراثيم.", icon: "fas fa-hands-bubbles", bgColor: "linear-gradient(135deg, #198754, #146c43)" },
+            { id: 2, title: "دليلك للوقاية من الأنفلونزا", description: "نصائح موسمية للحفاظ على صحتك.", icon: "fas fa-shield-virus", bgColor: "linear-gradient(135deg, #0d6efd, #0b5ed7)" },
+            { id: 3, title: "أغذية تعزز جهاز المناعة", description: "قائمة بأفضل الأطعمة لمناعة قوية.", icon: "fas fa-apple-whole", bgColor: "linear-gradient(135deg, #ffc107, #d39e00)" },
+            { id: 4, title: "أهمية النوم لصحة أفضل", description: "لماذا تحتاج إلى 7-8 ساعات يومياً.", icon: "fas fa-moon", bgColor: "linear-gradient(135deg, #6f42c1, #5c3a9f)" },
+            { id: 5, title: "مقاومة المضادات الحيوية", description: "فهم الخطر وكيفية المساهمة في الحل.", icon: "fas fa-microbe", bgColor: "linear-gradient(135deg, #dc3545, #b02a37)" },
+            { id: 6, title: "سلامة الغذاء في المنزل", description: "تجنب التسمم الغذائي بخطوات بسيطة.", icon: "fas fa-utensils", bgColor: "linear-gradient(135deg, #20c997, #17a2b8)" }
+        ];
+
+        function loadInfographics() {
+            const gallery = document.getElementById('infographics-gallery');
+            gallery.innerHTML = ''; // Clear existing
+
+            const infographicsToDisplay = dailyPick(infographicsData, 3, 7); // 3 unique infographics daily, offset 7
+
+            infographicsToDisplay.forEach(info => {
+                const col = document.createElement('div');
+                col.className = 'col-md-6 col-lg-4';
+                col.innerHTML = `
+                    <div class="infographic-card reveal">
+                        <div class="infographic-poster" style="background: ${info.bgColor};">
+                            <div class="text-start">
+                                <span class="infographic-brand">أثر صحي</span>
+                            </div>
+                            <div>
+                                <i class="${info.icon}"></i>
+                                <h4>${info.title}</h4>
+                                <p>${info.description}</p>
+                            </div>
+                            <div class="text-center">
+                                <span class="infographic-brand">#معلومة_توعوية</span>
+                            </div>
+                        </div>
+                        <div class="infographic-actions">
+                            <button type="button" onclick="alert('خاصية التنزيل قريباً!')"><i class="fas fa-download me-1"></i> تنزيل</button>
+                            <button type="button" onclick="shareInfographic('${info.title}', '${info.description}')"><i class="fas fa-share-alt me-1"></i> مشاركة</button>
+                        </div>
+                    </div>
+                `;
+                gallery.appendChild(col);
+            });
+        }
+
+        function shareInfographic(title, description) {
+            const shareText = `💡 ${title}:\n${description}\n#أثر_صحي #توعية_صحية`;
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: shareText,
+                    url: window.location.href, // Or a specific infographic URL if available
+                }).catch((error) => console.log('Error sharing', error));
+            } else {
+                alert(`شارك هذه المعلومة:\n\n${shareText}\n\n(خاصية المشاركة المباشرة غير مدعومة في متصفحك، يمكنك نسخ النص ومشاركته يدوياً)`);
+                // Fallback: copy to clipboard or open a simple share dialog
+            }
+        }
+
+        // ==================== وظائف المفضلة (Favorites) ====================
+        let favorites = JSON.parse(localStorage.getItem('atharHealthFavorites')) || [];
+
+        function toggleFavorite(button, id, type, title, summary) {
+            const index = favorites.findIndex(item => item.id === id && item.type === type);
+            if (index > -1) {
+                favorites.splice(index, 1);
+                button.classList.remove('active');
+            } else {
+                favorites.push({ id, type, title, summary });
+                button.classList.add('active');
+            }
+            localStorage.setItem('atharHealthFavorites', JSON.stringify(favorites));
+            renderFavoritesPanel(); // Update favorites panel
+        }
+
+        function isFavorite(id, type) {
+            return favorites.some(item => item.id === id && item.type === type);
+        }
+
+        function renderFavoritesPanel() {
+            const favoritesList = document.getElementById('favoritesList');
+            favoritesList.innerHTML = '';
+
+            if (favorites.length === 0) {
+                favoritesList.innerHTML = '<div class="search-empty-state"><i class="fas fa-heart-crack fa-2x mb-3"></i><p>لا توجد عناصر محفوظة حالياً.</p></div>';
+                return;
+            }
+
+            favorites.forEach(item => {
+                const element = document.createElement('div');
+                element.className = 'search-result-item d-flex justify-content-between align-items-center';
+                element.innerHTML = `
+                    <div>
+                        <span class="sr-tag">${item.type === 'tip' ? 'نصيحة توعوية' : 'سؤال شائع'}</span>
+                        <strong class="sr-title">${item.title}</strong>
+                        <p class="sr-snippet">${item.summary}</p>
+                    </div>
+                    <button type="button" class="btn btn-sm text-danger" onclick="toggleFavorite(this, ${item.id}, '${item.type}', '${item.title}', '${item.summary}')" aria-label="إزالة"><i class="fas fa-trash"></i></button>
+                `;
+                favoritesList.appendChild(element);
+            });
+        }
+
+        function toggleFavoritesPanel() {
+            const panel = document.getElementById('favoritesPanel');
+            panel.classList.toggle('open');
+            if (panel.classList.contains('open')) {
+                renderFavoritesPanel();
+            }
+        }
+
+        // ==================== وظائف البحث ====================
+        function performSiteSearch(query) {
+            const searchResultsContainer = document.getElementById('searchResults');
+            searchResultsContainer.innerHTML = ''; // Clear previous results
+
+            if (query.length < 2) {
+                searchResultsContainer.innerHTML = '<div class="search-empty-state"><i class="fas fa-search fa-2x mb-3"></i><p>أدخل حرفين أو أكثر للبحث.</p></div>';
+                return;
+            }
+
+            const lowerCaseQuery = query.toLowerCase();
+            let resultsFound = false;
+
+            // Search Tips
+            tipsData.forEach(tip => {
+                if (tip.title.toLowerCase().includes(lowerCaseQuery) || tip.content.toLowerCase().includes(lowerCaseQuery)) {
+                    const resultItem = document.createElement('a');
+                    resultItem.href = "#updates"; // Link to the updates section
+                    resultItem.className = 'search-result-item';
+                    resultItem.innerHTML = `<span class="sr-tag">نصيحة توعوية</span><strong class="sr-title">${tip.title}</strong><p class="sr-snippet">${tip.content.substring(0, 100)}...</p>`;
+                    searchResultsContainer.appendChild(resultItem);
+                    resultsFound = true;
+                }
+            });
+
+            // Search News
+            healthNewsData.forEach(news => {
+                if (news.title.toLowerCase().includes(lowerCaseQuery) || news.content.toLowerCase().includes(lowerCaseQuery) || news.fullContent.toLowerCase().includes(lowerCaseQuery)) {
+                    const resultItem = document.createElement('a');
+                    resultItem.href = "#health-news"; // Link to the news section
+                    resultItem.className = 'search-result-item';
+                    resultItem.innerHTML = `<span class="sr-tag">خبر صحي</span><strong class="sr-title">${news.title}</strong><p class="sr-snippet">${news.content.substring(0, 100)}...</p>`;
+                    searchResultsContainer.appendChild(resultItem);
+                    resultsFound = true;
+                }
+            });
+
+            // Search FAQ
+            faqData.forEach(faq => {
+                if (faq.question.toLowerCase().includes(lowerCaseQuery) || faq.answer.toLowerCase().includes(lowerCaseQuery)) {
+                    const resultItem = document.createElement('a');
+                    resultItem.href = "#faq"; // Link to the FAQ section
+                    resultItem.className = 'search-result-item';
+                    resultItem.innerHTML = `<span class="sr-tag">سؤال شائع</span><strong class="sr-title">${faq.question}</strong><p class="sr-snippet">${faq.answer.substring(0, 100)}...</p>`;
+                    searchResultsContainer.appendChild(resultItem);
+                    resultsFound = true;
+                }
+            });
+
+            // Search Research
+            researchData.forEach(research => {
+                if (research.title.toLowerCase().includes(lowerCaseQuery) || research.area.toLowerCase().includes(lowerCaseQuery)) {
+                    const resultItem = document.createElement('a');
+                    resultItem.href = research.link; // Link directly to research source
+                    resultItem.target = "_blank";
+                    resultItem.rel = "noopener noreferrer";
+                    resultItem.className = 'search-result-item';
+                    resultItem.innerHTML = `<span class="sr-tag">بحث علمي</span><strong class="sr-title">${research.title} (${research.year})</strong><p class="sr-snippet">مجال: ${research.area}</p>`;
+                    searchResultsContainer.appendChild(resultItem);
+                    resultsFound = true;
+                }
+            });
+
+            if (!resultsFound) {
+                searchResultsContainer.innerHTML = '<div class="search-empty-state"><i class="fas fa-folder-open fa-2x mb-3"></i><p>لا توجد نتائج مطابقة لبحثك.</p></div>';
+            }
+        }
+
+        function toggleSearchPanel() {
+            const panel = document.getElementById('searchPanel');
+            panel.classList.toggle('open');
+            if (panel.classList.contains('open')) {
+                document.getElementById('siteSearchInput').focus();
+            } else {
+                document.getElementById('searchResults').innerHTML = ''; // Clear results on close
+            }
+        }
+
+        // ==================== إعدادات الإتاحة ====================
+        let currentFontSize = 0; // 0: default, 1: larger, 2: largest
+
+        function adjustFontSize(direction) {
+            currentFontSize = Math.max(0, Math.min(2, currentFontSize + direction));
+            document.documentElement.setAttribute('data-font-size', currentFontSize);
+            localStorage.setItem('atharHealthFontSize', currentFontSize);
+        }
+
+        function toggleHighContrast(enable) {
+            if (enable) {
+                document.documentElement.classList.add('high-contrast');
+                localStorage.setItem('atharHealthHighContrast', 'enabled');
+            } else {
+                document.documentElement.classList.remove('high-contrast');
+                localStorage.removeItem('atharHealthHighContrast');
+            }
+        }
+
+        function toggleA11yPanel() {
+            const panel = document.getElementById('a11yPanel');
+            panel.classList.toggle('open');
+        }
+
+        // ==================== الوضع الليلي ====================
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('atharHealthTheme', newTheme);
+            document.dispatchEvent(new Event('themeChanged')); // Custom event for chart re-render
+        }
+
+        // ==================== تبديل اللغة (واجهة فقط) ====================
+        const translations = {
+            "nav.home": { "ar": "الرئيسية", "en": "Home" },
+            "nav.about": { "ar": "عن المنصة", "en": "About Us" },
+            "nav.news": { "ar": "آخر الأخبار", "en": "Latest News" },
+            "nav.podcast": { "ar": "البودكاست", "en": "Podcast" },
+            "nav.updates": { "ar": "التوعية الذكية", "en": "Smart Tips" },
+            "nav.research": { "ar": "مكتبة الأبحاث", "en": "Research Library" },
+            "nav.faq": { "ar": "أسئلة شائعة", "en": "FAQ" },
+            "nav.stats": { "ar": "مؤشرات عالمية", "en": "Global Stats" },
+            "nav.quiz": { "ar": "اختبر معلوماتك", "en": "Quiz" },
+            "nav.stress": { "ar": "التوتر والمناعة", "en": "Stress & Immunity" },
+            "nav.infographics": { "ar": "إنفوجرافيك", "en": "Infographics" },
+            "nav.store": { "ar": "المتجر", "en": "Store" },
+            "hero.eyebrow": { "ar": "نصائح موثوقة ومحدّثة يومياً بالذكاء الاصطناعي تحت إشراف متخصص", "en": "Trusted & Daily AI-Powered Tips Under Expert Supervision" },
+            "hero.title": { "ar": "أثر صحي | Impact Health", "en": "Impact Health | أثر صحي" },
+            "hero.subtitle": { "ar": "نحو مجتمع ليبي واعٍ، مبني على نصائح صحية معتمدة.", "en": "Towards an aware Libyan community, built on accredited health advice." },
+            "about.title": { "ar": "من نحن؟", "en": "About Us" },
+            "news.title": { "ar": "آخر الأخبار الصحية المحلية والعالمية", "en": "Latest Local & Global Health News" },
+            "podcast.title": { "ar": "بودكاست أثر صحي: المضادات الحيوية والاستخدام الآمن", "en": "Impact Health Podcast: Antibiotics & Safe Use" },
+            "updates.title": { "ar": "التوعية الصحية الذكية", "en": "Smart Health Awareness" },
+            "research.title": { "ar": "مكتبة الأبحاث", "en": "Research Library" },
+            "faq.title": { "ar": "الأسئلة الشائعة", "en": "FAQ" },
+            "stats.title": { "ar": "مؤشرات صحية عالمية", "en": "Global Health Indicators" },
+            "quiz.title": { "ar": "اختبر معلوماتك", "en": "Test Your Knowledge" },
+            "stress.title": { "ar": "التوتر وتأثيره على المناعة", "en": "Stress & Immunity Impact" },
+            "infographics.title": { "ar": "معرض الإنفوجرافيك التوعوي", "en": "Educational Infographics Gallery" },
+            "store.title": { "ar": "متجر المستلزمات", "en": "Medical Supplies Store" }
+        };
+
+        let currentLanguage = localStorage.getItem('atharHealthLanguage') || 'ar';
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar' ? 'rtl' : 'ltr');
+            localStorage.setItem('atharHealthLanguage', lang);
+            document.getElementById('langToggleBtn').textContent = (lang === 'ar' ? 'EN' : 'AR');
+
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[key] && translations[key][lang]) {
+                    element.textContent = translations[key][lang];
+                }
+            });
+        }
+
+        function toggleLanguage() {
+            currentLanguage = (currentLanguage === 'ar' ? 'en' : 'ar');
+            setLanguage(currentLanguage);
+        }
+
+        // ==================== Scroll Event for Header ====================
+        function handleScroll() {
+            const header = document.querySelector('.header-top');
+            if (window.scrollY > 50) {
+                header.classList.add('is-scrolled');
+            } else {
+                header.classList.remove('is-scrolled');
+            }
+
+            // Reveal sections on scroll
+            document.querySelectorAll('.reveal').forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const isVisible = (rect.top <= window.innerHeight - 100 && rect.bottom >= 100);
+                if (isVisible) {
+                    element.classList.add('is-visible');
+                }
+            });
+        }
+
+        // ==================== Copy Tip Function ====================
+        function copyTip(button, title, content) {
+            const textToCopy = `💡 نصيحة صحية من أثر صحي:\n${title}\n${content}`;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check me-1"></i> تم النسخ!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('فشل نسخ النص.');
+            });
+        }
+
+
+        // ==================== Initial Load & Event Listeners ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load persistent settings
+            const savedTheme = localStorage.getItem('atharHealthTheme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            document.getElementById('themeToggleBtn').innerHTML = savedTheme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+            document.getElementById('themeToggleBtn').setAttribute('aria-label', savedTheme === 'dark' ? 'الوضع الليلي' : 'الوضع النهاري');
+
+            const savedLang = localStorage.getItem('atharHealthLanguage') || 'ar';
+            setLanguage(savedLang);
+
+            const savedFontSize = localStorage.getItem('atharHealthFontSize');
+            if (savedFontSize !== null) {
+                currentFontSize = parseInt(savedFontSize);
+                document.documentElement.setAttribute('data-font-size', currentFontSize);
+            }
+            const savedHighContrast = localStorage.getItem('atharHealthHighContrast');
+            if (savedHighContrast === 'enabled') {
+                document.documentElement.classList.add('high-contrast');
+                document.getElementById('highContrastToggle').checked = true;
+            }
+
+            // Load dynamic content
+            loadHealthNews();
+            loadSmartTips();
+            loadResearchTable(researchData); // Initial load for research table
+            loadFaq();
+            loadGlobalStats();
+            loadQuiz();
+            loadDailyStressTip();
+            loadInfographics();
+
+            // Header scroll effect
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); // Call once on load to set initial state
+
+            // Nav active link on scroll
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-item-link');
+
+            function updateActiveNavLink() {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop - 100 && pageYOffset < sectionTop + sectionHeight - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', updateActiveNavLink);
+            updateActiveNavLink(); // Call on load
+
+            // Autoplay carousel
+            const heroCarousel = document.getElementById('heroCarousel');
+            if (heroCarousel) {
+                const carousel = new bootstrap.Carousel(heroCarousel, {
+                    interval: 5000,
+                    pause: 'hover'
+                });
+            }
+        });
+    </script>
+</body>
+</html>
