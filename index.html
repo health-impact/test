@@ -892,9 +892,9 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    "أثر صحي" هي منصة أكاديمية ليبية متخصصة، تحت إشراف طالب ماجستير في الصحة العامة.
+                    "أثر صحي" منصة أكاديمية ليبية متخصصة، تُشرف عليها من قِبلي، كطالب ماجستير في الصحة العامة.
                     تهدف المنصة إلى تعزيز الوعي المجتمعي بمبادئ الصحة العامة، مكافحة العدوى، وسلامة الغذاء.
-                    نقدم أحدث الأبحاث والمعلومات الموثوقة حول مقاومة المضادات الحيوية،
+                    نعمل على توفير أحدث الأبحاث والمعلومات الموثوقة حول مقاومة المضادات الحيوية،
                     وأهمية الفحوصات المخبرية الدقيقة، لدعم اتخاذ قرارات صحية مستنيرة للمجتمع الليبي.
                 </p>
             </div>
@@ -1649,7 +1649,7 @@
 
             // Chart Data - Using the picked stats for the chart as well
             const chartLabels = statsToDisplay.map(stat => stat.label.split(' ')[0]); // e.g., "وفيات", "أشخاص"
-            const chartDataValues = statsToDisplay.map(stat => parseFloat(stat.number));
+            const chartDataValues = statsToDisplay.map(stat => parseFloat(stat.number.replace(' مليون', '').replace(' مليار', '').replace(' تريليون $', ''))); // Clean numbers
             const chartColors = [
                 'rgba(25, 135, 84, 0.7)', 'rgba(0, 123, 255, 0.7)', 'rgba(255, 193, 7, 0.7)',
                 'rgba(220, 53, 69, 0.7)', 'rgba(108, 117, 125, 0.7)', 'rgba(23, 162, 184, 0.7)'
@@ -1689,6 +1689,7 @@
                                         label += ': ';
                                     }
                                     if (context.parsed.x !== null) {
+                                        // Find original number with units
                                         label += statsToDisplay[context.dataIndex].number;
                                     }
                                     return label;
