@@ -1692,7 +1692,6 @@
                                         // Find original number with units
                                         label += statsToDisplay[context.dataIndex].number;
                                     }
-                                    return label;
                                 }
                             }
                         }
@@ -2171,6 +2170,8 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('atharHealthTheme', newTheme);
+            document.getElementById('themeToggleBtn').innerHTML = newTheme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+            document.getElementById('themeToggleBtn').setAttribute('aria-label', newTheme === 'dark' ? 'الوضع الليلي' : 'الوضع النهاري');
             document.dispatchEvent(new Event('themeChanged')); // Custom event for chart re-render
         }
 
