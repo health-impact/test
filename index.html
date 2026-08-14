@@ -896,9 +896,10 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    "أثر صحي" منصة أكاديمية ليبية، أسسها طالب ماجستير في الصحة العامة.
+                    "أثر صحي" منصة أكاديمية ليبية، أسسها طالب ماجستير في الصحة العامة، تهدف إلى بناء مجتمع واعٍ ومستنير.
                     نلتزم بنشر الوعي الصحي وتقديم أحدث الأبحاث الموثوقة في مكافحة العدوى، سلامة الغذاء، ومواجهة مقاومة المضادات الحيوية.
-                    نركز على الفحوصات المخبرية الدقيقة لدعم مجتمع واعٍ ومستنير، مبني على نصائح صحية معتمدة.
+                    نركز على أهمية الفحوصات المخبرية الدقيقة في التشخيص والوقاية، ونقدم نصائح صحية معتمدة لدعم قراراتكم اليومية.
+                    هدفنا تمكين الأفراد بالمعرفة لتحسين جودة حياتهم وصحة مجتمعاتهم.
                 </p>
             </div>
         </div>
@@ -1585,7 +1586,7 @@
                 resultItem.innerHTML = `
                     <span class="sr-tag">${fav.type === 'news' ? 'خبر' : fav.type === 'tip' ? 'نصيحة' : fav.type === 'faq' ? 'سؤال شائع' : fav.type === 'research' ? 'بحث' : fav.type === 'infographic' ? 'إنفوجرافيك' : fav.type === 'store' ? 'منتج' : 'عنصر'}</span>
                     <span class="sr-title">${fav.title}</span>
-                    <button class="fav-btn active" onclick="toggleFavorite('${fav.id}', '${fav.type}', '${fav.title}', event)" aria-label="إزالة من المفضلة"><i class="fas fa-heart"></i></button>
+                    <button class="fav-btn ${isFavorite(fav.id, fav.type) ? 'active' : ''}" onclick="toggleFavorite('${fav.id}', '${fav.type}', '${fav.title}', event)" aria-label="إزالة من المفضلة"><i class="fas fa-heart"></i></button>
                 `;
                 resultItem.style.position = 'relative'; // Ensure fav button is positioned correctly
                 resultItem.querySelector('.fav-btn').style.top = '50%';
