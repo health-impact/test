@@ -896,7 +896,10 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    أثر صحي" منصة أكاديمية ليبية، أشرف عليها كطالب ماجستير في الصحة العامة. تهدف لتعزيز الوعي الصحي من خلال تقديم أحدث الأبحاث العلمية الموثوقة. نركز على مكافحة العدوى، سلامة الغذاء، والتصدي لمقاومة المضادات الحيوية، مع التأكيد على دور الفحوصات المخبرية الدقيقة. هدفنا بناء مجتمع ليبي واعٍ ومستنير صحياً لمستقبل أفضل.
+                    "أثر صحي" هي منصة أكاديمية ليبية أُشرف عليها كطالب ماجستير في الصحة العامة، تهدف إلى الارتقاء بالوعي الصحي.
+                    نقدم أحدث الأبحاث العلمية الموثوقة في مجالات مكافحة العدوى، سلامة الغذاء، ومواجهة مقاومة المضادات الحيوية، مع تسليط الضوء على أهمية الفحوصات المخبرية الدقيقة.
+                    نسعى لبناء مجتمع ليبي واعٍ ومستنير صحياً، قادر على اتخاذ قرارات وقائية مبنية على أسس علمية.
+                    هدفنا المساهمة في مستقبل صحي أفضل من خلال المعرفة والتثقيف المستمر.
                 </p>
             </div>
         </div>
@@ -1431,7 +1434,7 @@
 
             // Podcast section (NEWLY ADDED)
             allContentData.push({
-                id: 'podcast', type: 'section', title: translations['podcast.title'][html.lang],
+                id: 'podcast', type: 'podcast', title: translations['podcast.title'][html.lang],
                 snippet: document.querySelector('#podcast .podcast-card p.text-muted').textContent.substring(0, 100) + '...', url: '#podcast'
             });
 
@@ -1525,7 +1528,7 @@
                 resultItem.href = item.url;
                 resultItem.classList.add('search-result-item');
                 resultItem.innerHTML = `
-                    <span class="sr-tag">${item.type === 'news' ? 'خبر' : item.type === 'tip' ? 'نصيحة' : item.type === 'faq' ? 'سؤال شائع' : item.type === 'research' ? 'بحث' : item.type === 'infographic' ? 'إنفوجرافيك' : item.type === 'store' ? 'منتج' : 'قسم'}</span>
+                    <span class="sr-tag">${item.type === 'news' ? 'خبر' : item.type === 'podcast' ? 'بودكاست' : item.type === 'tip' ? 'نصيحة' : item.type === 'faq' ? 'سؤال شائع' : item.type === 'research' ? 'بحث' : item.type === 'infographic' ? 'إنفوجرافيك' : item.type === 'store' ? 'منتج' : 'قسم'}</span>
                     <span class="sr-title">${item.title}</span>
                     <span class="sr-snippet">${item.snippet}</span>
                 `;
@@ -1581,7 +1584,7 @@
                 resultItem.href = fav.url;
                 resultItem.classList.add('search-result-item');
                 resultItem.innerHTML = `
-                    <span class="sr-tag">${fav.type === 'news' ? 'خبر' : fav.type === 'tip' ? 'نصيحة' : fav.type === 'faq' ? 'سؤال شائع' : fav.type === 'research' ? 'بحث' : fav.type === 'infographic' ? 'إنفوجرافيك' : fav.type === 'store' ? 'منتج' : 'عنصر'}</span>
+                    <span class="sr-tag">${fav.type === 'news' ? 'خبر' : fav.type === 'podcast' ? 'بودكاست' : fav.type === 'tip' ? 'نصيحة' : fav.type === 'faq' ? 'سؤال شائع' : fav.type === 'research' ? 'بحث' : fav.type === 'infographic' ? 'إنفوجرافيك' : fav.type === 'store' ? 'منتج' : 'عنصر'}</span>
                     <span class="sr-title">${fav.title}</span>
                     <button class="fav-btn ${isFavorite(fav.id, fav.type) ? 'active' : ''}" onclick="toggleFavorite('${fav.id}', '${fav.type}', '${fav.title}', event)" aria-label="إزالة من المفضلة"><i class="fas fa-heart"></i></button>
                 `;
@@ -2030,7 +2033,7 @@
 
         function renderFaq() {
             const faqListDiv = document.getElementById('faq-list');
-            faqListDiv.innerHTML = ''; // Clear loading message
+        faqListDiv.innerHTML = ''; // Clear loading message
 
             faqData.forEach((item, index) => {
                 const faqItem = document.createElement('div');
