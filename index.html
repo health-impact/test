@@ -896,10 +896,10 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    "أثر صحي" هي منصة أكاديمية ليبية أُشرف عليها كطالب ماجستير في الصحة العامة، تهدف إلى الارتقاء بالوعي الصحي.
-                    نقدم أحدث الأبحاث العلمية الموثوقة في مجالات مكافحة العدوى، سلامة الغذاء، ومواجهة مقاومة المضادات الحيوية، مع تسليط الضوء على أهمية الفحوصات المخبرية الدقيقة.
-                    نسعى لبناء مجتمع ليبي واعٍ ومستنير صحياً، قادر على اتخاذ قرارات وقائية مبنية على أسس علمية.
-                    هدفنا المساهمة في مستقبل صحي أفضل من خلال المعرفة والتثقيف المستمر.
+                    "أثر صحي" هي منصة أكاديمية ليبية، أُشرف عليها كطالب ماجستير في الصحة العامة، تكرس جهودها للارتقاء بالوعي الصحي المجتمعي.
+                    نقدم أحدث الأبحاث العلمية الموثوقة في مكافحة العدوى، سلامة الغذاء، ومواجهة مقاومة المضادات الحيوية، مع التأكيد على دور الفحوصات المخبرية الدقيقة.
+                    نسعى جاهدين لبناء مجتمع ليبي واعٍ ومستنير، قادر على اتخاذ قرارات وقائية قائمة على أسس علمية صلبة.
+                    هدفنا الأسمى هو المساهمة الفعالة في تحقيق مستقبل صحي أفضل للجميع من خلال المعرفة والتثقيف المستمر.
                 </p>
             </div>
         </div>
@@ -1432,7 +1432,7 @@
                 });
             });
 
-            // Podcast section (NEWLY ADDED)
+            // Podcast section
             allContentData.push({
                 id: 'podcast', type: 'podcast', title: translations['podcast.title'][html.lang],
                 snippet: document.querySelector('#podcast .podcast-card p.text-muted').textContent.substring(0, 100) + '...', url: '#podcast'
@@ -1675,35 +1675,35 @@
                 title: "أهمية غسل اليدين بالصابون والماء",
                 content: "يعد غسل اليدين بالماء والصابون لمدة 20 ثانية على الأقل من أكثر الطرق فعالية للوقاية من انتشار الجراثيم والأمراض المعدية. احرص على ذلك قبل وبعد الأكل، وبعد استخدام المرحاض، وعند العودة من الأماكن العامة.",
                 source: "منظمة الصحة العالمية",
-                date: "2023-10-26"
+                date: "26-10-2023" // Re-activated date for tips
             },
             {
                 id: 2,
                 title: "حافظ على نظام غذائي متوازن",
                 content: "تناول مجموعة متنوعة من الفواكه والخضروات، الحبوب الكاملة، والبروتينات الخالية من الدهون. النظام الغذائي الصحي يعزز المناعة ويقلل خطر الإصابة بالأمراض المزمنة.",
                 source: "مراكز مكافحة الأمراض والوقاية منها",
-                date: "2023-10-25"
+                date: "25-10-2023" // Re-activated date for tips
             },
             {
                 id: 3,
                 title: "النوم الكافي ضروري لصحتك",
                 content: "احصل على 7-9 ساعات من النوم الجيد كل ليلة. النوم الكافي يدعم وظائف الجهاز المناعي، يعزز التركيز، ويحسن المزاج.",
                 source: "المؤسسة الوطنية للنوم",
-                date: "2023-10-24"
+                date: "24-10-2023" // Re-activated date for tips
             },
             {
                 id: 4,
                 title: "اشرب كمية كافية من الماء",
                 content: "الترطيب الجيد أساسي لصحة الجسم. اشرب حوالي 8 أكواب من الماء يومياً للحفاظ على وظائف الجسم الحيوية وطرد السموم.",
                 source: "هيئة الصحة العامة",
-                date: "2023-10-23"
+                date: "23-10-2023" // Re-activated date for tips
             },
             {
                 id: 5,
                 title: "ممارسة النشاط البدني بانتظام",
                 content: "خصص 30 دقيقة على الأقل من التمارين المعتدلة معظم أيام الأسبوع. النشاط البدني يقوي القلب والرئتين، ويحسن الصحة العقلية.",
                 source: "الجمعية الأمريكية للقلب",
-                date: "2023-10-22"
+                date: "22-10-2023" // Re-activated date for tips
             }
         ];
 
@@ -1888,7 +1888,7 @@
         const storeItemsData = [
             { id: 1, name: "ملصق التوعية بغسل اليدين", description: "ملصق جذاب لتعزيز نظافة اليدين في المنزل أو المكتب.", price: "15.00 د.ل", imageUrl: "https://images.unsplash.com/photo-1584988750875-101111003d8d?w=200&auto=format&fit=crop", icon: "fas fa-hands-wash" },
             { id: 2, name: "مفكرة صحتي اليومية", description: "مفكرة لتدوين العادات الصحية وتتبع التقدم.", price: "25.00 د.ل", imageUrl: "https://images.unsplash.com/photo-1629864234557-6df79dc31d86?w=200&auto=format&fit=crop", icon: "fas fa-book" },
-            { id: 3, name: "كوب "اشرب ماءك"", description: "كوب بتصميم يحفز على شرب كمية كافية من الماء يومياً.", price: "20.00 د.ل", imageUrl: "https://images.unsplash.com/photo-1549266395-c26194b3c437?w=200&auto=format&fit=crop", icon: "fas fa-glass-water" }
+            { id: 3, name: "كوب 'اشرب ماءك'", description: "كوب بتصميم يحفز على شرب كمية كافية من الماء يومياً.", price: "20.00 د.ل", imageUrl: "https://images.unsplash.com/photo-1549266395-c26194b3c437?w=200&auto=format&fit=crop", icon: "fas fa-glass-water" }
         ];
 
         // ======================================================
@@ -1921,7 +1921,6 @@
                             <button class="btn btn-sm btn-outline-success mt-3" onclick="toggleFullContent(${news.id})" data-expanded="false">
                                 <span class="read-more-text">قراءة المزيد</span><span class="read-less-text" style="display:none;">إخفاء</span>
                             </button>
-                            <a href="${news.sourceUrl}" target="_blank" class="btn btn-sm btn-link text-muted mt-3 me-2" style="font-size:0.9em; text-decoration:none;"><i class="fas fa-external-link-alt ms-1"></i> المصدر</a>
                         </div>
                     </div>
                 `;
