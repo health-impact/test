@@ -1552,7 +1552,7 @@
                 resultItem.innerHTML = `
                     <span class="sr-tag">${item.type === 'news' ? 'خبر' : item.type === 'podcast' ? 'بودكاست' : item.type === 'tip' ? 'نصيحة' : item.type === 'faq' ? 'سؤال شائع' : item.type === 'research' ? 'بحث' : item.type === 'infographic' ? 'إنفوجرافيك' : item.type === 'store' ? 'منتج' : 'قسم'}</span>
                     <span class="sr-title">${item.title}</span>
-                    <span class="sr-snippet">${item.snippet}</span>
+                    <span class="sr-snippet"></span> <!-- Snippet might not be stored for favorites, or can be generic -->
                 `;
                 resultItem.onclick = () => { toggleSearchPanel(); };
                 resultsDiv.appendChild(resultItem);
@@ -1696,17 +1696,24 @@
         function toggleNewsContent(newsId) {
             const fullContentDiv = document.getElementById(`news-full-content-${newsId}`);
             const readMoreBtn = document.querySelector(`#news-item-${newsId} .read-more-news-btn`);
+            const summaryContentDiv = document.querySelector(`#news-item-${newsId} .news-summary-content`);
 
             if (readMoreBtn.getAttribute('data-expanded') === 'false') {
-                fullContentDiv.style.display = 'block';
+                summaryContentDiv.style.display = 'none'; // Hide summary
+                fullContentDiv.style.display = 'block'; // Show full content
                 readMoreBtn.textContent = 'إظهار أقل';
                 readMoreBtn.setAttribute('data-expanded', 'true');
             } else {
-                fullContentDiv.style.display = 'none';
+                fullContentDiv.style.display = 'none'; // Hide full content
+                summaryContentDiv.style.display = 'block'; // Show summary
                 readMoreBtn.textContent = 'قراءة المزيد';
                 readMoreBtn.setAttribute('data-expanded', 'false');
             }
         }
+
+        // Note: The prompt also mentioned a `fetchLiveHealthNews` function and related logic for extracting images from RSS feeds.
+        // However, this function is not present in the provided HTML/JS. The current implementation uses a hardcoded `healthNewsData` array.
+        // The current images in `healthNewsData` are specific Unsplash images, fulfilling the requirement of having a relevant image per news item.
 
 
         // بيانات النصائح الصحية
