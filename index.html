@@ -895,7 +895,10 @@
             </div>
             <div class="about-card">
                 <p style="font-size: clamp(1.1rem, 3.5vw, 1.4rem); line-height: 2; text-align: justify; margin: 0;">
-                    "أثر صحي" منصة أكاديمية ليبية، أُشرف عليها كطالب ماجستير في الصحة العامة، تهدف لإثراء الوعي المجتمعي. نركز على مكافحة العدوى، سلامة الغذاء، ومقاومة المضادات الحيوية. نقدم أحدث الأبحاث والفحوصات المخبرية الدقيقة لدعم صحة مجتمعنا.
+                    "أثر صحي" منصة أكاديمية ليبية، أُشرف عليها كطالب ماجستير في الصحة العامة، تهدف لنشر الوعي الصحي وتعزيز الدعم الأكاديمي.
+                    نقدم أحدث الأبحاث العلمية في مجالات الصحة العامة، مكافحة العدوى، سلامة الأغذية، ومقاومة المضادات الحيوية.
+                    كما نسعى لتوفير الأخبار الصحية الموثوقة والتحليلات المعمقة، بالاعتماد على فحوصات مخبرية دقيقة وبيانات معتمدة.
+                    هدفنا بناء مجتمع واعٍ ومتمكن صحياً.
                 </p>
             </div>
         </div>
@@ -2386,12 +2389,14 @@
 
             if (readMoreBtn.getAttribute('data-expanded') === 'false') {
                 fullContent.style.display = 'block';
-                summaryContent.style.display = 'none'; // Hide summary
+                // Find the last two lines of the summary (before the "أغلى") and use them for dynamic summary expansion if needed.
+                // For now, simple show/hide of existing content
+                summaryContent.style.display = 'none';
                 readMoreBtn.textContent = 'إظهار أقل';
                 readMoreBtn.setAttribute('data-expanded', 'true');
             } else {
                 fullContent.style.display = 'none';
-                summaryContent.style.display = 'block'; // Show summary
+                summaryContent.style.display = 'block';
                 readMoreBtn.textContent = 'قراءة المزيد';
                 readMoreBtn.setAttribute('data-expanded', 'false');
             }
