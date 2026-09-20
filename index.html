@@ -1297,7 +1297,7 @@
             document.dispatchEvent(event);
 
             // Re-render dynamic content that uses i18n
-            displayNews();
+            fetchAndProcessNews().then(displayNews); // Refresh news
             displayHealthTips();
             displayResearch();
             displayFAQ();
@@ -1613,44 +1613,73 @@
         // 6. البيانات الديناميكية (الأخبار، النصائح، الأبحاث، الأسئلة الشائعة، إلخ)
         // ======================================================
 
-        // بيانات الأخبار (الآن مع صور مباشرة من Unsplash)
-        const healthNewsData = [
+        // بيانات الأخبار (الآن يتم جلبها ومعالجتها بواسطة JavaScript)
+        let healthNewsData = []; // This will be populated by fetchAndProcessNews
+
+        const mockRawNewsFeed = [
             {
                 id: 1,
                 title: "دراسة حديثة تكشف عن علاقة قوية بين جودة النوم والمناعة",
-                summary: "أكدت دراسة أجريت مؤخراً في جامعة مرموقة أن النوم الكافي والعميق يلعب دوراً حاسماً في تعزيز الجهاز المناعي وتقليل خطر الإصابة بالعدوى.",
+                description: "أكدت دراسة أجريت مؤخراً في جامعة مرموقة أن النوم الكافي والعميق يلعب دوراً حاسماً في تعزيز الجهاز المناعي وتقليل خطر الإصابة بالعدوى.",
+                imageSrc: "https://images.unsplash.com/photo-1579208573136-1e9d1a38f370?q=80&w=1200&auto=format&fit=crop", // Specific image for sleep & immunity
                 fullContent: "أظهرت النتائج أن الأشخاص الذين ينامون أقل من 7 ساعات يومياً يكونون أكثر عرضة للإصابة بنزلات البرد والإنفلونزا بنسبة تتجاوز 3 مرات مقارنة بمن ينامون 8 ساعات أو أكثر. يُفسر ذلك بأن النوم العميق هو الوقت الذي ينتج فيه الجسم السيتوكينات، وهي بروتينات أساسية لمكافحة العدوى والالتهابات. كما أنه يعزز فعالية الخلايا التائية، وهي نوع من خلايا الدم البيضاء التي تستهدف الخلايا المصابة بالفيروسات والبكتيريا. لذا، يُنصح بالالتزام بنمط نوم صحي لتحصين الجسم ضد الأمراض.",
-                imageUrl: "https://images.unsplash.com/photo-1579208573136-1e9d1a38f370?q=80&w=1200&auto=format&fit=crop", // Specific image for sleep & immunity
             },
             {
                 id: 2,
                 title: "تحذيرات من تزايد مقاومة المضادات الحيوية في المنطقة",
-                summary: "أصدرت منظمة الصحة العالمية تقريراً جديداً يحذر من تنامي ظاهرة مقاومة المضادات الحيوية، والتي تشكل تهديداً خطيراً للصحة العامة، خاصة في الدول النامية.",
+                description: "أصدرت منظمة الصحة العالمية تقريراً جديداً يحذر من تنامي ظاهرة مقاومة المضادات الحيوية، والتي تشكل تهديداً خطيراً للصحة العامة، خاصة في الدول النامية.",
+                imageSrc: "https://images.unsplash.com/photo-1584308666579-245f7448834a?q=80&w=1200&auto=format&fit=crop", // Specific image for antibiotic resistance
                 fullContent: "يشير التقرير إلى أن الاستخدام المفرط وغير الرشيد للمضادات الحيوية، سواء في الطب البشري أو البيطري، يؤدي إلى تطور سلالات بكتيرية مقاومة للأدوية. هذا يعني أن العدوى التي كانت سهلة العلاج سابقاً قد تصبح مميتة في المستقبل. تدعو المنظمة إلى تشديد الرقابة على صرف المضادات الحيوية، وتوعية الجمهور بأهمية عدم استخدامها إلا بوصفة طبية محددة والالتزام بالجرعة والمدة الكاملة للعلاج، حتى وإن شعر المريض بالتحسن، لضمان القضاء التام على البكتيريا وتقليل فرص المقاومة.",
-                imageUrl: "https://images.unsplash.com/photo-1584308666579-245f7448834a?q=80&w=1200&auto=format&fit=crop", // Specific image for antibiotic resistance
             },
             {
                 id: 3,
                 title: "أهمية غسل اليدين في الوقاية من انتشار الأمراض الموسمية",
-                summary: "مع اقتراب فصل الشتاء، يزداد الحديث عن أهمية النظافة الشخصية، ويظل غسل اليدين بالماء والصابون هو خط الدفاع الأول ضد العديد من الأمراض.",
+                description: "مع اقتراب فصل الشتاء، يزداد الحديث عن أهمية النظافة الشخصية، ويظل غسل اليدين بالماء والصابون هو خط الدفاع الأول ضد العديد من الأمراض.",
+                imageSrc: "https://images.unsplash.com/photo-1576092762791-fd940a40556e?q=80&w=1200&auto=format&fit=crop", // Specific image for handwashing
                 fullContent: "تؤكد الدراسات أن غسل اليدين بشكل صحيح يمكن أن يقلل من خطر الإصابة بأمراض الجهاز التنفسي والمعوي بنسبة تصل إلى 50%. يجب الحرص على غسل اليدين لمدة لا تقل عن 20 ثانية، مع فرك جميع أجزاء اليدين بما في ذلك بين الأصابع وتحت الأظافر. ينصح بالقيام بذلك بانتظام، خاصة بعد استخدام الحمام، قبل تناول الطعام، وبعد السعال أو العطس. هذه العادة البسيطة لها تأثير كبير في حماية الفرد والمجتمع من انتشار العدوى.",
-                imageUrl: "https://images.unsplash.com/photo-1576092762791-fd940a40556e?q=80&w=1200&auto=format&fit=crop", // Specific image for handwashing
             },
             {
                 id: 4,
                 title: "الغذاء الصحي المتوازن: حجر الزاوية لصحة الجهاز الهضمي",
-                summary: "يعتبر النظام الغذائي المتوازن الغني بالألياف والفيتامينات والمعادن أساساً للحفاظ على صحة الجهاز الهضمي ووقايته من الاضطرابات.",
+                description: "يعتبر النظام الغذائي المتوازن الغني بالألياف والفيتامينات والمعادن أساساً للحفاظ على صحة الجهاز الهضمي ووقايته من الاضطرابات.",
+                imageSrc: "", // Intentionally empty to test fallback logic
                 fullContent: "التركيز على تناول الفواكه والخضروات الطازجة، الحبوب الكاملة، والبروتينات الخالية من الدهون يساهم في تعزيز البكتيريا النافعة في الأمعاء، مما يحسن عملية الهضم وامتصاص العناصر الغذائية. كما أن شرب كميات كافية من الماء يساعد على حركة الأمعاء الطبيعية ويمنع الإمساك. الابتعاد عن الأطعمة المصنعة والدهون المشبعة يقلل من التهابات الجهاز الهضمي ويحمي من أمراض مزمنة مثل القولون العصبي.",
-                imageUrl: "https://images.unsplash.com/photo-1540103700-fd342e4313f8?q=80&w=1200&auto=format&fit=crop", // Specific image for healthy food/digestion
             },
             {
                 id: 5,
                 title: "التطعيمات: الدرع الواقي ضد الأمراض المعدية",
-                summary: "تظل التطعيمات واحدة من أكثر التدخلات الصحية فعالية وأمانًا في تاريخ الطب الحديث، حيث تساهم في إنقاذ ملايين الأرواح سنوياً.",
+                description: "تظل التطعيمات واحدة من أكثر التدخلات الصحية فعالية وأمانًا في تاريخ الطب الحديث، حيث تساهم في إنقاذ ملايين الأرواح سنوياً.",
+                imageSrc: "https://images.unsplash.com/photo-1629851722650-77a83d47c2c9?q=80&w=1200&auto=format&fit=crop", // Specific image for vaccination
                 fullContent: "تعمل اللقاحات على تدريب الجهاز المناعي للجسم للتعرف على مسببات الأمراض ومكافحتها قبل أن تسبب العدوى الفعلية. هذا لا يحمي الفرد فقط، بل يساهم في حماية المجتمع بأكمله من خلال ظاهرة مناعة القطيع. تحث منظمة الصحة العالمية جميع الأفراد على الالتزام بجدول التطعيمات الموصى به، خاصة للأطفال وكبار السن والفئات الأكثر عرضة للخطر، لضمان استئصال الأمراض التي يمكن الوقاية منها باللقاحات.",
-                imageUrl: "https://images.unsplash.com/photo-1629851722650-77a83d47c2c9?q=80&w=1200&auto=format&fit=crop", // Specific image for vaccination
             }
         ];
+
+        const NEWS_FALLBACK_IMAGE = "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&auto=format&fit=crop"; // Community awareness image
+
+        // Function to simulate fetching and processing news
+        function fetchAndProcessNews() {
+            return new Promise(resolve => {
+                setTimeout(() => { // Simulate network delay
+                    healthNewsData = mockRawNewsFeed.map(item => {
+                        let imageUrl = item.imageSrc || NEWS_FALLBACK_IMAGE; // Use specific image or fallback
+                        // In a real RSS/Atom feed scenario, you would parse the XML for images:
+                        // 1. Check <media:content url="..." />
+                        // 2. Check <enclosure url="..." type="image/jpeg" />
+                        // 3. Extract first <img> tag from <description> content
+                        // For this mock, we rely on `imageSrc` property or fallback.
+                        return {
+                            id: item.id,
+                            title: item.title,
+                            summary: item.description,
+                            fullContent: item.fullContent,
+                            imageUrl: imageUrl
+                        };
+                    });
+                    resolve();
+                }, 500); // Simulate 0.5 sec load time
+            });
+        }
+
 
         function displayNews() {
             const newsListContainer = document.getElementById('news-list');
@@ -2389,8 +2418,9 @@
 
             if (readMoreBtn.getAttribute('data-expanded') === 'false') {
                 fullContent.style.display = 'block';
-                // Find the last two lines of the summary (before the "أغلى") and use them for dynamic summary expansion if needed.
-                // For now, simple show/hide of existing content
+                // For a more dynamic summary expansion, you might store more of the summary
+                // and reveal it here, rather than hiding the initial paragraph.
+                // For this implementation, we just hide the initial summary paragraph.
                 summaryContent.style.display = 'none';
                 readMoreBtn.textContent = 'إظهار أقل';
                 readMoreBtn.setAttribute('data-expanded', 'true');
@@ -2411,7 +2441,10 @@
             loadHighContrast();
 
             // Display dynamic content
-            displayNews();
+            fetchAndProcessNews().then(() => {
+                displayNews();
+                updateAllContentData(); // Update search data after news is fetched
+            });
             displayHealthTips();
             displayResearch();
             displayFAQ();
@@ -2419,8 +2452,6 @@
             displayStressTips();
             displayInfographics();
             displayStoreItems();
-
-            updateAllContentData(); // Populate search data after dynamic content is loaded
 
             setupRevealAnimations(); // Setup scroll animations
         });
