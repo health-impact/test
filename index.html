@@ -1208,8 +1208,8 @@
             if (deathCausesChart) {
                 const textColor = html.getAttribute('data-theme') === 'dark' ? '#f5f5f5' : '#333333';
                 deathCausesChart.options.plugins.legend.labels.color = textColor;
-                deathCausesChart.options.plugins.tooltip.titleColor = textColor; // Use titleColor instead of titleFont.color for Chart.js 3+
-                deathCausesChart.options.plugins.tooltip.bodyColor = textColor; // Use bodyColor instead of bodyFont.color for Chart.js 3+
+                deathCausesChart.options.plugins.tooltip.titleColor = textColor;
+                deathCausesChart.options.plugins.tooltip.bodyColor = textColor;
                 deathCausesChart.update();
             }
         }
@@ -2416,15 +2416,13 @@
             const readMoreBtn = document.querySelector('.read-more-podcast-btn');
             const summaryContent = document.querySelector('.podcast-summary-content');
 
+            // If summary is visible and full content hidden (initial state)
             if (readMoreBtn.getAttribute('data-expanded') === 'false') {
                 fullContent.style.display = 'block';
-                // For a more dynamic summary expansion, you might store more of the summary
-                // and reveal it here, rather than hiding the initial paragraph.
-                // For this implementation, we just hide the initial summary paragraph.
                 summaryContent.style.display = 'none';
                 readMoreBtn.textContent = 'إظهار أقل';
                 readMoreBtn.setAttribute('data-expanded', 'true');
-            } else {
+            } else { // If full content is visible
                 fullContent.style.display = 'none';
                 summaryContent.style.display = 'block';
                 readMoreBtn.textContent = 'قراءة المزيد';
