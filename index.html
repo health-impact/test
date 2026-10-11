@@ -1165,22 +1165,6 @@
         </div>
     </section>
 
-    <!-- قسم النشرة البريدية -->
-    <section id="newsletter" class="reveal">
-        <div class="container px-4">
-            <div class="newsletter-box">
-                <h3 class="fw-bold text-white mb-3" data-i18n="newsletter.title">اشترك في نشرتنا البريدية</h3>
-                <p class="lead" data-i18n="newsletter.subtitle">لا تفوت أحدث النصائح، الأخبار، والأبحاث الصحية.</p>
-                <form class="newsletter-form" onsubmit="handleNewsletter(event)">
-                    <input type="email" id="newsletterEmail" placeholder="أدخل بريدك الإلكتروني" required>
-                    <button type="submit" data-i18n="newsletter.subscribeButton">اشترك الآن</button>
-                </form>
-                <p id="newsletterMsg" class="newsletter-note"></p>
-                <p class="newsletter-note" data-i18n="newsletter.note">لن نشارك بريدك الإلكتروني مع أي طرف ثالث.</p>
-            </div>
-        </div>
-    </section>
-
     <!-- الفوتر -->
     <footer class="footer">
         <div class="container px-4">
@@ -1517,12 +1501,6 @@
                     id: `store-${item.id}`, type: 'store', title: item.name,
                     snippet: item.description.substring(0, 100) + '...', url: `#store-item-${item.id}`
                 });
-            });
-
-            // Newsletter section
-            allContentData.push({
-                id: 'newsletter', type: 'section', title: translations['newsletter.title'][currentLang],
-                snippet: translations['newsletter.subtitle'][currentLang], url: '#newsletter'
             });
         }
 
@@ -2530,26 +2508,8 @@
         }
 
         // ======================================================
-        // 7. إدارة النشرة البريدية
+        // 7. إدارة النشرة البريدية (تمت إزالتها بناءً على التعليمات)
         // ======================================================
-        function handleNewsletter(event) {
-            event.preventDefault();
-            const emailInput = document.getElementById('newsletterEmail');
-            const newsletterMsg = document.getElementById('newsletterMsg');
-            const email = emailInput.value;
-
-            if (email) {
-                // Simulate API call
-                setTimeout(() => {
-                    newsletterMsg.textContent = `شكراً لاشتراكك، ${email}! سيصلك جديدنا قريباً.`;
-                    newsletterMsg.className = "newsletter-note text-success";
-                    emailInput.value = ''; // Clear input
-                }, 1000);
-            } else {
-                newsletterMsg.textContent = "الرجاء إدخال بريد إلكتروني صالح.";
-                newsletterMsg.className = "newsletter-note text-danger";
-            }
-        }
 
         // ======================================================
         // 8. حركة الظهور التدريجي عند التمرير (Reveal Animations)
