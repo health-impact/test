@@ -1436,7 +1436,7 @@
             healthNewsData.forEach(news => {
                 allContentData.push({
                     id: `news-${news.id}`, type: 'news', title: news.title,
-                    snippet: news.summary.substring(0, 100) + '...', url: `#news-item-${news.id}`
+                    snippet: news.summary.substring(0, 100) + '...', url: `#news-item-${news.id}` // Now uses internal anchor
                 });
             });
 
@@ -1533,7 +1533,7 @@
                 resultItem.innerHTML = `
                     <span class="sr-tag">${item.type === 'news' ? 'خبر' : item.type === 'podcast' ? 'بودكاست' : item.type === 'tip' ? 'نصيحة' : item.type === 'faq' ? 'سؤال شائع' : item.type === 'research' ? 'بحث' : item.type === 'infographic' ? 'إنفوجرافيك' : item.type === 'store' ? 'منتج' : 'قسم'}</span>
                     <span class="sr-title">${item.title}</span>
-                    <span class="sr-snippet"></span> <!-- Snippet might not be stored for favorites, or can be generic -->
+                    <span class="sr-snippet">${item.snippet}</span>
                 `;
                 resultItem.onclick = () => { toggleSearchPanel(); };
                 resultsDiv.appendChild(resultItem);
@@ -1546,4 +1546,136 @@
 
         let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
 
-        function toggleFavorite(itemId, item
+        function toggleFavorite(itemId, itemType, itemTitle, itemSnippet, itemUrl) {
+            const existingIndex = favorites.findIndex(fav => fav.id === itemId && fav.type === itemType);
+            const favBtn = document.querySelector(`[data-item-id="${itemId}"][data-item-type="${itemType}"]`);
+
+            if (existingIndex > -1) {
+                favorites.splice(existingIndex, 1);
+                if (favBtn) favBtn.classList.remove('active');
+                showToast(`تمت إزالة "${itemTitle}" من المفضلة.`);
+            } else {
+                favorites.push({ id: itemId, type: itemType, title: itemTitle, snippet: itemSnippet, url: itemUrl });
+                if (favBtn) favBtn.classList.add('active');
+                showToast(`تمت إضافة "${itemTitle}" إلى المفضلة.`);
+            }
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            // No need to re-render favorites panel immediately if it's not open
+        }
+
+        function renderFavorites() {
+            const favoritesList = document.getElementById('favoritesList');
+            favoritesList.innerHTML = '';
+            if (favorites.length === 0) {
+                favoritesList.innerHTML = '<p class="search-empty-state"><i class="fas fa-heart-broken me-2"></i>لا توجد عناصر محفوظة في المفضلة.</p>';
+                return;
+            }
+
+            favorites.forEach(item => {
+                const favItem = document.createElement('a');
+                favItem.href = item.url;
+                favItem.classList.add('search-result-item');
+                favItem.innerHTML = `
+                    <span class="sr-tag">${item.type === 'news' ? 'خبر' : item.type === 'podcast' ? 'بودكاست' : item.type === 'tip' ? 'نصيحة' : item.type === 'faq' ? 'سؤال شائع' : item.type === 'research' ? 'بحث' : item.type === 'infographic' ? 'إنفوجرافيك' : item.type === 'store' ? 'منتج' : 'قسم'}</span>
+                    <span class="sr-title">${item.title}</span>
+                    <span class="sr-snippet">${item.snippet}</span>
+                `;
+                favItem.onclick = () => { toggleFavoritesPanel(); }; // Close panel on click
+                favoritesList.appendChild(favItem);
+            });
+        }
+
+        function isFavorite(itemId, itemType) {
+            return favorites.some(fav => fav.id === itemId && fav.type === itemType);
+        }
+
+        // ======================================================
+        // 6. بيانات الموقع الديناميكية (الأخبار، النصائح، الأبحاث، إلخ)
+        // ======================================================
+
+        const healthNewsData = []; // This will be populated by fetchLiveHealthNews
+        // Using a general health RSS feed for demonstration purposes. Replace with a relevant one.
+        const newsRssFeedUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://news.google.com/rss/search?q=public+health+world&hl=ar&gl=AE&ceid=AE:ar');
+        const fallbackImageUrl = 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=1200&auto=format&fit=crop';
+
+        async function fetchLiveHealthNews() {
+            const newsListContainer = document.getElementById('news-list');
+            newsListContainer.innerHTML = '<p class="text-center text-muted">جاري تحميل أحدث الأخبار...</p>';
+
+            try {
+                const response = await fetch(newsRssFeedUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const text = await response.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(text, "application/xml");
+                const items = xmlDoc.querySelectorAll('item');
+
+                healthNewsData.length = 0; // Clear previous data
+                let newsIdCounter = 0;
+
+                items.forEach(item => {
+                    const title = item.querySelector('title')?.textContent || 'عنوان غير متوفر';
+                    const link = item.querySelector('link')?.textContent || '#';
+                    let description = item.querySelector('description')?.textContent || '';
+
+                    // Attempt to extract image from RSS item
+                    let imageUrl = '';
+                    // 1. media:content (covers media and content namespaces)
+                    const mediaContent = item.querySelector('media\\:content, content');
+                    if (mediaContent && mediaContent.getAttribute('url')) {
+                        imageUrl = mediaContent.getAttribute('url');
+                    }
+                    // 2. enclosure
+                    if (!imageUrl) {
+                        const enclosure = item.querySelector('enclosure');
+                        if (enclosure && enclosure.getAttribute('url')) {
+                            imageUrl = enclosure.getAttribute('url');
+                        }
+                    }
+                    // 3. img tag in description
+                    if (!imageUrl && description) {
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = description;
+                        const img = tempDiv.querySelector('img');
+                        if (img && img.src && !img.src.includes('https://ci3.googleusercontent.com')) { // Exclude Google's generic image
+                            imageUrl = img.src;
+                            // Optionally, clean description from img tag if found within it
+                            img.remove();
+                            description = tempDiv.innerHTML;
+                        }
+                    }
+
+                    // Fallback image if no image found
+                    if (!imageUrl || imageUrl.includes('https://ci3.googleusercontent.com')) { // Ensure we catch generic images
+                        imageUrl = fallbackImageUrl;
+                    }
+
+                    // Sanitize and truncate description for summary
+                    const cleanDescription = new DOMParser().parseFromString(description, 'text/html').body.textContent || '';
+                    const summary = cleanDescription.length > 150 ? cleanDescription.substring(0, 150) + '...' : cleanDescription;
+
+                    healthNewsData.push({
+                        id: newsIdCounter++,
+                        title: title,
+                        summary: summary,
+                        fullContent: cleanDescription, // Store full cleaned description for internal display
+                        imageUrl: imageUrl,
+                        originalLink: link // Keep original link in case needed for other purposes
+                    });
+                });
+
+                displayNews();
+                updateAllContentData(); // Update search data after news is fetched
+            } catch (error) {
+                console.error("Error fetching health news:", error);
+                newsListContainer.innerHTML = '<p class="text-center text-danger">حدث خطأ أثناء تحميل الأخبار. يرجى المحاولة لاحقاً.</p>';
+            }
+        }
+
+        function displayNews() {
+            const newsListContainer = document.getElementById('news-list');
+            newsListContainer.innerHTML = ''; // Clear previous content
+
+            if (healthNewsData.length === 0) {
