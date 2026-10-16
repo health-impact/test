@@ -929,7 +929,7 @@
                 <span class="section-eyebrow"><i class="fas fa-microphone-alt"></i> استمع وتوعّى</span>
             </div>
             <h2 class="text-center fw-bold mb-2 text-success" data-i18n="podcast.title">بودكاست أثر صحي: المضادات الحيوية والاستخدام الآمن</h2>
-            <p class="text-center text-muted mb-5">حلقة قصيرة لفهم خطورة الإفراط في تناول المضادات الحيوية</p>
+            <p class="text-center text-muted mb-5" data-i18n="podcast.subtitle">حلقة قصيرة لفهم خطورة الإفراط في تناول المضادات الحيوية</p>
             <div class="podcast-card">
                 <audio controls src="https://archive.org/download/eleven-labs-2026-06-06-t-12-59-18-roger-laid-back-casual-resonant-pre-sp-100-s-50-sb_75_se_0_b_m-2/eleven_labs_2026-06-06T12_59_18_Roger_laid-back_casual_resonant_pre_sp_100_s_50_sb_75_se_0_b_m2.mp3" type="audio/mpeg">
                     متصفحك لا يدعم عنصر الصوت.
@@ -1193,9 +1193,11 @@
             // Update chart colors immediately
             if (deathCausesChart) {
                 const textColor = html.getAttribute('data-theme') === 'dark' ? '#f5f5f5' : '#333333';
-                deathCausesChart.options.plugins.legend.labels.color = textColor;
-                deathCausesChart.options.plugins.tooltip.titleColor = textColor;
-                deathCausesChart.options.plugins.tooltip.bodyColor = textColor;
+                if (deathCausesChart.options.plugins.legend.labels) deathCausesChart.options.plugins.legend.labels.color = textColor;
+                if (deathCausesChart.options.plugins.tooltip) {
+                    deathCausesChart.options.plugins.tooltip.titleColor = textColor;
+                    deathCausesChart.options.plugins.tooltip.bodyColor = textColor;
+                }
                 deathCausesChart.update();
             }
         }
@@ -1554,11 +1556,11 @@
             if (existingIndex > -1) {
                 favorites.splice(existingIndex, 1);
                 if (favBtn) favBtn.classList.remove('active');
-                showToast(`تمت إزالة "${itemTitle}" من المفضلة.`);
+                // showToast(`تمت إزالة "${itemTitle}" من المفضلة.`); // Removed toast for brevity
             } else {
                 favorites.push({ id: itemId, type: itemType, title: itemTitle, snippet: itemSnippet, url: itemUrl });
                 if (favBtn) favBtn.classList.add('active');
-                showToast(`تمت إضافة "${itemTitle}" إلى المفضلة.`);
+                // showToast(`تمت إضافة "${itemTitle}" إلى المفضلة.`); // Removed toast for brevity
             }
             localStorage.setItem('favorites', JSON.stringify(favorites));
             // No need to re-render favorites panel immediately if it's not open
@@ -1624,7 +1626,7 @@
 
                     let imageUrl = '';
                     // 1. media:content (covers media and content namespaces)
-                    const mediaContent = item.querySelector('media\\:content, content');
+                    const mediaContent = item.querySelector('media\\:content, content'); // Check both
                     if (mediaContent && mediaContent.getAttribute('url')) {
                         imageUrl = mediaContent.getAttribute('url');
                     }
@@ -1644,16 +1646,16 @@
                         if (img && img.src && !img.src.includes('https://ci3.googleusercontent.com') && (img.width > 50 || img.height > 50)) {
                             imageUrl = img.src;
                             img.remove(); // Remove img from description to clean fullContent
-                            description = tempDiv.innerHTML;
+                            description = tempDiv.innerHTML; // Update description after removing img
                         }
                     }
 
                     // Fallback image if no image found or if it's a known generic image
-                    if (!imageUrl || imageUrl.includes('https://ci3.googleusercontent.com')) {
-                        imageUrl = fallbackImageUrl;
+                    if (!imageUrl || imageUrl.includes('https://ci3.googleusercontent.com') || imageUrl.includes('https://www.gstatic.com')) {
+                        imageUrl = fallbackImageUrl; // Use the user-specified fallback image
                     }
 
-                    // Sanitize and truncate description for summary
+                    // Sanitize and truncate description for summary and full content
                     const cleanDescription = new DOMParser().parseFromString(description, 'text/html').body.textContent || '';
                     const summary = cleanDescription.length > 150 ? cleanDescription.substring(0, 150) + '...' : cleanDescription;
 
@@ -2168,7 +2170,7 @@
         document.addEventListener('langChange', () => {
             if (isBreathingActive) { // Update text if exercise is active
                 performBreathingStep(); // Re-render current step text
-                startBreathingBtn.textContent = translations['stress.startBreathing'][html.lang === 'ar' ? 'ar' : 'en'] === 'ابدأ تمرين التنفس' ? 'إيقاف التمرين' : 'Stop Exercise';
+                startBreathingBtn.textContent = (html.lang === 'ar') ? 'إيقاف التمرين' : 'Stop Exercise';
             } else {
                 breathingText.textContent = translations['stress.initialText'][html.lang];
                 startBreathingBtn.textContent = translations['stress.startBreathing'][html.lang];
